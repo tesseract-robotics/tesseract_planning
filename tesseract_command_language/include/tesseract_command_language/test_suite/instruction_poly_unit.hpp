@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning::test_suite
+namespace tesseract::command_language::test_suite
 {
 void runInstructionInterfaceTest(InstructionPoly inst, bool expect_uuid_null = true)
 {
@@ -84,11 +84,11 @@ void runInstructionInterfaceTest(InstructionPoly inst, bool expect_uuid_null = t
  */
 inline void runInstructionSerializationTest(const InstructionPoly& inst)
 {
-  const std::string filepath = tesseract_common::getTempPath() + "instruction_poly_boost.xml";
-  tesseract_common::Serialization::toArchiveFileXML<InstructionPoly>(inst, filepath);
-  auto ninst = tesseract_common::Serialization::fromArchiveFileXML<InstructionPoly>(filepath);
+  const std::string filepath = tesseract::common::getTempPath() + "instruction_poly_boost.xml";
+  tesseract::common::Serialization::toArchiveFileXML<InstructionPoly>(inst, filepath);
+  auto ninst = tesseract::common::Serialization::fromArchiveFileXML<InstructionPoly>(filepath);
   EXPECT_TRUE(inst == ninst);
 }
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::command_language::test_suite
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_POLY_UNIT_HPP

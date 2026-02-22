@@ -24,7 +24,7 @@
 
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 // Operators
 bool StateWaypointInterface::operator==(const StateWaypointInterface& rhs) const { return equals(rhs); }
@@ -128,4 +128,4 @@ bool StateWaypointPoly::operator==(const StateWaypointPoly& rhs) const
 bool StateWaypointPoly::operator!=(const StateWaypointPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

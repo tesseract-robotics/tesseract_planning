@@ -26,7 +26,7 @@
 
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <typename FloatType>
 class DescartesLadderGraphSolverProfile : public DescartesSolverProfile<FloatType>
@@ -48,6 +48,6 @@ public:
 
 using DescartesLadderGraphSolverProfileF = DescartesLadderGraphSolverProfile<float>;
 using DescartesLadderGraphSolverProfileD = DescartesLadderGraphSolverProfile<double>;
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_LADDER_GRAPH_SOLVER_PROFILE_H

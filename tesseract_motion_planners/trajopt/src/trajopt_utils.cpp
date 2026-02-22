@@ -28,15 +28,16 @@
 #include <trajopt/problem_description.hpp>
 #include <console_bridge/console.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
-std::shared_ptr<const tesseract_kinematics::JointGroup>
-createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info, const tesseract_environment::Environment& env)
+std::shared_ptr<const tesseract::kinematics::JointGroup>
+createKinematicGroup(const tesseract::common::ManipulatorInfo& manip_info,
+                     const tesseract::environment::Environment& env)
 {
   // Assign Kinematics object
   try
   {
-    tesseract_kinematics::KinematicGroup::ConstPtr kin_group;
+    tesseract::kinematics::KinematicGroup::ConstPtr kin_group;
     std::string error_msg;
     if (manip_info.manipulator_ik_solver.empty())
     {
@@ -431,4 +432,4 @@ std::shared_ptr<trajopt::TermInfo> createAvoidSingularityTermInfo(int start_inde
   return as;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

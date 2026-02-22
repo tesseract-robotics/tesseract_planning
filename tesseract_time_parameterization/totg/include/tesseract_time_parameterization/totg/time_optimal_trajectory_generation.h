@@ -49,16 +49,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_time_parameterization/core/fwd.h>
 #include <tesseract_time_parameterization/core/time_parameterization.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 class TimeOptimalTrajectoryGeneration : public TimeParameterization
 {
 public:
   TimeOptimalTrajectoryGeneration(std::string name);
 
-  bool compute(CompositeInstruction& composite_instruction,
-               const tesseract_environment::Environment& env,
-               const tesseract_common::ProfileDictionary& profiles) const override;
+  bool compute(tesseract::command_language::CompositeInstruction& composite_instruction,
+               const tesseract::environment::Environment& env,
+               const tesseract::common::ProfileDictionary& profiles) const override;
 };
 
 namespace totg
@@ -222,6 +222,6 @@ private:
   mutable std::list<TrajectoryStep>::const_iterator cached_trajectory_segment_;
 };
 }  // namespace totg
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif

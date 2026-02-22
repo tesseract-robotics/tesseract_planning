@@ -41,7 +41,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
 using namespace trajopt_common;
 
 TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, Serialization)  // NOLINT
@@ -52,11 +53,11 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, Serialization)  // NOLINT
   auto solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
 
   // Serialization
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, TrajOptIfoptDefaultMoveProfile>(
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, TrajOptIfoptDefaultMoveProfile>(
       move_profile, "trajopt_ifopt_move_profile");
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, TrajOptIfoptDefaultCompositeProfile>(
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, TrajOptIfoptDefaultCompositeProfile>(
       composite_profile, "trajopt_ifopt_composite_profile");
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, TrajOptIfoptOSQPSolverProfile>(
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, TrajOptIfoptOSQPSolverProfile>(
       solver_profile, "trajopt_ifopt_solver_profile");
 }
 
@@ -79,9 +80,9 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptCartesianWayp
     auto config = n["config"].as<TrajOptIfoptCartesianWaypointConfig>();
     EXPECT_EQ(config.enabled, false);
     EXPECT_EQ(config.use_tolerance_override, true);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.lower_tolerance, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.upper_tolerance, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.lower_tolerance, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.upper_tolerance, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.coeff, check));
   }
 
   {  // encode
@@ -96,9 +97,9 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptCartesianWayp
     auto output_config = output_n.as<TrajOptIfoptCartesianWaypointConfig>();
     EXPECT_EQ(output_config.enabled, config.enabled);
     EXPECT_EQ(output_config.use_tolerance_override, config.use_tolerance_override);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.lower_tolerance, config.lower_tolerance));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.upper_tolerance, config.upper_tolerance));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.coeff, config.coeff));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.lower_tolerance, config.lower_tolerance));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.upper_tolerance, config.upper_tolerance));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.coeff, config.coeff));
   }
 }
 
@@ -120,9 +121,9 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptJointWaypoint
     auto config = n["config"].as<TrajOptIfoptJointWaypointConfig>();
     EXPECT_EQ(config.enabled, false);
     EXPECT_EQ(config.use_tolerance_override, true);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.lower_tolerance, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.upper_tolerance, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.lower_tolerance, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.upper_tolerance, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.coeff, check));
   }
 
   {  // encode
@@ -137,9 +138,9 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptJointWaypoint
     auto output_config = output_n.as<TrajOptIfoptJointWaypointConfig>();
     EXPECT_EQ(output_config.enabled, config.enabled);
     EXPECT_EQ(output_config.use_tolerance_override, config.use_tolerance_override);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.lower_tolerance, config.lower_tolerance));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.upper_tolerance, config.upper_tolerance));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.coeff, config.coeff));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.lower_tolerance, config.lower_tolerance));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.upper_tolerance, config.upper_tolerance));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.coeff, config.coeff));
   }
 }
 
@@ -149,7 +150,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptDefaultCompos
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptIfoptDefaultCompositeProfile profile(n["config"], plugin_factory);
     TrajOptIfoptDefaultCompositeProfile def_constructor;
     EXPECT_EQ(profile.collision_cost_config.enabled, def_constructor.collision_cost_config.enabled);
@@ -184,7 +185,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptDefaultCompos
                                     )";
 
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptIfoptDefaultCompositeProfile profile(n["config"], plugin_factory);
     EXPECT_EQ(profile.collision_cost_config.enabled, false);
     EXPECT_EQ(profile.collision_constraint_config.enabled, false);
@@ -192,9 +193,9 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptDefaultCompos
     EXPECT_EQ(profile.smooth_accelerations, false);
     EXPECT_EQ(profile.smooth_jerks, false);
     // EXPECT_EQ(profile.avoid_singularity, true);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(profile.velocity_coeff, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(profile.acceleration_coeff, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(profile.jerk_coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(profile.velocity_coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(profile.acceleration_coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(profile.jerk_coeff, check));
     // EXPECT_NEAR(profile.avoid_singularity_coeff, 6, 1e-8);
   }
 }
@@ -205,7 +206,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptDefaultMovePr
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptIfoptDefaultMoveProfile profile(n["config"], plugin_factory);
     TrajOptIfoptDefaultMoveProfile def_constructor;
     EXPECT_EQ(profile.cartesian_cost_config.enabled, def_constructor.cartesian_cost_config.enabled);
@@ -226,7 +227,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptDefaultMovePr
                                           enabled: false
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptIfoptDefaultMoveProfile profile(n["config"], plugin_factory);
     TrajOptIfoptDefaultMoveProfile def_constructor;
     EXPECT_EQ(profile.cartesian_cost_config.enabled, !def_constructor.cartesian_cost_config.enabled);
@@ -242,7 +243,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptIfoptOSQPSolverProfile profile(n["config"], plugin_factory);
     TrajOptIfoptOSQPSolverProfile def_constructor;
     // EXPECT_EQ(profile.update_workspace, def_constructor.update_workspace);
@@ -306,7 +307,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
                                           num_threads: 100
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptIfoptOSQPSolverProfile profile(n["config"], plugin_factory);
     TrajOptIfoptOSQPSolverProfile def_constructor;
 

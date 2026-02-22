@@ -44,26 +44,26 @@ class SpaceInformation;
 using SpaceInformationPtr = std::shared_ptr<SpaceInformation>;
 }  // namespace ompl::base
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /** @brief Continuous collision check between two states */
 class StateCollisionValidator : public ompl::base::StateValidityChecker
 {
 public:
   StateCollisionValidator(const ompl::base::SpaceInformationPtr& space_info,
-                          const tesseract_environment::Environment& env,
-                          std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                          const tesseract_collision::ContactManagerConfig& contact_manager_config,
+                          const tesseract::environment::Environment& env,
+                          std::shared_ptr<const tesseract::kinematics::JointGroup> manip,
+                          const tesseract::collision::ContactManagerConfig& contact_manager_config,
                           OMPLStateExtractor extractor);
 
   bool isValid(const ompl::base::State* state) const override;
 
 private:
   /** @brief The Tesseract Joint Group */
-  std::shared_ptr<const tesseract_kinematics::JointGroup> manip_;
+  std::shared_ptr<const tesseract::kinematics::JointGroup> manip_;
 
   /** @brief The continuous contact manager used for creating cached continuous contact managers. */
-  std::shared_ptr<tesseract_collision::DiscreteContactManager> contact_manager_;
+  std::shared_ptr<tesseract::collision::DiscreteContactManager> contact_manager_;
 
   /** @brief A list of active links */
   std::vector<std::string> links_;
@@ -80,8 +80,8 @@ private:
   mutable std::mutex mutex_;
 
   /** @brief The continuous contact manager cache */
-  mutable std::map<unsigned long int, std::shared_ptr<tesseract_collision::DiscreteContactManager>> contact_managers_;
+  mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::DiscreteContactManager>> contact_managers_;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_STATE_COLLISION_VALIDATOR_H

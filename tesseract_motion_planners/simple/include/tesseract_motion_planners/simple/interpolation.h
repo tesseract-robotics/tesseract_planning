@@ -39,14 +39,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/eigen_types.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /** @brief The Joint Group Instruction Information struct */
 struct JointGroupInstructionInfo
 {
-  JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
-                            const tesseract_environment::Environment& env,
-                            const tesseract_common::ManipulatorInfo& manip_info);
+  JointGroupInstructionInfo(const tesseract::command_language::MoveInstructionPoly& plan_instruction,
+                            const tesseract::environment::Environment& env,
+                            const tesseract::common::ManipulatorInfo& manip_info);
 
   ~JointGroupInstructionInfo();
   JointGroupInstructionInfo(const JointGroupInstructionInfo&) = delete;
@@ -54,8 +54,9 @@ struct JointGroupInstructionInfo
   JointGroupInstructionInfo(JointGroupInstructionInfo&&) = default;
   JointGroupInstructionInfo& operator=(JointGroupInstructionInfo&&) = delete;
 
-  const MoveInstructionPoly& instruction;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
-  std::shared_ptr<const tesseract_kinematics::JointGroup> manip;
+  const tesseract::command_language::MoveInstructionPoly&
+      instruction;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
+  std::shared_ptr<const tesseract::kinematics::JointGroup> manip;
   std::string working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
   std::string tcp_frame;
@@ -95,9 +96,9 @@ struct JointGroupInstructionInfo
 /** @brief The Kinematic Group Instruction Information struct */
 struct KinematicGroupInstructionInfo
 {
-  KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
-                                const tesseract_environment::Environment& env,
-                                const tesseract_common::ManipulatorInfo& manip_info);
+  KinematicGroupInstructionInfo(const tesseract::command_language::MoveInstructionPoly& plan_instruction,
+                                const tesseract::environment::Environment& env,
+                                const tesseract::common::ManipulatorInfo& manip_info);
 
   ~KinematicGroupInstructionInfo();
   KinematicGroupInstructionInfo(const KinematicGroupInstructionInfo&) = delete;
@@ -105,8 +106,9 @@ struct KinematicGroupInstructionInfo
   KinematicGroupInstructionInfo(KinematicGroupInstructionInfo&&) = default;
   KinematicGroupInstructionInfo& operator=(KinematicGroupInstructionInfo&&) = delete;
 
-  const MoveInstructionPoly& instruction;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
-  std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip;
+  const tesseract::command_language::MoveInstructionPoly&
+      instruction;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
+  std::shared_ptr<const tesseract::kinematics::KinematicGroup> manip;
   std::string working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
   std::string tcp_frame;
@@ -137,26 +139,30 @@ struct KinematicGroupInstructionInfo
   const Eigen::VectorXd& extractJointPosition() const;
 };
 
-std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                               const KinematicGroupInstructionInfo& base,
-                                                               int linear_steps,
-                                                               int freespace_steps);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                              const KinematicGroupInstructionInfo& base,
+                              int linear_steps,
+                              int freespace_steps);
 
-std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                              const KinematicGroupInstructionInfo& base,
-                                                              int linear_steps,
-                                                              int freespace_steps);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                             const KinematicGroupInstructionInfo& base,
+                             int linear_steps,
+                             int freespace_steps);
 
-std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                              const KinematicGroupInstructionInfo& base,
-                                                              int linear_steps,
-                                                              int freespace_steps);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                             const KinematicGroupInstructionInfo& base,
+                             int linear_steps,
+                             int freespace_steps);
 
-std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                             const KinematicGroupInstructionInfo& base,
-                                                             int linear_steps,
-                                                             int freespace_steps,
-                                                             const tesseract_scene_graph::SceneState& scene_state);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                            const KinematicGroupInstructionInfo& base,
+                            int linear_steps,
+                            int freespace_steps,
+                            const tesseract::scene_graph::SceneState& scene_state);
 
 /**
  * @brief JointWaypoint to JointWaypoint
@@ -180,13 +186,14 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
  * @param max_steps The maximum number of steps for the plan
  * @return A vector of move instruction
  **/
-std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                               const KinematicGroupInstructionInfo& base,
-                                                               double state_lvs_length,
-                                                               double translation_lvs_length,
-                                                               double rotation_lvs_length,
-                                                               int min_steps,
-                                                               int max_steps);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                              const KinematicGroupInstructionInfo& base,
+                              double state_lvs_length,
+                              double translation_lvs_length,
+                              double rotation_lvs_length,
+                              int min_steps,
+                              int max_steps);
 
 /**
  * @brief JointWaypoint to CartesianWaypoint
@@ -212,13 +219,14 @@ std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const KinematicGr
  * @param max_steps The maximum number of steps for the plan
  * @return A vector of move instruction
  **/
-std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                              const KinematicGroupInstructionInfo& base,
-                                                              double state_lvs_length,
-                                                              double translation_lvs_length,
-                                                              double rotation_lvs_length,
-                                                              int min_steps,
-                                                              int max_steps);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                             const KinematicGroupInstructionInfo& base,
+                             double state_lvs_length,
+                             double translation_lvs_length,
+                             double rotation_lvs_length,
+                             int min_steps,
+                             int max_steps);
 
 /**
  * @brief CartesianWaypoint to JointWaypoint
@@ -246,13 +254,14 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGro
  * @param max_steps The maximum number of steps for the plan
  * @return A vector of move instruction
  **/
-std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                              const KinematicGroupInstructionInfo& base,
-                                                              double state_lvs_length,
-                                                              double translation_lvs_length,
-                                                              double rotation_lvs_length,
-                                                              int min_steps,
-                                                              int max_steps);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                             const KinematicGroupInstructionInfo& base,
+                             double state_lvs_length,
+                             double translation_lvs_length,
+                             double rotation_lvs_length,
+                             int min_steps,
+                             int max_steps);
 
 /**
  * @brief CartesianWaypoint to CartesianWaypoint
@@ -284,14 +293,15 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGro
  * @param max_steps The maximum number of steps for the plan
  * @return A vector of move instruction
  **/
-std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                             const KinematicGroupInstructionInfo& base,
-                                                             double state_lvs_length,
-                                                             double translation_lvs_length,
-                                                             double rotation_lvs_length,
-                                                             int min_steps,
-                                                             int max_steps,
-                                                             const tesseract_scene_graph::SceneState& scene_state);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                            const KinematicGroupInstructionInfo& base,
+                            double state_lvs_length,
+                            double translation_lvs_length,
+                            double rotation_lvs_length,
+                            int min_steps,
+                            int max_steps,
+                            const tesseract::scene_graph::SceneState& scene_state);
 
 /**
  * @brief JointWaypoint to JointWaypoint
@@ -315,13 +325,14 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
  * @param max_steps The maximum number of steps for the plan
  * @return A vector of move instruction
  **/
-std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                               const JointGroupInstructionInfo& base,
-                                                               double state_lvs_length,
-                                                               double translation_lvs_length,
-                                                               double rotation_lvs_length,
-                                                               int min_steps,
-                                                               int max_steps);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateJointJointWaypoint(const JointGroupInstructionInfo& prev,
+                              const JointGroupInstructionInfo& base,
+                              double state_lvs_length,
+                              double translation_lvs_length,
+                              double rotation_lvs_length,
+                              int min_steps,
+                              int max_steps);
 
 /**
  * @brief JointWaypoint to CartesianWaypoint
@@ -347,13 +358,14 @@ std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const JointGroupI
  * @param max_steps The maximum number of steps for the plan
  * @return A vector of move instruction
  **/
-std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                              const JointGroupInstructionInfo& base,
-                                                              double state_lvs_length,
-                                                              double translation_lvs_length,
-                                                              double rotation_lvs_length,
-                                                              int min_steps,
-                                                              int max_steps);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateJointCartWaypoint(const JointGroupInstructionInfo& prev,
+                             const JointGroupInstructionInfo& base,
+                             double state_lvs_length,
+                             double translation_lvs_length,
+                             double rotation_lvs_length,
+                             int min_steps,
+                             int max_steps);
 
 /**
  * @brief CartesianWaypoint to JointWaypoint
@@ -381,13 +393,14 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const JointGroupIn
  * @param max_steps The maximum number of steps for the plan
  * @return A vector of move instruction
  **/
-std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                              const JointGroupInstructionInfo& base,
-                                                              double state_lvs_length,
-                                                              double translation_lvs_length,
-                                                              double rotation_lvs_length,
-                                                              int min_steps,
-                                                              int max_steps);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateCartJointWaypoint(const JointGroupInstructionInfo& prev,
+                             const JointGroupInstructionInfo& base,
+                             double state_lvs_length,
+                             double translation_lvs_length,
+                             double rotation_lvs_length,
+                             int min_steps,
+                             int max_steps);
 
 /**
  * @brief CartesianWaypoint to CartesianWaypoint
@@ -419,14 +432,15 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const JointGroupIn
  * @param max_steps The maximum number of steps for the plan
  * @return A vector of move instruction
  **/
-std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                             const JointGroupInstructionInfo& base,
-                                                             double state_lvs_length,
-                                                             double translation_lvs_length,
-                                                             double rotation_lvs_length,
-                                                             int min_steps,
-                                                             int max_steps,
-                                                             const tesseract_scene_graph::SceneState& scene_state);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+interpolateCartCartWaypoint(const JointGroupInstructionInfo& prev,
+                            const JointGroupInstructionInfo& base,
+                            double state_lvs_length,
+                            double translation_lvs_length,
+                            double rotation_lvs_length,
+                            int min_steps,
+                            int max_steps,
+                            const tesseract::scene_graph::SceneState& scene_state);
 /**
  * @brief Interpolate between two transforms return a vector of Eigen::Isometry transforms.
  * @param start The Start Transform
@@ -434,9 +448,9 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const JointGroupIns
  * @param steps The number of step
  * @return A vector of Eigen::Isometry with a length = steps + 1
  */
-tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,
-                                               const Eigen::Isometry3d& stop,
-                                               long steps);
+tesseract::common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,
+                                                const Eigen::Isometry3d& stop,
+                                                long steps);
 
 /**
  * @brief Interpolate between two Eigen::VectorXd and return a Matrix
@@ -456,7 +470,10 @@ Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
  * @param steps The number of step
  * @return A vector of waypoints with a length = steps + 1
  */
-std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const WaypointPoly& stop, long steps);
+std::vector<tesseract::command_language::WaypointPoly>
+interpolate_waypoint(const tesseract::command_language::WaypointPoly& start,
+                     const tesseract::command_language::WaypointPoly& stop,
+                     long steps);
 
 /**
  * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
@@ -466,9 +483,10 @@ std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const 
  * @param base_instruction The base instruction used to extract profile and manipulator information from
  * @return A vector of move instruction
  */
-std::vector<MoveInstructionPoly> getInterpolatedInstructions(const std::vector<std::string>& joint_names,
-                                                             const Eigen::MatrixXd& states,
-                                                             const MoveInstructionPoly& base_instruction);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+getInterpolatedInstructions(const std::vector<std::string>& joint_names,
+                            const Eigen::MatrixXd& states,
+                            const tesseract::command_language::MoveInstructionPoly& base_instruction);
 
 /**
  * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
@@ -478,10 +496,11 @@ std::vector<MoveInstructionPoly> getInterpolatedInstructions(const std::vector<s
  * @param base_instruction The base instruction used to extract profile and manipulator information from
  * @return A vector of move instruction
  */
-std::vector<MoveInstructionPoly> getInterpolatedInstructions(const tesseract_common::VectorIsometry3d& poses,
-                                                             const std::vector<std::string>& joint_names,
-                                                             const Eigen::MatrixXd& states,
-                                                             const MoveInstructionPoly& base_instruction);
+std::vector<tesseract::command_language::MoveInstructionPoly>
+getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
+                            const std::vector<std::string>& joint_names,
+                            const Eigen::MatrixXd& states,
+                            const tesseract::command_language::MoveInstructionPoly& base_instruction);
 
 /**
  * @brief Find the closest joint solution for p to the provided seed
@@ -504,13 +523,14 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
                                                        const Eigen::VectorXd& seed);
 
 /** @brief Provided for backwards compatibility */
-CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& instructions,
-                                                 const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                                 double state_longest_valid_segment_length = 5 * M_PI / 180,
-                                                 double translation_longest_valid_segment_length = 0.15,
-                                                 double rotation_longest_valid_segment_length = 5 * M_PI / 180,
-                                                 int min_steps = 1);
+tesseract::command_language::CompositeInstruction
+generateInterpolatedProgram(const tesseract::command_language::CompositeInstruction& instructions,
+                            const std::shared_ptr<const tesseract::environment::Environment>& env,
+                            double state_longest_valid_segment_length = 5 * M_PI / 180,
+                            double translation_longest_valid_segment_length = 0.15,
+                            double rotation_longest_valid_segment_length = 5 * M_PI / 180,
+                            int min_steps = 1);
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_INTERPOLATION_H

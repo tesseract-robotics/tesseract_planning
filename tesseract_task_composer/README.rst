@@ -702,7 +702,7 @@ Remap data from one key to another, by copying or moving the data.
 ForEach Task
 ^^^^^^^^^^
 
-For each element in a std::vector<tesseract_common::AnyPoly> it will run the operation and store the results in a std::vector<tesseract_common::AnyPoly>
+For each element in a std::vector<tesseract::common::AnyPoly> it will run the operation and store the results in a std::vector<tesseract::common::AnyPoly>
 
 .. code-block:: yaml
 

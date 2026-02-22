@@ -25,7 +25,7 @@
 #include <cereal/types/unordered_map.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 template <class Archive>
 void serialize(Archive& /*ar*/, WaypointInterface& /*obj*/)
@@ -221,6 +221,6 @@ void serialize(Archive& ar, WaitInstruction& obj)
   ar(cereal::make_nvp("wait_io", obj.wait_io_));
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CEREAL_SERIALIZATION_H

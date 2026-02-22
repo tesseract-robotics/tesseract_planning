@@ -44,8 +44,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_common/utils.h>
 
-using namespace tesseract_planning;
-using tesseract_common::ManipulatorInfo;
+using namespace tesseract::command_language;
+using tesseract::common::ManipulatorInfo;
 
 CompositeInstruction getProgram()
 {
@@ -111,7 +111,7 @@ CompositeInstruction getProgram()
     transition_from_start.push_back(plan_f1);
 
     CompositeInstruction transitions(
-        DEFAULT_PROFILE_KEY, tesseract_common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
+        DEFAULT_PROFILE_KEY, tesseract::common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
     transitions.push_back(transition_from_start);
     transitions.push_back(transition_from_end);
@@ -141,7 +141,7 @@ CompositeInstruction getProgram()
     transition_from_start.push_back(plan_f1);
 
     CompositeInstruction transitions(
-        DEFAULT_PROFILE_KEY, tesseract_common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
+        DEFAULT_PROFILE_KEY, tesseract::common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
     transitions.push_back(transition_from_start);
     transitions.push_back(transition_from_end);

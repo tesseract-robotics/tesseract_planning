@@ -25,14 +25,14 @@
 #include <tesseract_motion_planners/ompl/ompl_solver_config.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 bool OMPLSolverConfig::operator==(const OMPLSolverConfig& rhs) const
 {
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(planning_time, rhs.planning_time, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(planning_time, rhs.planning_time, max_diff);
   equal &= (max_solutions == rhs.max_solutions);
   equal &= (simplify == rhs.simplify);
   equal &= (optimize == rhs.optimize);
@@ -42,4 +42,4 @@ bool OMPLSolverConfig::operator==(const OMPLSolverConfig& rhs) const
 }
 bool OMPLSolverConfig::operator!=(const OMPLSolverConfig& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

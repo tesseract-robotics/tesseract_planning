@@ -38,7 +38,7 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 bool operator==(const OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs);
 
@@ -50,7 +50,8 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptOSQPSolverProfile>;
 
   TrajOptIfoptOSQPSolverProfile();
-  TrajOptIfoptOSQPSolverProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  TrajOptIfoptOSQPSolverProfile(const YAML::Node& config,
+                                const tesseract::common::ProfilePluginFactory& plugin_factory);
   TrajOptIfoptOSQPSolverProfile(TrajOptIfoptOSQPSolverProfile&&) = default;
   TrajOptIfoptOSQPSolverProfile& operator=(TrajOptIfoptOSQPSolverProfile&&) = default;
 
@@ -68,6 +69,6 @@ public:
   bool operator==(const TrajOptIfoptOSQPSolverProfile& rhs) const;
   bool operator!=(const TrajOptIfoptOSQPSolverProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_OSQP_SOLVER_PROFILE_H

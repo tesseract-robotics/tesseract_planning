@@ -53,7 +53,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs)
 {
@@ -92,7 +92,7 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
 }
 
 std::shared_ptr<trajopt_ifopt::ConstraintSet>
-createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
+createJointPositionConstraint(const tesseract::command_language::JointWaypointPoly& joint_waypoint,
                               const std::shared_ptr<const trajopt_ifopt::Var>& var,
                               const Eigen::VectorXd& coeffs)
 {
@@ -118,20 +118,20 @@ createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
 
 std::vector<std::shared_ptr<trajopt_ifopt::ConstraintSet>>
 createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
-                           const std::shared_ptr<const tesseract_environment::Environment>& env,
-                           const tesseract_common::ManipulatorInfo& manip_info,
+                           const std::shared_ptr<const tesseract::environment::Environment>& env,
+                           const tesseract::common::ManipulatorInfo& manip_info,
                            const trajopt_common::TrajOptCollisionConfig& config,
                            const std::vector<int>& fixed_indices,
                            bool /*fixed_sparsity*/)
 {
   std::vector<trajopt_ifopt::ConstraintSet::Ptr> constraints;
-  if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::NONE)
+  if (config.collision_check_config.type == tesseract::collision::CollisionEvaluatorType::NONE)
     return constraints;
 
-  std::shared_ptr<const tesseract_kinematics::JointGroup> manip = env->getJointGroup(manip_info.manipulator);
+  std::shared_ptr<const tesseract::kinematics::JointGroup> manip = env->getJointGroup(manip_info.manipulator);
 
   // Add a collision cost for all steps
-  if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::DISCRETE)
+  if (config.collision_check_config.type == tesseract::collision::CollisionEvaluatorType::DISCRETE)
   {
     for (std::size_t i = 0; i < vars.size(); ++i)
     {
@@ -144,7 +144,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
           collision_evaluator, vars[i], "DiscreteCollision_" + std::to_string(i)));
     }
   }
-  else if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
+  else if (config.collision_check_config.type == tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     bool time0_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), 0) != fixed_indices.end());
     for (std::size_t i = 1; i < vars.size(); ++i)
@@ -163,13 +163,13 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
   else
   {
     const std::string prefix =
-        (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS) ? "LVSCont"
-                                                                                                              "inuousC"
-                                                                                                              "ollisio"
-                                                                                                              "n_" :
-                                                                                                              "Continu"
-                                                                                                              "ousColl"
-                                                                                                              "ision_";
+        (config.collision_check_config.type == tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS) ? "LVSCont"
+                                                                                                               "inuousC"
+                                                                                                               "ollisio"
+                                                                                                               "n_" :
+                                                                                                               "Continu"
+                                                                                                               "ousColl"
+                                                                                                               "ision_";
     bool time0_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), 0) != fixed_indices.end());
     for (std::size_t i = 1; i < vars.size(); ++i)
     {
@@ -222,4 +222,4 @@ createJointJerkConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
   return jerk_constraint;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

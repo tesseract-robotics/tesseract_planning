@@ -50,23 +50,23 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace
 {
-tesseract_planning::RasterOnlyMotionTask::TaskFactoryResults
+tesseract::task_composer::RasterOnlyMotionTask::TaskFactoryResults
 createTask(const YAML::Node& config,
            const std::string& parent_name,
            const std::string& name,
-           const tesseract_planning::TaskComposerPluginFactory& plugin_factory,
+           const tesseract::task_composer::TaskComposerPluginFactory& plugin_factory,
            std::size_t index)
 {
   static const std::string inout_port{ "program" };
-  tesseract_planning::RasterOnlyMotionTask::TaskFactoryResults tr;
+  tesseract::task_composer::RasterOnlyMotionTask::TaskFactoryResults tr;
   tr.node = loadSubTask(parent_name, name, config, plugin_factory);
   tr.node->setConditional(false);
   tr.input_key = tr.node->getInputKeys().get(inout_port) + std::to_string(index);
   tr.output_key = tr.node->getOutputKeys().get(inout_port) + std::to_string(index);
 
-  auto& graph_node = static_cast<tesseract_planning::TaskComposerGraph&>(*tr.node);
-  tesseract_planning::TaskComposerKeys override_input_keys;
-  tesseract_planning::TaskComposerKeys override_output_keys;
+  auto& graph_node = static_cast<tesseract::task_composer::TaskComposerGraph&>(*tr.node);
+  tesseract::task_composer::TaskComposerKeys override_input_keys;
+  tesseract::task_composer::TaskComposerKeys override_output_keys;
   override_input_keys.add(inout_port, tr.input_key);
   override_output_keys.add(inout_port, tr.output_key);
   graph_node.setOverrideInputKeys(override_input_keys);
@@ -76,7 +76,7 @@ createTask(const YAML::Node& config,
 }
 }  // namespace
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string RasterOnlyMotionTask::INOUT_PROGRAM_PORT = "program";
@@ -117,7 +117,7 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
 
   if (YAML::Node raster_config = config[raster_key])
   {
-    tesseract_common::checkForUnknownKeys(raster_config, tasks_expected_keys);
+    tesseract::common::checkForUnknownKeys(raster_config, tasks_expected_keys);
     validateSubTask(name_, raster_key, raster_config);
 
     raster_task_factory_ =
@@ -132,7 +132,7 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
 
   if (YAML::Node transition_config = config[transition_key])
   {
-    tesseract_common::checkForUnknownKeys(transition_config, tasks_expected_keys);
+    tesseract::common::checkForUnknownKeys(transition_config, tasks_expected_keys);
     validateSubTask(name_, transition_key, transition_config);
 
     transition_task_factory_ = [transition_config, &plugin_factory](
@@ -168,7 +168,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   // Check that inputs are valid
   // --------------------
   auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
-  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     info.status_code = 0;
     info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
@@ -177,8 +177,8 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
     return info;
   }
 
-  std::shared_ptr<const tesseract_environment::Environment> env =
-      env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
+  std::shared_ptr<const tesseract::environment::Environment> env =
+      env_poly.as<std::shared_ptr<const tesseract::environment::Environment>>()->clone();
   info.data_storage.setData("environment", env);
 
   auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
@@ -193,8 +193,8 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
     return info;
   }
 
-  auto& program = input_data_poly.template as<CompositeInstruction>();
-  tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo();
+  auto& program = input_data_poly.template as<tesseract::command_language::CompositeInstruction>();
+  tesseract::common::ManipulatorInfo program_manip_info = program.getManipulatorInfo();
 
   // Create Sub Graph Task Input and Output Keys
   // Must copy the existing parent input/output keys, but remove program port key which will get assigned later.
@@ -227,7 +227,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   for (std::size_t idx = 0; idx < program.size(); idx += 2)
   {
     // Get Raster program
-    auto raster_input = program[idx].template as<CompositeInstruction>();
+    auto raster_input = program[idx].template as<tesseract::command_language::CompositeInstruction>();
 
     // Set the manipulator info
     raster_input.setManipulatorInfo(raster_input.getManipulatorInfo().getCombined(program_manip_info));
@@ -235,9 +235,9 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
     // Insert Start Plan Instruction
     if (idx > 0)
     {
-      const InstructionPoly& pre_input_instruction = program[idx - 1];
+      const tesseract::command_language::InstructionPoly& pre_input_instruction = program[idx - 1];
       assert(pre_input_instruction.isCompositeInstruction());
-      const auto& tci = pre_input_instruction.as<CompositeInstruction>();
+      const auto& tci = pre_input_instruction.as<tesseract::command_language::CompositeInstruction>();
       const auto* li = tci.getLastMoveInstruction();
       assert(li != nullptr);
       raster_input.insert(raster_input.begin(), *li);
@@ -263,14 +263,14 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   for (std::size_t idx = 1; idx < program.size() - 1; idx += 2)
   {
     // Get transition program
-    auto transition_input = program[idx].template as<CompositeInstruction>();
+    auto transition_input = program[idx].template as<tesseract::command_language::CompositeInstruction>();
 
     // Set the manipulator info
     transition_input.setManipulatorInfo(transition_input.getManipulatorInfo().getCombined(program_manip_info));
 
-    const InstructionPoly& pre_input_instruction = program[idx - 1];
+    const tesseract::command_language::InstructionPoly& pre_input_instruction = program[idx - 1];
     assert(pre_input_instruction.isCompositeInstruction());
-    const auto& tci = pre_input_instruction.as<CompositeInstruction>();
+    const auto& tci = pre_input_instruction.as<tesseract::command_language::CompositeInstruction>();
     const auto* li = tci.getLastMoveInstruction();
     assert(li != nullptr);
     transition_input.insert(transition_input.begin(), *li);
@@ -340,7 +340,8 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   program.clear();
   for (std::size_t i = 0; i < raster_tasks.size(); ++i)
   {
-    auto segment = task_graph_data_storage->getData(raster_tasks[i].second.second).as<CompositeInstruction>();
+    auto segment = task_graph_data_storage->getData(raster_tasks[i].second.second)
+                       .as<tesseract::command_language::CompositeInstruction>();
     if (i != 0)
       segment.erase(segment.begin());
 
@@ -348,7 +349,8 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
 
     if (i < raster_tasks.size() - 1)
     {
-      auto transition = task_graph_data_storage->getData(transition_keys[i].second).as<CompositeInstruction>();
+      auto transition = task_graph_data_storage->getData(transition_keys[i].second)
+                            .as<tesseract::command_language::CompositeInstruction>();
       transition.erase(transition.begin());
       program.emplace_back(transition);
     }
@@ -363,7 +365,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-void RasterOnlyMotionTask::checkTaskInput(const tesseract_common::AnyPoly& input)
+void RasterOnlyMotionTask::checkTaskInput(const tesseract::common::AnyPoly& input)
 {
   // -------------
   // Check Input
@@ -371,10 +373,10 @@ void RasterOnlyMotionTask::checkTaskInput(const tesseract_common::AnyPoly& input
   if (input.isNull())
     throw std::runtime_error("RasterOnlyMotionTask, input is null");
 
-  if (input.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
     throw std::runtime_error("RasterOnlyMotionTask, input is not a composite instruction");
 
-  const auto& composite = input.as<CompositeInstruction>();
+  const auto& composite = input.as<tesseract::command_language::CompositeInstruction>();
 
   // Check rasters and transitions
   for (const auto& i : composite)
@@ -385,4 +387,4 @@ void RasterOnlyMotionTask::checkTaskInput(const tesseract_common::AnyPoly& input
   }
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

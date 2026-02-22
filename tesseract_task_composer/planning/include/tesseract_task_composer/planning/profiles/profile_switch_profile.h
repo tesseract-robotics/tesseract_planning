@@ -35,21 +35,21 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
-struct ProfileSwitchProfile : public tesseract_common::Profile
+struct ProfileSwitchProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<ProfileSwitchProfile>;
   using ConstPtr = std::shared_ptr<const ProfileSwitchProfile>;
 
   ProfileSwitchProfile(int return_value = 1);
-  ProfileSwitchProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  ProfileSwitchProfile(const YAML::Node& config, const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   int return_value;
 
   bool operator==(const ProfileSwitchProfile& rhs) const;
   bool operator!=(const ProfileSwitchProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_PROFILE_SWITCH_PROFILE_H

@@ -51,7 +51,7 @@ namespace ompl::geometric
 class PathGeometric;
 }
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 Eigen::Map<Eigen::VectorXd> RealVectorStateSpaceExtractor(const ompl::base::State* s1, unsigned dimension);
 
@@ -65,8 +65,8 @@ Eigen::Map<Eigen::VectorXd> ConstrainedStateSpaceExtractor(const ompl::base::Sta
  * @param extractor This function understands the type of state space and converts it to an eigen vector.
  * @return Tesseract TrajArray
  */
-tesseract_common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path,
-                                        const OMPLStateExtractor& extractor);
+tesseract::common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path,
+                                         const OMPLStateExtractor& extractor);
 
 /**
  * @brief Given longest valid fraction and length it will set the correct information of the state space
@@ -84,7 +84,7 @@ void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr
  * @param collision_check_config
  */
 void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr,
-                                const tesseract_collision::CollisionCheckConfig& collision_check_config);
+                                const tesseract::collision::CollisionCheckConfig& collision_check_config);
 
 /**
  * @brief For the provided problem check if the state is in collision
@@ -94,9 +94,9 @@ void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr
  * @param state The joint state
  * @return True if in collision otherwise false
  */
-bool checkStateInCollision(tesseract_collision::ContactResultMap& contact_map,
-                           tesseract_collision::DiscreteContactManager& contact_checker,
-                           const tesseract_kinematics::JointGroup& manip,
+bool checkStateInCollision(tesseract::collision::ContactResultMap& contact_map,
+                           tesseract::collision::DiscreteContactManager& contact_checker,
+                           const tesseract::kinematics::JointGroup& manip,
                            const Eigen::VectorXd& state);
 
 /**
@@ -109,6 +109,6 @@ ompl::base::StateSamplerPtr allocWeightedRealVectorStateSampler(const ompl::base
                                                                 const Eigen::VectorXd& weights,
                                                                 const Eigen::MatrixX2d& limits);
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_UTILS_H

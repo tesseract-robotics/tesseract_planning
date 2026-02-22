@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/weighted_real_vector_state_sampler.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 WeightedRealVectorStateSampler::WeightedRealVectorStateSampler(const ompl::base::StateSpace* space,
                                                                const Eigen::Ref<const Eigen::VectorXd>& weights,
@@ -99,4 +99,4 @@ void WeightedRealVectorStateSampler::sampleGaussian(ompl::base::State* state,
     rstate->values[i] = v;
   }
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

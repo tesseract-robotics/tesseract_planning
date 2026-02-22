@@ -42,7 +42,7 @@ static const std::string TESSERACT_TASK_COMPOSER_PLUGIN_DIRECTORIES_ENV = "TESSE
                                                                           "DIRECTORIES";
 static const std::string TESSERACT_TASK_COMPOSER_PLUGINS_ENV = "TESSERACT_TASK_COMPOSER_PLUGINS";
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 std::string TaskComposerExecutorFactory::getSection() { return "TaskExec"; }
 
@@ -52,8 +52,8 @@ struct TaskComposerPluginFactory::Implementation
 {
   mutable std::map<std::string, TaskComposerExecutorFactory::Ptr> executor_factories;
   mutable std::map<std::string, TaskComposerNodeFactory::Ptr> node_factories;
-  tesseract_common::PluginInfoContainer executor_plugin_info;
-  tesseract_common::PluginInfoContainer task_plugin_info;
+  tesseract::common::PluginInfoContainer executor_plugin_info;
+  tesseract::common::PluginInfoContainer task_plugin_info;
   boost_plugin_loader::PluginLoader plugin_loader;
 };
 
@@ -68,32 +68,32 @@ TaskComposerPluginFactory::TaskComposerPluginFactory() : impl_(std::make_unique<
                  boost::is_any_of(":"),
                  boost::token_compress_on);
 
-  tesseract_common::removeDuplicates(impl_->plugin_loader.search_paths);
-  tesseract_common::removeDuplicates(impl_->plugin_loader.search_libraries);
+  tesseract::common::removeDuplicates(impl_->plugin_loader.search_paths);
+  tesseract::common::removeDuplicates(impl_->plugin_loader.search_libraries);
 }
 
-TaskComposerPluginFactory::TaskComposerPluginFactory(const tesseract_common::TaskComposerPluginInfo& config)
+TaskComposerPluginFactory::TaskComposerPluginFactory(const tesseract::common::TaskComposerPluginInfo& config)
   : TaskComposerPluginFactory()
 {
   loadConfig(config);
 }
 
 TaskComposerPluginFactory::TaskComposerPluginFactory(const YAML::Node& config,
-                                                     const tesseract_common::ResourceLocator& locator)
+                                                     const tesseract::common::ResourceLocator& locator)
   : TaskComposerPluginFactory()
 {
   loadConfig(config, locator);
 }
 
 TaskComposerPluginFactory::TaskComposerPluginFactory(const std::filesystem::path& config,
-                                                     const tesseract_common::ResourceLocator& locator)
+                                                     const tesseract::common::ResourceLocator& locator)
   : TaskComposerPluginFactory()
 {
   loadConfig(config, locator);
 }
 
 TaskComposerPluginFactory::TaskComposerPluginFactory(const std::string& config,
-                                                     const tesseract_common::ResourceLocator& locator)
+                                                     const tesseract::common::ResourceLocator& locator)
   : TaskComposerPluginFactory()
 {
   loadConfig(config, locator);
@@ -105,7 +105,7 @@ TaskComposerPluginFactory::~TaskComposerPluginFactory() = default;
 TaskComposerPluginFactory::TaskComposerPluginFactory(TaskComposerPluginFactory&&) noexcept = default;
 TaskComposerPluginFactory& TaskComposerPluginFactory::operator=(TaskComposerPluginFactory&&) noexcept = default;
 
-void TaskComposerPluginFactory::loadConfig(const tesseract_common::TaskComposerPluginInfo& config)
+void TaskComposerPluginFactory::loadConfig(const tesseract::common::TaskComposerPluginInfo& config)
 {
   impl_->plugin_loader.search_libraries.insert(
       impl_->plugin_loader.search_libraries.end(), config.search_libraries.begin(), config.search_libraries.end());
@@ -120,15 +120,15 @@ void TaskComposerPluginFactory::loadConfig(const tesseract_common::TaskComposerP
                                          config.task_plugin_infos.plugins.end());
   impl_->task_plugin_info.default_plugin = config.task_plugin_infos.default_plugin;
 
-  tesseract_common::removeDuplicates(impl_->plugin_loader.search_paths);
-  tesseract_common::removeDuplicates(impl_->plugin_loader.search_libraries);
+  tesseract::common::removeDuplicates(impl_->plugin_loader.search_paths);
+  tesseract::common::removeDuplicates(impl_->plugin_loader.search_libraries);
 }
 
 void TaskComposerPluginFactory::loadConfig(YAML::Node config)
 {
-  if (const YAML::Node& plugin_info = config[tesseract_common::TaskComposerPluginInfo::CONFIG_KEY])
+  if (const YAML::Node& plugin_info = config[tesseract::common::TaskComposerPluginInfo::CONFIG_KEY])
   {
-    auto tc_plugin_info = plugin_info.as<tesseract_common::TaskComposerPluginInfo>();
+    auto tc_plugin_info = plugin_info.as<tesseract::common::TaskComposerPluginInfo>();
     impl_->plugin_loader.search_paths.insert(impl_->plugin_loader.search_paths.end(),
                                              tc_plugin_info.search_paths.begin(),
                                              tc_plugin_info.search_paths.end());
@@ -138,26 +138,26 @@ void TaskComposerPluginFactory::loadConfig(YAML::Node config)
     impl_->executor_plugin_info = tc_plugin_info.executor_plugin_infos;
     impl_->task_plugin_info = tc_plugin_info.task_plugin_infos;
 
-    tesseract_common::removeDuplicates(impl_->plugin_loader.search_paths);
-    tesseract_common::removeDuplicates(impl_->plugin_loader.search_libraries);
+    tesseract::common::removeDuplicates(impl_->plugin_loader.search_paths);
+    tesseract::common::removeDuplicates(impl_->plugin_loader.search_libraries);
   }
 }
 
-void TaskComposerPluginFactory::loadConfig(YAML::Node config, const tesseract_common::ResourceLocator& locator)
+void TaskComposerPluginFactory::loadConfig(YAML::Node config, const tesseract::common::ResourceLocator& locator)
 {
-  tesseract_common::processYamlIncludeDirective(config, locator);
+  tesseract::common::processYamlIncludeDirective(config, locator);
   loadConfig(config);
 }
 
 void TaskComposerPluginFactory::loadConfig(const std::filesystem::path& config,
-                                           const tesseract_common::ResourceLocator& locator)
+                                           const tesseract::common::ResourceLocator& locator)
 {
-  loadConfig(tesseract_common::loadYamlFile(config.string(), locator));
+  loadConfig(tesseract::common::loadYamlFile(config.string(), locator));
 }
 
-void TaskComposerPluginFactory::loadConfig(const std::string& config, const tesseract_common::ResourceLocator& locator)
+void TaskComposerPluginFactory::loadConfig(const std::string& config, const tesseract::common::ResourceLocator& locator)
 {
-  loadConfig(tesseract_common::loadYamlString(config, locator));
+  loadConfig(tesseract::common::loadYamlString(config, locator));
 }
 
 void TaskComposerPluginFactory::addSearchPath(const std::string& path)
@@ -189,7 +189,7 @@ std::vector<std::string> TaskComposerPluginFactory::getSearchLibraries() const
 void TaskComposerPluginFactory::clearSearchLibraries() { impl_->plugin_loader.search_libraries.clear(); }
 
 void TaskComposerPluginFactory::addTaskComposerExecutorPlugin(const std::string& name,
-                                                              tesseract_common::PluginInfo plugin_info)
+                                                              tesseract::common::PluginInfo plugin_info)
 {
   impl_->executor_plugin_info.plugins[name] = std::move(plugin_info);
 }
@@ -199,7 +199,7 @@ bool TaskComposerPluginFactory::hasTaskComposerExecutorPlugins() const
   return !std::as_const(*impl_).executor_plugin_info.plugins.empty();
 }
 
-tesseract_common::PluginInfoMap TaskComposerPluginFactory::getTaskComposerExecutorPlugins() const
+tesseract::common::PluginInfoMap TaskComposerPluginFactory::getTaskComposerExecutorPlugins() const
 {
   return std::as_const(*impl_).executor_plugin_info.plugins;
 }
@@ -243,7 +243,7 @@ std::string TaskComposerPluginFactory::getDefaultTaskComposerExecutorPlugin() co
 }
 
 void TaskComposerPluginFactory::addTaskComposerNodePlugin(const std::string& name,
-                                                          tesseract_common::PluginInfo plugin_info)
+                                                          tesseract::common::PluginInfo plugin_info)
 {
   impl_->task_plugin_info.plugins[name] = std::move(plugin_info);
 }
@@ -253,7 +253,7 @@ bool TaskComposerPluginFactory::hasTaskComposerNodePlugins() const
   return !std::as_const(*impl_).task_plugin_info.plugins.empty();
 }
 
-tesseract_common::PluginInfoMap TaskComposerPluginFactory::getTaskComposerNodePlugins() const
+tesseract::common::PluginInfoMap TaskComposerPluginFactory::getTaskComposerNodePlugins() const
 {
   return std::as_const(*impl_).task_plugin_info.plugins;
 }
@@ -314,7 +314,7 @@ TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name) c
 
 std::unique_ptr<TaskComposerExecutor>
 TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name,
-                                                      const tesseract_common::PluginInfo& plugin_info) const
+                                                      const tesseract::common::PluginInfo& plugin_info) const
 {
   try
   {
@@ -356,7 +356,7 @@ std::unique_ptr<TaskComposerNode> TaskComposerPluginFactory::createTaskComposerN
 
 std::unique_ptr<TaskComposerNode>
 TaskComposerPluginFactory::createTaskComposerNode(const std::string& name,
-                                                  const tesseract_common::PluginInfo& plugin_info) const
+                                                  const tesseract::common::PluginInfo& plugin_info) const
 {
   try
   {
@@ -390,14 +390,14 @@ void TaskComposerPluginFactory::saveConfig(const std::filesystem::path& file_pat
 
 YAML::Node TaskComposerPluginFactory::getConfig() const
 {
-  tesseract_common::TaskComposerPluginInfo tc_plugins;
+  tesseract::common::TaskComposerPluginInfo tc_plugins;
   tc_plugins.search_paths = impl_->plugin_loader.search_paths;
   tc_plugins.search_libraries = impl_->plugin_loader.search_libraries;
   tc_plugins.executor_plugin_infos = impl_->executor_plugin_info;
   tc_plugins.task_plugin_infos = impl_->task_plugin_info;
 
   YAML::Node config;
-  config[tesseract_common::TaskComposerPluginInfo::CONFIG_KEY] = tc_plugins;
+  config[tesseract::common::TaskComposerPluginInfo::CONFIG_KEY] = tc_plugins;
 
   return config;
 }
@@ -412,4 +412,4 @@ std::vector<std::string> TaskComposerPluginFactory::getAvailableTaskComposerExec
   return impl_->plugin_loader.getAvailablePlugins(TaskComposerExecutorFactory::getSection());
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

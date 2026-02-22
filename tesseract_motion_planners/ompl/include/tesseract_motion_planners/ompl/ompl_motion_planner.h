@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_common/eigen_types.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @brief This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to
@@ -86,15 +86,15 @@ protected:
    * @param format_result_as_input Indicate if the result should be formated as input
    * @return The start index for the next segment
    */
-  static long assignTrajectory(tesseract_planning::CompositeInstruction& output,
+  static long assignTrajectory(tesseract::command_language::CompositeInstruction& output,
                                boost::uuids::uuid start_uuid,
                                boost::uuids::uuid end_uuid,
                                long start_index,
                                const std::vector<std::string>& joint_names,
-                               const tesseract_common::TrajArray& traj,
+                               const tesseract::common::TrajArray& traj,
                                bool format_result_as_input);
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_MOTION_PLANNER_H

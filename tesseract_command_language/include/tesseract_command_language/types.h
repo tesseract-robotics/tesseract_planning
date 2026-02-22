@@ -27,7 +27,7 @@
 #include <unordered_map>
 #include <string>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 /**
  * @brief Map that associates for override profile names (values) with specified task namespaces (keys)
@@ -38,6 +38,6 @@ namespace tesseract_planning
  */
 using ProfileOverrides = std::unordered_map<std::string, std::string>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_TYPES_H

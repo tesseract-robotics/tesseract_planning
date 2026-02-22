@@ -33,7 +33,8 @@
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
 
 /**
  * @brief Test fixture for SimplePlannerLVSAssignNoIKMoveProfile unit tests
@@ -55,7 +56,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, Serialization
 {
   auto profile = std::make_shared<SimplePlannerLVSAssignNoIKMoveProfile>(3.14, 0.5, 1.57, 5);
   // Serialization
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, SimplePlannerLVSAssignNoIKMoveProfile>(
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, SimplePlannerLVSAssignNoIKMoveProfile>(
       profile, "SimplePlannerLVSAssignNoIKMoveProfile");
 }
 
@@ -81,7 +82,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, JointCart_Ass
 
   SimplePlannerLVSAssignNoIKMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -135,7 +136,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, CartJoint_Ass
 
   SimplePlannerLVSAssignNoIKMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -191,7 +192,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, CartCart_Assi
 
   SimplePlannerLVSAssignNoIKMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -248,7 +249,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, JointJoint_As
 
   SimplePlannerLVSAssignNoIKMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -299,7 +300,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, CartCart_With
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
   // Add an explicit seed to the waypoint
-  tesseract_common::JointState joint_seed;
+  tesseract::common::JointState joint_seed;
   joint_seed.joint_names = joint_names_;
   joint_seed.position = Eigen::VectorXd::Ones(7) * 0.5;
   wp2.setSeed(joint_seed);
@@ -309,7 +310,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, CartCart_With
 
   SimplePlannerLVSAssignNoIKMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -363,7 +364,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, MixedMotionTy
 
   SimplePlannerLVSAssignNoIKMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -417,14 +418,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, StateSegmentL
   int min_steps = 5;
   SimplePlannerLVSAssignNoIKMoveProfile profile_large(6.28, 10.0, 6.28, min_steps);
   auto move_instructions_large =
-      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions_large.size(), min_steps);
 
   // Test with small state segment length (should create more steps)
   double small_state_length = 0.05;
   SimplePlannerLVSAssignNoIKMoveProfile profile_small(small_state_length, 10.0, 6.28, min_steps);
   auto move_instructions_small =
-      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Calculate expected steps based on joint distance
   double joint_dist = (wp2.getPosition() - wp1.getPosition()).norm();
@@ -469,14 +470,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, TranslationSe
   int min_steps = 5;
   SimplePlannerLVSAssignNoIKMoveProfile profile_large(6.28, 10.0, 6.28, min_steps);
   auto move_instructions_large =
-      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions_large.size(), min_steps);
 
   // Test with small translation segment length (should create more steps)
   double small_trans_length = 0.01;
   SimplePlannerLVSAssignNoIKMoveProfile profile_small(6.28, small_trans_length, 6.28, min_steps);
   auto move_instructions_small =
-      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Calculate expected steps based on translation distance
   double trans_dist = (wp2.getTransform().translation() - wp1.getTransform().translation()).norm();
@@ -527,14 +528,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, RotationSegme
   int min_steps = 5;
   SimplePlannerLVSAssignNoIKMoveProfile profile_large(6.28, 10.0, 6.28, min_steps);
   auto move_instructions_large =
-      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions_large.size(), min_steps);
 
   // Test with small rotation segment length (should create more steps)
   double small_rot_length = 0.01;
   SimplePlannerLVSAssignNoIKMoveProfile profile_small(6.28, 10.0, small_rot_length, min_steps);
   auto move_instructions_small =
-      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Calculate expected steps based on rotation distance
   double rot_dist =
@@ -583,7 +584,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, MinSteps_NoIK
   int min_steps = 15;
   SimplePlannerLVSAssignNoIKMoveProfile profile(10.0, 10.0, 10.0, min_steps);
   auto move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should always respect min_steps regardless of segment lengths
   EXPECT_EQ(move_instructions.size(), min_steps);
@@ -622,7 +623,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, MaxSteps_NoIK
   int max_steps = 8;
   SimplePlannerLVSAssignNoIKMoveProfile profile(0.001, 0.001, 0.001, min_steps, max_steps);
   auto move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should be limited by max_steps
   EXPECT_EQ(move_instructions.size(), max_steps);
@@ -660,7 +661,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, LargeParamete
   int min_steps = 8;
   SimplePlannerLVSAssignNoIKMoveProfile profile(100.0, 100.0, 100.0, min_steps);
   auto move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should use exactly min_steps
   EXPECT_EQ(move_instructions.size(), min_steps);
@@ -700,7 +701,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, SmallParamete
   int max_steps = 12;
   SimplePlannerLVSAssignNoIKMoveProfile profile(0.0001, 0.0001, 0.0001, min_steps, max_steps);
   auto move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should be limited by max_steps
   EXPECT_EQ(move_instructions.size(), max_steps);

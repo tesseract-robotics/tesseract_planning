@@ -71,15 +71,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/markers/axis_marker.h>
 
-using namespace tesseract_environment;
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_visualization;
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::visualization;
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
-OnlinePlanningExample::OnlinePlanningExample(std::shared_ptr<tesseract_environment::Environment> env,
-                                             std::shared_ptr<tesseract_visualization::Visualization> plotter,
+OnlinePlanningExample::OnlinePlanningExample(std::shared_ptr<tesseract::environment::Environment> env,
+                                             std::shared_ptr<tesseract::visualization::Visualization> plotter,
                                              int steps,
                                              double box_size,
                                              bool update_start_state,
@@ -95,7 +95,7 @@ OnlinePlanningExample::OnlinePlanningExample(std::shared_ptr<tesseract_environme
   manip_ = env_->getKinematicGroup("manipulator");
 
   // Initialize the trajectory
-  current_trajectory_ = tesseract_common::TrajArray::Zero(steps_, 10);
+  current_trajectory_ = tesseract::common::TrajArray::Zero(steps_, 10);
   joint_names_ = { "gantry_axis_1", "gantry_axis_2", "joint_1", "joint_2",       "joint_3",
                    "joint_4",       "joint_5",       "joint_6", "human_x_joint", "human_y_joint" };
 
@@ -126,7 +126,7 @@ void OnlinePlanningExample::updateState(const std::vector<std::string>& joint_na
     target_pose_constraint_->setTargetPose(target_pose_base_frame_ * target_pose_delta_);
 
     plotter_->clear();
-    tesseract_visualization::AxisMarker am(target_pose_base_frame_ * target_pose_delta_);
+    tesseract::visualization::AxisMarker am(target_pose_base_frame_ * target_pose_delta_);
     am.setScale(Eigen::Vector3d::Constant(0.3));
     plotter_->plotMarker(am);
   }
@@ -214,7 +214,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   double margin_coeff = 10;
   double margin = 0.1;
   trajopt_common::TrajOptCollisionConfig collision_config(margin, margin_coeff);
-  collision_config.collision_check_config.contact_request.type = tesseract_collision::ContactTestType::ALL;
+  collision_config.collision_check_config.contact_request.type = tesseract::collision::ContactTestType::ALL;
   collision_config.collision_check_config.type = CollisionEvaluatorType::DISCRETE;
   collision_config.collision_margin_buffer = 0.10;
 
@@ -266,17 +266,17 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
 }
 
 // Convert to joint trajectory
-tesseract_common::JointTrajectory getJointTrajectory(boost::uuids::uuid uuid,
-                                                     const std::vector<std::string>& joint_names,
-                                                     const tesseract_common::TrajArray& current_trajectory)
+tesseract::common::JointTrajectory getJointTrajectory(boost::uuids::uuid uuid,
+                                                      const std::vector<std::string>& joint_names,
+                                                      const tesseract::common::TrajArray& current_trajectory)
 {
-  tesseract_common::JointTrajectory joint_traj;
+  tesseract::common::JointTrajectory joint_traj;
   joint_traj.uuid = uuid;
   joint_traj.reserve(static_cast<std::size_t>(current_trajectory.rows()));
   double total_time = 0;
   for (long i = 0; i < current_trajectory.rows(); ++i)
   {
-    tesseract_common::JointState js(joint_names, current_trajectory.row(i));
+    tesseract::common::JointState js(joint_names, current_trajectory.row(i));
     js.time = total_time;
     joint_traj.push_back(js);
     total_time += 0.1;
@@ -287,11 +287,11 @@ tesseract_common::JointTrajectory getJointTrajectory(boost::uuids::uuid uuid,
 void OnlinePlanningExample::updateAndPlotTrajectory(const Eigen::VectorXd& osqp_vals)
 {
   // Update manipulator joint values
-  Eigen::Map<const tesseract_common::TrajArray> trajectory(osqp_vals.data(), steps_, 8);
+  Eigen::Map<const tesseract::common::TrajArray> trajectory(osqp_vals.data(), steps_, 8);
   current_trajectory_.block(0, 0, steps_, 8) = trajectory;
 
   // Convert to joint trajectory
-  tesseract_common::JointTrajectory joint_traj =
+  tesseract::common::JointTrajectory joint_traj =
       getJointTrajectory(current_trajectory_uuid_, joint_names_, current_trajectory_);
   player_.setTrajectory(joint_traj);
 
@@ -331,12 +331,12 @@ bool OnlinePlanningExample::onlinePlan()
     // Calculate current position of the robot and update environment current state
     if (update_start_state_)
     {
-      tesseract_common::JointState state = player_.setCurrentDuration(dt);
+      tesseract::common::JointState state = player_.setCurrentDuration(dt);
       std::vector<Eigen::VectorXd> init_trajectory;
       Eigen::VectorXd time_state = Eigen::VectorXd::LinSpaced(steps_, dt, player_.trajectoryDurationEnd());
       for (Eigen::Index t = 0; t < steps_; t++)
       {
-        tesseract_common::JointState state = player_.setCurrentDuration(time_state(t));  // NOLINT
+        tesseract::common::JointState state = player_.setCurrentDuration(time_state(t));  // NOLINT
         init_trajectory.emplace_back(state.position.head(manip_->numJoints()));
       }
 
@@ -348,7 +348,7 @@ bool OnlinePlanningExample::onlinePlan()
 
     // TODO Figure out why this is needed. The commented code below this should be enough to reset
     {  // Setup problem again
-      Eigen::Map<const tesseract_common::TrajArray> trajectory(x.data(), steps_, 8);
+      Eigen::Map<const tesseract::common::TrajArray> trajectory(x.data(), steps_, 8);
       std::vector<Eigen::VectorXd> init_trajectory(static_cast<std::size_t>(steps_));
       for (Eigen::Index i = 0; i < steps_; ++i)
         init_trajectory[static_cast<std::size_t>(i)] = trajectory.row(i);
@@ -405,4 +405,4 @@ bool OnlinePlanningExample::onlinePlan()
   return true;
 }
 
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples

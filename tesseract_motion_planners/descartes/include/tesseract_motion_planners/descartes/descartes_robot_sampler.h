@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 class DescartesVertexEvaluator;
 class DescartesCollision;
@@ -55,7 +55,7 @@ public:
   DescartesRobotSampler(std::string target_working_frame,
                         const Eigen::Isometry3d& target_pose,  // NOLINT(modernize-pass-by-value)
                         PoseSamplerFn target_pose_sampler,
-                        std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip,
+                        std::shared_ptr<const tesseract::kinematics::KinematicGroup> manip,
                         std::shared_ptr<DescartesCollision> collision,
                         std::string tcp_frame,
                         const Eigen::Isometry3d& tcp_offset,  // NOLINT(modernize-pass-by-value)
@@ -78,7 +78,7 @@ private:
   PoseSamplerFn target_pose_sampler_;
 
   /** @brief The manipulator kinematic group */
-  std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip_;
+  std::shared_ptr<const tesseract::kinematics::KinematicGroup> manip_;
 
   /** @brief The collision interface */
   std::shared_ptr<DescartesCollision> collision_;
@@ -111,5 +111,5 @@ private:
 using DescartesRobotSamplerF = DescartesRobotSampler<float>;
 using DescartesRobotSamplerD = DescartesRobotSampler<double>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_ROBOT_SAMPLER_H

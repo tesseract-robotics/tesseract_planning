@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 struct PlannerRequest;
 struct PlannerResponse;
@@ -84,7 +84,7 @@ public:
   static bool checkRequest(const PlannerRequest& request, std::string& reason);
 
   /** @brief Assign a solution to the move instruction */
-  static void assignSolution(MoveInstructionPoly& mi,
+  static void assignSolution(tesseract::command_language::MoveInstructionPoly& mi,
                              const std::vector<std::string>& joint_names,
                              const Eigen::Ref<const Eigen::VectorXd>& joint_values,
                              bool format_result_as_input);
@@ -92,5 +92,5 @@ public:
 protected:
   std::string name_;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_PLANNING_PLANNER_H

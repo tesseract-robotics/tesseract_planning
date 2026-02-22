@@ -25,7 +25,7 @@
 
 #include <tesseract_task_composer/core/task_composer_task.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 class DoneTask : public TaskComposerTask
@@ -46,6 +46,6 @@ private:
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_DONE_TASK_H

@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskflowTaskComposerFuture::TaskflowTaskComposerFuture(std::shared_future<void> future,
                                                        std::unique_ptr<tf::Taskflow> taskflow,
@@ -74,4 +74,4 @@ TaskComposerFuture::UPtr TaskflowTaskComposerFuture::copy() const
 }
 
 void TaskflowTaskComposerFuture::dump(std::ostream& os) const { taskflow_->dump(os); }
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

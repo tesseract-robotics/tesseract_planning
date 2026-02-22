@@ -22,7 +22,7 @@
 #include <tesseract_common/fwd.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerContext;
 
@@ -40,8 +40,8 @@ public:
   bool operator==(const TaskComposerLog& rhs) const;
   bool operator!=(const TaskComposerLog& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
-TESSERACT_CLASS_EXTENSION(tesseract_planning::TaskComposerLog, ".tclx", ".tclj", ".tclb")
+TESSERACT_CLASS_EXTENSION(tesseract::task_composer::TaskComposerLog, ".tclx", ".tclj", ".tclb")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_LOG_H

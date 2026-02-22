@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 class DescartesVertexEvaluator
 {
@@ -71,6 +71,6 @@ public:
 protected:
   Eigen::MatrixX2d limits_;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_VERTEX_EVALUATOR_H

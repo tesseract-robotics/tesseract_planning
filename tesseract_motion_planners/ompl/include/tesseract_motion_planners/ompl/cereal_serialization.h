@@ -12,7 +12,7 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <class Archive>
 void serialize(Archive& /*ar*/, OMPLPlannerConfigurator& /*obj*/)
@@ -154,7 +154,7 @@ void serialize(Archive& ar, OMPLSolverConfig& obj)
 template <class Archive>
 void serialize(Archive& ar, OMPLMoveProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
 }
 
 template <class Archive>
@@ -165,6 +165,6 @@ void serialize(Archive& ar, OMPLRealVectorMoveProfile& obj)
   ar(cereal::make_nvp("contact_manager_config", obj.contact_manager_config));
   ar(cereal::make_nvp("collision_check_config", obj.collision_check_config));
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_CEREAL_SERIALIZATION_H

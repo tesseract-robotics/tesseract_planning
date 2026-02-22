@@ -5,10 +5,10 @@
 #include <cereal/archives/xml.hpp>
 #include <cereal/archives/json.hpp>
 
-CEREAL_REGISTER_TYPE(tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile)
+CEREAL_REGISTER_TYPE(tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile)
 
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile,
-                                     tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile,
+                                     tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile)
 
 // LCOV_EXCL_START
 CEREAL_REGISTER_DYNAMIC_INIT(tesseract_time_parameterization_totg_cereal)

@@ -25,7 +25,7 @@
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerFuture::TaskComposerFuture(std::shared_ptr<TaskComposerContext> context) : context(std::move(context)) {}
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

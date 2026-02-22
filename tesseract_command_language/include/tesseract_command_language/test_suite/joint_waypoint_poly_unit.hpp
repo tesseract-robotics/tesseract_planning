@@ -27,7 +27,7 @@
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/test_suite/waypoint_poly_unit.hpp>
 
-namespace tesseract_planning::test_suite
+namespace tesseract::command_language::test_suite
 {
 template <typename T>
 void runJointWaypointTest()
@@ -107,7 +107,7 @@ void runJointWaypointTest()
       Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(2, 5);
       EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions, lower_tol, uppert_tol) });  // NOLINT
     }
-  }  // namespace tesseract_planning::test_suite
+  }  // namespace tesseract::command_language::test_suite
 
   {  // Test is constrained
     JointWaypointPoly wp{ T() };
@@ -276,5 +276,5 @@ void runJointWaypointTest()
     }
   }
 }
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::command_language::test_suite
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_POLY_UNIT_HPP

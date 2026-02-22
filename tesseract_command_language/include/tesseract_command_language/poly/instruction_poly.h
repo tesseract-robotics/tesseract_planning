@@ -40,7 +40,7 @@ namespace boost::uuids
 struct uuid;
 }
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class MoveInstructionInterface;
 
@@ -124,7 +124,7 @@ protected:
 
 private:
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, InstructionInterface& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, InstructionInterface& obj);
 };
 
 class InstructionPoly
@@ -244,9 +244,9 @@ private:
   std::unique_ptr<InstructionInterface> impl_;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, InstructionPoly& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, InstructionPoly& obj);
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H

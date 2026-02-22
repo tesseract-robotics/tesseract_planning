@@ -31,9 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/eigen_types.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
-using PoseSamplerFn = std::function<tesseract_common::VectorIsometry3d(const Eigen::Isometry3d& tool_pose)>;
+using PoseSamplerFn = std::function<tesseract::common::VectorIsometry3d(const Eigen::Isometry3d& tool_pose)>;
 
 /**
  * @brief Given a tool pose create samples from [minimum, maximum] around the provided axis.
@@ -44,11 +44,11 @@ using PoseSamplerFn = std::function<tesseract_common::VectorIsometry3d(const Eig
  * @param maximum The maximum angle to stop sampling at
  * @return A vector of tool poses
  */
-tesseract_common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_pose,
-                                                  const Eigen::Vector3d& axis,
-                                                  double resolution,
-                                                  double minimum,
-                                                  double maximum);
+tesseract::common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_pose,
+                                                   const Eigen::Vector3d& axis,
+                                                   double resolution,
+                                                   double minimum,
+                                                   double maximum);
 
 /**
  * @brief Given a tool pose create samples from [minimum, maximum] around the x axis.
@@ -58,7 +58,7 @@ tesseract_common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_
  * @param maximum The maximum angle to stop sampling at
  * @return A vector of tool poses
  */
-tesseract_common::VectorIsometry3d
+tesseract::common::VectorIsometry3d
 sampleToolXAxis(const Eigen::Isometry3d& tool_pose, double resolution, double minimum, double maximum);
 
 /**
@@ -69,7 +69,7 @@ sampleToolXAxis(const Eigen::Isometry3d& tool_pose, double resolution, double mi
  * @param maximum The maximum angle to stop sampling at
  * @return A vector of tool poses
  */
-tesseract_common::VectorIsometry3d
+tesseract::common::VectorIsometry3d
 sampleToolYAxis(const Eigen::Isometry3d& tool_pose, double resolution, double minimum, double maximum);
 
 /**
@@ -80,7 +80,7 @@ sampleToolYAxis(const Eigen::Isometry3d& tool_pose, double resolution, double mi
  * @param maximum The maximum angle to stop sampling at
  * @return A vector of tool poses
  */
-tesseract_common::VectorIsometry3d
+tesseract::common::VectorIsometry3d
 sampleToolZAxis(const Eigen::Isometry3d& tool_pose, double resolution, double minimum, double maximum);
 
 /**
@@ -88,7 +88,7 @@ sampleToolZAxis(const Eigen::Isometry3d& tool_pose, double resolution, double mi
  * @param tool_pose Tool pose to be sampled
  * @return A vector with a single pose that was provided as input to function
  */
-tesseract_common::VectorIsometry3d sampleFixed(const Eigen::Isometry3d& tool_pose);
+tesseract::common::VectorIsometry3d sampleFixed(const Eigen::Isometry3d& tool_pose);
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_PLANNING_DESCARTES_UTILS_H

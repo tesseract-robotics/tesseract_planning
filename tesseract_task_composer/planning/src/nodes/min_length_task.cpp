@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string MinLengthTask::INOUT_PROGRAM_PORT = "program";
@@ -99,7 +99,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   // Check that inputs are valid
   // --------------------
   auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
-  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     info.status_code = 0;
     info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
@@ -108,10 +108,10 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
     return info;
   }
 
-  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
+  auto env = env_poly.as<std::shared_ptr<const tesseract::environment::Environment>>();
 
   auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
-  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input seed to MinLengthTask must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
@@ -119,8 +119,8 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   }
 
   // Get Composite Profile
-  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
-  const auto& ci = input_data_poly.as<CompositeInstruction>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract::common::ProfileDictionary>>();
+  const auto& ci = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
   long cnt = ci.getMoveInstructionCount();
   auto cur_composite_profile =
       profiles->getProfile<MinLengthProfile>(ns_, ci.getProfile(ns_), std::make_shared<MinLengthProfile>());
@@ -131,28 +131,30 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
         std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt - 1)));
 
     // Fill out request and response
-    PlannerRequest request;
+    tesseract::motion_planners::PlannerRequest request;
     request.instructions = ci;
     request.env = env;
     request.format_result_as_input = true;
 
     // Set up planner
-    SimpleMotionPlanner planner(ns_);
+    tesseract::motion_planners::SimpleMotionPlanner planner(ns_);
 
-    auto profile = std::make_shared<SimplePlannerFixedSizeMoveProfile>(subdivisions, subdivisions);
+    auto profile =
+        std::make_shared<tesseract::motion_planners::SimplePlannerFixedSizeMoveProfile>(subdivisions, subdivisions);
 
     // Create profile dictionary
-    auto simple_profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+    auto simple_profiles = std::make_shared<tesseract::common::ProfileDictionary>();
     simple_profiles->addProfile(planner.getName(), ci.getProfile(), profile);
-    auto flat = ci.flatten(&moveFilter);
+    auto flat = ci.flatten(&tesseract::command_language::moveFilter);
     for (const auto& i : flat)
-      simple_profiles->addProfile(planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
+      simple_profiles->addProfile(
+          planner.getName(), i.get().as<tesseract::command_language::MoveInstructionPoly>().getProfile(), profile);
 
     // Assign profile dictionary
     request.profiles = simple_profiles;
 
     // Solve
-    PlannerResponse response = planner.solve(request);
+    tesseract::motion_planners::PlannerResponse response = planner.solve(request);
 
     if (!response.successful)
     {
@@ -176,4 +178,4 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

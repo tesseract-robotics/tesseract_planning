@@ -38,26 +38,26 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
-struct ContactCheckProfile : public tesseract_common::Profile
+struct ContactCheckProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<ContactCheckProfile>;
   using ConstPtr = std::shared_ptr<const ContactCheckProfile>;
 
   ContactCheckProfile();
   ContactCheckProfile(double longest_valid_segment_length, double contact_distance);
-  ContactCheckProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  ContactCheckProfile(const YAML::Node& config, const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   /** @brief The contact manager config */
-  tesseract_collision::ContactManagerConfig contact_manager_config;
+  tesseract::collision::ContactManagerConfig contact_manager_config;
 
   /** @brief The collision check config */
-  tesseract_collision::CollisionCheckConfig collision_check_config;
+  tesseract::collision::CollisionCheckConfig collision_check_config;
 
   bool operator==(const ContactCheckProfile& rhs) const;
   bool operator!=(const ContactCheckProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_CONTACT_CHECK_PROFILE_H

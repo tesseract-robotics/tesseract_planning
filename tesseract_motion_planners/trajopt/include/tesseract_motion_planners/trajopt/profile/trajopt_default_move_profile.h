@@ -39,7 +39,7 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 class TrajOptDefaultMoveProfile : public TrajOptMoveProfile
 {
@@ -48,16 +48,16 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptDefaultMoveProfile>;
 
   TrajOptDefaultMoveProfile();
-  TrajOptDefaultMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  TrajOptDefaultMoveProfile(const YAML::Node& config, const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   TrajOptCartesianWaypointConfig cartesian_cost_config;
   TrajOptCartesianWaypointConfig cartesian_constraint_config;
   TrajOptJointWaypointConfig joint_cost_config;
   TrajOptJointWaypointConfig joint_constraint_config;
 
-  TrajOptWaypointInfo create(const MoveInstructionPoly& move_instruction,
-                             const tesseract_common::ManipulatorInfo& composite_manip_info,
-                             const std::shared_ptr<const tesseract_environment::Environment>& env,
+  TrajOptWaypointInfo create(const tesseract::command_language::MoveInstructionPoly& move_instruction,
+                             const tesseract::common::ManipulatorInfo& composite_manip_info,
+                             const std::shared_ptr<const tesseract::environment::Environment>& env,
                              const std::vector<std::string>& active_links,
                              int index) const override;
 
@@ -91,6 +91,6 @@ protected:
                                     const Eigen::VectorXd& coeff,
                                     int index);
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_MOVE_PROFILE_H

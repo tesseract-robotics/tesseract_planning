@@ -27,7 +27,7 @@
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 UpsampleTrajectoryProfile::UpsampleTrajectoryProfile() : Profile(createKey<UpsampleTrajectoryProfile>()) {}
 
@@ -36,7 +36,7 @@ UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(double longest_valid_segmen
 {
 }
 UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(const YAML::Node& config,
-                                                     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+                                                     const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : UpsampleTrajectoryProfile()
 {
   try
@@ -54,10 +54,10 @@ bool UpsampleTrajectoryProfile::operator==(const UpsampleTrajectoryProfile& rhs)
 {
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
-  return tesseract_common::almostEqualRelativeAndAbs(
+  return tesseract::common::almostEqualRelativeAndAbs(
       longest_valid_segment_length, rhs.longest_valid_segment_length, max_diff);
 }
 
 bool UpsampleTrajectoryProfile::operator!=(const UpsampleTrajectoryProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

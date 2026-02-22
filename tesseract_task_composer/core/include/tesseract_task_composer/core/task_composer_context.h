@@ -38,7 +38,7 @@ namespace boost::uuids
 struct uuid;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerDataStorage;
 class TaskComposerNode;
@@ -122,8 +122,8 @@ private:
   mutable std::atomic<bool> aborted_{ false };
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, TaskComposerContext& obj);
+  friend void ::tesseract::task_composer::serialize(Archive& ar, TaskComposerContext& obj);
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_CONTEXT_H

@@ -1,7 +1,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_OMPL_FWD_H
 #define TESSERACT_MOTION_PLANNERS_OMPL_FWD_H
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 // compound_state_validator.h
 class CompoundStateValidator;
@@ -45,6 +45,6 @@ class WeightedRealVectorStateSampler;
 // profile
 class OMPLMoveProfile;
 class OMPLRealVectorMoveProfile;
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_FWD_H

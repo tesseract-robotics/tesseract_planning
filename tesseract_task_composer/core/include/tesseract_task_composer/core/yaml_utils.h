@@ -31,7 +31,7 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerNode;
 class TaskComposerPluginFactory;
@@ -65,6 +65,6 @@ void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config);
  */
 void validateSubTask(const std::string& parent_name, const std::string& key, const YAML::Node& node);
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_CORE_YAML_UTILS_H

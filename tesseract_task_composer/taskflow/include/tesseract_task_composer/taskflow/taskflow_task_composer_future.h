@@ -37,7 +37,7 @@ namespace tf
 class Taskflow;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 struct TaskComposerTaskflowContainer;
 class TaskflowTaskComposerFuture : public TaskComposerFuture
@@ -78,6 +78,6 @@ private:
   /** @brief Hold object that must not go out of scope during execution */
   std::shared_ptr<tf::Taskflow> taskflow_;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_FUTURE_H

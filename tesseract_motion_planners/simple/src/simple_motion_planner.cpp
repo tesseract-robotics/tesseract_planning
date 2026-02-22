@@ -53,7 +53,7 @@ constexpr auto SOLUTION_FOUND{ "Found valid solution" };
 constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
 constexpr auto FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution: " };
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 SimpleMotionPlanner::SimpleMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
@@ -85,22 +85,22 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   const std::string manipulator = request.instructions.getManipulatorInfo().manipulator;
 
   // Initialize
-  tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(manipulator);
+  tesseract::kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(manipulator);
 
   // Start State
-  tesseract_scene_graph::SceneState start_state = request.env->getState();
+  tesseract::scene_graph::SceneState start_state = request.env->getState();
 
   // Create seed
-  CompositeInstruction seed;
+  tesseract::command_language::CompositeInstruction seed;
 
   // Place holder for start instruction
-  MoveInstructionPoly null_instruction;
+  tesseract::command_language::MoveInstructionPoly null_instruction;
 
   // Process the instructions into the seed
   try
   {
-    MoveInstructionPoly start_instruction_copy = null_instruction;
-    MoveInstructionPoly start_instruction_seed_copy = null_instruction;
+    tesseract::command_language::MoveInstructionPoly start_instruction_copy = null_instruction;
+    tesseract::command_language::MoveInstructionPoly start_instruction_seed_copy = null_instruction;
     seed = processCompositeInstruction(
         start_instruction_copy, start_instruction_seed_copy, request.instructions, start_state, request);
   }
@@ -117,20 +117,20 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
 
   // Enforce limits, and format as output if requested
   const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
-  auto results_flattened = response.results.flatten(&moveFilter);
+  auto results_flattened = response.results.flatten(&tesseract::command_language::moveFilter);
   for (auto& inst : results_flattened)
   {
-    auto& mi = inst.get().as<MoveInstructionPoly>();
+    auto& mi = inst.get().as<tesseract::command_language::MoveInstructionPoly>();
     if (mi.getWaypoint().isJointWaypoint() || mi.getWaypoint().isStateWaypoint())
     {
       Eigen::VectorXd jp = getJointPosition(mi.getWaypoint());
-      assert(tesseract_common::satisfiesLimits<double>(jp, joint_limits));
-      tesseract_common::enforceLimits<double>(jp, joint_limits);
+      assert(tesseract::common::satisfiesLimits<double>(jp, joint_limits));
+      tesseract::common::enforceLimits<double>(jp, joint_limits);
       setJointPosition(mi.getWaypoint(), jp);
 
       if (!request.format_result_as_input)
       {
-        StateWaypointPoly swp = mi.createStateWaypoint();
+        tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
         swp.setNames(getJointNames(mi.getWaypoint()));
         swp.setPosition(jp);
         mi.getWaypoint() = swp;
@@ -138,16 +138,16 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
     }
     else if (mi.getWaypoint().isCartesianWaypoint())
     {
-      auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
+      auto& cwp = mi.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
       if (cwp.hasSeed())
       {
         Eigen::VectorXd& jp = cwp.getSeed().position;
-        assert(tesseract_common::satisfiesLimits<double>(jp, joint_limits));
-        tesseract_common::enforceLimits<double>(jp, joint_limits);
+        assert(tesseract::common::satisfiesLimits<double>(jp, joint_limits));
+        tesseract::common::enforceLimits<double>(jp, joint_limits);
 
         if (!request.format_result_as_input)
         {
-          StateWaypointPoly swp = mi.createStateWaypoint();
+          tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
           swp.setNames(cwp.getSeed().joint_names);
           swp.setPosition(jp);
           mi.getWaypoint() = swp;
@@ -164,14 +164,14 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   return response;
 }
 
-CompositeInstruction
-SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instruction,
-                                                 MoveInstructionPoly& prev_seed,
-                                                 const CompositeInstruction& instructions,
-                                                 const tesseract_scene_graph::SceneState& start_state,
+tesseract::command_language::CompositeInstruction
+SimpleMotionPlanner::processCompositeInstruction(tesseract::command_language::MoveInstructionPoly& prev_instruction,
+                                                 tesseract::command_language::MoveInstructionPoly& prev_seed,
+                                                 const tesseract::command_language::CompositeInstruction& instructions,
+                                                 const tesseract::scene_graph::SceneState& start_state,
                                                  const PlannerRequest& request) const
 {
-  CompositeInstruction seed(instructions);
+  tesseract::command_language::CompositeInstruction seed(instructions);
   seed.clear();
 
   for (std::size_t i = 0; i < instructions.size(); ++i)
@@ -180,16 +180,19 @@ SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instr
 
     if (instruction.isCompositeInstruction())
     {
-      seed.push_back(processCompositeInstruction(
-          prev_instruction, prev_seed, instruction.as<CompositeInstruction>(), start_state, request));
+      seed.push_back(processCompositeInstruction(prev_instruction,
+                                                 prev_seed,
+                                                 instruction.as<tesseract::command_language::CompositeInstruction>(),
+                                                 start_state,
+                                                 request));
     }
     else if (instruction.isMoveInstruction())
     {
-      const auto& base_instruction = instruction.as<MoveInstructionPoly>();
+      const auto& base_instruction = instruction.as<tesseract::command_language::MoveInstructionPoly>();
       if (prev_instruction.isNull())
       {
         const std::string manipulator = request.instructions.getManipulatorInfo().manipulator;
-        tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(manipulator);
+        tesseract::kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(manipulator);
 
         prev_instruction = base_instruction;
         auto& start_waypoint = prev_instruction.getWaypoint();
@@ -199,14 +202,14 @@ SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instr
         }
         else if (start_waypoint.isCartesianWaypoint())
         {
-          if (!start_waypoint.as<CartesianWaypointPoly>().hasSeed())
+          if (!start_waypoint.as<tesseract::command_language::CartesianWaypointPoly>().hasSeed())
           {
             // Run IK to find solution closest to start
             KinematicGroupInstructionInfo info(
                 prev_instruction, *request.env, request.instructions.getManipulatorInfo());
             auto start_seed = getClosestJointSolution(info, start_state.getJointValues(manip->getJointNames()));
-            start_waypoint.as<CartesianWaypointPoly>().setSeed(
-                tesseract_common::JointState(manip->getJointNames(), start_seed));
+            start_waypoint.as<tesseract::command_language::CartesianWaypointPoly>().setSeed(
+                tesseract::common::JointState(manip->getJointNames(), start_seed));
           }
         }
         else
@@ -219,7 +222,7 @@ SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instr
       }
 
       // Get the next plan instruction if it exists
-      InstructionPoly next_instruction;
+      tesseract::command_language::InstructionPoly next_instruction;
       for (std::size_t n = i + 1; n < instructions.size(); ++n)
       {
         if (instructions[n].isMoveInstruction())
@@ -245,7 +248,7 @@ SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instr
       if (!move_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid profile");
 
-      std::vector<MoveInstructionPoly> instruction_seed =
+      std::vector<tesseract::command_language::MoveInstructionPoly> instruction_seed =
           move_profile->generate(prev_instruction,
                                  prev_seed,
                                  base_instruction,
@@ -273,4 +276,4 @@ SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instr
   return seed;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

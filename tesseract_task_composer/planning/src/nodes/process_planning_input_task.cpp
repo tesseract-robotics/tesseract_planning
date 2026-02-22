@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/composite_instruction.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string ProcessPlanningInputTask::INPUT_PLANNING_INPUT_PORT = "planning_input";
@@ -77,7 +77,7 @@ TaskComposerNodeInfo ProcessPlanningInputTask::runImpl(TaskComposerContext& cont
 {
   TaskComposerNodeInfo info(*this);
   auto planning_input_poly = getData(context, INPUT_PLANNING_INPUT_PORT);
-  if (planning_input_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (planning_input_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.color = "red";
     info.status_code = 0;
@@ -89,7 +89,7 @@ TaskComposerNodeInfo ProcessPlanningInputTask::runImpl(TaskComposerContext& cont
     return info;
   }
 
-  setData(context, OUTPUT_PROGRAM_PORT, planning_input_poly.as<CompositeInstruction>());
+  setData(context, OUTPUT_PROGRAM_PORT, planning_input_poly.as<tesseract::command_language::CompositeInstruction>());
 
   info.color = "green";
   info.status_code = 1;
@@ -98,4 +98,4 @@ TaskComposerNodeInfo ProcessPlanningInputTask::runImpl(TaskComposerContext& cont
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

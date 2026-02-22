@@ -33,7 +33,8 @@
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
 
 /**
  * @brief Test fixture for SimplePlannerFixedSizeAssignMoveProfile unit tests
@@ -51,7 +52,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, Serializati
 {
   auto profile = std::make_shared<SimplePlannerFixedSizeAssignMoveProfile>(10, 10);
   // Serialization
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, SimplePlannerFixedSizeAssignMoveProfile>(
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, SimplePlannerFixedSizeAssignMoveProfile>(
       profile, "SimplePlannerFixedSizeAssignMoveProfile");
 }
 
@@ -77,7 +78,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit,
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // For freespace joint-to-joint moves, all intermediate waypoints should be joint waypoints
@@ -129,7 +130,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, JointJoint_
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // For linear moves, intermediate waypoints should be Cartesian with joint seed
@@ -181,15 +182,15 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, JointCart_A
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // Solve IK for the Cartesian waypoint to get expected joint position
   // This demonstrates how the planner converts Cartesian targets to joint positions
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
-  tesseract_kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
+  tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
   const Eigen::VectorXd& seed = wp1.getPosition();
-  tesseract_kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
+  tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
 
@@ -241,14 +242,14 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, JointCart_A
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // Solve IK for the Cartesian waypoint to get expected joint position
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
-  tesseract_kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
+  tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
   const Eigen::VectorXd& seed = wp1.getPosition();
-  tesseract_kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
+  tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
 
@@ -301,7 +302,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartJoint_A
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // For freespace moves with joint target, intermediate waypoints are joint waypoints
@@ -354,7 +355,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartJoint_A
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // For linear moves, intermediate waypoints should be Cartesian with joint seed
@@ -407,15 +408,15 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_As
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // Solve IK for the Cartesian waypoint to get expected joint position
   // This demonstrates the conversion from Cartesian target to joint assignment
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
-  tesseract_kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
+  tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
   Eigen::VectorXd seed = env_->getCurrentJointValues(joint_names_);
-  tesseract_kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
+  tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
 
@@ -468,14 +469,14 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_As
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // Solve IK for the Cartesian waypoint to get expected joint position
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
-  tesseract_kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
+  tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
   Eigen::VectorXd seed = env_->getCurrentJointValues(joint_names_);
-  tesseract_kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
+  tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
 
@@ -524,7 +525,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_Wi
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
   // Add a seed to the waypoint
-  tesseract_common::JointState joint_seed;
+  tesseract::common::JointState joint_seed;
   joint_seed.joint_names = joint_names_;
   joint_seed.position = Eigen::VectorXd::Ones(7) * 0.5;
   wp2.setSeed(joint_seed);
@@ -534,7 +535,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_Wi
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // When seed is provided, it should use the seed joint position instead of IK solving
@@ -586,14 +587,14 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_Li
 
   SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // Solve IK for the Cartesian waypoint to get expected joint position
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
-  tesseract_kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
+  tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
   Eigen::VectorXd seed = env_->getCurrentJointValues(joint_names_);
-  tesseract_kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
+  tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
 
@@ -656,7 +657,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, DifferentSt
 
   SimplePlannerFixedSizeAssignMoveProfile profile_freespace(15, 10);
   std::vector<MoveInstructionPoly> move_instructions_freespace = profile_freespace.generate(
-      instr1_freespace, instr1_seed, instr2_freespace, instr3, env_, tesseract_common::ManipulatorInfo());
+      instr1_freespace, instr1_seed, instr2_freespace, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions_freespace.size(), 15);  // Should use freespace_steps
 
   // Test linear with different step count (15 freespace steps vs 20 linear steps)
@@ -666,7 +667,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, DifferentSt
 
   SimplePlannerFixedSizeAssignMoveProfile profile_linear(15, 20);
   std::vector<MoveInstructionPoly> move_instructions_linear = profile_linear.generate(
-      instr1_linear, instr1_seed, instr2_linear, instr3, env_, tesseract_common::ManipulatorInfo());
+      instr1_linear, instr1_seed, instr2_linear, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions_linear.size(), 20);  // Should use linear_steps
 }
 

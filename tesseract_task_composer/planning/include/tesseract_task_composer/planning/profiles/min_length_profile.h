@@ -39,22 +39,22 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
-struct MinLengthProfile : public tesseract_common::Profile
+struct MinLengthProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<MinLengthProfile>;
   using ConstPtr = std::shared_ptr<const MinLengthProfile>;
 
   MinLengthProfile();
   MinLengthProfile(long min_length);
-  MinLengthProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  MinLengthProfile(const YAML::Node& config, const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   long min_length{ 10 };
 
   bool operator==(const MinLengthProfile& rhs) const;
   bool operator!=(const MinLengthProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_MIN_LENGTH_PROFILE_H

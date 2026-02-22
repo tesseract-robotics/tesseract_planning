@@ -26,7 +26,7 @@
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 // Operators
 bool CartesianWaypointInterface::operator==(const CartesianWaypointInterface& rhs) const { return equals(rhs); }
@@ -103,20 +103,20 @@ const Eigen::VectorXd& CartesianWaypointPoly::getLowerTolerance() const
   return std::as_const(*impl_).getLowerTolerance();
 }
 
-void CartesianWaypointPoly::setSeed(const tesseract_common::JointState& seed) { impl_->setSeed(seed); }
-tesseract_common::JointState& CartesianWaypointPoly::getSeed() { return impl_->getSeed(); }
-const tesseract_common::JointState& CartesianWaypointPoly::getSeed() const { return std::as_const(*impl_).getSeed(); }
+void CartesianWaypointPoly::setSeed(const tesseract::common::JointState& seed) { impl_->setSeed(seed); }
+tesseract::common::JointState& CartesianWaypointPoly::getSeed() { return impl_->getSeed(); }
+const tesseract::common::JointState& CartesianWaypointPoly::getSeed() const { return std::as_const(*impl_).getSeed(); }
 
-bool tesseract_planning::CartesianWaypointPoly::hasSeed() const
+bool CartesianWaypointPoly::hasSeed() const
 {
   const auto& seed = std::as_const(*impl_).getSeed();
   return (seed.position.size() != 0 && !seed.joint_names.empty() &&
           static_cast<std::size_t>(seed.position.size()) == seed.joint_names.size());
 }
 
-void tesseract_planning::CartesianWaypointPoly::clearSeed() { impl_->setSeed(tesseract_common::JointState()); }
+void CartesianWaypointPoly::clearSeed() { impl_->setSeed(tesseract::common::JointState()); }
 
-bool tesseract_planning::CartesianWaypointPoly::isToleranced() const
+bool CartesianWaypointPoly::isToleranced() const
 {
   const auto& lower_tolerance = std::as_const(*impl_).getLowerTolerance();
   const auto& upper_tolerance = std::as_const(*impl_).getUpperTolerance();
@@ -134,7 +134,7 @@ bool tesseract_planning::CartesianWaypointPoly::isToleranced() const
   if ((upper_tolerance.array() < -max_diff).any())
     throw std::runtime_error("CartesianWaypointPoly: upper tolerance was provided but must be >= 0,");
 
-  return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
+  return !tesseract::common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
 }
 
 bool CartesianWaypointPoly::isNull() const { return (impl_ == nullptr); }
@@ -158,4 +158,4 @@ bool CartesianWaypointPoly::operator==(const CartesianWaypointPoly& rhs) const
 bool CartesianWaypointPoly::operator!=(const CartesianWaypointPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

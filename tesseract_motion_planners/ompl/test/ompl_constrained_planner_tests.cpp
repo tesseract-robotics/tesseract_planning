@@ -55,12 +55,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <trajopt_common/logging.hpp>
 
 using namespace tesseract;
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_environment;
-using namespace tesseract_geometry;
-using namespace tesseract_kinematics;
-using namespace tesseract_motion_planners;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::environment;
+using namespace tesseract::geometry;
+using namespace tesseract::kinematics;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
 
 const static int SEED = 1;
 const static std::vector<double> start_state = { -0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
@@ -96,7 +97,7 @@ std::string locateResource(const std::string& url)
 class GlassUprightConstraint : public ompl::base::Constraint
 {
 public:
-  GlassUprightConstraint(const Eigen::Vector3d& normal, tesseract_kinematics::ForwardKinematics::Ptr fwd_kin)
+  GlassUprightConstraint(const Eigen::Vector3d& normal, tesseract::kinematics::ForwardKinematics::Ptr fwd_kin)
     : ompl::base::Constraint(fwd_kin->numJoints(), 1), normal_(normal.normalized()), fwd_kin_(std::move(fwd_kin))
   {
   }
@@ -115,7 +116,7 @@ public:
 
 private:
   Eigen::Vector3d normal_;
-  tesseract_kinematics::ForwardKinematics::Ptr fwd_kin_;
+  tesseract::kinematics::ForwardKinematics::Ptr fwd_kin_;
 };
 
 TEST(OMPLConstraintPlanner, OMPLConstraintPlannerUnit)  // NOLINT
@@ -124,8 +125,8 @@ TEST(OMPLConstraintPlanner, OMPLConstraintPlannerUnit)  // NOLINT
                                         << " vs. " << SEED;
 
   // Step 1: Load scene and srdf
-  tesseract_scene_graph::ResourceLocator::Ptr locator =
-      std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+  tesseract::scene_graph::ResourceLocator::Ptr locator =
+      std::make_shared<tesseract::scene_graph::SimpleResourceLocator>(locateResource);
   Tesseract::Ptr tesseract = std::make_shared<Tesseract>();
   std::filesystem::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
   std::filesystem::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");

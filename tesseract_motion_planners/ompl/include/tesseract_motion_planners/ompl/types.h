@@ -35,7 +35,7 @@ namespace ompl::base
 class State;
 }
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 using OMPLStateExtractor = std::function<Eigen::Map<Eigen::VectorXd>(const ompl::base::State*)>;
 }

@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT IterativeSplineParameterizationTask : public TaskComposerTask
@@ -66,7 +66,7 @@ public:
   IterativeSplineParameterizationTask& operator=(IterativeSplineParameterizationTask&&) = delete;
 
 private:
-  IterativeSplineParameterization solver_;
+  tesseract::time_parameterization::IterativeSplineParameterization solver_;
 
   static TaskComposerNodePorts ports();
 
@@ -74,6 +74,6 @@ private:
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_ITERATIVE_SPLINE_PARAMETERIZATION_TASK_H

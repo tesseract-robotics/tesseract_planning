@@ -27,7 +27,7 @@
 #include <tesseract_motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
 #include <descartes_light/solvers/ladder_graph/ladder_graph_solver.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <typename FloatType>
 std::unique_ptr<descartes_light::Solver<FloatType>> DescartesLadderGraphSolverProfile<FloatType>::create() const
@@ -35,6 +35,6 @@ std::unique_ptr<descartes_light::Solver<FloatType>> DescartesLadderGraphSolverPr
   return std::make_unique<descartes_light::LadderGraphSolver<FloatType>>(num_threads);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DESCARTES_LADDER_GRAPH_SOLVER_PROFILE_HPP

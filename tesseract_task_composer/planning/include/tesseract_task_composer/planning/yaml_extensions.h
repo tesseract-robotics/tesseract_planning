@@ -36,29 +36,29 @@ namespace YAML
 {
 //=========================== Fix State Bounds Settings Enum ===========================
 template <>
-struct convert<tesseract_planning::FixStateBoundsProfile::Settings>
+struct convert<tesseract::task_composer::FixStateBoundsProfile::Settings>
 {
-  static Node encode(const tesseract_planning::FixStateBoundsProfile::Settings& rhs)
+  static Node encode(const tesseract::task_composer::FixStateBoundsProfile::Settings& rhs)
   {
     // LCOV_EXCL_START
-    static const std::map<tesseract_planning::FixStateBoundsProfile::Settings, std::string> m = {
-      { tesseract_planning::FixStateBoundsProfile::Settings::START_ONLY, "START_ONLY" },
-      { tesseract_planning::FixStateBoundsProfile::Settings::END_ONLY, "END_ONLY" },
-      { tesseract_planning::FixStateBoundsProfile::Settings::ALL, "ALL" },
-      { tesseract_planning::FixStateBoundsProfile::Settings::DISABLED, "DISABLED" }
+    static const std::map<tesseract::task_composer::FixStateBoundsProfile::Settings, std::string> m = {
+      { tesseract::task_composer::FixStateBoundsProfile::Settings::START_ONLY, "START_ONLY" },
+      { tesseract::task_composer::FixStateBoundsProfile::Settings::END_ONLY, "END_ONLY" },
+      { tesseract::task_composer::FixStateBoundsProfile::Settings::ALL, "ALL" },
+      { tesseract::task_composer::FixStateBoundsProfile::Settings::DISABLED, "DISABLED" }
     };
     // LCOV_EXCL_STOP
     return Node(m.at(rhs));
   }
 
-  static bool decode(const Node& node, tesseract_planning::FixStateBoundsProfile::Settings& rhs)
+  static bool decode(const Node& node, tesseract::task_composer::FixStateBoundsProfile::Settings& rhs)
   {
     // LCOV_EXCL_START
-    static const std::map<std::string, tesseract_planning::FixStateBoundsProfile::Settings> inv = {
-      { "START_ONLY", tesseract_planning::FixStateBoundsProfile::Settings::START_ONLY },
-      { "END_ONLY", tesseract_planning::FixStateBoundsProfile::Settings::END_ONLY },
-      { "ALL", tesseract_planning::FixStateBoundsProfile::Settings::ALL },
-      { "DISABLED", tesseract_planning::FixStateBoundsProfile::Settings::DISABLED }
+    static const std::map<std::string, tesseract::task_composer::FixStateBoundsProfile::Settings> inv = {
+      { "START_ONLY", tesseract::task_composer::FixStateBoundsProfile::Settings::START_ONLY },
+      { "END_ONLY", tesseract::task_composer::FixStateBoundsProfile::Settings::END_ONLY },
+      { "ALL", tesseract::task_composer::FixStateBoundsProfile::Settings::ALL },
+      { "DISABLED", tesseract::task_composer::FixStateBoundsProfile::Settings::DISABLED }
     };
     // LCOV_EXCL_STOP
 
@@ -76,35 +76,35 @@ struct convert<tesseract_planning::FixStateBoundsProfile::Settings>
 
 //=========================== Fix State Collision Settings Enum ===========================
 template <>
-struct convert<tesseract_planning::FixStateCollisionProfile::Settings>
+struct convert<tesseract::task_composer::FixStateCollisionProfile::Settings>
 {
-  static Node encode(const tesseract_planning::FixStateCollisionProfile::Settings& rhs)
+  static Node encode(const tesseract::task_composer::FixStateCollisionProfile::Settings& rhs)
   {
     // LCOV_EXCL_START
-    static const std::map<tesseract_planning::FixStateCollisionProfile::Settings, std::string> m = {
-      { tesseract_planning::FixStateCollisionProfile::Settings::START_ONLY, "START_ONLY" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::END_ONLY, "END_ONLY" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::INTERMEDIATE_ONLY, "INTERMEDIATE_ONLY" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::ALL, "ALL" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::ALL_EXCEPT_START, "ALL_EXCEPT_START" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::ALL_EXCEPT_END, "ALL_EXCEPT_END" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::DISABLED, "DISABLED" }
+    static const std::map<tesseract::task_composer::FixStateCollisionProfile::Settings, std::string> m = {
+      { tesseract::task_composer::FixStateCollisionProfile::Settings::START_ONLY, "START_ONLY" },
+      { tesseract::task_composer::FixStateCollisionProfile::Settings::END_ONLY, "END_ONLY" },
+      { tesseract::task_composer::FixStateCollisionProfile::Settings::INTERMEDIATE_ONLY, "INTERMEDIATE_ONLY" },
+      { tesseract::task_composer::FixStateCollisionProfile::Settings::ALL, "ALL" },
+      { tesseract::task_composer::FixStateCollisionProfile::Settings::ALL_EXCEPT_START, "ALL_EXCEPT_START" },
+      { tesseract::task_composer::FixStateCollisionProfile::Settings::ALL_EXCEPT_END, "ALL_EXCEPT_END" },
+      { tesseract::task_composer::FixStateCollisionProfile::Settings::DISABLED, "DISABLED" }
     };
     // LCOV_EXCL_STOP
     return Node(m.at(rhs));
   }
 
-  static bool decode(const Node& node, tesseract_planning::FixStateCollisionProfile::Settings& rhs)
+  static bool decode(const Node& node, tesseract::task_composer::FixStateCollisionProfile::Settings& rhs)
   {
     // LCOV_EXCL_START
-    static const std::map<std::string, tesseract_planning::FixStateCollisionProfile::Settings> inv = {
-      { "START_ONLY", tesseract_planning::FixStateCollisionProfile::Settings::START_ONLY },
-      { "END_ONLY", tesseract_planning::FixStateCollisionProfile::Settings::END_ONLY },
-      { "INTERMEDIATE_ONLY", tesseract_planning::FixStateCollisionProfile::Settings::INTERMEDIATE_ONLY },
-      { "ALL", tesseract_planning::FixStateCollisionProfile::Settings::ALL },
-      { "ALL_EXCEPT_START", tesseract_planning::FixStateCollisionProfile::Settings::ALL_EXCEPT_START },
-      { "ALL_EXCEPT_END", tesseract_planning::FixStateCollisionProfile::Settings::ALL_EXCEPT_END },
-      { "DISABLED", tesseract_planning::FixStateCollisionProfile::Settings::DISABLED }
+    static const std::map<std::string, tesseract::task_composer::FixStateCollisionProfile::Settings> inv = {
+      { "START_ONLY", tesseract::task_composer::FixStateCollisionProfile::Settings::START_ONLY },
+      { "END_ONLY", tesseract::task_composer::FixStateCollisionProfile::Settings::END_ONLY },
+      { "INTERMEDIATE_ONLY", tesseract::task_composer::FixStateCollisionProfile::Settings::INTERMEDIATE_ONLY },
+      { "ALL", tesseract::task_composer::FixStateCollisionProfile::Settings::ALL },
+      { "ALL_EXCEPT_START", tesseract::task_composer::FixStateCollisionProfile::Settings::ALL_EXCEPT_START },
+      { "ALL_EXCEPT_END", tesseract::task_composer::FixStateCollisionProfile::Settings::ALL_EXCEPT_END },
+      { "DISABLED", tesseract::task_composer::FixStateCollisionProfile::Settings::DISABLED }
     };
     // LCOV_EXCL_STOP
 
@@ -122,27 +122,27 @@ struct convert<tesseract_planning::FixStateCollisionProfile::Settings>
 
 //=========================== Fix State Collision CorrectionMethod Enum ===========================
 template <>
-struct convert<tesseract_planning::FixStateCollisionProfile::CorrectionMethod>
+struct convert<tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod>
 {
-  static Node encode(const tesseract_planning::FixStateCollisionProfile::CorrectionMethod& rhs)
+  static Node encode(const tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod& rhs)
   {
     // LCOV_EXCL_START
-    static const std::map<tesseract_planning::FixStateCollisionProfile::CorrectionMethod, std::string> m = {
-      { tesseract_planning::FixStateCollisionProfile::CorrectionMethod::NONE, "NONE" },
-      { tesseract_planning::FixStateCollisionProfile::CorrectionMethod::TRAJOPT, "TRAJOPT" },
-      { tesseract_planning::FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER, "RANDOM_SAMPLER" }
+    static const std::map<tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod, std::string> m = {
+      { tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod::NONE, "NONE" },
+      { tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod::TRAJOPT, "TRAJOPT" },
+      { tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER, "RANDOM_SAMPLER" }
     };
     // LCOV_EXCL_STOP
     return Node(m.at(rhs));
   }
 
-  static bool decode(const Node& node, tesseract_planning::FixStateCollisionProfile::CorrectionMethod& rhs)
+  static bool decode(const Node& node, tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod& rhs)
   {
     // LCOV_EXCL_START
-    static const std::map<std::string, tesseract_planning::FixStateCollisionProfile::CorrectionMethod> inv = {
-      { "NONE", tesseract_planning::FixStateCollisionProfile::CorrectionMethod::NONE },
-      { "TRAJOPT", tesseract_planning::FixStateCollisionProfile::CorrectionMethod::TRAJOPT },
-      { "RANDOM_SAMPLER", tesseract_planning::FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER }
+    static const std::map<std::string, tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod> inv = {
+      { "NONE", tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod::NONE },
+      { "TRAJOPT", tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod::TRAJOPT },
+      { "RANDOM_SAMPLER", tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER }
     };
     // LCOV_EXCL_STOP
 

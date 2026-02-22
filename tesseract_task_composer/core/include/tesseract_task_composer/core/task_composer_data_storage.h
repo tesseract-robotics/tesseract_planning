@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/any_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerKeys;
 class TaskComposerDataStorage;
@@ -83,7 +83,7 @@ public:
    * @param key The key to set data for
    * @param data The data to assign to the provided key
    */
-  void setData(const std::string& key, tesseract_common::AnyPoly data);
+  void setData(const std::string& key, tesseract::common::AnyPoly data);
 
   /**
    * @brief Get the data for the provided key
@@ -91,7 +91,7 @@ public:
    * @param key The key to retreive the data
    * @return The data associated with the key
    */
-  tesseract_common::AnyPoly getData(const std::string& key) const;
+  tesseract::common::AnyPoly getData(const std::string& key) const;
 
   /**
    * @brief Remove data for the provide key
@@ -103,7 +103,7 @@ public:
    * @brief Get all data stored
    * @return A copy of the data
    */
-  std::unordered_map<std::string, tesseract_common::AnyPoly> getData() const;
+  std::unordered_map<std::string, tesseract::common::AnyPoly> getData() const;
 
   /**
    * @brief Remap data from one key to another
@@ -139,14 +139,14 @@ public:
 private:
   mutable std::shared_mutex mutex_;
   std::string name_;
-  std::unordered_map<std::string, tesseract_common::AnyPoly> data_;
+  std::unordered_map<std::string, tesseract::common::AnyPoly> data_;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, TaskComposerDataStorage& obj);
+  friend void ::tesseract::task_composer::serialize(Archive& ar, TaskComposerDataStorage& obj);
 };
 
-using TaskComposerDataStoragePtrAnyPoly = tesseract_common::AnyWrapper<TaskComposerDataStorage::Ptr>;
+using TaskComposerDataStoragePtrAnyPoly = tesseract::common::AnyWrapper<TaskComposerDataStorage::Ptr>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_DATA_STORAGE_H

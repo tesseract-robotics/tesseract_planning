@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_collision/core/types.h>
 #include <tesseract_command_language/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 struct FixStateCollisionProfile;
@@ -93,10 +93,10 @@ private:
  * @return True if in collision
  */
 bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
-                      const tesseract_common::ManipulatorInfo& manip_info,
-                      const tesseract_environment::Environment& env,
+                      const tesseract::common::ManipulatorInfo& manip_info,
+                      const tesseract::environment::Environment& env,
                       const FixStateCollisionProfile& profile,
-                      tesseract_collision::ContactResultMap& contacts);
+                      tesseract::collision::ContactResultMap& contacts);
 
 /**
  * @brief Checks if a waypoint is in collision
@@ -104,11 +104,11 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
  * @param env Process env associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
-bool waypointInCollision(const WaypointPoly& waypoint,
-                         const tesseract_common::ManipulatorInfo& manip_info,
-                         const tesseract_environment::Environment& env,
+bool waypointInCollision(const tesseract::command_language::WaypointPoly& waypoint,
+                         const tesseract::common::ManipulatorInfo& manip_info,
+                         const tesseract::environment::Environment& env,
                          const FixStateCollisionProfile& profile,
-                         tesseract_collision::ContactResultMap& contacts);
+                         tesseract::collision::ContactResultMap& contacts);
 
 /**
  * @brief Takes a waypoint and uses a small trajopt env to push it out of collision if necessary
@@ -117,9 +117,9 @@ bool waypointInCollision(const WaypointPoly& waypoint,
  * @param profile Profile containing needed params
  * @return True if successful
  */
-bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
-                                      const tesseract_common::ManipulatorInfo& manip_info,
-                                      const std::shared_ptr<const tesseract_environment::Environment>& env,
+bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly& waypoint,
+                                      const tesseract::common::ManipulatorInfo& manip_info,
+                                      const std::shared_ptr<const tesseract::environment::Environment>& env,
                                       const FixStateCollisionProfile& profile);
 
 /**
@@ -129,16 +129,16 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
  * @param profile Profile containing needed params
  * @return True if successful
  */
-bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
-                                            const tesseract_common::ManipulatorInfo& manip_info,
-                                            const tesseract_environment::Environment& env,
+bool moveWaypointFromCollisionRandomSampler(tesseract::command_language::WaypointPoly& waypoint,
+                                            const tesseract::common::ManipulatorInfo& manip_info,
+                                            const tesseract::environment::Environment& env,
                                             const FixStateCollisionProfile& profile);
 
-bool applyCorrectionWorkflow(WaypointPoly& waypoint,
-                             const tesseract_common::ManipulatorInfo& manip_info,
-                             const std::shared_ptr<const tesseract_environment::Environment>& env,
+bool applyCorrectionWorkflow(tesseract::command_language::WaypointPoly& waypoint,
+                             const tesseract::common::ManipulatorInfo& manip_info,
+                             const std::shared_ptr<const tesseract::environment::Environment>& env,
                              const FixStateCollisionProfile& profile,
-                             tesseract_collision::ContactResultMap& contacts);
-}  // namespace tesseract_planning
+                             tesseract::collision::ContactResultMap& contacts);
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_COLLISION_TASK_H

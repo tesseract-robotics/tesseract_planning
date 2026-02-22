@@ -28,16 +28,18 @@
 #include <tesseract_task_composer/planning/nodes/motion_planner_task.hpp>
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
-using DescartesFMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<DescartesMotionPlannerF>>;
-using DescartesDMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<DescartesMotionPlannerD>>;
+using DescartesFMotionPlannerTaskFactory =
+    TaskComposerTaskFactory<MotionPlannerTask<tesseract::motion_planners::DescartesMotionPlannerF>>;
+using DescartesDMotionPlannerTaskFactory =
+    TaskComposerTaskFactory<MotionPlannerTask<tesseract::motion_planners::DescartesMotionPlannerD>>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 // clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DescartesFMotionPlannerTaskFactory, DescartesFMotionPlannerTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::DescartesFMotionPlannerTaskFactory, DescartesFMotionPlannerTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DescartesDMotionPlannerTaskFactory, DescartesDMotionPlannerTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::DescartesDMotionPlannerTaskFactory, DescartesDMotionPlannerTaskFactory)
 // clang-format on

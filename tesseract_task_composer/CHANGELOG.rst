@@ -65,7 +65,7 @@ Changelog for package tesseract_task_composer
   * Fix format_result_as_input default for generateInterpolatedProgram
   * Fix format_result_as_input default for MinLengthTask
 * Remove PluginLoader and ClassLoader from tesseract_common fwd.h
-* Make sure serialized objects have friend struct tesseract_common::Serialization
+* Make sure serialized objects have friend struct tesseract::common::Serialization
 * Contributors: Levi Armstrong, Roelof Oomen, Tyler Marr
 
 0.30.0 (2025-04-23)
@@ -285,7 +285,7 @@ Changelog for package tesseract_task_composer
 * Fix clang-tidy errors
 * Replace input_indexing and output_indexing with indexing
 * Replace input_remapping and output_remapping with remapping
-* Move TaskComposerProblem input to base class and change type to tesseract_common::AnyPoly
+* Move TaskComposerProblem input to base class and change type to tesseract::common::AnyPoly
 * remove results from TaskComposerNodeInfo
 * Unused includes cleanup
 * Contributors: Levi Armstrong, Roelof Oomen
@@ -476,6 +476,6 @@ Changelog for package tesseract_task_composer
 * Rename TaskComposerPipeline to TaskComposerGraph
 * Add transition mux task
 * Add equal operators to task composer tasks
-* Remove use of tesseract_common::StatusCode
+* Remove use of tesseract::common::StatusCode
 * Add task composer package
 * Contributors: Levi Armstrong, Roelof Oomen

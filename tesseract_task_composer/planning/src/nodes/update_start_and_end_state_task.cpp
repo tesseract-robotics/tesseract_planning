@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string UpdateStartAndEndStateTask::INPUT_PREVIOUS_PROGRAM_PORT = "previous_program";
@@ -99,7 +99,7 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
   // --------------------
   // Check that inputs are valid
   // --------------------
-  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "UpdateStartAndEndStateTask: Input data for key '" +
                           input_keys_.get(INPUT_CURRENT_PROGRAM_PORT) + "' must be a composite instruction";
@@ -107,7 +107,7 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
     return info;
   }
 
-  if (input_prev_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_prev_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "UpdateStartAndEndStateTask: Input data for key '" +
                           input_keys_.get(INPUT_PREVIOUS_PROGRAM_PORT) + "' must be a composite instruction";
@@ -115,7 +115,7 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
     return info;
   }
 
-  if (input_next_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_next_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "UpdateStartAndEndStateTask: Input data for key '" +
                           input_keys_.get(INPUT_NEXT_PROGRAM_PORT) + "' must be a composite instruction";
@@ -124,9 +124,11 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
   }
 
   // Make a non-const copy of the input instructions to update the start/end
-  auto& instructions = input_data_poly.as<CompositeInstruction>();
-  const auto* prev_last_move = input_prev_data_poly.as<CompositeInstruction>().getLastMoveInstruction();
-  const auto* next_start_move = input_next_data_poly.as<CompositeInstruction>().getFirstMoveInstruction();
+  auto& instructions = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
+  const auto* prev_last_move =
+      input_prev_data_poly.as<tesseract::command_language::CompositeInstruction>().getLastMoveInstruction();
+  const auto* next_start_move =
+      input_next_data_poly.as<tesseract::command_language::CompositeInstruction>().getFirstMoveInstruction();
   auto* first_move_instruction = instructions.getFirstMoveInstruction();
   auto* last_move_instruction = instructions.getLastMoveInstruction();
   /** @todo Should the waypoint profile be updated to the path profile if it exists? **/
@@ -156,4 +158,4 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

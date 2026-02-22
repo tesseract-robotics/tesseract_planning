@@ -22,7 +22,7 @@
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization_profiles.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 IterativeSplineParameterizationCompositeProfile::IterativeSplineParameterizationCompositeProfile()
   : Profile(createKey<IterativeSplineParameterizationCompositeProfile>())
@@ -45,17 +45,17 @@ bool IterativeSplineParameterizationCompositeProfile::operator==(
   bool equal = true;
   equal &= (add_points == rhs.add_points);
   equal &= (override_limits == rhs.override_limits);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(0), rhs.velocity_limits.col(0), max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(1), rhs.velocity_limits.col(1), max_diff);
-  equal &=
-      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(0), rhs.acceleration_limits.col(0), max_diff);
-  equal &=
-      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(1), rhs.acceleration_limits.col(1), max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(velocity_limits.col(0), rhs.velocity_limits.col(0), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(velocity_limits.col(1), rhs.velocity_limits.col(1), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
+      acceleration_limits.col(0), rhs.acceleration_limits.col(0), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
+      acceleration_limits.col(1), rhs.acceleration_limits.col(1), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(minimum_time_delta, rhs.minimum_time_delta, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(minimum_time_delta, rhs.minimum_time_delta, max_diff);
   return equal;
 }
 
@@ -83,9 +83,9 @@ bool IterativeSplineParameterizationMoveProfile::operator==(const IterativeSplin
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
   return equal;
 }
@@ -95,4 +95,4 @@ bool IterativeSplineParameterizationMoveProfile::operator!=(const IterativeSplin
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

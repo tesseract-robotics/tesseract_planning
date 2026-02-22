@@ -25,14 +25,14 @@
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 ProfileSwitchProfile::ProfileSwitchProfile(int return_value)
   : Profile(createKey<ProfileSwitchProfile>()), return_value(return_value)
 {
 }
 ProfileSwitchProfile::ProfileSwitchProfile(const YAML::Node& config,
-                                           const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+                                           const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : ProfileSwitchProfile()
 {
   try
@@ -52,4 +52,4 @@ bool ProfileSwitchProfile::operator==(const ProfileSwitchProfile& rhs) const
 
 bool ProfileSwitchProfile::operator!=(const ProfileSwitchProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

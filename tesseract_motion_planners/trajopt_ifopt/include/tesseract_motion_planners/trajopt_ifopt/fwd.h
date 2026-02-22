@@ -1,7 +1,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_FWD_H
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_FWD_H
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 // trajopt_ifopt_motion_planner.h
 class TrajOptIfoptMotionPlanner;
@@ -20,6 +20,6 @@ class TrajOptIfoptSolverProfile;
 class TrajOptIfoptOSQPSolverProfile;
 class TrajOptIfoptDefaultMoveProfile;
 class TrajOptIfoptDefaultCompositeProfile;
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_FWD_H

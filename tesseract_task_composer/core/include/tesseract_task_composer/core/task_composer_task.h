@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_node.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerContext;
 class TaskComposerExecutor;
@@ -59,6 +59,6 @@ public:
   void setTriggerAbort(bool enable);
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_TASK_H

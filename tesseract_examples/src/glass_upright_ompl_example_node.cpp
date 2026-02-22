@@ -28,7 +28,7 @@
 #include <tesseract_environment/environment.h>
 #include <tesseract_common/resource_locator.h>
 
-using namespace tesseract_examples;
+using namespace tesseract::examples;
 using namespace tesseract_common;
 using namespace tesseract_environment;
 

@@ -23,7 +23,7 @@
  */
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 TrajOptIfoptMoveProfile::TrajOptIfoptMoveProfile() : Profile(createKey<TrajOptIfoptMoveProfile>()) {}
 
@@ -36,4 +36,4 @@ std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> TrajOptIfoptSolverProfile
   return callbacks;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

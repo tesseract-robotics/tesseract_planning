@@ -21,7 +21,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <ruckig/ruckig.hpp>
 #include <ruckig/trajectory.hpp>
 
-using namespace tesseract_planning;
+using namespace tesseract::time_parameterization;
+using namespace tesseract::command_language;
 
 // Initialize one-joint, 3 points exactly the same.
 CompositeInstruction createRepeatedPointTrajectory()
@@ -68,14 +69,14 @@ class RuckigTrajectorySmoothingUnit : public ::testing::Test
 {
 protected:
   std::string name_{ "RuckigTrajectorySmoothingUnit" };
-  tesseract_common::GeneralResourceLocator::Ptr locator_;
-  tesseract_environment::Environment::Ptr env_;
-  tesseract_common::ManipulatorInfo manip_;
+  tesseract::common::GeneralResourceLocator::Ptr locator_;
+  tesseract::environment::Environment::Ptr env_;
+  tesseract::common::ManipulatorInfo manip_;
 
   void SetUp() override
   {
-    locator_ = std::make_shared<tesseract_common::GeneralResourceLocator>();
-    auto env = std::make_shared<tesseract_environment::Environment>();
+    locator_ = std::make_shared<tesseract::common::GeneralResourceLocator>();
+    auto env = std::make_shared<tesseract::environment::Environment>();
 
     std::filesystem::path urdf_path(
         locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
@@ -92,7 +93,7 @@ protected:
 
 TEST_F(RuckigTrajectorySmoothingUnit, profileConstructor)  // NOLINT
 {
-  tesseract_planning::RuckigTrajectorySmoothingCompositeProfile profile(2.2, 5);
+  RuckigTrajectorySmoothingCompositeProfile profile(2.2, 5);
   EXPECT_NEAR(profile.duration_extension_fraction, 2.2, 1e-6);
   EXPECT_NEAR(profile.max_duration_extension_factor, 5, 1e-6);
 }
@@ -165,7 +166,7 @@ TEST_F(RuckigTrajectorySmoothingUnit, RuckigTrajectorySmoothingSolve)  // NOLINT
     profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
     // Profile Dictionary
-    tesseract_common::ProfileDictionary profiles;
+    tesseract::common::ProfileDictionary profiles;
     profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
     IterativeSplineParameterization time_parameterization(name_);
@@ -187,7 +188,7 @@ TEST_F(RuckigTrajectorySmoothingUnit, RuckigTrajectorySmoothingSolve)  // NOLINT
   profile->jerk_limits.col(1) << 1000, 1000, 1000, 1000, 1000, 1000;
 
   // Profile Dictionary
-  tesseract_common::ProfileDictionary profiles;
+  tesseract::common::ProfileDictionary profiles;
   profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
   RuckigTrajectorySmoothing traj_smoothing(name_);
@@ -213,7 +214,7 @@ TEST_F(RuckigTrajectorySmoothingUnit, RuckigTrajectorySmoothingRepeatedPointSolv
     profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
     // Profile Dictionary
-    tesseract_common::ProfileDictionary profiles;
+    tesseract::common::ProfileDictionary profiles;
     profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
     IterativeSplineParameterization time_parameterization(name_);
@@ -235,11 +236,13 @@ TEST_F(RuckigTrajectorySmoothingUnit, RuckigTrajectorySmoothingRepeatedPointSolv
   profile->jerk_limits.col(1) << 1000, 1000, 1000, 1000, 1000, 1000;
 
   // Serialization
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, RuckigTrajectorySmoothingCompositeProfile>(
-      profile, "RuckigTrajectorySmoothingCompositeProfile");
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile,
+                                                   RuckigTrajectorySmoothingCompositeProfile>(profile,
+                                                                                              "RuckigTrajectorySmoothin"
+                                                                                              "gCompositeProfile");
 
   // Profile Dictionary
-  tesseract_common::ProfileDictionary profiles;
+  tesseract::common::ProfileDictionary profiles;
   profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
   RuckigTrajectorySmoothing traj_smoothing(name_);

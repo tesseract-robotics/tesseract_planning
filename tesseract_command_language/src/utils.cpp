@@ -36,16 +36,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
-static const tesseract_planning::locateFilterFn toJointTrajectoryInstructionFilter =
-    [](const tesseract_planning::InstructionPoly& i, const tesseract_planning::CompositeInstruction& /*composite*/) {
-      return i.isMoveInstruction();
-    };
+static const locateFilterFn toJointTrajectoryInstructionFilter =
+    [](const InstructionPoly& i, const CompositeInstruction& /*composite*/) { return i.isMoveInstruction(); };
 
-tesseract_common::JointTrajectory toJointTrajectory(const InstructionPoly& instruction)
+tesseract::common::JointTrajectory toJointTrajectory(const InstructionPoly& instruction)
 {
-  using namespace tesseract_planning;
+  using namespace tesseract::command_language;
   if (instruction.isCompositeInstruction())
   {
     const auto& ci = instruction.as<CompositeInstruction>();
@@ -55,9 +53,9 @@ tesseract_common::JointTrajectory toJointTrajectory(const InstructionPoly& instr
   throw std::runtime_error("toJointTrajectory: Unsupported Instruction Type!");
 }
 
-tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& composite_instructions)
+tesseract::common::JointTrajectory toJointTrajectory(const CompositeInstruction& composite_instructions)
 {
-  tesseract_common::JointTrajectory trajectory;
+  tesseract::common::JointTrajectory trajectory;
   std::vector<std::reference_wrapper<const InstructionPoly>> flattened_program =
       composite_instructions.flatten(toJointTrajectoryInstructionFilter);
   trajectory.reserve(flattened_program.size());
@@ -75,7 +73,7 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
       if (pi.getWaypoint().isJointWaypoint())
       {
         const auto& jwp = pi.getWaypoint().as<JointWaypointPoly>();
-        tesseract_common::JointState joint_state;
+        tesseract::common::JointState joint_state;
         joint_state.joint_names = jwp.getNames();
         joint_state.position = jwp.getPosition();
 
@@ -90,7 +88,7 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
       {
         const auto& swp = pi.getWaypoint().as<StateWaypointPoly>();
 
-        tesseract_common::JointState joint_state;
+        tesseract::common::JointState joint_state;
         joint_state.joint_names = swp.getNames();
         joint_state.position = swp.getPosition();
         joint_state.velocity = swp.getVelocity();
@@ -113,7 +111,7 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
         const auto& cwp = pi.getWaypoint().as<CartesianWaypointPoly>();
         if (cwp.hasSeed())
         {
-          tesseract_common::JointState joint_state = cwp.getSeed();
+          tesseract::common::JointState joint_state = cwp.getSeed();
           double dt = 1;
           current_time = current_time + dt;
           total_time += dt;
@@ -317,7 +315,7 @@ bool isWithinJointLimits(const WaypointPoly& wp, const Eigen::Ref<const Eigen::M
   if (wp.isJointWaypoint() || wp.isStateWaypoint())
   {
     const Eigen::VectorXd& cmd_pos = getJointPosition(wp);
-    return tesseract_common::isWithinLimits<double>(cmd_pos, limits);
+    return tesseract::common::isWithinLimits<double>(cmd_pos, limits);
   }
 
   throw std::runtime_error("isWithinJointLimits, invalid waypoint type!");
@@ -339,11 +337,11 @@ bool clampToJointLimits(WaypointPoly& wp,
 
     const Eigen::VectorXd max_rel_diff =
         Eigen::VectorXd::Constant(cmd_pos.size(), std::numeric_limits<double>::epsilon());
-    if (!tesseract_common::satisfiesLimits<double>(cmd_pos, limits, max_deviation, max_rel_diff))
+    if (!tesseract::common::satisfiesLimits<double>(cmd_pos, limits, max_deviation, max_rel_diff))
       return false;
 
     CONSOLE_BRIDGE_logDebug("Clamping Waypoint to joint limits");
-    tesseract_common::enforceLimits<double>(cmd_pos, limits);
+    tesseract::common::enforceLimits<double>(cmd_pos, limits);
     return setJointPosition(wp, cmd_pos);
   }
 
@@ -380,14 +378,13 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
 
 void makeTimeMonotonicallyIncreasing(CompositeInstruction& composite_instructions)
 {
-  const std::vector<std::reference_wrapper<tesseract_planning::InstructionPoly>> instructions =
-      composite_instructions.flatten(moveFilter);
+  const std::vector<std::reference_wrapper<InstructionPoly>> instructions = composite_instructions.flatten(moveFilter);
   double total_time{ 0 };
   double segment_time{ 0 };
   for (const auto& instruction : instructions)
   {
-    auto& mvi = instruction.get().as<tesseract_planning::MoveInstructionPoly>();
-    auto& swp = mvi.getWaypoint().as<tesseract_planning::StateWaypointPoly>();
+    auto& mvi = instruction.get().as<MoveInstructionPoly>();
+    auto& swp = mvi.getWaypoint().as<StateWaypointPoly>();
     if (swp.getTime() < segment_time)
     {
       segment_time = swp.getTime();
@@ -403,4 +400,4 @@ void makeTimeMonotonicallyIncreasing(CompositeInstruction& composite_instruction
   }
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

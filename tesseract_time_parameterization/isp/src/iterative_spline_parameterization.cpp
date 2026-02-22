@@ -53,7 +53,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 static void fit_cubic_spline(long n, const double dt[], const double x[], double x1[], double x2[]);  // NOLINT
 static void adjust_two_positions(long n,
@@ -113,17 +113,17 @@ IterativeSplineParameterization::IterativeSplineParameterization(std::string nam
 {
 }
 
-bool IterativeSplineParameterization::compute(CompositeInstruction& composite_instruction,
-                                              const tesseract_environment::Environment& env,
-                                              const tesseract_common::ProfileDictionary& profiles) const
+bool IterativeSplineParameterization::compute(tesseract::command_language::CompositeInstruction& composite_instruction,
+                                              const tesseract::environment::Environment& env,
+                                              const tesseract::common::ProfileDictionary& profiles) const
 {
-  auto flattened = composite_instruction.flatten(moveFilter);
+  auto flattened = composite_instruction.flatten(tesseract::command_language::moveFilter);
   if (flattened.empty())
     return true;
 
-  const tesseract_common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
+  const tesseract::common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
   auto jg = env.getJointGroup(manip_info.manipulator);
-  tesseract_common::KinematicLimits limits = jg->getLimits();
+  tesseract::common::KinematicLimits limits = jg->getLimits();
   Eigen::MatrixX2d velocity_limits{ limits.velocity_limits };
   Eigen::MatrixX2d acceleration_limits{ limits.acceleration_limits };
 
@@ -159,7 +159,8 @@ bool IterativeSplineParameterization::compute(CompositeInstruction& composite_in
   // Loop over all MoveInstructions
   for (Eigen::Index idx = 0; idx < flattened_size; idx++)
   {
-    const auto& mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstructionPoly>();
+    const auto& mi =
+        flattened[static_cast<std::size_t>(idx)].get().as<tesseract::command_language::MoveInstructionPoly>();
 
     // Check for remapping of the plan profil
     auto move_profile = profiles.getProfile<IterativeSplineParameterizationMoveProfile>(name_, mi.getProfile(name_));
@@ -570,11 +571,11 @@ static void adjust_two_positions(const long n,
 
   // we can solve this with linear equation (use two-point form)
   // if (a2 != a0)
-  if (!tesseract_common::almostEqualRelativeAndAbs(a2, a0, 1e-5))
+  if (!tesseract::common::almostEqualRelativeAndAbs(a2, a0, 1e-5))
     x[1] = x[0] + ((x[2] - x[0]) / (a2 - a0)) * (x2_i - a0);
 
   // if (b2 != b0)
-  if (!tesseract_common::almostEqualRelativeAndAbs(b2, b0, 1e-5))
+  if (!tesseract::common::almostEqualRelativeAndAbs(b2, b0, 1e-5))
     x[n - 2] = x[n - 3] + ((x[n - 1] - x[n - 3]) / (b2 - b0)) * (x2_f - b0);
 }
 
@@ -741,4 +742,4 @@ void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
         num_points, time_diff.data(), t2[j].positions_.data(), t2[j].velocities_.data(), t2[j].accelerations_.data());
   }
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

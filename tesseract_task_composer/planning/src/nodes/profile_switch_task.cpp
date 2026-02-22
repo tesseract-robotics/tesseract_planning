@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/planner_utils.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string ProfileSwitchTask::INPUT_PROGRAM_PORT = "program";
@@ -83,7 +83,8 @@ TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
   // Check that inputs are valid
   // --------------------
   auto input_data_poly = getData(context, INPUT_PROGRAM_PORT);
-  if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.isNull() ||
+      input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input instruction to ProfileSwitch must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
@@ -91,8 +92,8 @@ TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
   }
 
   // Get Composite Profile
-  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
-  const auto& ci = input_data_poly.as<CompositeInstruction>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract::common::ProfileDictionary>>();
+  const auto& ci = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
   auto cur_composite_profile =
       profiles->getProfile<ProfileSwitchProfile>(ns_, ci.getProfile(ns_), std::make_shared<ProfileSwitchProfile>());
 
@@ -106,4 +107,4 @@ TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

@@ -22,7 +22,7 @@
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(bool check_position,
                                                          bool check_velocity,
@@ -36,7 +36,7 @@ KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(bool check_position,
 
 KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(
     const YAML::Node& config,
-    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+    const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : KinematicLimitsCheckProfile()
 {
   try
@@ -66,4 +66,4 @@ bool KinematicLimitsCheckProfile::operator==(const KinematicLimitsCheckProfile& 
 
 bool KinematicLimitsCheckProfile::operator!=(const KinematicLimitsCheckProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/robot_config.h>
 #include <tesseract_motion_planners/core/types.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @brief Check if a joint is within limits
@@ -51,7 +51,7 @@ bool isWithinJointLimits(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::
                          const Eigen::Matrix<FloatType, Eigen::Dynamic, 2>& limits,
                          const Eigen::Vector2d& coupling_limits)
 {
-  if (tesseract_common::isWithinLimits<FloatType>(joint_values, limits))
+  if (tesseract::common::isWithinLimits<FloatType>(joint_values, limits))
   {
     if (((joint_values(joint_values.size() - 3) + joint_values(joint_values.size() - 1)) < coupling_limits(0)) ||
         ((joint_values(joint_values.size() - 3) + joint_values(joint_values.size() - 1)) > coupling_limits(1)))
@@ -75,13 +75,13 @@ bool isWithinJointLimits(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::
  * @return True if within limits otherwise false
  */
 template <typename FloatType>
-bool isValidState(const tesseract_kinematics::JointGroup& joint_group,
+bool isValidState(const tesseract::kinematics::JointGroup& joint_group,
                   const std::string& base_link,
                   const std::string& tcp_frame,
                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                   const Eigen::Matrix<FloatType, Eigen::Dynamic, 2>& limits)
 {
-  if (!tesseract_common::isWithinLimits(joint_values, limits))
+  if (!tesseract::common::isWithinLimits(joint_values, limits))
     return false;
 
   Eigen::Vector2i sign_correction = Eigen::Vector2i::Ones();
@@ -92,6 +92,6 @@ bool isValidState(const tesseract_kinematics::JointGroup& joint_group,
   return !(robot_config != RobotConfig::FUT && robot_config != RobotConfig::NUT);  // NOLINT
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_PLANNER_UTILS_H

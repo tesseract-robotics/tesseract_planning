@@ -14,18 +14,18 @@
 
 #include <cereal/cereal.hpp>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <class Archive>
 void serialize(Archive& ar, SimplePlannerMoveProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
 }
 
 template <class Archive>
 void serialize(Archive& ar, SimplePlannerCompositeProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
 }
 
 template <class Archive>
@@ -95,6 +95,6 @@ void serialize(Archive& ar, SimplePlannerLVSNoIKMoveProfile& obj)
   ar(cereal::make_nvp("min_steps", obj.min_steps));
   ar(cereal::make_nvp("max_steps", obj.max_steps));
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_CEREAL_SERIALIZATION_H

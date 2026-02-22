@@ -31,13 +31,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerContext::TaskComposerContext(std::string name, bool dotgraph)
   : name(std::move(name))
   , dotgraph(dotgraph)
-  , data_storage(std::make_shared<tesseract_planning::TaskComposerDataStorage>())
-  , task_infos(std::make_shared<tesseract_planning::TaskComposerNodeInfoContainer>())
+  , data_storage(std::make_shared<TaskComposerDataStorage>())
+  , task_infos(std::make_shared<TaskComposerNodeInfoContainer>())
 {
 }
 
@@ -47,13 +47,13 @@ TaskComposerContext::TaskComposerContext(std::string name,
   : name(std::move(name))
   , dotgraph(dotgraph)
   , data_storage(std::move(data_storage))
-  , task_infos(std::make_shared<tesseract_planning::TaskComposerNodeInfoContainer>())
+  , task_infos(std::make_shared<TaskComposerNodeInfoContainer>())
 {
 }
 
 TaskComposerContext::TaskComposerContext(std::string name,
                                          std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                         std::shared_ptr<tesseract_planning::TaskComposerNodeInfoContainer> task_infos,
+                                         std::shared_ptr<TaskComposerNodeInfoContainer> task_infos,
                                          bool dotgraph)
   : name(std::move(name)), dotgraph(dotgraph), data_storage(std::move(data_storage)), task_infos(std::move(task_infos))
 {
@@ -93,4 +93,4 @@ bool TaskComposerContext::operator==(const TaskComposerContext& rhs) const
 
 bool TaskComposerContext::operator!=(const TaskComposerContext& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

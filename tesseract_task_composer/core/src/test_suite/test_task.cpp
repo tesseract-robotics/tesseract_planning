@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 
-namespace tesseract_planning::test_suite
+namespace tesseract::task_composer::test_suite
 {
 TaskComposerNodeInfo DummyTaskComposerNode::runImpl(TaskComposerContext& /*context*/,
                                                     OptionalTaskComposerExecutor /*executor*/) const
@@ -109,10 +109,10 @@ TaskComposerNodeInfo TestTask::runImpl(TaskComposerContext& context, OptionalTas
   }
 
   setData(context, INOUT_PORT1_PORT, true);
-  std::vector<tesseract_common::AnyPoly> data{ false };
+  std::vector<tesseract::common::AnyPoly> data{ false };
   setData(context, INOUT_PORT2_PORT, data);
 
   return node_info;
 }
 
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::task_composer::test_suite

@@ -40,14 +40,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/yaml_utils.h>
 
-namespace tesseract_planning::test_suite
+using namespace tesseract::task_composer;
+
+namespace tesseract::task_composer::test_suite
 {
 template <typename T>
 void runTaskComposerExecutorTest()
 {
   {  // task
     auto task = std::make_unique<DoneTask>("DoneTask");
-    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
+    TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
     EXPECT_EQ(executor->getName(), "TaskComposerExecutorTests");
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
@@ -74,7 +76,7 @@ void runTaskComposerExecutorTest()
     EXPECT_FALSE(future->valid());
   }
 
-  tesseract_common::GeneralResourceLocator locator;
+  tesseract::common::GeneralResourceLocator locator;
   std::string str = R"(task_composer_plugins:
                          search_paths:
                            - /usr/local/lib
@@ -171,7 +173,7 @@ void runTaskComposerExecutorTest()
                             terminals: [DoneTask])";
     YAML::Node config = YAML::Load(str2);
     auto pipeline = std::make_unique<TaskComposerPipeline>("Pipeline", config["config"], factory);
-    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
+    TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
     EXPECT_EQ(executor->getName(), "TaskComposerExecutorTests");
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
@@ -226,7 +228,7 @@ void runTaskComposerExecutorTest()
                             terminals: [DoneTask])";
     YAML::Node config = YAML::Load(str2);
     auto graph = std::make_unique<TaskComposerGraph>("Graph", config["config"], factory);
-    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
+    TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
     EXPECT_EQ(executor->getName(), "TaskComposerExecutorTests");
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
@@ -285,7 +287,7 @@ void runTaskComposerExecutorTest()
                             terminals: [AbortTask, DoneTask])";
     YAML::Node config = YAML::Load(str2);
     auto graph = std::make_unique<TaskComposerGraph>("Graph", config["config"], factory);
-    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>(3);
+    TaskComposerExecutor::UPtr executor = std::make_unique<T>(3);
     EXPECT_FALSE(executor->getName().empty());
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
@@ -345,7 +347,7 @@ void runTaskComposerExecutorTest()
                             terminals: [DoneTask])";
     YAML::Node config = YAML::Load(str2);
     auto graph = std::make_unique<TaskComposerGraph>("Graph", config["config"], factory);
-    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
+    TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
     EXPECT_EQ(executor->getName(), "TaskComposerExecutorTests");
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
@@ -382,6 +384,6 @@ void runTaskComposerExecutorTest()
     EXPECT_FALSE(future->valid());
   }
 }
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::task_composer::test_suite
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_EXECUTOR_UNIT_HPP

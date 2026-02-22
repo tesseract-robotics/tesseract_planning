@@ -23,9 +23,9 @@
  */
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 SimplePlannerMoveProfile::SimplePlannerMoveProfile() : Profile(createKey<SimplePlannerMoveProfile>()) {}
 
 SimplePlannerCompositeProfile::SimplePlannerCompositeProfile() : Profile(createKey<SimplePlannerCompositeProfile>()) {}
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

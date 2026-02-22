@@ -30,12 +30,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 }
 
-namespace tesseract_planning::test_suite
+namespace tesseract::task_composer::test_suite
 {
 class DummyTaskComposerNode : public TaskComposerNode
 {
@@ -70,6 +70,6 @@ private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override final;
 };
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::task_composer::test_suite
 
 #endif  // TESSERACT_TASK_COMPOSER_TEST_TASK_H

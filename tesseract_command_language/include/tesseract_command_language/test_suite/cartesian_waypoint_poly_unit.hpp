@@ -28,7 +28,7 @@
 #include <tesseract_command_language/test_suite/waypoint_poly_unit.hpp>
 #include <tesseract_common/joint_state.h>
 
-namespace tesseract_planning::test_suite
+namespace tesseract::command_language::test_suite
 {
 template <typename T>
 void runCartesianWaypointTest()
@@ -114,7 +114,7 @@ void runCartesianWaypointTest()
       EXPECT_TRUE(std::as_const(wp).getTransform().isApprox(pose));
       EXPECT_FALSE(wp.isToleranced());
     }
-  }  // namespace tesseract_planning::test_suite
+  }  // namespace tesseract::command_language::test_suite
 
   {  // Test Set Tolerances
     CartesianWaypointPoly wp{ T() };
@@ -201,7 +201,7 @@ void runCartesianWaypointTest()
   }
 
   {  // Set/Get Seed
-    tesseract_common::JointState seed_state;
+    tesseract::common::JointState seed_state;
     seed_state.joint_names = { "joint_1", "joint_2", "joint_3" };
     seed_state.position.resize(3);
     seed_state.position << .01, .02, .03;
@@ -242,5 +242,5 @@ void runCartesianWaypointTest()
     }
   }
 }
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::command_language::test_suite
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_POLY_UNIT_HPP

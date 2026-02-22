@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @brief Config settings for cartesian waypoints
@@ -97,6 +97,6 @@ struct TrajOptIfoptJointWaypointConfig
   bool operator==(const TrajOptIfoptJointWaypointConfig& rhs) const;
   bool operator!=(const TrajOptIfoptJointWaypointConfig& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_TRAJOPT_IFOPT_WAYPOINT_CONFIG_H

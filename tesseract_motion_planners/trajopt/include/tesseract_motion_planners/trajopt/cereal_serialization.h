@@ -80,7 +80,7 @@ void serialize(Archive& ar, OSQPSettings& obj)
 
 }  // namespace cereal
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <class Archive>
 void serialize(Archive& ar, TrajOptCartesianWaypointConfig& obj)
@@ -105,19 +105,19 @@ void serialize(Archive& ar, TrajOptJointWaypointConfig& obj)
 template <class Archive>
 void serialize(Archive& ar, TrajOptMoveProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
 }
 
 template <class Archive>
 void serialize(Archive& ar, TrajOptCompositeProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
 }
 
 template <class Archive>
 void serialize(Archive& ar, TrajOptSolverProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("opt_params", obj.opt_params));
 }
 
@@ -155,6 +155,6 @@ void serialize(Archive& ar, TrajOptOSQPSolverProfile& obj)
   ar(cereal::make_nvp("update_workspace", obj.update_workspace));
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_CEREAL_SERIALIZATION_H

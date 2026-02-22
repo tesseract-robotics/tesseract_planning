@@ -61,7 +61,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile()
 {
@@ -69,19 +69,19 @@ OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile()
                              std::make_shared<const RRTConnectConfigurator>() };
 }
 OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile(const YAML::Node& config,
-                                                     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+                                                     const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : OMPLRealVectorMoveProfile()
 {
   try
   {
     if (YAML::Node n = config["solver_config"])
-      solver_config = n.as<tesseract_planning::OMPLSolverConfig>();
+      solver_config = n.as<OMPLSolverConfig>();
 
     if (YAML::Node n = config["contact_manager_config"])
-      contact_manager_config = n.as<tesseract_collision::ContactManagerConfig>();
+      contact_manager_config = n.as<tesseract::collision::ContactManagerConfig>();
 
     if (YAML::Node n = config["collision_check_config"])
-      collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
+      collision_check_config = n.as<tesseract::collision::CollisionCheckConfig>();
   }
   catch (const std::exception& e)
   {
@@ -95,27 +95,27 @@ std::unique_ptr<OMPLSolverConfig> OMPLRealVectorMoveProfile::createSolverConfig(
   return std::make_unique<OMPLSolverConfig>(solver_config);
 }
 
-OMPLStateExtractor OMPLRealVectorMoveProfile::createStateExtractor(const tesseract_kinematics::JointGroup& manip) const
+OMPLStateExtractor OMPLRealVectorMoveProfile::createStateExtractor(const tesseract::kinematics::JointGroup& manip) const
 {
   const auto dof = static_cast<unsigned>(manip.numJoints());
   return [dof](const ompl::base::State* state) -> Eigen::Map<Eigen::VectorXd> {
-    return tesseract_planning::RealVectorStateSpaceExtractor(state, dof);
+    return RealVectorStateSpaceExtractor(state, dof);
   };
 }
 
-std::unique_ptr<ompl::geometric::SimpleSetup>
-OMPLRealVectorMoveProfile::createSimpleSetup(const MoveInstructionPoly& start_instruction,
-                                             const MoveInstructionPoly& end_instruction,
-                                             const tesseract_common::ManipulatorInfo& composite_mi,
-                                             const std::shared_ptr<const tesseract_environment::Environment>& env) const
+std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createSimpleSetup(
+    const tesseract::command_language::MoveInstructionPoly& start_instruction,
+    const tesseract::command_language::MoveInstructionPoly& end_instruction,
+    const tesseract::common::ManipulatorInfo& composite_mi,
+    const std::shared_ptr<const tesseract::environment::Environment>& env) const
 {
   // Start and End Manipulator Information
   // These should have the same manipulator name but could have different ik sovler name
-  tesseract_common::ManipulatorInfo start_mi = composite_mi.getCombined(start_instruction.getManipulatorInfo());
-  tesseract_common::ManipulatorInfo end_mi = composite_mi.getCombined(end_instruction.getManipulatorInfo());
+  tesseract::common::ManipulatorInfo start_mi = composite_mi.getCombined(start_instruction.getManipulatorInfo());
+  tesseract::common::ManipulatorInfo end_mi = composite_mi.getCombined(end_instruction.getManipulatorInfo());
 
   // Get kinematics
-  tesseract_kinematics::JointGroup::ConstPtr manip = env->getJointGroup(end_mi.manipulator);
+  tesseract::kinematics::JointGroup::ConstPtr manip = env->getJointGroup(end_mi.manipulator);
   const auto dof = static_cast<unsigned>(manip->numJoints());
   const std::vector<std::string> joint_names = manip->getJointNames();
   const Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
@@ -167,14 +167,14 @@ OMPLRealVectorMoveProfile::createSimpleSetup(const MoveInstructionPoly& start_in
   }
 
   // Collision checker for validating start and goal states
-  tesseract_collision::DiscreteContactManager::UPtr contact_checker = env->getDiscreteContactManager();
+  tesseract::collision::DiscreteContactManager::UPtr contact_checker = env->getDiscreteContactManager();
   contact_checker->applyContactManagerConfig(contact_manager_config);
   contact_checker->setCollisionObjectsTransform(env->getState().link_transforms);
 
   // Add start states
   if (start_instruction.getWaypoint().isJointWaypoint() || start_instruction.getWaypoint().isStateWaypoint())
   {
-    tesseract_kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(start_mi.manipulator);
+    tesseract::kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(start_mi.manipulator);
     assert(checkJointPositionFormat(joint_group->getJointNames(), start_instruction.getWaypoint()));
     contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkNames());
     const Eigen::VectorXd& cur_position = getJointPosition(start_instruction.getWaypoint());
@@ -182,17 +182,17 @@ OMPLRealVectorMoveProfile::createSimpleSetup(const MoveInstructionPoly& start_in
   }
   else if (start_instruction.getWaypoint().isCartesianWaypoint())
   {
-    const auto& cur_wp = start_instruction.getWaypoint().as<CartesianWaypointPoly>();
+    const auto& cur_wp = start_instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
     Eigen::Isometry3d tcp_offset = env->findTCPOffset(start_mi);
     Eigen::Isometry3d tcp_frame_cwp = cur_wp.getTransform() * tcp_offset.inverse();
-    tesseract_kinematics::KinematicGroup::ConstPtr kin_group;
+    tesseract::kinematics::KinematicGroup::ConstPtr kin_group;
     if (start_mi.manipulator_ik_solver.empty())
       kin_group = env->getKinematicGroup(start_mi.manipulator);
     else
       kin_group = env->getKinematicGroup(start_mi.manipulator, start_mi.manipulator_ik_solver);
 
     contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkNames());
-    tesseract_kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, start_mi.working_frame, start_mi.tcp_frame);
+    tesseract::kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, start_mi.working_frame, start_mi.tcp_frame);
     applyStartStates(*simple_setup, ik_input, *kin_group, *contact_checker);
   }
   else
@@ -203,7 +203,7 @@ OMPLRealVectorMoveProfile::createSimpleSetup(const MoveInstructionPoly& start_in
   // Add Goal states
   if (end_instruction.getWaypoint().isJointWaypoint() || end_instruction.getWaypoint().isStateWaypoint())
   {
-    tesseract_kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(end_mi.manipulator);
+    tesseract::kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(end_mi.manipulator);
     assert(checkJointPositionFormat(joint_group->getJointNames(), end_instruction.getWaypoint()));
     contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkNames());
     const Eigen::VectorXd& cur_position = getJointPosition(end_instruction.getWaypoint());
@@ -211,17 +211,17 @@ OMPLRealVectorMoveProfile::createSimpleSetup(const MoveInstructionPoly& start_in
   }
   else if (end_instruction.getWaypoint().isCartesianWaypoint())
   {
-    const auto& cur_wp = end_instruction.getWaypoint().as<CartesianWaypointPoly>();
+    const auto& cur_wp = end_instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
     Eigen::Isometry3d tcp_offset = env->findTCPOffset(end_mi);
     Eigen::Isometry3d tcp_frame_cwp = cur_wp.getTransform() * tcp_offset.inverse();
-    tesseract_kinematics::KinematicGroup::ConstPtr kin_group;
+    tesseract::kinematics::KinematicGroup::ConstPtr kin_group;
     if (end_mi.manipulator_ik_solver.empty())
       kin_group = env->getKinematicGroup(end_mi.manipulator);
     else
       kin_group = env->getKinematicGroup(end_mi.manipulator, end_mi.manipulator_ik_solver);
 
     contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkNames());
-    tesseract_kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, end_mi.working_frame, end_mi.tcp_frame);
+    tesseract::kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, end_mi.working_frame, end_mi.tcp_frame);
     applyGoalStates(*simple_setup, ik_input, *kin_group, *contact_checker);
   }
   else
@@ -233,28 +233,28 @@ OMPLRealVectorMoveProfile::createSimpleSetup(const MoveInstructionPoly& start_in
 }
 
 void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
-                                                const tesseract_kinematics::KinGroupIKInput& ik_input,
-                                                const tesseract_kinematics::KinematicGroup& manip,
-                                                tesseract_collision::DiscreteContactManager& contact_checker)
+                                                const tesseract::kinematics::KinGroupIKInput& ik_input,
+                                                const tesseract::kinematics::KinematicGroup& manip,
+                                                tesseract::collision::DiscreteContactManager& contact_checker)
 {
   /** @todo Need to add Descartes pose sample to ompl profile */
   const auto dof = manip.numJoints();
-  tesseract_common::KinematicLimits limits = manip.getLimits();
+  tesseract::common::KinematicLimits limits = manip.getLimits();
 
   /** @brief Making this thread_local does not help because it is not called enough during planning */
-  tesseract_kinematics::IKSolutions joint_solutions;
+  tesseract::kinematics::IKSolutions joint_solutions;
   manip.calcInvKin(joint_solutions, { ik_input }, Eigen::VectorXd::Zero(dof));
   auto goal_states = std::make_shared<ompl::base::GoalStates>(simple_setup.getSpaceInformation());
-  std::vector<tesseract_collision::ContactResultMap> contact_map_vec(static_cast<std::size_t>(joint_solutions.size()));
+  std::vector<tesseract::collision::ContactResultMap> contact_map_vec(static_cast<std::size_t>(joint_solutions.size()));
 
   for (std::size_t i = 0; i < joint_solutions.size(); ++i)
   {
     Eigen::VectorXd& solution = joint_solutions[i];
 
     // Check limits
-    if (tesseract_common::satisfiesLimits<double>(solution, limits.joint_limits))
+    if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
     {
-      tesseract_common::enforceLimits<double>(solution, limits.joint_limits);
+      tesseract::common::enforceLimits<double>(solution, limits.joint_limits);
     }
     else
     {
@@ -274,7 +274,7 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
         goal_states->addState(goal_state);
       }
 
-      auto redundant_solutions = tesseract_kinematics::getRedundantSolutions<double>(
+      auto redundant_solutions = tesseract::kinematics::getRedundantSolutions<double>(
           solution, limits.joint_limits, manip.getRedundancyCapableJointIndices());
       for (const auto& rs : redundant_solutions)
       {
@@ -302,17 +302,17 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
 
 void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                                                 const Eigen::VectorXd& joint_waypoint,
-                                                const tesseract_kinematics::JointGroup& manip,
-                                                tesseract_collision::DiscreteContactManager& contact_checker)
+                                                const tesseract::kinematics::JointGroup& manip,
+                                                tesseract::collision::DiscreteContactManager& contact_checker)
 {
   const auto dof = manip.numJoints();
-  tesseract_common::KinematicLimits limits = manip.getLimits();
+  tesseract::common::KinematicLimits limits = manip.getLimits();
 
   // Check limits
   Eigen::VectorXd solution = joint_waypoint;
-  if (tesseract_common::satisfiesLimits<double>(solution, limits.joint_limits))
+  if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
   {
-    tesseract_common::enforceLimits<double>(solution, limits.joint_limits);
+    tesseract::common::enforceLimits<double>(solution, limits.joint_limits);
   }
   else
   {
@@ -322,7 +322,7 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   // Get discrete contact manager for testing provided start and end position
   // This is required because collision checking happens in motion validators now
   // instead of the isValid function to avoid unnecessary collision checks.
-  tesseract_collision::ContactResultMap contact_map;
+  tesseract::collision::ContactResultMap contact_map;
   if (checkStateInCollision(contact_map, contact_checker, manip, solution))
   {
     CONSOLE_BRIDGE_logError("In OMPLRealVectorMoveProfile: Goal state is in collision");
@@ -341,29 +341,29 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
 }
 
 void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
-                                                 const tesseract_kinematics::KinGroupIKInput& ik_input,
-                                                 const tesseract_kinematics::KinematicGroup& manip,
-                                                 tesseract_collision::DiscreteContactManager& contact_checker)
+                                                 const tesseract::kinematics::KinGroupIKInput& ik_input,
+                                                 const tesseract::kinematics::KinematicGroup& manip,
+                                                 tesseract::collision::DiscreteContactManager& contact_checker)
 {
   /** @todo Need to add Descartes pose sampler to ompl profile */
   /** @todo Need to also provide the seed instruction to use here */
   const auto dof = manip.numJoints();
-  tesseract_common::KinematicLimits limits = manip.getLimits();
+  tesseract::common::KinematicLimits limits = manip.getLimits();
 
   /** @brief Making this thread_local does not help because it is not called enough during planning */
-  tesseract_kinematics::IKSolutions joint_solutions;
+  tesseract::kinematics::IKSolutions joint_solutions;
   manip.calcInvKin(joint_solutions, { ik_input }, Eigen::VectorXd::Zero(dof));
   bool found_start_state = false;
-  std::vector<tesseract_collision::ContactResultMap> contact_map_vec(joint_solutions.size());
+  std::vector<tesseract::collision::ContactResultMap> contact_map_vec(joint_solutions.size());
 
   for (std::size_t i = 0; i < joint_solutions.size(); ++i)
   {
     Eigen::VectorXd& solution = joint_solutions[i];
 
     // Check limits
-    if (tesseract_common::satisfiesLimits<double>(solution, limits.joint_limits))
+    if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
     {
-      tesseract_common::enforceLimits<double>(solution, limits.joint_limits);
+      tesseract::common::enforceLimits<double>(solution, limits.joint_limits);
     }
     else
     {
@@ -384,7 +384,7 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
         simple_setup.addStartState(start_state);
       }
 
-      auto redundant_solutions = tesseract_kinematics::getRedundantSolutions<double>(
+      auto redundant_solutions = tesseract::kinematics::getRedundantSolutions<double>(
           solution, limits.joint_limits, manip.getRedundancyCapableJointIndices());
       for (const auto& rs : redundant_solutions)
       {
@@ -412,16 +412,16 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
 
 void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
                                                  const Eigen::VectorXd& joint_waypoint,
-                                                 const tesseract_kinematics::JointGroup& manip,
-                                                 tesseract_collision::DiscreteContactManager& contact_checker)
+                                                 const tesseract::kinematics::JointGroup& manip,
+                                                 tesseract::collision::DiscreteContactManager& contact_checker)
 {
   const auto dof = manip.numJoints();
-  tesseract_common::KinematicLimits limits = manip.getLimits();
+  tesseract::common::KinematicLimits limits = manip.getLimits();
 
   Eigen::VectorXd solution = joint_waypoint;
-  if (tesseract_common::satisfiesLimits<double>(solution, limits.joint_limits))
+  if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
   {
-    tesseract_common::enforceLimits<double>(solution, limits.joint_limits);
+    tesseract::common::enforceLimits<double>(solution, limits.joint_limits);
   }
   else
   {
@@ -431,7 +431,7 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   // Get discrete contact manager for testing provided start and end position
   // This is required because collision checking happens in motion validators now
   // instead of the isValid function to avoid unnecessary collision checks.
-  tesseract_collision::ContactResultMap contact_map;
+  tesseract::collision::ContactResultMap contact_map;
   if (checkStateInCollision(contact_map, contact_checker, manip, solution))
   {
     CONSOLE_BRIDGE_logError("In OMPLPlannerFreespaceConfig: Start state is in collision");
@@ -451,8 +451,8 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
 
 std::function<std::shared_ptr<ompl::base::StateSampler>(const ompl::base::StateSpace*)>
 OMPLRealVectorMoveProfile::createStateSamplerAllocator(
-    const std::shared_ptr<const tesseract_environment::Environment>& /*env*/,
-    const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const
+    const std::shared_ptr<const tesseract::environment::Environment>& /*env*/,
+    const std::shared_ptr<const tesseract::kinematics::JointGroup>& manip) const
 {
   Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
   Eigen::VectorXd weights = Eigen::VectorXd::Ones(manip->numJoints());
@@ -463,8 +463,8 @@ OMPLRealVectorMoveProfile::createStateSamplerAllocator(
 
 std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorMoveProfile::createStateValidator(
     const ompl::geometric::SimpleSetup& /*simple_setup*/,
-    const std::shared_ptr<const tesseract_environment::Environment>& /*env*/,
-    const std::shared_ptr<const tesseract_kinematics::JointGroup>& /*manip*/,
+    const std::shared_ptr<const tesseract::environment::Environment>& /*env*/,
+    const std::shared_ptr<const tesseract::kinematics::JointGroup>& /*manip*/,
     const OMPLStateExtractor& /*state_extractor*/) const
 {
   return nullptr;
@@ -472,12 +472,12 @@ std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorMoveProfile::cre
 
 std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorMoveProfile::createCollisionStateValidator(
     const ompl::geometric::SimpleSetup& simple_setup,
-    const std::shared_ptr<const tesseract_environment::Environment>& env,
-    const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
+    const std::shared_ptr<const tesseract::environment::Environment>& env,
+    const std::shared_ptr<const tesseract::kinematics::JointGroup>& manip,
     const OMPLStateExtractor& state_extractor) const
 {
-  if (collision_check_config.type == tesseract_collision::CollisionEvaluatorType::DISCRETE ||
-      collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
+  if (collision_check_config.type == tesseract::collision::CollisionEvaluatorType::DISCRETE ||
+      collision_check_config.type == tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     return std::make_unique<StateCollisionValidator>(
         simple_setup.getSpaceInformation(), *env, manip, contact_manager_config, state_extractor);
@@ -488,15 +488,15 @@ std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorMoveProfile::cre
 
 std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorMoveProfile::createMotionValidator(
     const ompl::geometric::SimpleSetup& simple_setup,
-    const std::shared_ptr<const tesseract_environment::Environment>& env,
-    const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
+    const std::shared_ptr<const tesseract::environment::Environment>& env,
+    const std::shared_ptr<const tesseract::kinematics::JointGroup>& manip,
     const OMPLStateExtractor& state_extractor,
     const std::shared_ptr<ompl::base::StateValidityChecker>& svc_without_collision) const
 {
-  if (collision_check_config.type != tesseract_collision::CollisionEvaluatorType::NONE)
+  if (collision_check_config.type != tesseract::collision::CollisionEvaluatorType::NONE)
   {
-    if (collision_check_config.type == tesseract_collision::CollisionEvaluatorType::CONTINUOUS ||
-        collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
+    if (collision_check_config.type == tesseract::collision::CollisionEvaluatorType::CONTINUOUS ||
+        collision_check_config.type == tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS)
     {
       return std::make_unique<ContinuousMotionValidator>(simple_setup.getSpaceInformation(),
                                                          svc_without_collision,
@@ -515,8 +515,8 @@ std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorMoveProfile::createMo
 
 std::unique_ptr<ompl::base::OptimizationObjective> OMPLRealVectorMoveProfile::createOptimizationObjective(
     const ompl::geometric::SimpleSetup& simple_setup,
-    const std::shared_ptr<const tesseract_environment::Environment>& /*env*/,
-    const std::shared_ptr<const tesseract_kinematics::JointGroup>& /*manip*/,
+    const std::shared_ptr<const tesseract::environment::Environment>& /*env*/,
+    const std::shared_ptr<const tesseract::kinematics::JointGroup>& /*manip*/,
     const OMPLStateExtractor& /*state_extractor*/) const
 {
   return std::make_unique<ompl::base::PathLengthOptimizationObjective>(simple_setup.getSpaceInformation());
@@ -533,4 +533,4 @@ bool OMPLRealVectorMoveProfile::operator==(const OMPLRealVectorMoveProfile& rhs)
 
 bool OMPLRealVectorMoveProfile::operator!=(const OMPLRealVectorMoveProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

@@ -26,7 +26,7 @@
 
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerKeys;
 
@@ -99,10 +99,10 @@ private:
   ContainerType keys_;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, TaskComposerKeys& obj);
+  friend void ::tesseract::task_composer::serialize(Archive& ar, TaskComposerKeys& obj);
 };
 
 std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys);
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_KEYS_H

@@ -45,7 +45,7 @@ using PlannerPtr = std::shared_ptr<Planner>;
 class SpaceInformation;
 using SpaceInformationPtr = std::shared_ptr<SpaceInformation>;
 }  // namespace ompl::base
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 enum class OMPLPlannerType
 {
@@ -407,6 +407,6 @@ struct SPARSConfigurator : public OMPLPlannerConfigurator
   OMPLPlannerType getType() const override;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_PLANNER_CONFIGURATOR_H

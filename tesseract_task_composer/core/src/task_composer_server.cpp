@@ -37,24 +37,24 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_common/resource_locator.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerServer::TaskComposerServer() : plugin_factory_(std::make_shared<TaskComposerPluginFactory>()) {}
 
-void TaskComposerServer::loadConfig(const YAML::Node& config, const tesseract_common::ResourceLocator& locator)
+void TaskComposerServer::loadConfig(const YAML::Node& config, const tesseract::common::ResourceLocator& locator)
 {
   plugin_factory_->loadConfig(config, locator);
   loadPlugins();
 }
 
 void TaskComposerServer::loadConfig(const std::filesystem::path& config,
-                                    const tesseract_common::ResourceLocator& locator)
+                                    const tesseract::common::ResourceLocator& locator)
 {
   plugin_factory_->loadConfig(config, locator);
   loadPlugins();
 }
 
-void TaskComposerServer::loadConfig(const std::string& config, const tesseract_common::ResourceLocator& locator)
+void TaskComposerServer::loadConfig(const std::string& config, const tesseract::common::ResourceLocator& locator)
 {
   plugin_factory_->loadConfig(config, locator);
   loadPlugins();
@@ -198,4 +198,4 @@ void TaskComposerServer::loadPlugins()
       CONSOLE_BRIDGE_logError("TaskComposerServer, failed to create task '%s'", task_plugin.first.c_str());
   }
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

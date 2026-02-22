@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /** @brief Create a single state validity checker from multiple */
 class CompoundStateValidator : public ompl::base::StateValidityChecker
@@ -50,5 +50,5 @@ private:
   std::vector<ompl::base::StateValidityCheckerPtr> cache_;
   std::vector<ompl::base::StateValidityCheckerFn> validators_;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_MOTION_PLANNERS_COMPOUND_STATE_VALIDATOR_H

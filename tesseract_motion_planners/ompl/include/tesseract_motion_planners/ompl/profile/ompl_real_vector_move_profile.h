@@ -56,7 +56,7 @@ class MotionValidator;
 class OptimizationObjective;
 }  // namespace ompl::base
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @brief OMPL does not support the concept of multi waypoint planning like descartes and trajopt. Because of this
@@ -70,50 +70,50 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLRealVectorMoveProfile>;
 
   OMPLRealVectorMoveProfile();
-  OMPLRealVectorMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  OMPLRealVectorMoveProfile(const YAML::Node& config, const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   /** @brief The OMPL parallel planner solver config */
   OMPLSolverConfig solver_config;
 
   /** @brief The contact manager configuration */
-  tesseract_collision::ContactManagerConfig contact_manager_config;
+  tesseract::collision::ContactManagerConfig contact_manager_config;
 
   /** @brief The collision check configuration */
-  tesseract_collision::CollisionCheckConfig collision_check_config;
+  tesseract::collision::CollisionCheckConfig collision_check_config;
 
   std::unique_ptr<OMPLSolverConfig> createSolverConfig() const override;
 
-  OMPLStateExtractor createStateExtractor(const tesseract_kinematics::JointGroup& manip) const override;
+  OMPLStateExtractor createStateExtractor(const tesseract::kinematics::JointGroup& manip) const override;
 
   std::unique_ptr<ompl::geometric::SimpleSetup>
-  createSimpleSetup(const MoveInstructionPoly& start_instruction,
-                    const MoveInstructionPoly& end_instruction,
-                    const tesseract_common::ManipulatorInfo& composite_mi,
-                    const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
+  createSimpleSetup(const tesseract::command_language::MoveInstructionPoly& start_instruction,
+                    const tesseract::command_language::MoveInstructionPoly& end_instruction,
+                    const tesseract::common::ManipulatorInfo& composite_mi,
+                    const std::shared_ptr<const tesseract::environment::Environment>& env) const override;
 
   bool operator==(const OMPLRealVectorMoveProfile& rhs) const;
   bool operator!=(const OMPLRealVectorMoveProfile& rhs) const;
 
 protected:
   static void applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
-                              const tesseract_kinematics::KinGroupIKInput& ik_input,
-                              const tesseract_kinematics::KinematicGroup& manip,
-                              tesseract_collision::DiscreteContactManager& contact_checker);
+                              const tesseract::kinematics::KinGroupIKInput& ik_input,
+                              const tesseract::kinematics::KinematicGroup& manip,
+                              tesseract::collision::DiscreteContactManager& contact_checker);
 
   static void applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
-                               const tesseract_kinematics::KinGroupIKInput& ik_input,
-                               const tesseract_kinematics::KinematicGroup& manip,
-                               tesseract_collision::DiscreteContactManager& contact_checker);
+                               const tesseract::kinematics::KinGroupIKInput& ik_input,
+                               const tesseract::kinematics::KinematicGroup& manip,
+                               tesseract::collision::DiscreteContactManager& contact_checker);
 
   static void applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                               const Eigen::VectorXd& joint_waypoint,
-                              const tesseract_kinematics::JointGroup& manip,
-                              tesseract_collision::DiscreteContactManager& contact_checker);
+                              const tesseract::kinematics::JointGroup& manip,
+                              tesseract::collision::DiscreteContactManager& contact_checker);
 
   static void applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
                                const Eigen::VectorXd& joint_waypoint,
-                               const tesseract_kinematics::JointGroup& manip,
-                               tesseract_collision::DiscreteContactManager& contact_checker);
+                               const tesseract::kinematics::JointGroup& manip,
+                               tesseract::collision::DiscreteContactManager& contact_checker);
 
   /**
    * @brief Create state sampler allocator
@@ -122,8 +122,8 @@ protected:
    * @return OMPL state sampler allocator
    */
   virtual std::function<std::shared_ptr<ompl::base::StateSampler>(const ompl::base::StateSpace*)>
-  createStateSamplerAllocator(const std::shared_ptr<const tesseract_environment::Environment>& /*env*/,
-                              const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const;
+  createStateSamplerAllocator(const std::shared_ptr<const tesseract::environment::Environment>& /*env*/,
+                              const std::shared_ptr<const tesseract::kinematics::JointGroup>& manip) const;
 
   /**
    * @brief Create state validator which should not be the collision state validator
@@ -135,8 +135,8 @@ protected:
    */
   virtual std::unique_ptr<ompl::base::StateValidityChecker>
   createStateValidator(const ompl::geometric::SimpleSetup& simple_setup,
-                       const std::shared_ptr<const tesseract_environment::Environment>& env,
-                       const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
+                       const std::shared_ptr<const tesseract::environment::Environment>& env,
+                       const std::shared_ptr<const tesseract::kinematics::JointGroup>& manip,
                        const OMPLStateExtractor& state_extractor) const;
 
   /**
@@ -149,8 +149,8 @@ protected:
    */
   virtual std::unique_ptr<ompl::base::StateValidityChecker>
   createCollisionStateValidator(const ompl::geometric::SimpleSetup& simple_setup,
-                                const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
+                                const std::shared_ptr<const tesseract::environment::Environment>& env,
+                                const std::shared_ptr<const tesseract::kinematics::JointGroup>& manip,
                                 const OMPLStateExtractor& state_extractor) const;
 
   /**
@@ -163,8 +163,8 @@ protected:
    */
   virtual std::unique_ptr<ompl::base::MotionValidator>
   createMotionValidator(const ompl::geometric::SimpleSetup& simple_setup,
-                        const std::shared_ptr<const tesseract_environment::Environment>& env,
-                        const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
+                        const std::shared_ptr<const tesseract::environment::Environment>& env,
+                        const std::shared_ptr<const tesseract::kinematics::JointGroup>& manip,
                         const OMPLStateExtractor& state_extractor,
                         const std::shared_ptr<ompl::base::StateValidityChecker>& svc_without_collision) const;
 
@@ -178,10 +178,10 @@ protected:
    */
   virtual std::unique_ptr<ompl::base::OptimizationObjective>
   createOptimizationObjective(const ompl::geometric::SimpleSetup& simple_setup,
-                              const std::shared_ptr<const tesseract_environment::Environment>& env,
-                              const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
+                              const std::shared_ptr<const tesseract::environment::Environment>& env,
+                              const std::shared_ptr<const tesseract::kinematics::JointGroup>& manip,
                               const OMPLStateExtractor& state_extractor) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_MOVE_PROFILE_H

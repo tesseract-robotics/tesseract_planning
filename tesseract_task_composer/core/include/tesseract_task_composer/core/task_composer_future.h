@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerContext;
 
@@ -90,6 +90,6 @@ public:
    */
   virtual TaskComposerFuture::UPtr copy() const = 0;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_FUTURE_H

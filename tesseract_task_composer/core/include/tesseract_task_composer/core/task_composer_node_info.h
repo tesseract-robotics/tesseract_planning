@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_keys.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerNode;
 
@@ -228,8 +228,8 @@ private:
                      const boost::uuids::uuid& uuid) const;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, TaskComposerNodeInfoContainer& obj);
+  friend void ::tesseract::task_composer::serialize(Archive& ar, TaskComposerNodeInfoContainer& obj);
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_INFO_H

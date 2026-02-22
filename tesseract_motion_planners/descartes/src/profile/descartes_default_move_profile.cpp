@@ -25,7 +25,7 @@
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <typename FloatType>
 bool DescartesDefaultMoveProfile<FloatType>::operator==(const DescartesDefaultMoveProfile<FloatType>& rhs) const
@@ -34,11 +34,11 @@ bool DescartesDefaultMoveProfile<FloatType>::operator==(const DescartesDefaultMo
 
   bool equal = true;
   equal &= (target_pose_fixed == rhs.target_pose_fixed);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(target_pose_sample_axis, rhs.target_pose_sample_axis, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(target_pose_sample_axis, rhs.target_pose_sample_axis, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       target_pose_sample_resolution, rhs.target_pose_sample_resolution, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(target_pose_sample_min, rhs.target_pose_sample_min, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(target_pose_sample_max, rhs.target_pose_sample_max, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(target_pose_sample_min, rhs.target_pose_sample_min, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(target_pose_sample_max, rhs.target_pose_sample_max, max_diff);
   equal &= (manipulator_ik_solver == rhs.manipulator_ik_solver);
   equal &= (allow_collision == rhs.allow_collision);
   equal &= (enable_collision == rhs.enable_collision);
@@ -61,4 +61,4 @@ bool DescartesDefaultMoveProfile<FloatType>::operator!=(const DescartesDefaultMo
 // Explicit template instantiation
 template class DescartesDefaultMoveProfile<float>;
 template class DescartesDefaultMoveProfile<double>;
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

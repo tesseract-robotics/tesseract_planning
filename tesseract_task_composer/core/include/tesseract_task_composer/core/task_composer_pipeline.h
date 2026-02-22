@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_graph.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerContext;
 class TaskComposerNode;
@@ -69,6 +69,6 @@ private:
                     OptionalTaskComposerExecutor executor = std::nullopt) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PIPELINE_H

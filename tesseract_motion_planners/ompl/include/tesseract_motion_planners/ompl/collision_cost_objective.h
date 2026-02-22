@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_collision/core/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @class PenetrationDepthObjective
@@ -55,9 +55,9 @@ class CollisionCostObjective : public ompl::base::StateCostIntegralObjective
 {
 public:
   CollisionCostObjective(const ompl::base::SpaceInformationPtr& space_info,
-                         const tesseract_environment::Environment& env,
-                         std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                         const tesseract_collision::ContactManagerConfig& contact_manager_config,
+                         const tesseract::environment::Environment& env,
+                         std::shared_ptr<const tesseract::kinematics::JointGroup> manip,
+                         const tesseract::collision::ContactManagerConfig& contact_manager_config,
                          OMPLStateExtractor extractor,
                          bool optimize_by_motion = false);
 
@@ -70,10 +70,10 @@ public:
 
 private:
   /** @brief The Tesseract Joint Group */
-  std::shared_ptr<const tesseract_kinematics::JointGroup> manip_;
+  std::shared_ptr<const tesseract::kinematics::JointGroup> manip_;
 
   /** @brief The continuous contact manager used for creating cached continuous contact managers. */
-  std::shared_ptr<tesseract_collision::DiscreteContactManager> contact_manager_;
+  std::shared_ptr<tesseract::collision::DiscreteContactManager> contact_manager_;
 
   /** @brief A list of active links */
   std::vector<std::string> links_;
@@ -90,9 +90,9 @@ private:
   mutable std::mutex mutex_;
 
   /** @brief The continuous contact manager cache */
-  mutable std::map<unsigned long int, std::shared_ptr<tesseract_collision::DiscreteContactManager>> contact_managers_;
+  mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::DiscreteContactManager>> contact_managers_;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_COLLISION_COST_OBJECTIVE_H

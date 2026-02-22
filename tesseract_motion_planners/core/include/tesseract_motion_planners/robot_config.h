@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_kinematics/core/joint_group.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @brief The RobotConfig enum
@@ -69,14 +69,14 @@ static const std::vector<std::string> RobotConfigString = { "NUT", "FUT", "NDT",
  * @return Robot Config
  */
 template <typename FloatType>
-inline RobotConfig getRobotConfig(const tesseract_kinematics::JointGroup& joint_group,
+inline RobotConfig getRobotConfig(const tesseract::kinematics::JointGroup& joint_group,
                                   const std::string& base_link,
                                   const std::string& tcp_frame,
                                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
   // Get state
-  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap state;
+  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state;
   state.clear();
   joint_group.calcFwdKin(state, joint_values.template cast<double>());
 
@@ -146,6 +146,6 @@ inline Eigen::VectorXi getJointTurns(const Eigen::Ref<const Eigen::Matrix<FloatT
   return joint_turns;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_ROBOT_CONFIG_H

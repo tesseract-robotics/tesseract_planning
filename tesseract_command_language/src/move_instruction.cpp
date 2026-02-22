@@ -34,12 +34,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 MoveInstruction::MoveInstruction(WaypointPoly waypoint,
                                  MoveInstructionType type,
                                  std::string profile,
-                                 tesseract_common::ManipulatorInfo manipulator_info)
+                                 tesseract::common::ManipulatorInfo manipulator_info)
   : uuid_(boost::uuids::random_generator()())
   , move_type_(type)
   , profile_(std::move(profile))
@@ -58,7 +58,7 @@ MoveInstruction::MoveInstruction(WaypointPoly waypoint,
                                  MoveInstructionType type,
                                  std::string profile,
                                  std::string path_profile,
-                                 tesseract_common::ManipulatorInfo manipulator_info)
+                                 tesseract::common::ManipulatorInfo manipulator_info)
   : uuid_(boost::uuids::random_generator()())
   , move_type_(type)
   , profile_(std::move(profile))
@@ -111,12 +111,12 @@ MoveInstructionType MoveInstruction::getMoveType() const { return move_type_; }
 WaypointPoly& MoveInstruction::getWaypoint() { return waypoint_; }
 const WaypointPoly& MoveInstruction::getWaypoint() const { return waypoint_; }
 
-void MoveInstruction::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
+void MoveInstruction::setManipulatorInfo(tesseract::common::ManipulatorInfo info)
 {
   manipulator_info_ = std::move(info);
 }
-const tesseract_common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() const { return manipulator_info_; }
-tesseract_common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() { return manipulator_info_; }
+const tesseract::common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() const { return manipulator_info_; }
+tesseract::common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() { return manipulator_info_; }
 
 void MoveInstruction::setProfile(const std::string& profile) { profile_ = profile; }
 const std::string& MoveInstruction::getProfile(const std::string& ns) const
@@ -171,4 +171,4 @@ bool MoveInstruction::equals(const MoveInstructionInterface& other) const
   return equal;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

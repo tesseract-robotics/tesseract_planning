@@ -36,9 +36,9 @@ namespace YAML
 {
 //=========================== Task Composer Keys ===========================
 template <>
-struct convert<tesseract_planning::TaskComposerKeys>
+struct convert<tesseract::task_composer::TaskComposerKeys>
 {
-  static Node encode(const tesseract_planning::TaskComposerKeys& rhs)
+  static Node encode(const tesseract::task_composer::TaskComposerKeys& rhs)
   {
     Node node;
     for (const auto& entry : rhs.data())
@@ -52,7 +52,7 @@ struct convert<tesseract_planning::TaskComposerKeys>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::TaskComposerKeys& rhs)
+  static bool decode(const Node& node, tesseract::task_composer::TaskComposerKeys& rhs)
   {
     if (!node.IsMap())
       throw std::runtime_error("TaskComposerKeys, must be a yaml map");

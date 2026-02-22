@@ -25,7 +25,7 @@
 #include <tesseract_time_parameterization/core/fwd.h>
 #include <tesseract_time_parameterization/core/time_parameterization.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 /**
  * @brief Time parameterization based on trapazodal profile leveraging KDL
@@ -44,11 +44,11 @@ public:
   ConstantTCPSpeedParameterization(ConstantTCPSpeedParameterization&&) = delete;
   ConstantTCPSpeedParameterization& operator=(ConstantTCPSpeedParameterization&&) = delete;
 
-  bool compute(CompositeInstruction& composite_instruction,
-               const tesseract_environment::Environment& env,
-               const tesseract_common::ProfileDictionary& profiles) const override;
+  bool compute(tesseract::command_language::CompositeInstruction& composite_instruction,
+               const tesseract::environment::Environment& env,
+               const tesseract::common::ProfileDictionary& profiles) const override;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif

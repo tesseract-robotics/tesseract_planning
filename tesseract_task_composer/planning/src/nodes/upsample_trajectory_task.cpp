@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string UpsampleTrajectoryTask::INOUT_PROGRAM_PORT = "program";
@@ -91,7 +91,7 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
 
   // Check that inputs are valid
   auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
-  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
@@ -99,14 +99,14 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   }
 
   // Get Composite Profile
-  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
-  const auto& ci = input_data_poly.as<CompositeInstruction>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract::common::ProfileDictionary>>();
+  const auto& ci = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
   auto cur_composite_profile = profiles->getProfile<UpsampleTrajectoryProfile>(
       ns_, ci.getProfile(ns_), std::make_shared<UpsampleTrajectoryProfile>());
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
-  InstructionPoly start_instruction;
-  CompositeInstruction new_results{ ci };
+  tesseract::command_language::InstructionPoly start_instruction;
+  tesseract::command_language::CompositeInstruction new_results{ ci };
   new_results.clear();
 
   upsample(new_results, ci, start_instruction, cur_composite_profile->longest_valid_segment_length);
@@ -119,17 +119,17 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   return info;
 }
 
-void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
-                                      const CompositeInstruction& current_composite,
-                                      InstructionPoly& start_instruction,
+void UpsampleTrajectoryTask::upsample(tesseract::command_language::CompositeInstruction& composite,
+                                      const tesseract::command_language::CompositeInstruction& current_composite,
+                                      tesseract::command_language::InstructionPoly& start_instruction,
                                       double longest_valid_segment_length) const
 {
-  for (const InstructionPoly& i : current_composite)
+  for (const tesseract::command_language::InstructionPoly& i : current_composite)
   {
     if (i.isCompositeInstruction())
     {
-      const auto& cc = i.as<CompositeInstruction>();
-      CompositeInstruction new_cc(cc);
+      const auto& cc = i.as<tesseract::command_language::CompositeInstruction>();
+      tesseract::command_language::CompositeInstruction new_cc(cc);
       new_cc.clear();
 
       upsample(new_cc, cc, start_instruction, longest_valid_segment_length);
@@ -139,19 +139,19 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
     {
       if (start_instruction.isNull())
       {
-        start_instruction = i.as<MoveInstructionPoly>();
+        start_instruction = i.as<tesseract::command_language::MoveInstructionPoly>();
         composite.push_back(i);  // Prevents loss of very first waypoint when upsampling
         continue;
       }
 
       assert(start_instruction.isMoveInstruction());
-      const auto& mi0 = start_instruction.as<MoveInstructionPoly>();
-      const auto& mi1 = i.as<MoveInstructionPoly>();
+      const auto& mi0 = start_instruction.as<tesseract::command_language::MoveInstructionPoly>();
+      const auto& mi1 = i.as<tesseract::command_language::MoveInstructionPoly>();
 
       assert(mi0.getWaypoint().isStateWaypoint());
       assert(mi1.getWaypoint().isStateWaypoint());
-      const auto& swp0 = mi0.getWaypoint().as<StateWaypointPoly>();
-      const auto& swp1 = mi1.getWaypoint().as<StateWaypointPoly>();
+      const auto& swp0 = mi0.getWaypoint().as<tesseract::command_language::StateWaypointPoly>();
+      const auto& swp1 = mi1.getWaypoint().as<tesseract::command_language::StateWaypointPoly>();
 
       double dist = (swp1.getPosition() - swp0.getPosition()).norm();
       if (dist > longest_valid_segment_length)
@@ -159,14 +159,15 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
         long cnt = static_cast<long>(std::ceil(dist / longest_valid_segment_length)) + 1;
 
         // Linearly interpolate in joint space
-        Eigen::MatrixXd states = interpolate(swp0.getPosition(), swp1.getPosition(), cnt);
+        Eigen::MatrixXd states = tesseract::motion_planners::interpolate(swp0.getPosition(), swp1.getPosition(), cnt);
 
         // Since this is filling out a new composite instruction and the start is the previous
         // instruction it is excluded when populated the composite instruction.
         for (long i = 1; i < states.cols(); ++i)
         {
-          MoveInstructionPoly move_instruction(mi1);
-          move_instruction.getWaypoint().as<StateWaypointPoly>().setPosition(states.col(i));
+          tesseract::command_language::MoveInstructionPoly move_instruction(mi1);
+          move_instruction.getWaypoint().as<tesseract::command_language::StateWaypointPoly>().setPosition(
+              states.col(i));
           composite.push_back(move_instruction);
         }
       }
@@ -185,4 +186,4 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
   }
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

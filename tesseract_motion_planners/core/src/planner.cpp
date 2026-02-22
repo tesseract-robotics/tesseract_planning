@@ -37,7 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 MotionPlanner::MotionPlanner(std::string name) : name_(std::move(name))
 {
@@ -73,7 +73,7 @@ bool MotionPlanner::checkRequest(const PlannerRequest& request, std::string& rea
   return true;
 }
 
-void MotionPlanner::assignSolution(MoveInstructionPoly& mi,
+void MotionPlanner::assignSolution(tesseract::command_language::MoveInstructionPoly& mi,
                                    const std::vector<std::string>& joint_names,
                                    const Eigen::Ref<const Eigen::VectorXd>& joint_values,
                                    bool format_result_as_input)
@@ -85,14 +85,14 @@ void MotionPlanner::assignSolution(MoveInstructionPoly& mi,
 
     if (mi.getWaypoint().isCartesianWaypoint())
     {
-      auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
-      cwp.setSeed(tesseract_common::JointState(joint_names, joint_values));
+      auto& cwp = mi.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
+      cwp.setSeed(tesseract::common::JointState(joint_names, joint_values));
       return;
     }
 
     if (mi.getWaypoint().isJointWaypoint())
     {
-      auto& jwp = mi.getWaypoint().as<JointWaypointPoly>();
+      auto& jwp = mi.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
       if (!jwp.isConstrained() || (jwp.isConstrained() && jwp.isToleranced()))
       {
         jwp.setNames(joint_names);
@@ -104,10 +104,10 @@ void MotionPlanner::assignSolution(MoveInstructionPoly& mi,
     throw std::runtime_error("Unsupported waypoint type!");
   }
 
-  StateWaypointPoly swp = mi.createStateWaypoint();
+  tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
   swp.setNames(joint_names);
   swp.setPosition(joint_values);
   mi.getWaypoint() = swp;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 // Waypoint Poly
 class WaypointInterface;
@@ -39,5 +39,5 @@ class TimerInstruction;
 enum class WaitInstructionType : std::uint8_t;
 class WaitInstruction;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 #endif  // TESSERACT_COMMAND_LANGUAGE_FWD_H

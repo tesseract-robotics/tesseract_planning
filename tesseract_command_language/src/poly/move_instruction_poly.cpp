@@ -9,7 +9,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_common/manipulator_info.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 // Operators
 bool MoveInstructionInterface::operator==(const MoveInstructionInterface& rhs) const { return equals(rhs); }
@@ -50,15 +50,15 @@ void MoveInstructionPoly::setParentUUID(const boost::uuids::uuid& uuid) { impl_-
 WaypointPoly& MoveInstructionPoly::getWaypoint() { return impl_->getWaypoint(); }
 const WaypointPoly& MoveInstructionPoly::getWaypoint() const { return std::as_const(*impl_).getWaypoint(); }
 
-void MoveInstructionPoly::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
+void MoveInstructionPoly::setManipulatorInfo(tesseract::common::ManipulatorInfo info)
 {
   impl_->setManipulatorInfo(std::move(info));
 }
-const tesseract_common::ManipulatorInfo& MoveInstructionPoly::getManipulatorInfo() const
+const tesseract::common::ManipulatorInfo& MoveInstructionPoly::getManipulatorInfo() const
 {
   return std::as_const(*impl_).getManipulatorInfo();
 }
-tesseract_common::ManipulatorInfo& MoveInstructionPoly::getManipulatorInfo() { return impl_->getManipulatorInfo(); }
+tesseract::common::ManipulatorInfo& MoveInstructionPoly::getManipulatorInfo() { return impl_->getManipulatorInfo(); }
 
 void MoveInstructionPoly::setProfile(const std::string& profile) { impl_->setProfile(profile); }
 const std::string& MoveInstructionPoly::getProfile(const std::string& ns) const
@@ -186,4 +186,4 @@ bool MoveInstructionPoly::operator==(const MoveInstructionPoly& rhs) const
 bool MoveInstructionPoly::operator!=(const MoveInstructionPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

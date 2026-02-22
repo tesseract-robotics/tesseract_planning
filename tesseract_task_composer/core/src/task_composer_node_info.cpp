@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
   : name(node.name_)
@@ -75,9 +75,9 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= status_code == rhs.status_code;
   equal &= status_message == rhs.status_message;
   equal &= start_time == rhs.start_time;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
-  equal &= tesseract_common::isIdentical(inbound_edges, rhs.inbound_edges, false);
-  equal &= tesseract_common::isIdentical(outbound_edges, rhs.outbound_edges, true);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
+  equal &= tesseract::common::isIdentical(inbound_edges, rhs.inbound_edges, false);
+  equal &= tesseract::common::isIdentical(outbound_edges, rhs.outbound_edges, true);
   equal &= input_keys == rhs.input_keys;
   equal &= output_keys == rhs.output_keys;
   equal &= terminals == rhs.terminals;
@@ -263,7 +263,7 @@ bool TaskComposerNodeInfoContainer::operator==(const TaskComposerNodeInfoContain
   bool equal = true;
   equal &= root_node_ == rhs.root_node_;
   equal &= aborting_node_ == rhs.aborting_node_;
-  equal &= tesseract_common::isIdenticalMap<std::map<boost::uuids::uuid, TaskComposerNodeInfo>, TaskComposerNodeInfo>(
+  equal &= tesseract::common::isIdenticalMap<std::map<boost::uuids::uuid, TaskComposerNodeInfo>, TaskComposerNodeInfo>(
       info_map_, rhs.info_map_);
   return equal;
 }
@@ -277,4 +277,4 @@ bool TaskComposerNodeInfoContainer::operator!=(const TaskComposerNodeInfoContain
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

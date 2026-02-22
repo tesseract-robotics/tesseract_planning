@@ -65,20 +65,22 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_geometry/impl/sphere.h>
 
-using namespace tesseract_environment;
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_visualization;
-using namespace tesseract_planning;
-using tesseract_common::ManipulatorInfo;
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::visualization;
+using namespace tesseract::task_composer;
+using namespace tesseract::command_language;
+using namespace tesseract::motion_planners;
+using tesseract::common::ManipulatorInfo;
 
 static const std::string OMPL_DEFAULT_NAMESPACE = "OMPLMotionPlannerTask";
 static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
-FreespaceHybridExample::FreespaceHybridExample(std::shared_ptr<tesseract_environment::Environment> env,
-                                               std::shared_ptr<tesseract_visualization::Visualization> plotter,
+FreespaceHybridExample::FreespaceHybridExample(std::shared_ptr<tesseract::environment::Environment> env,
+                                               std::shared_ptr<tesseract::visualization::Visualization> plotter,
                                                bool ifopt,
                                                bool debug,
                                                double range,
@@ -99,7 +101,7 @@ Command::Ptr addSphere()
   Visual::Ptr visual = std::make_shared<Visual>();
   visual->origin = Eigen::Isometry3d::Identity();
   visual->origin.translation() = Eigen::Vector3d(0.5, 0, 0.55);
-  visual->geometry = std::make_shared<tesseract_geometry::Sphere>(0.15);
+  visual->geometry = std::make_shared<tesseract::geometry::Sphere>(0.15);
   link_sphere.visual.push_back(visual);
 
   Collision::Ptr collision = std::make_shared<Collision>();
@@ -112,7 +114,7 @@ Command::Ptr addSphere()
   joint_sphere.child_link_name = link_sphere.getName();
   joint_sphere.type = JointType::FIXED;
 
-  return std::make_shared<tesseract_environment::AddLinkCommand>(link_sphere, joint_sphere);
+  return std::make_shared<tesseract::environment::AddLinkCommand>(link_sphere, joint_sphere);
 }
 
 bool FreespaceHybridExample::run()
@@ -161,7 +163,7 @@ bool FreespaceHybridExample::run()
   env_->setState(joint_names, joint_start_pos);
 
   // Create Task Composer Plugin Factory
-  std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
+  std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
   std::filesystem::path config_path(
       locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
@@ -192,7 +194,7 @@ bool FreespaceHybridExample::run()
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create profile dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
 
   // Create OMPL Profile
   auto ompl_profile = std::make_shared<OMPLRealVectorMoveProfile>();
@@ -222,13 +224,13 @@ bool FreespaceHybridExample::run()
   const std::string output_key = task->getOutputKeys().get("program");
 
   // Create Task Composer Data Storage
-  auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+  auto data = std::make_unique<TaskComposerDataStorage>();
   data->setData("planning_input", program);
-  data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+  data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
   data->setData("profiles", profiles);
 
   // Solve task
-  auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+  auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(data));
   TaskComposerFuture::UPtr future = executor->run(*task, std::move(context));
   future->wait();
 
@@ -237,8 +239,8 @@ bool FreespaceHybridExample::run()
   {
     plotter_->waitForInput();
     auto ci = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
-    tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
-    tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
+    tesseract::common::Toolpath toolpath = toToolpath(ci, *env_);
+    tesseract::common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
     plotter_->plotMarker(ToolpathMarker(toolpath));
     plotter_->plotTrajectory(trajectory, *state_solver);
@@ -246,4 +248,4 @@ bool FreespaceHybridExample::run()
 
   return future->context->isSuccessful();
 }
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples

@@ -24,7 +24,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_TYPES_H
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_TYPES_H
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 enum class TaskComposerNodeType
 {

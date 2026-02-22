@@ -63,7 +63,7 @@ constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid soluti
 using CachedSimpleSetups = std::vector<std::shared_ptr<ompl::geometric::SimpleSetup>>;
 using CachedSimpleSetupsPtr = std::shared_ptr<CachedSimpleSetups>;
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 bool checkStartState(const ompl::base::ProblemDefinitionPtr& prob_def,
                      const Eigen::Ref<const Eigen::VectorXd>& state,
@@ -193,12 +193,12 @@ std::pair<bool, std::string> parallelPlan(ompl::geometric::SimpleSetup& simple_s
   return std::make_pair(true, "SUCCESS");
 }
 
-long OMPLMotionPlanner::assignTrajectory(tesseract_planning::CompositeInstruction& output,
+long OMPLMotionPlanner::assignTrajectory(tesseract::command_language::CompositeInstruction& output,
                                          boost::uuids::uuid start_uuid,
                                          boost::uuids::uuid end_uuid,
                                          long start_index,
                                          const std::vector<std::string>& joint_names,
-                                         const tesseract_common::TrajArray& traj,
+                                         const tesseract::common::TrajArray& traj,
                                          const bool format_result_as_input)
 {
   bool found{ false };
@@ -208,19 +208,19 @@ long OMPLMotionPlanner::assignTrajectory(tesseract_planning::CompositeInstructio
   {
     if (it->isMoveInstruction())
     {
-      auto& mi = it->as<MoveInstructionPoly>();
+      auto& mi = it->as<tesseract::command_language::MoveInstructionPoly>();
       if (mi.getUUID() == start_uuid)
         found = true;
 
       if (mi.getUUID() == end_uuid)
       {
-        std::vector<InstructionPoly> extra;
+        std::vector<tesseract::command_language::InstructionPoly> extra;
         for (; row < traj.rows() - 1; ++row)
         {
-          MoveInstructionPoly child = mi.createChild();
+          tesseract::command_language::MoveInstructionPoly child = mi.createChild();
           if (format_result_as_input)
           {
-            JointWaypointPoly jwp = mi.createJointWaypoint();
+            tesseract::command_language::JointWaypointPoly jwp = mi.createJointWaypoint();
             jwp.setIsConstrained(false);
             jwp.setNames(joint_names);
             jwp.setPosition(traj.row(row));
@@ -228,7 +228,7 @@ long OMPLMotionPlanner::assignTrajectory(tesseract_planning::CompositeInstructio
           }
           else
           {
-            StateWaypointPoly swp = mi.createStateWaypoint();
+            tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
             swp.setNames(joint_names);
             swp.setPosition(traj.row(row));
             child.getWaypoint() = swp;
@@ -275,11 +275,11 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
   }
 
   // Assume all the plan instructions have the same manipulator as the composite
-  tesseract_common::ManipulatorInfo composite_mi = request.instructions.getManipulatorInfo();
+  tesseract::common::ManipulatorInfo composite_mi = request.instructions.getManipulatorInfo();
   assert(!composite_mi.empty());
 
   // Flatten the input for planning
-  auto move_instructions = request.instructions.flatten(&moveFilter);
+  auto move_instructions = request.instructions.flatten(&tesseract::command_language::moveFilter);
 
   // This is for replanning the same problem
   CachedSimpleSetups cached_simple_setups;
@@ -292,15 +292,16 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
   unsigned num_output_states = 1;
   long start_index{ 0 };
   std::size_t segment{ 1 };
-  std::reference_wrapper<const InstructionPoly> start_instruction = move_instructions.front();
+  std::reference_wrapper<const tesseract::command_language::InstructionPoly> start_instruction =
+      move_instructions.front();
   for (std::size_t i = 1; i < move_instructions.size(); ++i)
   {
     ++num_output_states;
 
-    std::reference_wrapper<const InstructionPoly> end_instruction = move_instructions[i];
-    const auto& end_move_instruction = end_instruction.get().as<MoveInstructionPoly>();
+    std::reference_wrapper<const tesseract::command_language::InstructionPoly> end_instruction = move_instructions[i];
+    const auto& end_move_instruction = end_instruction.get().as<tesseract::command_language::MoveInstructionPoly>();
     const auto& waypoint = end_move_instruction.getWaypoint();
-    if (waypoint.isJointWaypoint() && !waypoint.as<JointWaypointPoly>().isConstrained())
+    if (waypoint.isJointWaypoint() && !waypoint.as<tesseract::command_language::JointWaypointPoly>().isConstrained())
       continue;
 
     // Get Plan Profile
@@ -311,11 +312,11 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
       throw std::runtime_error("OMPLMotionPlanner: Invalid profile");
 
     // Get end state kinematics data
-    tesseract_common::ManipulatorInfo end_mi = composite_mi.getCombined(end_move_instruction.getManipulatorInfo());
-    tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(end_mi.manipulator);
+    tesseract::common::ManipulatorInfo end_mi = composite_mi.getCombined(end_move_instruction.getManipulatorInfo());
+    tesseract::kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(end_mi.manipulator);
 
     // Create problem data
-    const auto& start_move_instruction = start_instruction.get().as<MoveInstructionPoly>();
+    const auto& start_move_instruction = start_instruction.get().as<tesseract::command_language::MoveInstructionPoly>();
     std::unique_ptr<OMPLSolverConfig> solver_config = cur_move_profile->createSolverConfig();
     OMPLStateExtractor extractor = cur_move_profile->createStateExtractor(*manip);
     std::shared_ptr<ompl::geometric::SimpleSetup> simple_setup;
@@ -344,7 +345,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     // Extract Solution
     const std::vector<std::string> joint_names = manip->getJointNames();
     const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
-    tesseract_common::TrajArray traj = toTrajArray(simple_setup->getSolutionPath(), extractor);
+    tesseract::common::TrajArray traj = toTrajArray(simple_setup->getSolutionPath(), extractor);
     assert(checkStartState(simple_setup->getProblemDefinition(), traj.row(0), extractor));
     assert(checkGoalState(simple_setup->getProblemDefinition(), traj.bottomRows(1).transpose(), extractor));
     assert(traj.rows() >= num_output_states);
@@ -352,8 +353,8 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     // Enforce limits
     for (Eigen::Index i = 0; i < traj.rows(); i++)
     {
-      assert(tesseract_common::satisfiesLimits<double>(traj.row(i), joint_limits, 1e-4));
-      tesseract_common::enforceLimits<double>(traj.row(i), joint_limits);
+      assert(tesseract::common::satisfiesLimits<double>(traj.row(i), joint_limits, 1e-4));
+      tesseract::common::enforceLimits<double>(traj.row(i), joint_limits);
     }
 
     // Assign trajectory to results
@@ -381,4 +382,4 @@ void OMPLMotionPlanner::clear() {}
 
 std::unique_ptr<MotionPlanner> OMPLMotionPlanner::clone() const { return std::make_unique<OMPLMotionPlanner>(name_); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

@@ -25,7 +25,7 @@
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_waypoint_config.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 bool TrajOptIfoptCartesianWaypointConfig::operator==(const TrajOptIfoptCartesianWaypointConfig& rhs) const
 {
@@ -34,9 +34,9 @@ bool TrajOptIfoptCartesianWaypointConfig::operator==(const TrajOptIfoptCartesian
   bool equal = true;
   equal &= (enabled == rhs.enabled);
   equal &= (use_tolerance_override == rhs.use_tolerance_override);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(coeff, rhs.coeff, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(coeff, rhs.coeff, max_diff);
   return equal;
 }
 
@@ -52,9 +52,9 @@ bool TrajOptIfoptJointWaypointConfig::operator==(const TrajOptIfoptJointWaypoint
   bool equal = true;
   equal &= (enabled == rhs.enabled);
   equal &= (use_tolerance_override == rhs.use_tolerance_override);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(coeff, rhs.coeff, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(coeff, rhs.coeff, max_diff);
   return equal;
 }
 
@@ -62,4 +62,4 @@ bool TrajOptIfoptJointWaypointConfig::operator!=(const TrajOptIfoptJointWaypoint
 {
   return !operator==(rhs);
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

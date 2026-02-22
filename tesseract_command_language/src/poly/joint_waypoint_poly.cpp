@@ -25,7 +25,7 @@
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 // Operators
 bool JointWaypointInterface::operator==(const JointWaypointInterface& rhs) const { return equals(rhs); }
@@ -127,7 +127,7 @@ bool JointWaypointPoly::isToleranced() const
   if ((upper_tolerance.array() < -max_diff).any())
     throw std::runtime_error("JointWaypoint: upper tolerance was provided but must be >= 0,");
 
-  return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
+  return !tesseract::common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
 }
 
 bool JointWaypointPoly::isNull() const { return (impl_ == nullptr); }
@@ -151,4 +151,4 @@ bool JointWaypointPoly::operator==(const JointWaypointPoly& rhs) const
 bool JointWaypointPoly::operator!=(const JointWaypointPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

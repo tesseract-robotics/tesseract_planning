@@ -12,11 +12,11 @@
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 inline CompositeInstruction getTestProgram(std::string profile,
                                            CompositeInstructionOrder order,
-                                           tesseract_common::ManipulatorInfo manipulator_info)
+                                           tesseract::common::ManipulatorInfo manipulator_info)
 {
   CompositeInstruction program(std::move(profile), std::move(manipulator_info), order);
 
@@ -29,7 +29,7 @@ inline CompositeInstruction getTestProgram(std::string profile,
   start_instruction.setDescription("Start Instruction");
   end_instruction.setDescription("End Instruction");
 
-  tesseract_common::JointState seed_state;
+  tesseract::common::JointState seed_state;
   seed_state.joint_names = joint_names;
   seed_state.position = Eigen::VectorXd::Zero(6);
 
@@ -90,7 +90,7 @@ inline CompositeInstruction getTestProgram(std::string profile,
     transition_from_start.push_back(plan_f1);
 
     CompositeInstruction transitions(
-        DEFAULT_PROFILE_KEY, tesseract_common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
+        DEFAULT_PROFILE_KEY, tesseract::common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
     transitions.push_back(transition_from_start);
     transitions.push_back(transition_from_end);
@@ -120,7 +120,7 @@ inline CompositeInstruction getTestProgram(std::string profile,
     transition_from_start.push_back(plan_f1);
 
     CompositeInstruction transitions(
-        DEFAULT_PROFILE_KEY, tesseract_common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
+        DEFAULT_PROFILE_KEY, tesseract::common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
     transitions.push_back(transition_from_start);
     transitions.push_back(transition_from_end);
@@ -169,5 +169,5 @@ inline CompositeInstruction getTestProgram(std::string profile,
 
   return program;
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMMAND_LANGUAGE_TEST_PROGRAM_HPP

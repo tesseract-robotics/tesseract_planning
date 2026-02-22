@@ -35,7 +35,7 @@
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(
     double state_longest_valid_segment_length,
@@ -53,7 +53,7 @@ SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(
 
 SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(
     const YAML::Node& config,
-    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+    const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : SimplePlannerLVSAssignNoIKMoveProfile()
 {
   try
@@ -76,13 +76,13 @@ SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(
   }
 }
 
-std::vector<MoveInstructionPoly>
-SimplePlannerLVSAssignNoIKMoveProfile::generate(const MoveInstructionPoly& prev_instruction,
-                                                const MoveInstructionPoly& /*prev_seed*/,
-                                                const MoveInstructionPoly& base_instruction,
-                                                const InstructionPoly& /*next_instruction*/,
-                                                const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                                const tesseract_common::ManipulatorInfo& global_manip_info) const
+std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerLVSAssignNoIKMoveProfile::generate(
+    const tesseract::command_language::MoveInstructionPoly& prev_instruction,
+    const tesseract::command_language::MoveInstructionPoly& /*prev_seed*/,
+    const tesseract::command_language::MoveInstructionPoly& base_instruction,
+    const tesseract::command_language::InstructionPoly& /*next_instruction*/,
+    const std::shared_ptr<const tesseract::environment::Environment>& env,
+    const tesseract::common::ManipulatorInfo& global_manip_info) const
 {
   JointGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
   JointGroupInstructionInfo base(base_instruction, *env, global_manip_info);
@@ -92,9 +92,9 @@ SimplePlannerLVSAssignNoIKMoveProfile::generate(const MoveInstructionPoly& prev_
   if (prev.has_cartesian_waypoint)
   {
     p1_world = prev.extractCartesianPose();
-    if (prev.instruction.getWaypoint().as<CartesianWaypointPoly>().hasSeed())
+    if (prev.instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>().hasSeed())
     {
-      j1 = prev.instruction.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
+      j1 = prev.instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>().getSeed().position;
     }
   }
   else
@@ -108,9 +108,9 @@ SimplePlannerLVSAssignNoIKMoveProfile::generate(const MoveInstructionPoly& prev_
   if (base.has_cartesian_waypoint)
   {
     p2_world = base.extractCartesianPose();
-    if (base.instruction.getWaypoint().as<CartesianWaypointPoly>().hasSeed())
+    if (base.instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>().hasSeed())
     {
-      j2 = base.instruction.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
+      j2 = base.instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>().getSeed().position;
     }
   }
   else
@@ -150,14 +150,14 @@ SimplePlannerLVSAssignNoIKMoveProfile::generate(const MoveInstructionPoly& prev_
   {
     // Replicate current joint position
     Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointNames());
-    tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
+    tesseract::common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
     states = seed.replicate(1, steps + 1);
   }
 
   // Linearly interpolate in cartesian space if linear move
   if (base_instruction.isLinear())
   {
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, steps);
+    tesseract::common::VectorIsometry3d poses = interpolate(p1_world, p2_world, steps);
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
@@ -173,11 +173,11 @@ bool SimplePlannerLVSAssignNoIKMoveProfile::operator==(const SimplePlannerLVSAss
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       state_longest_valid_segment_length, rhs.state_longest_valid_segment_length, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       translation_longest_valid_segment_length, rhs.translation_longest_valid_segment_length, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       rotation_longest_valid_segment_length, rhs.rotation_longest_valid_segment_length, max_diff);
   equal &= (min_steps == rhs.min_steps);
   equal &= (max_steps == rhs.max_steps);
@@ -189,4 +189,4 @@ bool SimplePlannerLVSAssignNoIKMoveProfile::operator!=(const SimplePlannerLVSAss
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

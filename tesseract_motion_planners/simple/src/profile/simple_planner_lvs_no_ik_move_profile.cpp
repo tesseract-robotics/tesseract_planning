@@ -35,7 +35,7 @@
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(double state_longest_valid_segment_length,
                                                                  double translation_longest_valid_segment_length,
@@ -52,7 +52,7 @@ SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(double state_lo
 
 SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(
     const YAML::Node& config,
-    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+    const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : SimplePlannerLVSNoIKMoveProfile()
 {
   try
@@ -75,13 +75,13 @@ SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(
   }
 }
 
-std::vector<MoveInstructionPoly>
-SimplePlannerLVSNoIKMoveProfile::generate(const MoveInstructionPoly& prev_instruction,
-                                          const MoveInstructionPoly& /*prev_seed*/,
-                                          const MoveInstructionPoly& base_instruction,
-                                          const InstructionPoly& /*next_instruction*/,
-                                          const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                          const tesseract_common::ManipulatorInfo& global_manip_info) const
+std::vector<tesseract::command_language::MoveInstructionPoly>
+SimplePlannerLVSNoIKMoveProfile::generate(const tesseract::command_language::MoveInstructionPoly& prev_instruction,
+                                          const tesseract::command_language::MoveInstructionPoly& /*prev_seed*/,
+                                          const tesseract::command_language::MoveInstructionPoly& base_instruction,
+                                          const tesseract::command_language::InstructionPoly& /*next_instruction*/,
+                                          const std::shared_ptr<const tesseract::environment::Environment>& env,
+                                          const tesseract::common::ManipulatorInfo& global_manip_info) const
 {
   JointGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
   JointGroupInstructionInfo base(base_instruction, *env, global_manip_info);
@@ -128,11 +128,11 @@ bool SimplePlannerLVSNoIKMoveProfile::operator==(const SimplePlannerLVSNoIKMoveP
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       state_longest_valid_segment_length, rhs.state_longest_valid_segment_length, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       translation_longest_valid_segment_length, rhs.translation_longest_valid_segment_length, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       rotation_longest_valid_segment_length, rhs.rotation_longest_valid_segment_length, max_diff);
   equal &= (min_steps == rhs.min_steps);
   equal &= (max_steps == rhs.max_steps);
@@ -144,4 +144,4 @@ bool SimplePlannerLVSNoIKMoveProfile::operator!=(const SimplePlannerLVSNoIKMoveP
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

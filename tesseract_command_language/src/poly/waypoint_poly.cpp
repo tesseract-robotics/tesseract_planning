@@ -7,7 +7,7 @@
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 // Operators
 bool WaypointInterface::operator==(const WaypointInterface& rhs) const { return equals(rhs); }
@@ -88,4 +88,4 @@ bool WaypointPoly::operator==(const WaypointPoly& rhs) const
 bool WaypointPoly::operator!=(const WaypointPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

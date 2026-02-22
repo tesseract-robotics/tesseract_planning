@@ -39,13 +39,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_visualization/visualization.h>
 
-using namespace tesseract_environment;
-using namespace tesseract_scene_graph;
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
-SceneGraphExample::SceneGraphExample(std::shared_ptr<tesseract_environment::Environment> env,
-                                     std::shared_ptr<tesseract_visualization::Visualization> plotter)
+SceneGraphExample::SceneGraphExample(std::shared_ptr<tesseract::environment::Environment> env,
+                                     std::shared_ptr<tesseract::visualization::Visualization> plotter)
   : Example(std::move(env), std::move(plotter))
 {
 }
@@ -62,7 +62,7 @@ bool SceneGraphExample::run()
 
   // Attach the iiwa to the end of the ABB using moveJoint. Notice that the joint transform stays the same.
   // Only the parent changes.
-  auto move_joint_cmd = std::make_shared<tesseract_environment::MoveJointCommand>("to_iiwa_mount", "tool0");
+  auto move_joint_cmd = std::make_shared<tesseract::environment::MoveJointCommand>("to_iiwa_mount", "tool0");
   env_->applyCommand(move_joint_cmd);
 
   if (plotter_ != nullptr)
@@ -79,14 +79,14 @@ bool SceneGraphExample::run()
 
   // Attach the iiwa to the end of the ABB using moveLink.
   // The link to be moved is inferred to be the given Joint child
-  tesseract_scene_graph::Joint new_joint("to_iiwa_mount");
+  tesseract::scene_graph::Joint new_joint("to_iiwa_mount");
   new_joint.parent_link_name = "tool0";
   new_joint.child_link_name = "iiwa_mount";
-  new_joint.type = tesseract_scene_graph::JointType::FIXED;
+  new_joint.type = tesseract::scene_graph::JointType::FIXED;
   new_joint.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   new_joint.parent_to_joint_origin_transform.rotate(Eigen::AngleAxisd(-M_PI / 2, Eigen::Vector3d(0, 1, 0)));
   new_joint.parent_to_joint_origin_transform.translate(Eigen::Vector3d(0.15, 0.0, 0.0));
-  auto move_link_cmd = std::make_shared<tesseract_environment::MoveLinkCommand>(new_joint);
+  auto move_link_cmd = std::make_shared<tesseract::environment::MoveLinkCommand>(new_joint);
   env_->applyCommand(move_link_cmd);
 
   // Save the scene graph to a file and publish the change
@@ -99,4 +99,4 @@ bool SceneGraphExample::run()
   }
   return true;
 }
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples

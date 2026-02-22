@@ -23,7 +23,7 @@
  */
 #include <tesseract_motion_planners/descartes/impl/profile/descartes_ladder_graph_solver_profile.hpp>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <typename FloatType>
 bool DescartesLadderGraphSolverProfile<FloatType>::operator==(
@@ -42,4 +42,4 @@ bool DescartesLadderGraphSolverProfile<FloatType>::operator!=(
 // Explicit template instantiation
 template class DescartesLadderGraphSolverProfile<float>;
 template class DescartesLadderGraphSolverProfile<double>;
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

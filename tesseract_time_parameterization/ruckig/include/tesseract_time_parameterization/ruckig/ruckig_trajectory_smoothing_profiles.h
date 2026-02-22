@@ -31,9 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
-struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Profile
+struct RuckigTrajectorySmoothingCompositeProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<RuckigTrajectorySmoothingCompositeProfile>;
   using ConstPtr = std::shared_ptr<const RuckigTrajectorySmoothingCompositeProfile>;
@@ -59,6 +59,6 @@ struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Prof
   bool operator!=(const RuckigTrajectorySmoothingCompositeProfile& rhs) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_RUCKIG_TRAJECTORY_SMOOTHING_PROFILES_H

@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 /**
@@ -95,9 +95,9 @@ private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor) const override final;
 
-  static void checkTaskInput(const tesseract_common::AnyPoly& input);
+  static void checkTaskInput(const tesseract::common::AnyPoly& input);
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_RASTER_ONLY_MOTION_TASK_H

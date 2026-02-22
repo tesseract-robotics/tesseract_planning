@@ -27,7 +27,7 @@
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/test_suite/waypoint_poly_unit.hpp>
 
-namespace tesseract_planning::test_suite
+namespace tesseract::command_language::test_suite
 {
 template <typename T>
 void runStateWaypointTest()
@@ -60,7 +60,7 @@ void runStateWaypointTest()
       EXPECT_TRUE(wp.getVelocity().rows() == 0);
       EXPECT_TRUE(wp.getAcceleration().rows() == 0);
       EXPECT_TRUE(wp.getEffort().rows() == 0);
-      EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(wp.getTime(), 0.0));
+      EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(wp.getTime(), 0.0));
     }
     {
       std::vector<std::string> names{ "j1", "j2", "j3" };
@@ -71,7 +71,7 @@ void runStateWaypointTest()
       EXPECT_TRUE(wp.getVelocity().rows() == 0);
       EXPECT_TRUE(wp.getAcceleration().rows() == 0);
       EXPECT_TRUE(wp.getEffort().rows() == 0);
-      EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(wp.getTime(), 0.0));
+      EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(wp.getTime(), 0.0));
     }
     {
       std::vector<std::string> names{ "j1", "j2", "j3" };
@@ -84,7 +84,7 @@ void runStateWaypointTest()
       EXPECT_TRUE(wp.getVelocity().isApprox(velocities));
       EXPECT_TRUE(wp.getAcceleration().isApprox(accelerations));
       EXPECT_TRUE(wp.getEffort().rows() == 0);
-      EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(wp.getTime(), 5));
+      EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(wp.getTime(), 5));
     }
     {
       std::vector<std::string> names{ "j1", "j2" };
@@ -110,7 +110,7 @@ void runStateWaypointTest()
       Eigen::VectorXd accelerations = Eigen::VectorXd::Constant(2, 5);
       EXPECT_ANY_THROW(StateWaypointPoly{ T(names, positions, velocities, accelerations, 5) });  // NOLINT
     }
-  }  // namespace tesseract_planning::test_suite
+  }  // namespace tesseract::command_language::test_suite
 
   {  // Set/Get Names
     const std::vector<std::string> names{ "j1", "j2", "j3" };
@@ -203,7 +203,7 @@ void runStateWaypointTest()
     double data{ 3 };
     StateWaypointPoly wp{ T() };
     wp.setTime(data);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(wp.getTime(), data));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(wp.getTime(), data));
   }
 
   {  // Test Equality and Serialization
@@ -304,6 +304,6 @@ void runStateWaypointTest()
     }
   }
 }
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::command_language::test_suite
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_STATE_WAYPOINT_POLY_UNIT_HPP

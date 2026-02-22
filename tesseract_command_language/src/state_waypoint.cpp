@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/utils.h>
 #include <tesseract_common/types.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 StateWaypoint::StateWaypoint(std::vector<std::string> joint_names, const Eigen::Ref<const Eigen::VectorXd>& position)
   : joint_names_(std::move(joint_names)), position_(position)
@@ -115,9 +115,9 @@ bool StateWaypoint::equals(const StateWaypointInterface& other) const
 
   bool equal = true;
   equal &= (name_ == rhs->name_);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(position_, rhs->position_, max_diff);
-  equal &= tesseract_common::isIdentical(joint_names_, rhs->joint_names_);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(position_, rhs->position_, max_diff);
+  equal &= tesseract::common::isIdentical(joint_names_, rhs->joint_names_);
   return equal;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

@@ -3,7 +3,7 @@
 
 #include <tesseract_motion_planners/core/planner.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <typename FloatType>
 class DescartesMotionPlanner : public MotionPlanner
@@ -29,6 +29,6 @@ public:
 using DescartesMotionPlannerD = DescartesMotionPlanner<double>;
 using DescartesMotionPlannerF = DescartesMotionPlanner<float>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_DECARTES_MOTION_PLANNER_H

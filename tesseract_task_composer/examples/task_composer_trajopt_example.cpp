@@ -25,15 +25,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/visualization_loader.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::task_composer;
 
 int main()
 {
   // --------------------
   // Perform setup
   // --------------------
-  auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
-  tesseract_environment::Environment::Ptr env = std::make_shared<tesseract_environment::Environment>();
+  auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
+  tesseract::environment::Environment::Ptr env = std::make_shared<tesseract::environment::Environment>();
   std::filesystem::path urdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
   std::filesystem::path srdf_path(
@@ -41,7 +41,7 @@ int main()
   env->init(urdf_path, srdf_path, locator);
 
   // Dynamically load ignition visualizer if exist
-  tesseract_visualization::VisualizationLoader loader;
+  tesseract::visualization::VisualizationLoader loader;
   auto plotter = loader.get();
 
   if (plotter != nullptr)
@@ -61,17 +61,17 @@ int main()
   const std::string output_key = task->getOutputKeys().get("program");
 
   // Define profiles
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   /** @todo Add default profiles */
 
   // Define the program
-  CompositeInstruction program = test_suite::freespaceExampleProgramIIWA();
+  tesseract::command_language::CompositeInstruction program = test_suite::freespaceExampleProgramIIWA();
   program.print();
 
   // Create data storage
   auto task_data = std::make_unique<TaskComposerDataStorage>();
   task_data->setData(input_key, program);
-  task_data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env));
+  task_data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env));
   task_data->setData("profiles", profiles);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
@@ -81,16 +81,17 @@ int main()
 
   // Save dot graph
   std::ofstream tc_out_data;
-  tc_out_data.open(tesseract_common::getTempPath() + "task_composer_trajopt_graph_example.dot");
+  tc_out_data.open(tesseract::common::getTempPath() + "task_composer_trajopt_graph_example.dot");
   task->dump(tc_out_data, nullptr, future->context->task_infos->getInfoMap());
   tc_out_data.close();
 
   // Plot Process Trajectory
-  auto output_program = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
+  auto output_program =
+      future->context->data_storage->getData(output_key).as<tesseract::command_language::CompositeInstruction>();
   if (plotter != nullptr && plotter->isConnected())
   {
     plotter->waitForInput();
-    plotter->plotTrajectory(toJointTrajectory(output_program), *env->getStateSolver());
+    plotter->plotTrajectory(tesseract::command_language::toJointTrajectory(output_program), *env->getStateSolver());
   }
 
   std::cout << "Execution Complete\n";

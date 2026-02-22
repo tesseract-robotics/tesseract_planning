@@ -8,7 +8,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract_task_composer/core/test_suite/task_composer_executor_unit.hpp>
 
-using namespace tesseract_planning;
+using namespace tesseract::task_composer;
 
 TEST(TesseractTaskComposerTaskflowUnit, TaskComposerExecutorTests)  // NOLINT
 {

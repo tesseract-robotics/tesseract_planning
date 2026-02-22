@@ -26,7 +26,7 @@
 
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 template <typename TaskType>
 class TaskComposerTaskFactory : public TaskComposerNodeFactory
@@ -49,6 +49,6 @@ public:
     return std::make_unique<ExecutorType>(name, config);
   }
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PLUGIN_FACTORY_UTILS_H

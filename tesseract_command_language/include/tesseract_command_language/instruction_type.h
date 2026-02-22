@@ -24,7 +24,7 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_TYPE_H
 #define TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_TYPE_H
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class InstructionPoly;
 
@@ -38,6 +38,6 @@ bool isTimerInstruction(const InstructionPoly& instruction);
 
 bool isWaitInstruction(const InstructionPoly& instruction);
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_TYPE_H

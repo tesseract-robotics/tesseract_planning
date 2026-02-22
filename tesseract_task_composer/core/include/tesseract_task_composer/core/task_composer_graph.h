@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_node.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 /**
@@ -159,10 +159,9 @@ public:
    */
   virtual std::pair<bool, std::string> isValid() const;
 
-  std::string
-  dump(std::ostream& os,
-       const TaskComposerNode* parent = nullptr,
-       const std::map<boost::uuids::uuid, tesseract_planning::TaskComposerNodeInfo>& results_map = {}) const override;
+  std::string dump(std::ostream& os,
+                   const TaskComposerNode* parent = nullptr,
+                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo>& results_map = {}) const override;
 
 protected:
   // These are protected and used by PIPELINE
@@ -187,6 +186,6 @@ protected:
   TaskComposerKeys override_output_keys_;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H

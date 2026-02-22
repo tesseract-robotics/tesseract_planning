@@ -27,11 +27,11 @@
 #include <tesseract_environment/environment.h>
 #include <tesseract_visualization/visualization.h>
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
-Example::Example(std::shared_ptr<tesseract_environment::Environment> env,
-                 std::shared_ptr<tesseract_visualization::Visualization> plotter)
+Example::Example(std::shared_ptr<tesseract::environment::Environment> env,
+                 std::shared_ptr<tesseract::visualization::Visualization> plotter)
   : env_(std::move(env)), plotter_(std::move(plotter))
 {
 }
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples

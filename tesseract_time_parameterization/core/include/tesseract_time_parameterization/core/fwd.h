@@ -1,7 +1,7 @@
 #ifndef TESSERACT_TIME_PARAMETERIZATION_FWD_H
 #define TESSERACT_TIME_PARAMETERIZATION_FWD_H
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 class InstructionsTrajectory;
 
@@ -10,6 +10,6 @@ class IterativeSplineParameterization;
 class RuckigTrajectorySmoothing;
 class TimeOptimalTrajectoryGeneration;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_FWD_H

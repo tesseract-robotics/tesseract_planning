@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/fwd.h>
 #include <tesseract_visualization/fwd.h>
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
 /**
  * @brief The Example base class
@@ -45,8 +45,8 @@ namespace tesseract_examples
 class Example
 {
 public:
-  Example(std::shared_ptr<tesseract_environment::Environment> env,
-          std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr);
+  Example(std::shared_ptr<tesseract::environment::Environment> env,
+          std::shared_ptr<tesseract::visualization::Visualization> plotter = nullptr);
 
   virtual ~Example() = default;
   Example(const Example&) = default;
@@ -58,10 +58,10 @@ public:
 
 protected:
   /** @brief Tesseract Manager Class (Required) */
-  std::shared_ptr<tesseract_environment::Environment> env_;
+  std::shared_ptr<tesseract::environment::Environment> env_;
   /** @brief Tesseract Visualization Class (Optional)*/
-  std::shared_ptr<tesseract_visualization::Visualization> plotter_;
+  std::shared_ptr<tesseract::visualization::Visualization> plotter_;
 };
 
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples
 #endif  // TESSERACT_ROS_EXAMPLES_EXAMPLES_H

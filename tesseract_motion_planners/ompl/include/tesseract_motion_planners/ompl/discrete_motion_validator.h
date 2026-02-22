@@ -37,7 +37,7 @@ class StateValidityChecker;
 using StateValidityCheckerPtr = std::shared_ptr<StateValidityChecker>;
 }  // namespace ompl::base
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /** @brief Continuous collision check between two states */
 class DiscreteMotionValidator : public ompl::base::MotionValidator
@@ -51,6 +51,6 @@ public:
                    const ompl::base::State* s2,
                    std::pair<ompl::base::State*, double>& lastValid) const override;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_DISCRETE_MOTION_VALIDATOR_H

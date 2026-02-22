@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerPipeline::TaskComposerPipeline(std::string name, boost::uuids::uuid parent_uuid)
   : TaskComposerPipeline(std::move(name), true)
@@ -60,7 +60,7 @@ TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have terminals!");
 
-  tesseract_common::Stopwatch stopwatch;
+  tesseract::common::Stopwatch stopwatch;
   stopwatch.start();
   boost::uuids::uuid root_node = getRootNode();
 
@@ -126,4 +126,4 @@ void TaskComposerPipeline::runRecursive(const TaskComposerNode& node,
   }
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

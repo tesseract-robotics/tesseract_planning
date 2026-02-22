@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @brief Tesseract OMPL Weighted State Sampler.
@@ -71,5 +71,5 @@ protected:
   Eigen::MatrixX2d bounds_;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_MOTION_PLANNERS_WEIGHTED_REAL_VECTOR_STATE_SAMPLER_H

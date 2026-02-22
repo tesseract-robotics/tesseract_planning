@@ -26,7 +26,7 @@
 
 #include <tesseract_motion_planners/core/planner.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 class TrajOptIfoptMotionPlanner : public MotionPlanner
 {
@@ -49,5 +49,5 @@ public:
   std::unique_ptr<MotionPlanner> clone() const override;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_PLANNING_TRAJOPT_IFOPT_PLANNER_H

@@ -22,7 +22,7 @@
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing_profiles.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 RuckigTrajectorySmoothingCompositeProfile::RuckigTrajectorySmoothingCompositeProfile()
   : Profile(createKey<RuckigTrajectorySmoothingCompositeProfile>())
@@ -42,19 +42,19 @@ bool RuckigTrajectorySmoothingCompositeProfile::operator==(const RuckigTrajector
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       duration_extension_fraction, rhs.duration_extension_fraction, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       max_duration_extension_factor, rhs.max_duration_extension_factor, max_diff);
   equal &= (override_limits == rhs.override_limits);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(0), rhs.velocity_limits.col(0), max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(1), rhs.velocity_limits.col(1), max_diff);
-  equal &=
-      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(0), rhs.acceleration_limits.col(0), max_diff);
-  equal &=
-      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(1), rhs.acceleration_limits.col(1), max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(jerk_limits.col(0), rhs.jerk_limits.col(0), max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(jerk_limits.col(1), rhs.jerk_limits.col(1), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(velocity_limits.col(0), rhs.velocity_limits.col(0), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(velocity_limits.col(1), rhs.velocity_limits.col(1), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
+      acceleration_limits.col(0), rhs.acceleration_limits.col(0), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
+      acceleration_limits.col(1), rhs.acceleration_limits.col(1), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(jerk_limits.col(0), rhs.jerk_limits.col(0), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(jerk_limits.col(1), rhs.jerk_limits.col(1), max_diff);
   return equal;
 }
 
@@ -63,4 +63,4 @@ bool RuckigTrajectorySmoothingCompositeProfile::operator!=(const RuckigTrajector
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

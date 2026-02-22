@@ -34,11 +34,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_collision/core/types.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
-std::shared_ptr<const tesseract_kinematics::JointGroup>
-createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info,
-                     const tesseract_environment::Environment& env);
+std::shared_ptr<const tesseract::kinematics::JointGroup>
+createKinematicGroup(const tesseract::common::ManipulatorInfo& manip_info,
+                     const tesseract::environment::Environment& env);
 
 std::shared_ptr<trajopt::TermInfo>
 createCartesianWaypointTermInfo(int index,
@@ -132,6 +132,6 @@ std::shared_ptr<trajopt::TermInfo> createAvoidSingularityTermInfo(int start_inde
                                                                   const std::string& link,
                                                                   double coeff = 5.0,
                                                                   trajopt::TermType type = trajopt::TermType::TT_COST);
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_UTILS_H

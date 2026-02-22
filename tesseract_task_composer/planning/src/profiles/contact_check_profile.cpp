@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_collision/core/yaml_extensions.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 ContactCheckProfile::ContactCheckProfile() : ContactCheckProfile(0.05, 0) {}
 
@@ -41,7 +41,7 @@ ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, do
 {
   contact_manager_config.default_margin = contact_distance;
 
-  collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+  collision_check_config.type = tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE;
   collision_check_config.longest_valid_segment_length = longest_valid_segment_length;
 
   if (collision_check_config.longest_valid_segment_length <= 0)
@@ -52,16 +52,16 @@ ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, do
 }
 
 ContactCheckProfile::ContactCheckProfile(const YAML::Node& config,
-                                         const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+                                         const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : ContactCheckProfile()
 {
   try
   {
     if (YAML::Node n = config["contact_manager_config"])
-      contact_manager_config = n.as<tesseract_collision::ContactManagerConfig>();
+      contact_manager_config = n.as<tesseract::collision::ContactManagerConfig>();
 
     if (YAML::Node n = config["collision_check_config"])
-      collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
+      collision_check_config = n.as<tesseract::collision::CollisionCheckConfig>();
   }
   catch (const std::exception& e)
   {
@@ -79,4 +79,4 @@ bool ContactCheckProfile::operator==(const ContactCheckProfile& rhs) const
 
 bool ContactCheckProfile::operator!=(const ContactCheckProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

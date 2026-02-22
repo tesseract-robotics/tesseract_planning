@@ -17,20 +17,21 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 
-using namespace tesseract_environment;
-using namespace tesseract_scene_graph;
-using namespace tesseract_planning;
-using namespace tesseract_collision;
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
+using namespace tesseract::task_composer;
+using namespace tesseract::command_language;
+using namespace tesseract::collision;
 
 class FixStateCollisionTaskUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
-  tesseract_common::ManipulatorInfo manip_;
+  tesseract::common::ManipulatorInfo manip_;
 
   void SetUp() override
   {
-    auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
+    auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
     Environment::Ptr env = std::make_shared<Environment>();
 
     std::filesystem::path urdf_path(
@@ -56,7 +57,7 @@ TEST_F(FixStateCollisionTaskUnit, StateInCollisionTest)  // NOLINT
   FixStateCollisionProfile profile;
 
   Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
-  tesseract_collision::ContactResultMap contacts;
+  tesseract::collision::ContactResultMap contacts;
   EXPECT_TRUE(stateInCollision(state, manip_, *env_, profile, contacts));
   EXPECT_FALSE(contacts.empty());
   state[0] = 1.5;
@@ -72,14 +73,14 @@ TEST_F(FixStateCollisionTaskUnit, StateInCollisionTest)  // NOLINT
   EXPECT_TRUE(contacts.empty());
 
   // Check that the safety margin is obeyed
-  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
+  profile.contact_manager_config = tesseract::collision::ContactManagerConfig(0.1);
   state[0] = 0.0;
   state[1] = 1.05;
   contacts.clear();
   EXPECT_TRUE(stateInCollision(state, manip_, *env_, profile, contacts));
   EXPECT_FALSE(contacts.empty());
 
-  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.01);
+  profile.contact_manager_config = tesseract::collision::ContactManagerConfig(0.01);
   contacts.clear();
   EXPECT_FALSE(stateInCollision(state, manip_, *env_, profile, contacts));
   EXPECT_TRUE(contacts.empty());
@@ -98,7 +99,7 @@ TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
 
   Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
   JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
-  tesseract_collision::ContactResultMap contacts;
+  tesseract::collision::ContactResultMap contacts;
 
   EXPECT_TRUE(waypointInCollision(waypoint, manip_, *env_, profile, contacts));
   EXPECT_FALSE(contacts.empty());
@@ -115,14 +116,14 @@ TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
   EXPECT_TRUE(contacts.empty());
 
   // Check that the safety margin is obeyed
-  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
+  profile.contact_manager_config = tesseract::collision::ContactManagerConfig(0.1);
   waypoint.getPosition()[0] = 0.0;
   waypoint.getPosition()[1] = 1.05;
   contacts.clear();
   EXPECT_TRUE(waypointInCollision(waypoint, manip_, *env_, profile, contacts));
   EXPECT_FALSE(contacts.empty());
 
-  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.01);
+  profile.contact_manager_config = tesseract::collision::ContactManagerConfig(0.01);
   contacts.clear();
   EXPECT_FALSE(waypointInCollision(waypoint, manip_, *env_, profile, contacts));
   EXPECT_TRUE(contacts.empty());
@@ -149,12 +150,12 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionRandomSamplerTest)  /
   JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
 
   // Check that the safety margin is obeyed
-  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
+  profile.contact_manager_config = tesseract::collision::ContactManagerConfig(0.1);
   profile.jiggle_factor = 1.0;
   waypoint.getPosition()[0] = 0.0;
   waypoint.getPosition()[1] = 1.09;
   WaypointPoly wp(waypoint);
-  tesseract_collision::ContactResultMap contacts;
+  tesseract::collision::ContactResultMap contacts;
 
   // Attempts are 0, so it should still be in collision
   profile.sampling_attempts = 0;
@@ -183,12 +184,12 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLI
   JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
 
   // Check that the safety margin is obeyed
-  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
+  profile.contact_manager_config = tesseract::collision::ContactManagerConfig(0.1);
   profile.jiggle_factor = 1.0;
   waypoint.getPosition()[0] = 0.0;
   waypoint.getPosition()[1] = 1.09;
   WaypointPoly wp(waypoint);
-  tesseract_collision::ContactResultMap contacts;
+  tesseract::collision::ContactResultMap contacts;
 
   EXPECT_TRUE(waypointInCollision(wp, manip_, *env_, profile, contacts));
   EXPECT_TRUE(moveWaypointFromCollisionTrajopt(wp, manip_, env_, profile));
@@ -210,14 +211,14 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptNoJointCostTes
   JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
 
   // Check that the safety margin is obeyed
-  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
+  profile.contact_manager_config = tesseract::collision::ContactManagerConfig(0.1);
   profile.jiggle_factor = 1.0;
   profile.trajopt_joint_constraint_config.enabled = false;  // Disable joint constraint
   profile.trajopt_joint_cost_config.enabled = false;        // Disable joint cost
   waypoint.getPosition()[0] = 0.0;
   waypoint.getPosition()[1] = 1.09;
   WaypointPoly wp(waypoint);
-  tesseract_collision::ContactResultMap contacts;
+  tesseract::collision::ContactResultMap contacts;
 
   EXPECT_TRUE(waypointInCollision(wp, manip_, *env_, profile, contacts));
   EXPECT_TRUE(moveWaypointFromCollisionTrajopt(wp, manip_, env_, profile));
@@ -239,7 +240,7 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptFailsWithZeroT
   JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
 
   // Set up the profile to use zero tolerance override and large coeff
-  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
+  profile.contact_manager_config = tesseract::collision::ContactManagerConfig(0.1);
   profile.jiggle_factor = 1.0;
   profile.trajopt_joint_constraint_config.enabled = true;
   profile.trajopt_joint_constraint_config.use_tolerance_override = true;
@@ -251,7 +252,7 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptFailsWithZeroT
   waypoint.getPosition()[0] = 0.0;
   waypoint.getPosition()[1] = 1.09;
   WaypointPoly wp(waypoint);
-  tesseract_collision::ContactResultMap contacts;
+  tesseract::collision::ContactResultMap contacts;
 
   EXPECT_TRUE(waypointInCollision(wp, manip_, *env_, profile, contacts));
   // Should fail to move out of collision due to zero tolerance and large coeff

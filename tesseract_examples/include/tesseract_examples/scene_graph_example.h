@@ -27,7 +27,7 @@
 
 #include <tesseract_examples/example.h>
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
 /**
  * @brief Basic example leveraging trajopt and tesseract for cartesian planning
@@ -35,8 +35,8 @@ namespace tesseract_examples
 class SceneGraphExample : public Example
 {
 public:
-  SceneGraphExample(std::shared_ptr<tesseract_environment::Environment> env,
-                    std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr);
+  SceneGraphExample(std::shared_ptr<tesseract::environment::Environment> env,
+                    std::shared_ptr<tesseract::visualization::Visualization> plotter = nullptr);
   ~SceneGraphExample() override = default;
   SceneGraphExample(const SceneGraphExample&) = default;
   SceneGraphExample& operator=(const SceneGraphExample&) = default;
@@ -46,6 +46,6 @@ public:
   bool run() override final;
 };
 
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples
 
 #endif  // TESSERACT_EXAMPLES_SCENE_GRAPH_EXAMPLE_H

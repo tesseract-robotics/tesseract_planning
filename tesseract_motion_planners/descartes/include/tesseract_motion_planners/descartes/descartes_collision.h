@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_collision/core/types.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 class DescartesCollision
 {
@@ -55,11 +55,11 @@ public:
    * @param debug If true, this print debug information to the terminal
    */
   DescartesCollision(
-      const tesseract_environment::Environment& collision_env,
-      std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-      const tesseract_collision::ContactManagerConfig& contact_manager_config =
-          tesseract_collision::ContactManagerConfig{ 0.025 },
-      tesseract_collision::CollisionCheckConfig collision_check_config = tesseract_collision::CollisionCheckConfig(),
+      const tesseract::environment::Environment& collision_env,
+      std::shared_ptr<const tesseract::kinematics::JointGroup> manip,
+      const tesseract::collision::ContactManagerConfig& contact_manager_config =
+          tesseract::collision::ContactManagerConfig{ 0.025 },
+      tesseract::collision::CollisionCheckConfig collision_check_config = tesseract::collision::CollisionCheckConfig(),
       bool debug = false);
   virtual ~DescartesCollision() = default;
 
@@ -78,8 +78,8 @@ public:
    * @param pos The joint values array to validate
    * @return ContactResultMap containing any contacts for the given solution
    */
-  bool validate(tesseract_collision::ContactResultMap& contact_results,
-                tesseract_common::TransformMap& transforms_cache,
+  bool validate(tesseract::collision::ContactResultMap& contact_results,
+                tesseract::common::TransformMap& transforms_cache,
                 const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
@@ -88,8 +88,8 @@ public:
    * @param pos The joint values array to calculate the distance to the closest object
    * @return The distance to the closest object
    */
-  double distance(tesseract_collision::ContactResultMap& contact_results,
-                  tesseract_common::TransformMap& transforms_cache,
+  double distance(tesseract::collision::ContactResultMap& contact_results,
+                  tesseract::common::TransformMap& transforms_cache,
                   const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
@@ -107,14 +107,14 @@ private:
    */
   bool isContactAllowed(const std::string& a, const std::string& b) const;
 
-  std::shared_ptr<const tesseract_kinematics::JointGroup> manip_; /**< @brief The tesseract state solver */
-  std::vector<std::string> active_link_names_;                    /**< @brief A vector of active link names */
-  std::shared_ptr<tesseract_collision::DiscreteContactManager> contact_manager_; /**< @brief The discrete contact
+  std::shared_ptr<const tesseract::kinematics::JointGroup> manip_; /**< @brief The tesseract state solver */
+  std::vector<std::string> active_link_names_;                     /**< @brief A vector of active link names */
+  std::shared_ptr<tesseract::collision::DiscreteContactManager> contact_manager_; /**< @brief The discrete contact
                                                                                     manager */
-  tesseract_collision::CollisionCheckConfig collision_check_config_;
+  tesseract::collision::CollisionCheckConfig collision_check_config_;
   bool debug_; /**< @brief Enable debug information to be printed to the terminal */
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_COLLISION_H

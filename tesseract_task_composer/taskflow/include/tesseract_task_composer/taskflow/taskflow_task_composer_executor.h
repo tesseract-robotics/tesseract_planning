@@ -52,7 +52,7 @@ namespace boost::uuids
 struct uuid;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPipeline;
 class TaskComposerTask;
@@ -91,6 +91,6 @@ private:
   std::unique_ptr<TaskComposerFuture> runImpl(const TaskComposerNode& node,
                                               std::shared_ptr<TaskComposerContext> context) override final;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_EXECUTOR_H

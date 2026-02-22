@@ -73,12 +73,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
 
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_environment;
-using namespace tesseract_geometry;
-using namespace tesseract_kinematics;
-using namespace tesseract_planning;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::environment;
+using namespace tesseract::geometry;
+using namespace tesseract::kinematics;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
 
 class OMPLYAMLTestFixture : public ::testing::Test
 {
@@ -542,8 +543,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLSPARSConfiguratorConversionsUnit)  // NOLINT
   }
 }
 
-bool containsType(OMPLPlannerType type,
-                  const std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>>& planners)
+bool containsType(OMPLPlannerType type, const std::vector<std::shared_ptr<const OMPLPlannerConfigurator>>& planners)
 {
   for (const auto& planner : planners)
   {
@@ -624,34 +624,34 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLOMPLSolverConfigConversionsUnit)  // NOLINT
     configurator.max_solutions = 4;
     configurator.simplify = true;
     configurator.optimize = false;
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::SBLConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::ESTConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::LBKPIECE1Configurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::BKPIECE1Configurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::KPIECE1Configurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::BiTRRTConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::RRTConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::RRTConnectConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::RRTstarConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::TRRTConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::PRMConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::PRMstarConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::LazyPRMstarConfigurator>()));
-    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-        std::make_shared<tesseract_planning::SPARSConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<SBLConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<ESTConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<LBKPIECE1Configurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<BKPIECE1Configurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<KPIECE1Configurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<BiTRRTConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<RRTConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<RRTConnectConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<RRTstarConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<TRRTConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<PRMConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<PRMstarConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<LazyPRMstarConfigurator>()));
+    configurator.planners.push_back(
+        std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<SPARSConfigurator>()));
 
     YAML::Node output_n(configurator);
     EXPECT_NEAR(output_n["planning_time"].as<double>(), 2.0, 1e-6);

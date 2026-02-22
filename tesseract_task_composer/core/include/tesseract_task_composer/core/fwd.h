@@ -1,7 +1,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_CORE_FWD_H
 #define TESSERACT_TASK_COMPOSER_CORE_FWD_H
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // task_composer_context.h
 class TaskComposerContext;
@@ -54,6 +54,6 @@ class RemapTask;
 class StartTask;
 class SyncTask;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_CORE_FWD_H

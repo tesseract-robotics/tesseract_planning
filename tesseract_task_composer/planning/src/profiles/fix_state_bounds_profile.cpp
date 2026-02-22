@@ -27,12 +27,12 @@
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 FixStateBoundsProfile::FixStateBoundsProfile(Settings mode) : Profile(createKey<FixStateBoundsProfile>()), mode(mode) {}
 
 FixStateBoundsProfile::FixStateBoundsProfile(const YAML::Node& config,
-                                             const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+                                             const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : FixStateBoundsProfile()
 {
   try
@@ -58,12 +58,12 @@ bool FixStateBoundsProfile::operator==(const FixStateBoundsProfile& rhs) const
 
   bool equal = true;
   equal &= (mode == rhs.mode);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(max_deviation_global, rhs.max_deviation_global, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(upper_bounds_reduction, rhs.upper_bounds_reduction, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lower_bounds_reduction, rhs.lower_bounds_reduction, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(max_deviation_global, rhs.max_deviation_global, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(upper_bounds_reduction, rhs.upper_bounds_reduction, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lower_bounds_reduction, rhs.lower_bounds_reduction, max_diff);
   return equal;
 }
 
 bool FixStateBoundsProfile::operator!=(const FixStateBoundsProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
