@@ -48,7 +48,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
-constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
+constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input" };
 constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
 
 namespace tesseract::motion_planners
@@ -185,8 +185,13 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   if (solver->getStatus() != trajopt_sqp::SQPStatus::kConverged)
   {
     response.successful = false;
-    response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
-    return response;
+    response.message =
+        std::string(ERROR_FAILED_TO_FIND_VALID_SOLUTION).append(": ").append(statusToString(solver->getStatus()));
+  }
+  else
+  {
+    response.successful = true;
+    response.message = SOLUTION_FOUND;
   }
 
   auto manip = request.env->getJointGroup(composite_mi.manipulator);
@@ -216,8 +221,6 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
         move_instruction, joint_names, traj.row(static_cast<Eigen::Index>(idx)), request.format_result_as_input);
   }
 
-  response.successful = true;
-  response.message = SOLUTION_FOUND;
   return response;
 }
 
