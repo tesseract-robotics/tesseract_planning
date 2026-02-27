@@ -26,7 +26,7 @@
 
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/test_suite/waypoint_poly_unit.hpp>
-#include <tesseract_common/joint_state.h>
+#include <tesseract/common/joint_state.h>
 
 namespace tesseract::command_language::test_suite
 {

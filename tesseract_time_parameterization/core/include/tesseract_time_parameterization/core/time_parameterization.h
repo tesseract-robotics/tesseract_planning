@@ -19,8 +19,8 @@
 #ifndef TESSERACT_TIME_PARAMETERIZATION_TIME_PARAMETERIZATION_H
 #define TESSERACT_TIME_PARAMETERIZATION_TIME_PARAMETERIZATION_H
 
-#include <tesseract_common/fwd.h>
-#include <tesseract_environment/fwd.h>
+#include <tesseract/common/fwd.h>
+#include <tesseract/environment/fwd.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 #include <string>

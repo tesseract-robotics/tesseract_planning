@@ -21,16 +21,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/types.h>
+#include <tesseract/common/types.h>
 
-#include <tesseract_kinematics/core/utils.h>
+#include <tesseract/kinematics/utils.h>
 
-#include <tesseract_environment/environment.h>
+#include <tesseract/environment/environment.h>
 
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
@@ -44,12 +44,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 
-#include <tesseract_visualization/visualization_loader.h>
+#include <tesseract/visualization/visualization_loader.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_common/resource_locator.h>
+#include <tesseract/common/resource_locator.h>
 
 using namespace tesseract::motion_planners;
 
@@ -64,13 +64,13 @@ int main(int /*argc*/, char** /*argv*/)
     auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
     auto env = std::make_shared<tesseract::environment::Environment>();
     std::filesystem::path urdf_path(
-        locator->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
+        locator->locateResource("package://tesseract/support/urdf/abb_irb2400.urdf")->getFilePath());
     std::filesystem::path srdf_path(
-        locator->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
+        locator->locateResource("package://tesseract/support/urdf/abb_irb2400.srdf")->getFilePath());
     env->init(urdf_path, srdf_path, locator);
 
     // Dynamically load ignition visualizer if exist
-    tesseract_visualization::VisualizationLoader loader;
+    tesseract::visualization::VisualizationLoader loader;
     auto plotter = loader.get();
 
     if (plotter != nullptr)

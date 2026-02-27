@@ -1,7 +1,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_FORMAT_AS_RESULT_TASK_H
 #define TESSERACT_TASK_COMPOSER_FORMAT_AS_RESULT_TASK_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_task_composer/planning/tesseract_task_composer_planning_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP

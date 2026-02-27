@@ -24,7 +24,7 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_POLY_UNIT_HPP
 #define TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_POLY_UNIT_HPP
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 #include <boost/archive/xml_oarchive.hpp>
@@ -33,8 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
-#include <tesseract_common/serialization.h>
-#include <tesseract_common/utils.h>
+#include <tesseract/common/serialization.h>
+#include <tesseract/common/utils.h>
 
 namespace tesseract::command_language::test_suite
 {

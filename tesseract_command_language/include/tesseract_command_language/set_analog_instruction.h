@@ -24,7 +24,7 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_SET_ANALOG_INSTRUCTION_H
 #define TESSERACT_COMMAND_LANGUAGE_SET_ANALOG_INSTRUCTION_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <boost/uuid/uuid.hpp>

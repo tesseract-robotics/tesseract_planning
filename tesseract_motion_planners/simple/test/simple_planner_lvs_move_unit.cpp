@@ -23,8 +23,8 @@
  */
 #include "simple_planner_test_utils.hpp"
 
-#include <tesseract_common/types.h>
-#include <tesseract_common/unit_test_utils.h>
+#include <tesseract/common/types.h>
+#include <tesseract/common/unit_test_utils.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/cereal_serialization.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_move_profile.h>

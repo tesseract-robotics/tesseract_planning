@@ -5,10 +5,9 @@ find_package(ros_industrial_cmake_boilerplate REQUIRED)
 extract_package_metadata(pkg)
 project(${pkg_extracted_name} VERSION ${pkg_extracted_version} LANGUAGES C CXX)
 
-find_package(tesseract_environment REQUIRED)
+find_package(tesseract REQUIRED COMPONENTS environment common collision)
 find_package(tesseract_command_language REQUIRED)
 find_package(tesseract_task_composer REQUIRED)
-find_package(tesseract_common REQUIRED)
 find_package(trajopt_sqp REQUIRED)
 find_package(trajopt_ifopt REQUIRED)
 find_package(
@@ -19,7 +18,6 @@ find_package(
     ompl
     trajopt
     trajopt_ifopt)
-find_package(tesseract_collision REQUIRED COMPONENTS core)
 find_package(PCL REQUIRED COMPONENTS common)
 
 # Load variable for clang tidy args, compiler options and cxx version
@@ -40,7 +38,7 @@ add_library(
   src/scene_graph_example.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
-  PUBLIC tesseract::tesseract_environment
+  PUBLIC tesseract::environment
          tesseract::tesseract_motion_planners_core
          tesseract::tesseract_motion_planners_ompl
          tesseract::tesseract_motion_planners_trajopt
@@ -106,18 +104,15 @@ configure_package(
           ${PROJECT_NAME}_scene_graph_example
           ${PROJECT_NAME}_benchmarks
   DEPENDENCIES
-    tesseract_environment
+    "tesseract COMPONENTS environment common collision"
     tesseract_command_language
     tesseract_motion_planners
     tesseract_task_composer
-    tesseract_collision
-    tesseract_common
     trajopt_sqp
     trajopt_ifopt)
 
 if(TESSERACT_ENABLE_TESTING)
   enable_testing()
-  add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
   add_subdirectory(test)
 endif()
 

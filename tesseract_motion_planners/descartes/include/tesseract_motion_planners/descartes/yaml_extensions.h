@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_YAML_EXTENSIONS_H
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_YAML_EXTENSIONS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -32,8 +32,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
 
-#include <tesseract_common/yaml_extensions.h>
-#include <tesseract_collision/core/yaml_extensions.h>
+#include <tesseract/common/yaml_extensions.h>
+#include <tesseract/collision/yaml_extensions.h>
 
 namespace YAML
 {

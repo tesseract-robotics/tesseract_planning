@@ -24,13 +24,13 @@
 #ifndef TESSERACT_MOTION_PLANNING_YAML_EXTENSIONS_H
 #define TESSERACT_MOTION_PLANNING_YAML_EXTENSIONS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_waypoint_config.h>
-#include <tesseract_common/yaml_extensions.h>
+#include <tesseract/common/yaml_extensions.h>
 #include <trajopt_common/yaml_extensions.h>
 #include <trajopt_sco/optimizers.hpp>
 #include <trajopt_sco/osqp_interface.hpp>

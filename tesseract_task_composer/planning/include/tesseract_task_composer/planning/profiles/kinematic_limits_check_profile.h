@@ -22,8 +22,8 @@
 #define TESSERACT_TASK_COMPOSER_PLANNING_PROFILES_KINEMATIC_LIMITS_CHECK_PROFILE_H
 
 #include <memory>
-#include <tesseract_common/profile.h>
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/profile.h>
+#include <tesseract/common/fwd.h>
 
 namespace YAML
 {

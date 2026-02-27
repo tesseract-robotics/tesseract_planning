@@ -36,7 +36,7 @@ class GlassUprightOMPLExample : public Example
 {
 public:
   GlassUprightOMPLExample(std::shared_ptr<tesseract::environment::Environment> env,
-                          std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
+                          std::shared_ptr<tesseract::visualization::Visualization> plotter = nullptr,
                           double range = 0.01,
                           double planning_time = 60.0,
                           bool use_trajopt_constraint = false);

@@ -5,7 +5,7 @@ target_link_libraries(
   ${PROJECT_NAME}_taskflow
   PUBLIC ${PROJECT_NAME}
          console_bridge::console_bridge
-         tesseract::tesseract_common
+         tesseract::common
          Boost::boost
          Taskflow::Taskflow
          yaml-cpp)

@@ -24,7 +24,7 @@
 #ifndef TESSERACT_EXAMPLES_PICK_AND_PLACE_EXAMPLE_H
 #define TESSERACT_EXAMPLES_PICK_AND_PLACE_EXAMPLE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <array>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP

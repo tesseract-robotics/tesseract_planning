@@ -24,7 +24,7 @@
 #include <vector>
 #include <variant>
 
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 
 namespace tesseract::task_composer
 {

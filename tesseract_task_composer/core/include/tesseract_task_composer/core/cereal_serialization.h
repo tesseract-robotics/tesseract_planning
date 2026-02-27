@@ -8,7 +8,7 @@
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_node_ports.h>
 
-#include <tesseract_common/cereal_serialization.h>
+#include <tesseract/common/cereal_serialization.h>
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>

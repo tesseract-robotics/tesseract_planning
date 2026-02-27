@@ -26,14 +26,14 @@
 #ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_SIMPLE_PLANNER_H
 #define TESSERACT_MOTION_PLANNERS_SIMPLE_SIMPLE_PLANNER_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_command_language/fwd.h>
-#include <tesseract_scene_graph/fwd.h>
+#include <tesseract/scene_graph/fwd.h>
 
 namespace tesseract::motion_planners
 {

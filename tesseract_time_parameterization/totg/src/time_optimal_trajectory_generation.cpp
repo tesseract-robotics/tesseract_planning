@@ -36,7 +36,7 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <limits>
 #include <Eigen/Geometry>
@@ -49,12 +49,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
-#include <tesseract_common/kinematic_limits.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/profile_dictionary.h>
-#include <tesseract_common/utils.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/kinematic_limits.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/common/utils.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/environment/environment.h>
 
 constexpr double EPS = 0.000001;
 

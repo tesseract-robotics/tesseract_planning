@@ -24,14 +24,14 @@
 #ifndef TESSERACT_MOTION_PLANNERS_PLANNER_UTILS_H
 #define TESSERACT_MOTION_PLANNERS_PLANNER_UTILS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/constants.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_common/kinematic_limits.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/common/kinematic_limits.h>
 #include <tesseract_motion_planners/robot_config.h>
 #include <tesseract_motion_planners/core/types.h>
 

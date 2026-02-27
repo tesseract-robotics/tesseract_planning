@@ -24,7 +24,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_INFO_H
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_INFO_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <shared_mutex>
@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/any_poly.h>
+#include <tesseract/common/any_poly.h>
 
 #include <tesseract_task_composer/core/task_composer_node_types.h>
 #include <tesseract_task_composer/core/task_composer_keys.h>

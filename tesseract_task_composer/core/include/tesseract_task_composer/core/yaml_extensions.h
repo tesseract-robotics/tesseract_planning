@@ -24,12 +24,12 @@
 #ifndef TESSERACT_TASK_COMPOSER_CORE_YAML_EXTENSIONS_H
 #define TESSERACT_TASK_COMPOSER_CORE_YAML_EXTENSIONS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/yaml_extensions.h>
+#include <tesseract/common/yaml_extensions.h>
 #include <tesseract_task_composer/core/task_composer_keys.h>
 
 namespace YAML

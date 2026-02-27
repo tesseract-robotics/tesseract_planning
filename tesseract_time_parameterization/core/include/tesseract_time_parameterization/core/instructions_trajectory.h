@@ -24,7 +24,7 @@
 #ifndef TESSERACT_TIME_PARAMETERIZATION_INSTRUCTIONS_TRAJECTORY_H
 #define TESSERACT_TIME_PARAMETERIZATION_INSTRUCTIONS_TRAJECTORY_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <Eigen/Core>

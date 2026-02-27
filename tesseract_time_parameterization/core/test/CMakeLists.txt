@@ -12,4 +12,3 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_core_tests)
 add_dependencies(${PROJECT_NAME}_core_tests ${PROJECT_NAME}_core)
-add_dependencies(run_tests ${PROJECT_NAME}_core_tests)

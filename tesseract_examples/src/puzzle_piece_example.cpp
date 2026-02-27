@@ -21,7 +21,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <fstream>
@@ -31,16 +31,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/puzzle_piece_example.h>
 
-#include <tesseract_collision/core/types.h>
+#include <tesseract/collision/types.h>
 
-#include <tesseract_state_solver/state_solver.h>
+#include <tesseract/state_solver/state_solver.h>
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_environment/utils.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/environment/utils.h>
 
-#include <tesseract_common/resource_locator.h>
-#include <tesseract_common/stopwatch.h>
-#include <tesseract_common/profile_dictionary.h>
+#include <tesseract/common/resource_locator.h>
+#include <tesseract/common/stopwatch.h>
+#include <tesseract/common/profile_dictionary.h>
 
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
@@ -64,8 +64,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
-#include <tesseract_visualization/visualization.h>
-#include <tesseract_visualization/markers/toolpath_marker.h>
+#include <tesseract/visualization/visualization.h>
+#include <tesseract/visualization/markers/toolpath_marker.h>
 
 using namespace trajopt;
 using namespace tesseract::environment;
@@ -89,7 +89,7 @@ makePuzzleToolPoses(const tesseract::common::ResourceLocator::ConstPtr& locator)
 
   // You could load your parts from anywhere, but we are transporting them with
   // the git repo
-  auto resource = locator->locateResource("package://tesseract_support/urdf/puzzle_bent.csv");
+  auto resource = locator->locateResource("package://tesseract/support/urdf/puzzle_bent.csv");
 
   // In a non-trivial app, you'll of course want to check that calls like 'open'
   // succeeded

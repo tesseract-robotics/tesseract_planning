@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_MOVE_PROFILE_H
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_MOVE_PROFILE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
 
-#include <tesseract_collision/core/types.h>
+#include <tesseract/collision/types.h>
 
 namespace tesseract::motion_planners
 {

@@ -25,8 +25,8 @@
 #include <tesseract_examples/freespace_ompl_example.h>
 #include <filesystem>
 #include <console_bridge/console.h>
-#include <tesseract_environment/environment.h>
-#include <tesseract_common/resource_locator.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/common/resource_locator.h>
 
 using namespace tesseract::examples;
 using namespace tesseract::common;
@@ -36,9 +36,9 @@ int main(int /*argc*/, char** /*argv*/)
 {
   auto locator = std::make_shared<GeneralResourceLocator>();
   std::filesystem::path urdf_path =
-      locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
   std::filesystem::path srdf_path =
-      locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
   auto env = std::make_shared<Environment>();
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);

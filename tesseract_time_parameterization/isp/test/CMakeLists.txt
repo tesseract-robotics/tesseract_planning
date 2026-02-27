@@ -12,4 +12,3 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_iterative_spline)
 add_dependencies(${PROJECT_NAME}_iterative_spline ${PROJECT_NAME}_isp)
-add_dependencies(run_tests ${PROJECT_NAME}_iterative_spline)

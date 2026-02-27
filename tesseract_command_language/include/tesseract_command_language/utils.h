@@ -24,7 +24,7 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_UTILS_UTILS_H
 #define TESSERACT_COMMAND_LANGUAGE_UTILS_UTILS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <limits>
 #include <string>
@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 
 namespace tesseract::command_language
 {

@@ -21,7 +21,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/SpaceInformation.h>
 #include <thread>
@@ -31,10 +31,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/utils.h>
 #include <tesseract_motion_planners/ompl/state_collision_validator.h>
 
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_collision/core/types.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/collision/discrete_contact_manager.h>
+#include <tesseract/collision/types.h>
+#include <tesseract/environment/environment.h>
 
 namespace tesseract::motion_planners
 {

@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_ROBOT_SAMPLER_HPP
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_ROBOT_SAMPLER_HPP
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <Eigen/Geometry>
@@ -34,8 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/descartes_robot_sampler.h>
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
-#include <tesseract_kinematics/core/kinematic_group.h>
-#include <tesseract_kinematics/core/utils.h>
+#include <tesseract/kinematics/kinematic_group.h>
+#include <tesseract/kinematics/utils.h>
 
 namespace tesseract::motion_planners
 {

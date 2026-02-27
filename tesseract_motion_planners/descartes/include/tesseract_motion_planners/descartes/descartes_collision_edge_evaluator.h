@@ -24,18 +24,18 @@
 #ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_COLLISION_EDGE_EVALUATOR_H
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_COLLISION_EDGE_EVALUATOR_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <mutex>
 #include <descartes_light/core/edge_evaluator.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/eigen_types.h>
-#include <tesseract_collision/core/fwd.h>
-#include <tesseract_collision/core/types.h>
-#include <tesseract_kinematics/core/fwd.h>
-#include <tesseract_environment/fwd.h>
+#include <tesseract/common/eigen_types.h>
+#include <tesseract/collision/fwd.h>
+#include <tesseract/collision/types.h>
+#include <tesseract/kinematics/fwd.h>
+#include <tesseract/environment/fwd.h>
 
 namespace tesseract::motion_planners
 {

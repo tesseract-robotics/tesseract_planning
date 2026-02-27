@@ -24,7 +24,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_FUTURE_H
 #define TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_FUTURE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <vector>

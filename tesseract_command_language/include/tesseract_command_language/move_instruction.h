@@ -24,7 +24,7 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_H
 #define TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <boost/uuid/uuid.hpp>
@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/types.h>
-#include <tesseract_common/manipulator_info.h>
+#include <tesseract/common/manipulator_info.h>
 
 namespace tesseract::command_language
 {

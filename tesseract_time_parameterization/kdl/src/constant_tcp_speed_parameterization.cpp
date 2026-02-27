@@ -23,12 +23,12 @@
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
 
 // Tesseract SDK
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/profile_dictionary.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_kinematics/core/utils.h>
-#include <tesseract_kinematics/kdl/kdl_utils.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/kinematics/utils.h>
+#include <tesseract/kinematics/kdl/kdl_utils.h>
+#include <tesseract/environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 // KDL SDK

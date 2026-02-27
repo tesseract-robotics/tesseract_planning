@@ -23,7 +23,7 @@
  */
 #include <tesseract_motion_planners/descartes/impl/profile/descartes_default_move_profile.hpp>
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
-#include <tesseract_common/utils.h>
+#include <tesseract/common/utils.h>
 
 namespace tesseract::motion_planners
 {

@@ -40,11 +40,11 @@
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
 #include <tesseract_time_parameterization/totg/cereal_serialization.h>
-#include <tesseract_common/resource_locator.h>
-#include <tesseract_common/profile_dictionary.h>
-#include <tesseract_common/unit_test_utils.h>
-#include <tesseract_common/serialization.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/resource_locator.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/common/unit_test_utils.h>
+#include <tesseract/common/serialization.h>
+#include <tesseract/environment/environment.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -73,9 +73,9 @@ protected:
     auto env = std::make_shared<tesseract::environment::Environment>();
 
     std::filesystem::path urdf_path(
-        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
+        locator_->locateResource("package://tesseract/support/urdf/abb_irb2400.urdf")->getFilePath());
     std::filesystem::path srdf_path(
-        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
+        locator_->locateResource("package://tesseract/support/urdf/abb_irb2400.srdf")->getFilePath());
     EXPECT_TRUE(env->init(urdf_path, srdf_path, locator_));
     env_ = env;
 

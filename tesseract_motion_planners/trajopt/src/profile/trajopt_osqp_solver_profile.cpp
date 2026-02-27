@@ -22,13 +22,13 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/profile_plugin_factory.h>
-#include <tesseract_common/utils.h>
+#include <tesseract/common/profile_plugin_factory.h>
+#include <tesseract/common/utils.h>
 #include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>

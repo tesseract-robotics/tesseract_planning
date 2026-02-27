@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_common/collision_types.h>
 #include <trajopt_common/utils.hpp>
@@ -34,8 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/common/profile_plugin_factory.h>
 #include <tesseract_motion_planners/trajopt_ifopt/yaml_extensions.h>
 
 namespace tesseract::motion_planners

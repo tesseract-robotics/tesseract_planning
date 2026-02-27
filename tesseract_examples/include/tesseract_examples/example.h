@@ -24,13 +24,13 @@
 #ifndef TESSERACT_ROS_EXAMPLES_EXAMPLES_H
 #define TESSERACT_ROS_EXAMPLES_EXAMPLES_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/fwd.h>
-#include <tesseract_visualization/fwd.h>
+#include <tesseract/environment/fwd.h>
+#include <tesseract/visualization/fwd.h>
 
 namespace tesseract::examples
 {

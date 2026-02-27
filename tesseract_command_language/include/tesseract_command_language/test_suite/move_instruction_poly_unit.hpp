@@ -31,7 +31,7 @@
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/constants.h>
 
-#include <tesseract_common/manipulator_info.h>
+#include <tesseract/common/manipulator_info.h>
 
 namespace tesseract::command_language::test_suite
 {

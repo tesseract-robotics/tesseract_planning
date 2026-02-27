@@ -10,7 +10,7 @@
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_move_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_move_profile.h>
 
-#include <tesseract_common/cereal_serialization.h>
+#include <tesseract/common/cereal_serialization.h>
 
 #include <cereal/cereal.hpp>
 

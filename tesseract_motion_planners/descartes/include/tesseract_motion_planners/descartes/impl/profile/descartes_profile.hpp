@@ -24,9 +24,9 @@
 #ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_PROFILE_HPP
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_PROFILE_HPP
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_environment/environment.h>
-#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/kinematics/kinematic_group.h>
 
 namespace tesseract::motion_planners
 {

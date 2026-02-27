@@ -22,9 +22,9 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tesseract_common/stopwatch.h>
+#include <tesseract/common/stopwatch.h>
 #include <boost/uuid/uuid_io.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 

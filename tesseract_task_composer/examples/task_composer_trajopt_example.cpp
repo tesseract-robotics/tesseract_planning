@@ -1,5 +1,5 @@
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <memory>
@@ -14,16 +14,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 
-#include <tesseract_common/types.h>
-#include <tesseract_common/utils.h>
-#include <tesseract_common/resource_locator.h>
-#include <tesseract_common/profile_dictionary.h>
-#include <tesseract_state_solver/state_solver.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/types.h>
+#include <tesseract/common/utils.h>
+#include <tesseract/common/resource_locator.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/state_solver/state_solver.h>
+#include <tesseract/environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_visualization/visualization.h>
-#include <tesseract_visualization/visualization_loader.h>
+#include <tesseract/visualization/visualization.h>
+#include <tesseract/visualization/visualization_loader.h>
 
 using namespace tesseract::task_composer;
 
@@ -35,9 +35,9 @@ int main()
   auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
   tesseract::environment::Environment::Ptr env = std::make_shared<tesseract::environment::Environment>();
   std::filesystem::path urdf_path(
-      locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
   std::filesystem::path srdf_path(
-      locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
   env->init(urdf_path, srdf_path, locator);
 
   // Dynamically load ignition visualizer if exist

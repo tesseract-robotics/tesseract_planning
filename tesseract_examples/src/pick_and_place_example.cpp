@@ -21,7 +21,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <trajopt_common/collision_types.h>
@@ -29,19 +29,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/pick_and_place_example.h>
 
-#include <tesseract_common/resource_locator.h>
-#include <tesseract_common/profile_dictionary.h>
+#include <tesseract/common/resource_locator.h>
+#include <tesseract/common/profile_dictionary.h>
 
-#include <tesseract_scene_graph/link.h>
-#include <tesseract_scene_graph/joint.h>
+#include <tesseract/scene_graph/link.h>
+#include <tesseract/scene_graph/joint.h>
 
-#include <tesseract_state_solver/state_solver.h>
+#include <tesseract/state_solver/state_solver.h>
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_environment/commands/add_link_command.h>
-#include <tesseract_environment/commands/change_collision_margins_command.h>
-#include <tesseract_environment/commands/modify_allowed_collisions_command.h>
-#include <tesseract_environment/commands/move_link_command.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/environment/commands/add_link_command.h>
+#include <tesseract/environment/commands/change_collision_margins_command.h>
+#include <tesseract/environment/commands/modify_allowed_collisions_command.h>
+#include <tesseract/environment/commands/move_link_command.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
@@ -66,10 +66,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
-#include <tesseract_visualization/visualization.h>
-#include <tesseract_visualization/markers/toolpath_marker.h>
+#include <tesseract/visualization/visualization.h>
+#include <tesseract/visualization/markers/toolpath_marker.h>
 
-#include <tesseract_geometry/impl/box.h>
+#include <tesseract/geometry/impl/box.h>
 
 using namespace tesseract::environment;
 using namespace tesseract::kinematics;

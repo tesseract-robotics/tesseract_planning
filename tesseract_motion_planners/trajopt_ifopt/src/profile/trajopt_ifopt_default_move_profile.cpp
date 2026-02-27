@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sqp/qp_problem.h>
 #include <trajopt_ifopt/variable_sets/node.h>
@@ -35,12 +35,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
-#include <tesseract_common/joint_state.h>
-#include <tesseract_common/utils.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/profile_plugin_factory.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/joint_state.h>
+#include <tesseract/common/utils.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/common/profile_plugin_factory.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/environment/environment.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>

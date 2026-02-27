@@ -52,7 +52,7 @@ set(LIB_SOURCE_LINK_LIBRARIES
     ${PROJECT_NAME}_nodes
     console_bridge::console_bridge
     trajopt::trajopt
-    tesseract::tesseract_common
+    tesseract::common
     tesseract::tesseract_command_language
     tesseract::tesseract_motion_planners_core
     tesseract::tesseract_motion_planners_simple
