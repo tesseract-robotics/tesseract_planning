@@ -24,7 +24,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <vector>

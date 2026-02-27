@@ -23,9 +23,9 @@
  */
 
 #include "simple_planner_test_utils.hpp"
-#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract/common/profile_plugin_factory.h>
 
-#include <tesseract_common/types.h>
+#include <tesseract/common/types.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_move_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_no_ik_move_profile.h>

@@ -1,9 +1,9 @@
 add_library(${PROJECT_NAME}_core src/instructions_trajectory.cpp src/time_parameterization.cpp src/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_core
-  PUBLIC tesseract::tesseract_common
-         tesseract::tesseract_kinematics_core
-         tesseract::tesseract_environment
+  PUBLIC tesseract::common
+         tesseract::kinematics
+         tesseract::environment
          tesseract::tesseract_command_language
          console_bridge::console_bridge
          Eigen3::Eigen)
@@ -35,9 +35,7 @@ configure_component(
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_core
   DEPENDENCIES
-    tesseract_common
-    "tesseract_kinematics COMPONENTS core"
-    tesseract_environment
+    "tesseract COMPONENTS common kinematics environment"
     tesseract_command_language
     console_bridge
     Eigen3)

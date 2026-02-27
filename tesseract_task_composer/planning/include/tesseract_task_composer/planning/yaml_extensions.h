@@ -23,12 +23,12 @@
  */
 #ifndef TESSERACT_TASK_COMPOSER_PLANNING_YAML_EXTENSIONS_H
 #define TESSERACT_TASK_COMPOSER_PLANNING_YAML_EXTENSIONS_H
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/yaml_extensions.h>
+#include <tesseract/common/yaml_extensions.h>
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
 #include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
 

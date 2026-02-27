@@ -24,7 +24,7 @@
 #ifndef TESSERACT_EXAMPLES_CAR_SEAT_EXAMPLE_H
 #define TESSERACT_EXAMPLES_CAR_SEAT_EXAMPLE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <unordered_map>

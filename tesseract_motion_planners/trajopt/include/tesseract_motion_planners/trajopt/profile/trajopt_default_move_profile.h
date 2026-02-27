@@ -25,7 +25,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_MOVE_PROFILE_H
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_MOVE_PROFILE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sco/modeling_utils.hpp>
 #include <Eigen/Geometry>

@@ -29,7 +29,7 @@
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
-#include <tesseract_common/yaml_utils.h>
+#include <tesseract/common/yaml_utils.h>
 
 #include <yaml-cpp/yaml.h>
 

@@ -22,12 +22,12 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <yaml-cpp/yaml.h>
 
-#include <tesseract_common/yaml_utils.h>
+#include <tesseract/common/yaml_utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/raster_motion_task.h>
@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/yaml_utils.h>
 
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/environment/environment.h>
 
 namespace
 {

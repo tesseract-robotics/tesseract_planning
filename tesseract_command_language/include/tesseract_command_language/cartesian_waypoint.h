@@ -24,13 +24,13 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_H
 #define TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
-#include <tesseract_common/joint_state.h>
+#include <tesseract/common/joint_state.h>
 
 namespace tesseract::command_language
 {

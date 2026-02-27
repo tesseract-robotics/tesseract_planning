@@ -23,14 +23,14 @@
  */
 #ifndef TESSERACT_COMMAND_LANGUAGE_STATE_WAYPOINT_POLY_H
 #define TESSERACT_COMMAND_LANGUAGE_STATE_WAYPOINT_POLY_H
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 
 namespace tesseract::command_language
 {

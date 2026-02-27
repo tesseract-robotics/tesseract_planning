@@ -15,4 +15,3 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_constant_tcp_speed_parameterization_tests)
 add_dependencies(${PROJECT_NAME}_constant_tcp_speed_parameterization_tests ${PROJECT_NAME}_kdl)
-add_dependencies(run_tests ${PROJECT_NAME}_constant_tcp_speed_parameterization_tests)

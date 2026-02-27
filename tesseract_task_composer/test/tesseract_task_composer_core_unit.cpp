@@ -1,13 +1,13 @@
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 #include <sstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/joint_state.h>
-#include <tesseract_common/utils.h>
-#include <tesseract_common/unit_test_utils.h>
-#include <tesseract_common/resource_locator.h>
+#include <tesseract/common/joint_state.h>
+#include <tesseract/common/utils.h>
+#include <tesseract/common/unit_test_utils.h>
+#include <tesseract/common/resource_locator.h>
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_context.h>

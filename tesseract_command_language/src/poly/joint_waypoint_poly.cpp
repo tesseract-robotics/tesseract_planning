@@ -23,7 +23,7 @@
  */
 
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
-#include <tesseract_common/utils.h>
+#include <tesseract/common/utils.h>
 
 namespace tesseract::command_language
 {

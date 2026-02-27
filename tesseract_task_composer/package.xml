@@ -13,8 +13,7 @@
 
   <depend>yaml-cpp</depend>
   <depend>libconsole-bridge-dev</depend>
-  <depend>tesseract_common</depend>
-  <depend>tesseract_environment</depend>
+  <depend>tesseract</depend>
   <depend>tesseract_command_language</depend>
   <depend>tesseract_motion_planners</depend>
   <depend>tesseract_time_parameterization</depend>
@@ -26,8 +25,6 @@
   <build_export_depend>eigen</build_export_depend>
 
   <test_depend>gtest</test_depend>
-  <test_depend>tesseract_support</test_depend>
-  <test_depend>tesseract_kinematics</test_depend>
   <test_depend>gperftools</test_depend>
 
   <export>

@@ -23,7 +23,7 @@
  */
 
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
-#include <tesseract_common/utils.h>
+#include <tesseract/common/utils.h>
 
 namespace tesseract::motion_planners
 {

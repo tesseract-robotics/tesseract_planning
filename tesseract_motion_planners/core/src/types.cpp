@@ -24,7 +24,7 @@
 
 #include <tesseract_motion_planners/core/types.h>
 
-#include <tesseract_common/profile_dictionary.h>
+#include <tesseract/common/profile_dictionary.h>
 
 namespace tesseract::motion_planners
 {

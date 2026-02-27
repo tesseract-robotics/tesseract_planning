@@ -10,7 +10,7 @@ if(WIN32)
 endif()
 
 find_package(console_bridge REQUIRED)
-find_package(tesseract_common REQUIRED)
+find_package(tesseract REQUIRED COMPONENTS common)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED)
 find_package(cereal REQUIRED)
@@ -53,7 +53,7 @@ target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC Eigen3::Eigen
          console_bridge::console_bridge
-         tesseract::tesseract_common
+         tesseract::common
          Boost::boost
          cereal::cereal)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
@@ -76,7 +76,7 @@ configure_package(
   TARGETS ${PROJECT_NAME}
   DEPENDENCIES
     console_bridge
-    tesseract_common
+    "tesseract COMPONENTS common"
     Eigen3
     Boost
     cereal)
@@ -92,7 +92,6 @@ install(
 
 if(TESSERACT_ENABLE_TESTING)
   enable_testing()
-  add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
   add_subdirectory(test)
 endif()
 

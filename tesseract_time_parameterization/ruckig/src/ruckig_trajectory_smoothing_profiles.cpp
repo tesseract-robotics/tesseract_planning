@@ -20,7 +20,7 @@
  */
 
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing_profiles.h>
-#include <tesseract_common/utils.h>
+#include <tesseract/common/utils.h>
 
 namespace tesseract::time_parameterization
 {

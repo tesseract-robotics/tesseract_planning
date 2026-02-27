@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
 #include <boost/algorithm/string.hpp>
@@ -39,10 +39,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/profile_plugin_factory.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/common/profile_plugin_factory.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/environment/environment.h>
 #include <trajopt_common/utils.hpp>
 
 static const double LONGEST_VALID_SEGMENT_FRACTION_DEFAULT = 0.01;

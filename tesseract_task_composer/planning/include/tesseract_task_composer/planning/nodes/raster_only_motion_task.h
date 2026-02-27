@@ -24,14 +24,14 @@
 #ifndef TESSERACT_TASK_COMPOSER_RASTER_ONLY_MOTION_TASK_H
 #define TESSERACT_TASK_COMPOSER_RASTER_ONLY_MOTION_TASK_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
 #include <tesseract_task_composer/planning/tesseract_task_composer_planning_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 
 namespace tesseract::task_composer
 {

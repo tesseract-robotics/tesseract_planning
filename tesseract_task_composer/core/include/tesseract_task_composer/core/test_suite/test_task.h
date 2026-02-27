@@ -23,9 +23,9 @@
 #ifndef TESSERACT_TASK_COMPOSER_TEST_TASK_H
 #define TESSERACT_TASK_COMPOSER_TEST_TASK_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>

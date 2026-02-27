@@ -22,15 +22,15 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
-#include <tesseract_collision/core/yaml_extensions.h>
-#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract/collision/yaml_extensions.h>
+#include <tesseract/common/profile_plugin_factory.h>
 
 namespace tesseract::task_composer
 {

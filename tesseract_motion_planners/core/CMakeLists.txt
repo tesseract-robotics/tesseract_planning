@@ -2,8 +2,8 @@
 add_library(${PROJECT_NAME}_core src/planner.cpp src/types.cpp src/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_core
-  PUBLIC tesseract::tesseract_environment
-         tesseract::tesseract_common
+  PUBLIC tesseract::environment
+         tesseract::common
          tesseract::tesseract_command_language
          console_bridge::console_bridge
          Eigen3::Eigen)
@@ -30,8 +30,7 @@ configure_component(
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_core
   DEPENDENCIES
-    tesseract_environment
-    tesseract_common
+    "tesseract COMPONENTS environment common"
     tesseract_command_language
     console_bridge
     Threads

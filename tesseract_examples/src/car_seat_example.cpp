@@ -21,7 +21,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <trajopt_common/collision_types.h>
@@ -29,25 +29,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/car_seat_example.h>
 
-#include <tesseract_common/allowed_collision_matrix.h>
-#include <tesseract_common/profile_dictionary.h>
+#include <tesseract/common/allowed_collision_matrix.h>
+#include <tesseract/common/profile_dictionary.h>
 
-#include <tesseract_collision/bullet/convex_hull_utils.h>
+#include <tesseract/collision/bullet/convex_hull_utils.h>
 
-#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract/kinematics/joint_group.h>
 
-#include <tesseract_scene_graph/link.h>
-#include <tesseract_scene_graph/joint.h>
+#include <tesseract/scene_graph/link.h>
+#include <tesseract/scene_graph/joint.h>
 
-#include <tesseract_state_solver/state_solver.h>
+#include <tesseract/state_solver/state_solver.h>
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_environment/utils.h>
-#include <tesseract_environment/commands/add_link_command.h>
-#include <tesseract_environment/commands/move_link_command.h>
-#include <tesseract_environment/commands/modify_allowed_collisions_command.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/environment/utils.h>
+#include <tesseract/environment/commands/add_link_command.h>
+#include <tesseract/environment/commands/move_link_command.h>
+#include <tesseract/environment/commands/modify_allowed_collisions_command.h>
 
-#include <tesseract_geometry/mesh_parser.h>
+#include <tesseract/geometry/mesh_parser.h>
 
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
@@ -71,8 +71,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
-#include <tesseract_visualization/visualization.h>
-#include <tesseract_visualization/markers/toolpath_marker.h>
+#include <tesseract/visualization/visualization.h>
+#include <tesseract/visualization/markers/toolpath_marker.h>
 
 using namespace tesseract::environment;
 using namespace tesseract::kinematics;
@@ -100,7 +100,7 @@ Commands addSeats(const tesseract::common::ResourceLocator::ConstPtr& locator)
     visual->origin = Eigen::Isometry3d::Identity();
     visual->geometry =
         tesseract::geometry::createMeshFromResource<tesseract::geometry::Mesh>(locator->locateResource("package://"
-                                                                                                       "tesseract_"
+                                                                                                       "tesseract/"
                                                                                                        "support/meshes/"
                                                                                                        "car_seat/"
                                                                                                        "visual/"
@@ -113,7 +113,7 @@ Commands addSeats(const tesseract::common::ResourceLocator::ConstPtr& locator)
     {
       std::vector<tesseract::geometry::Mesh::Ptr> meshes =
           tesseract::geometry::createMeshFromResource<tesseract::geometry::Mesh>(
-              locator->locateResource("package://tesseract_support/"
+              locator->locateResource("package://tesseract/support/"
                                       "meshes/car_seat/collision/seat_" +
                                       std::to_string(m) + ".stl"));
       for (auto& mesh : meshes)

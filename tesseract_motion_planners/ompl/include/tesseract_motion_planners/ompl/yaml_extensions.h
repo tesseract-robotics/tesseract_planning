@@ -24,18 +24,18 @@
 #ifndef TESSERACT_MOTION_PLANNING_YAML_EXTENSIONS_H
 #define TESSERACT_MOTION_PLANNING_YAML_EXTENSIONS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 #include <set>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/plugin_info.h>
+#include <tesseract/common/plugin_info.h>
 #include <tesseract_motion_planners/ompl/ompl_solver_config.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract/common/profile_plugin_factory.h>
 
 namespace YAML
 {

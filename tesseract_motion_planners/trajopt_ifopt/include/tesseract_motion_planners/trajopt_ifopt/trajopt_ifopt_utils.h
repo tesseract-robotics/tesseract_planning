@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_UTILS_H
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_UTILS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <memory>
@@ -34,10 +34,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sqp/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/fwd.h>
-#include <tesseract_kinematics/core/fwd.h>
-#include <tesseract_collision/core/fwd.h>
-#include <tesseract_environment/fwd.h>
+#include <tesseract/common/fwd.h>
+#include <tesseract/kinematics/fwd.h>
+#include <tesseract/collision/fwd.h>
+#include <tesseract/environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
 
 namespace OsqpEigen

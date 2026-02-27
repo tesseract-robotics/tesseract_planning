@@ -22,9 +22,9 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_kinematics/core/kinematic_group.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/kinematics/kinematic_group.h>
+#include <tesseract/environment/environment.h>
 #include <trajopt/problem_description.hpp>
 #include <console_bridge/console.h>
 

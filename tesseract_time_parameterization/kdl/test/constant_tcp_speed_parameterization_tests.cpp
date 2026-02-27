@@ -16,16 +16,16 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/resource_locator.h>
-#include <tesseract_common/profile_dictionary.h>
-#include <tesseract_common/unit_test_utils.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/resource_locator.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/common/unit_test_utils.h>
+#include <tesseract/environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
@@ -87,9 +87,9 @@ protected:
     auto env = std::make_shared<tesseract::environment::Environment>();
 
     std::filesystem::path urdf_path(
-        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
+        locator_->locateResource("package://tesseract/support/urdf/abb_irb2400.urdf")->getFilePath());
     std::filesystem::path srdf_path(
-        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
+        locator_->locateResource("package://tesseract/support/urdf/abb_irb2400.srdf")->getFilePath());
     EXPECT_TRUE(env->init(urdf_path, srdf_path, locator_));
     env_ = env;
 

@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_PLANNER_H
 #define TESSERACT_MOTION_PLANNERS_PLANNER_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <memory>

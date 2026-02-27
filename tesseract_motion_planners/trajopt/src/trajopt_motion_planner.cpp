@@ -21,7 +21,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <trajopt/plot_callback.hpp>
@@ -45,13 +45,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/utils.h>
 
-#include <tesseract_common/joint_state.h>
-#include <tesseract_common/profile_dictionary.h>
+#include <tesseract/common/joint_state.h>
+#include <tesseract/common/profile_dictionary.h>
 
-#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract/kinematics/kinematic_group.h>
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_environment/utils.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/environment/utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
 constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input" };

@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_COLLISION_COST_OBJECTIVE_H
 #define TESSERACT_MOTION_PLANNERS_COLLISION_COST_OBJECTIVE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/objectives/StateCostIntegralObjective.h>
 #include <ompl/base/SpaceInformation.h>
@@ -37,9 +37,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/types.h>
 
-#include <tesseract_environment/fwd.h>
-#include <tesseract_kinematics/core/fwd.h>
-#include <tesseract_collision/core/fwd.h>
+#include <tesseract/environment/fwd.h>
+#include <tesseract/kinematics/fwd.h>
+#include <tesseract/collision/fwd.h>
 
 namespace tesseract::motion_planners
 {

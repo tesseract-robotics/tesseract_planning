@@ -24,12 +24,12 @@
 #ifndef TESSERACT_PLANNING_DESCARTES_UTILS_H
 #define TESSERACT_PLANNING_DESCARTES_UTILS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/eigen_types.h>
+#include <tesseract/common/eigen_types.h>
 
 namespace tesseract::motion_planners
 {

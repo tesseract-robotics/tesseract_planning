@@ -1,9 +1,9 @@
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/utils.h>
+#include <tesseract/common/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
 namespace tesseract::command_language

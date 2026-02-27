@@ -17,4 +17,3 @@ target_code_coverage(
 add_gtest_discover_tests(${PROJECT_NAME}_trajopt_ifopt_yaml_unit)
 
 add_dependencies(${PROJECT_NAME}_trajopt_ifopt_yaml_unit ${PROJECT_NAME}_trajopt_ifopt)
-add_dependencies(run_tests ${PROJECT_NAME}_trajopt_ifopt_yaml_unit)

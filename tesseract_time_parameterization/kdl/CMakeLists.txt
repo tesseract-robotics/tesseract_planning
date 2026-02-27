@@ -1,8 +1,8 @@
-find_package(tesseract_kinematics REQUIRED COMPONENTS core kdl)
+find_package(tesseract REQUIRED COMPONENTS kinematics_kdl)
 add_library(${PROJECT_NAME}_kdl src/cereal_serialization.cpp src/constant_tcp_speed_parameterization.cpp
                                 src/constant_tcp_speed_parameterization_profiles.cpp)
 target_link_libraries(${PROJECT_NAME}_kdl PUBLIC ${PROJECT_NAME}_core cereal::cereal)
-target_link_libraries(${PROJECT_NAME}_kdl PRIVATE tesseract::tesseract_kinematics_kdl)
+target_link_libraries(${PROJECT_NAME}_kdl PRIVATE tesseract::kinematics_kdl)
 target_include_directories(${PROJECT_NAME}_kdl PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                       "$<INSTALL_INTERFACE:include>")
 target_compile_options(${PROJECT_NAME}_kdl PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})

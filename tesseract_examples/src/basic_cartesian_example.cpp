@@ -21,7 +21,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -31,20 +31,20 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/basic_cartesian_example.h>
 
-#include <tesseract_common/stopwatch.h>
-#include <tesseract_common/resource_locator.h>
-#include <tesseract_common/profile_dictionary.h>
+#include <tesseract/common/stopwatch.h>
+#include <tesseract/common/resource_locator.h>
+#include <tesseract/common/profile_dictionary.h>
 
-#include <tesseract_collision/core/types.h>
+#include <tesseract/collision/types.h>
 
-#include <tesseract_scene_graph/link.h>
-#include <tesseract_scene_graph/joint.h>
+#include <tesseract/scene_graph/link.h>
+#include <tesseract/scene_graph/joint.h>
 
-#include <tesseract_state_solver/state_solver.h>
+#include <tesseract/state_solver/state_solver.h>
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_environment/utils.h>
-#include <tesseract_environment/commands/add_link_command.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/environment/utils.h>
+#include <tesseract/environment/commands/add_link_command.h>
 
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
@@ -53,8 +53,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
 
-#include <tesseract_visualization/visualization.h>
-#include <tesseract_visualization/markers/toolpath_marker.h>
+#include <tesseract/visualization/visualization.h>
+#include <tesseract/visualization/markers/toolpath_marker.h>
 
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
@@ -69,8 +69,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
-#include <tesseract_geometry/impl/octree.h>
-#include <tesseract_geometry/impl/octree_utils.h>
+#include <tesseract/geometry/impl/octree.h>
+#include <tesseract/geometry/impl/octree_utils.h>
 
 using namespace tesseract::environment;
 using namespace tesseract::scene_graph;

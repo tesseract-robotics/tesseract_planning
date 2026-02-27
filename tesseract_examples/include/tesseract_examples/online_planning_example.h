@@ -30,19 +30,19 @@
 #ifndef TTESSERACT_EXAMPLES_ONLINE_PLANNING_EXAMPLE_H
 #define TTESSERACT_EXAMPLES_ONLINE_PLANNING_EXAMPLE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <Eigen/Geometry>
 #include <boost/uuid/uuid.hpp>
 #include <trajopt_sqp/fwd.h>
 #include <trajopt_ifopt/fwd.h>
-#include <tesseract_common/eigen_types.h>
-#include <tesseract_kinematics/core/fwd.h>
+#include <tesseract/common/eigen_types.h>
+#include <tesseract/kinematics/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/example.h>
-#include <tesseract_visualization/trajectory_player.h>
+#include <tesseract/visualization/trajectory_player.h>
 
 namespace tesseract::examples
 {

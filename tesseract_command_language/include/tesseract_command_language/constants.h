@@ -19,7 +19,7 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_CONSTANTS_H
 #define TESSERACT_COMMAND_LANGUAGE_CONSTANTS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP

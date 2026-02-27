@@ -24,14 +24,14 @@
 #ifndef TESSERACT_TASK_COMPOSER_FIX_STATE_BOUNDS_PROFILE_H
 #define TESSERACT_TASK_COMPOSER_FIX_STATE_BOUNDS_PROFILE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <limits>
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/profile.h>
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/profile.h>
+#include <tesseract/common/fwd.h>
 
 namespace YAML
 {

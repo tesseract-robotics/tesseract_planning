@@ -6,8 +6,8 @@
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 
-#include <tesseract_common/cereal_serialization.h>
-#include <tesseract_collision/core/cereal_serialization.h>
+#include <tesseract/common/cereal_serialization.h>
+#include <tesseract/collision/cereal_serialization.h>
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>

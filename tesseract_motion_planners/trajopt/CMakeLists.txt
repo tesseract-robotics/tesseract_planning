@@ -20,8 +20,8 @@ target_link_libraries(
          trajopt::trajopt
          trajopt::trajopt_common
          trajopt::trajopt_sco
-         tesseract::tesseract_kinematics_core
-         tesseract::tesseract_environment
+         tesseract::kinematics
+         tesseract::environment
          Boost::boost
          cereal::cereal
          Eigen3::Eigen

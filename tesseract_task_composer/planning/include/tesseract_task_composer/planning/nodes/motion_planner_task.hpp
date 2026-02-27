@@ -24,12 +24,12 @@
 #ifndef TESSERACT_TASK_COMPOSER_MOTION_PLANNER_TASK_HPP
 #define TESSERACT_TASK_COMPOSER_MOTION_PLANNER_TASK_HPP
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <yaml-cpp/yaml.h>
 
-#include <tesseract_environment/environment.h>
+#include <tesseract/environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>

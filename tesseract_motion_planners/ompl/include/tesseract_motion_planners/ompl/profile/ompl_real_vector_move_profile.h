@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_MOVE_PROFILE_H
 #define TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_MOVE_PROFILE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <memory>
@@ -35,12 +35,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 #include <tesseract_motion_planners/ompl/ompl_solver_config.h>
 
-#include <tesseract_collision/core/fwd.h>
-#include <tesseract_collision/core/types.h>
+#include <tesseract/collision/fwd.h>
+#include <tesseract/collision/types.h>
 
 #include <tesseract_command_language/fwd.h>
-#include <tesseract_kinematics/core/fwd.h>
-#include <tesseract_common/fwd.h>
+#include <tesseract/kinematics/fwd.h>
+#include <tesseract/common/fwd.h>
 
 namespace YAML
 {

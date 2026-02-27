@@ -25,7 +25,7 @@ add_library(
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC console_bridge::console_bridge
-         tesseract::tesseract_common
+         tesseract::common
          boost_plugin_loader::boost_plugin_loader
          Boost::boost
          cereal::cereal
@@ -66,7 +66,7 @@ target_link_libraries(
   ${PROJECT_NAME}_nodes
   PUBLIC ${PROJECT_NAME}
          console_bridge::console_bridge
-         tesseract::tesseract_common
+         tesseract::common
          Boost::boost
          cereal::cereal
          yaml-cpp)
@@ -141,7 +141,7 @@ configure_component(
   TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_nodes ${PROJECT_NAME}_validate_config
   DEPENDENCIES
     console_bridge
-    tesseract_common
+    "tesseract COMPONENTS common"
     boost_plugin_loader
     cereal
     yaml-cpp)

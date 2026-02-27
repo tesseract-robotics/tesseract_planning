@@ -20,7 +20,7 @@
  */
 
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization_profiles.h>
-#include <tesseract_common/utils.h>
+#include <tesseract/common/utils.h>
 
 namespace tesseract::time_parameterization
 {
