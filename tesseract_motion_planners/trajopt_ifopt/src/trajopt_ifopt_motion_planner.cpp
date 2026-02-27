@@ -186,7 +186,7 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   {
     response.successful = false;
     response.message =
-        std::string(ERROR_FAILED_TO_FIND_VALID_SOLUTION).append(": ").append(statusToString(solver->getStatus()));
+        std::string(ERROR_FAILED_TO_FIND_VALID_SOLUTION).append(": ").append(toString(solver->getStatus()));
   }
   else
   {
