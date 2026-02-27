@@ -23,7 +23,7 @@
 #define TESSERACT_TIME_PARAMETERIZATION_CONSTANT_TCP_SPEED_PARAMETERIZATION_PROFILES_H
 
 #include <memory>
-#include <tesseract_common/profile.h>
+#include <tesseract/common/profile.h>
 
 namespace tesseract::time_parameterization
 {

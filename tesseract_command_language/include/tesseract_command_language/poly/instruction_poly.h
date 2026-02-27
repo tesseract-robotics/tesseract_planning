@@ -24,7 +24,7 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H
 #define TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/stacktrace.hpp>
 #include <boost/core/demangle.hpp>
@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <string>
 #include <memory>
 #include <typeindex>
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 
 namespace boost::uuids
 {

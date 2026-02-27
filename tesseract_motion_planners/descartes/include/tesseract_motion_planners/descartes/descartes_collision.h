@@ -24,17 +24,17 @@
 #ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_COLLISION_H
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_COLLISION_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_collision/core/fwd.h>
-#include <tesseract_kinematics/core/fwd.h>
-#include <tesseract_environment/fwd.h>
+#include <tesseract/collision/fwd.h>
+#include <tesseract/kinematics/fwd.h>
+#include <tesseract/environment/fwd.h>
 
-#include <tesseract_collision/core/types.h>
+#include <tesseract/collision/types.h>
 
 namespace tesseract::motion_planners
 {

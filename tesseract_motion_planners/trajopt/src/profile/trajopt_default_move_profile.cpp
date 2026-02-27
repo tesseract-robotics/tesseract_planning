@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
 #include <yaml-cpp/yaml.h>
@@ -39,11 +39,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/utils.h>
 
-#include <tesseract_common/joint_state.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/profile_plugin_factory.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/joint_state.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/common/profile_plugin_factory.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/environment/environment.h>
 namespace tesseract::motion_planners
 {
 TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile()

@@ -22,14 +22,14 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 
-#include <tesseract_common/profile_dictionary.h>
-#include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_state_solver/state_solver.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/collision/discrete_contact_manager.h>
+#include <tesseract/state_solver/state_solver.h>
+#include <tesseract/environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/discrete_contact_check_task.h>

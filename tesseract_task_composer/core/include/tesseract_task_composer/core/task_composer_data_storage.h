@@ -24,7 +24,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_DATA_STORAGE_H
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_DATA_STORAGE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <map>
 #include <memory>
@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <shared_mutex>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/any_poly.h>
+#include <tesseract/common/any_poly.h>
 
 namespace tesseract::task_composer
 {

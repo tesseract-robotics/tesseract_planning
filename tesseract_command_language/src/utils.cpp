@@ -21,14 +21,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <algorithm>
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/kinematic_limits.h>
-#include <tesseract_common/joint_state.h>
+#include <tesseract/common/kinematic_limits.h>
+#include <tesseract/common/joint_state.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>

@@ -24,12 +24,12 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_INFO_UNIT_HPP
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_INFO_UNIT_HPP
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/unit_test_utils.h>
+#include <tesseract/common/unit_test_utils.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_context.h>

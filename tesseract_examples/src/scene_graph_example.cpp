@@ -21,23 +21,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/scene_graph_example.h>
 
-#include <tesseract_scene_graph/link.h>
-#include <tesseract_scene_graph/joint.h>
-#include <tesseract_scene_graph/graph.h>
+#include <tesseract/scene_graph/link.h>
+#include <tesseract/scene_graph/joint.h>
+#include <tesseract/scene_graph/graph.h>
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_environment/commands/move_link_command.h>
-#include <tesseract_environment/commands/move_joint_command.h>
-#include <tesseract_environment/utils.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/environment/commands/move_link_command.h>
+#include <tesseract/environment/commands/move_joint_command.h>
+#include <tesseract/environment/utils.h>
 
-#include <tesseract_visualization/visualization.h>
+#include <tesseract/visualization/visualization.h>
 
 using namespace tesseract::environment;
 using namespace tesseract::scene_graph;

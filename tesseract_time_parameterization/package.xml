@@ -12,9 +12,7 @@
   <build_depend>ros_industrial_cmake_boilerplate</build_depend>
 
   <depend>libconsole-bridge-dev</depend>
-  <depend>tesseract_common</depend>
-  <depend>tesseract_kinematics</depend>
-  <depend>tesseract_environment</depend>
+  <depend>tesseract</depend>
   <depend>tesseract_command_language</depend>
   <depend>ruckig</depend>
   <depend>cereal</depend>
@@ -23,7 +21,6 @@
   <build_export_depend>eigen</build_export_depend>
 
   <test_depend>gtest</test_depend>
-  <test_depend>tesseract_support</test_depend>
 
   <export>
     <build_type>cmake</build_type>

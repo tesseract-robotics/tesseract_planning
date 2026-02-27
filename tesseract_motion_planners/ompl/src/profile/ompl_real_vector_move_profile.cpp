@@ -21,7 +21,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/geometric/SimpleSetup.h>
 #include <ompl/base/spaces/RealVectorStateSpace.h>
@@ -51,15 +51,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/compound_state_validator.h>
 
 #include <tesseract_motion_planners/ompl/yaml_extensions.h>
-#include <tesseract_collision/core/yaml_extensions.h>
+#include <tesseract/collision/yaml_extensions.h>
 
-#include <tesseract_kinematics/core/utils.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_kinematics/core/kinematic_group.h>
-#include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/kinematics/utils.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/kinematics/kinematic_group.h>
+#include <tesseract/collision/discrete_contact_manager.h>
+#include <tesseract/environment/environment.h>
 
-#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract/common/profile_plugin_factory.h>
 
 namespace tesseract::motion_planners
 {

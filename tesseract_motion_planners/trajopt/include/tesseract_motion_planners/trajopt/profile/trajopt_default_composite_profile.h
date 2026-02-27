@@ -25,7 +25,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_COMPOSITE_PROFILE_H
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_COMPOSITE_PROFILE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <Eigen/Core>
@@ -35,8 +35,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 
-#include <tesseract_collision/core/fwd.h>
-#include <tesseract_collision/core/types.h>
+#include <tesseract/collision/fwd.h>
+#include <tesseract/collision/types.h>
 
 namespace YAML
 {

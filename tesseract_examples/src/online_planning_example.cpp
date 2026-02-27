@@ -27,7 +27,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <console_bridge/console.h>
@@ -60,16 +60,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/online_planning_example.h>
 
-#include <tesseract_common/joint_state.h>
+#include <tesseract/common/joint_state.h>
 
-#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract/kinematics/kinematic_group.h>
 
-#include <tesseract_state_solver/state_solver.h>
+#include <tesseract/state_solver/state_solver.h>
 
-#include <tesseract_environment/environment.h>
+#include <tesseract/environment/environment.h>
 
-#include <tesseract_visualization/visualization.h>
-#include <tesseract_visualization/markers/axis_marker.h>
+#include <tesseract/visualization/visualization.h>
+#include <tesseract/visualization/markers/axis_marker.h>
 
 using namespace tesseract::environment;
 using namespace tesseract::scene_graph;

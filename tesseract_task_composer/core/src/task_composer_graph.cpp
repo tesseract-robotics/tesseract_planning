@@ -22,16 +22,16 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <yaml-cpp/yaml.h>
 #include <boost/uuid/uuid_io.hpp>
 
-#include <tesseract_common/plugin_info.h>
-#include <tesseract_common/yaml_utils.h>
-#include <tesseract_common/yaml_extensions.h>
-#include <tesseract_common/stopwatch.h>
+#include <tesseract/common/plugin_info.h>
+#include <tesseract/common/yaml_utils.h>
+#include <tesseract/common/yaml_extensions.h>
+#include <tesseract/common/stopwatch.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_keys.h>

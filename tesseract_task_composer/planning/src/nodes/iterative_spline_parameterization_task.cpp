@@ -22,13 +22,13 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <yaml-cpp/yaml.h>
 
-#include <tesseract_common/profile_dictionary.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/planner_utils.h>

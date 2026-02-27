@@ -15,7 +15,6 @@ macro(add_gtest test_name test_file)
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
   add_gtest_discover_tests(${test_name})
   add_dependencies(${test_name} ${PROJECT_NAME}_simple)
-  add_dependencies(run_tests ${test_name})
 endmacro()
 
 add_gtest(${PROJECT_NAME}_simple_planner_fixed_size_assign_move_unit simple_planner_fixed_size_assign_move_unit.cpp)

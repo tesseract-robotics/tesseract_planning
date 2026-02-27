@@ -20,7 +20,7 @@
  */
 #include <tesseract_task_composer/planning/profiles/kinematic_limits_check_profile.h>
 #include <yaml-cpp/yaml.h>
-#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract/common/profile_plugin_factory.h>
 
 namespace tesseract::task_composer
 {

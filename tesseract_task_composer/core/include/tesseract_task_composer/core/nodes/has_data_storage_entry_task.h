@@ -1,7 +1,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_HAS_DATA_STORAGE_ENTRY_TASK_H
 #define TESSERACT_TASK_COMPOSER_HAS_DATA_STORAGE_ENTRY_TASK_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_task_composer/core/tesseract_task_composer_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP

@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_CONTINUOUS_MOTION_VALIDATOR_H
 #define TESSERACT_MOTION_PLANNERS_CONTINUOUS_MOTION_VALIDATOR_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/MotionValidator.h>
 #include <vector>
@@ -33,9 +33,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/types.h>
-#include <tesseract_collision/core/fwd.h>
-#include <tesseract_kinematics/core/fwd.h>
-#include <tesseract_environment/fwd.h>
+#include <tesseract/collision/fwd.h>
+#include <tesseract/kinematics/fwd.h>
+#include <tesseract/environment/fwd.h>
 
 namespace ompl::base
 {

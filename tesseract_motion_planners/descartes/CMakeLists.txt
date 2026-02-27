@@ -1,5 +1,5 @@
 find_package(descartes_light REQUIRED COMPONENTS core)
-find_package(tesseract_collision REQUIRED COMPONENTS core)
+find_package(tesseract REQUIRED COMPONENTS collision)
 
 # Descartes Planner
 add_library(
@@ -16,7 +16,7 @@ target_link_libraries(
   ${PROJECT_NAME}_descartes
   PUBLIC ${PROJECT_NAME}_core
          ${PROJECT_NAME}_simple
-         tesseract::tesseract_collision_core
+         tesseract::collision
          descartes::descartes_light
          Boost::boost
          cereal::cereal
@@ -51,7 +51,7 @@ configure_component(
   DEPENDENCIES
     "tesseract_motion_planners COMPONENTS core simple"
     "descartes_light REQUIRED COMPONENTS core"
-    "tesseract_collision COMPONENTS core"
+    "tesseract COMPONENTS collision"
     cereal)
 
 if(TESSERACT_PACKAGE)

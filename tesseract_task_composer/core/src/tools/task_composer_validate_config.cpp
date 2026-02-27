@@ -22,14 +22,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/program_options.hpp>
 #include <iostream>
 #include <filesystem>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/resource_locator.h>
+#include <tesseract/common/resource_locator.h>
 #include <tesseract_task_composer/core/task_composer_server.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>

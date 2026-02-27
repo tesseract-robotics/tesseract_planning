@@ -30,13 +30,13 @@
 #ifndef TESSERACT_MOTION_PLANNERS_OMPL_PLANNER_CONFIGURATOR_H
 #define TESSERACT_MOTION_PLANNERS_OMPL_PLANNER_CONFIGURATOR_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <limits>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 
 namespace ompl::base
 {

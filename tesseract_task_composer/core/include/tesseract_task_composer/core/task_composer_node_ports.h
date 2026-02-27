@@ -20,13 +20,13 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_PORTS_H
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_PORTS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <unordered_map>
 #include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 
 namespace tesseract::task_composer
 {

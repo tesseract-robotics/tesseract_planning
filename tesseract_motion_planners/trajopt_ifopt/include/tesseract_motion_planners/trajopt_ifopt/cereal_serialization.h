@@ -4,8 +4,8 @@
 #include <OsqpEigen/Settings.hpp>
 #include <trajopt_sqp/types.h>
 #include <trajopt_common/cereal_serialization.h>
-#include <tesseract_common/cereal_serialization.h>
-#include <tesseract_collision/core/cereal_serialization.h>
+#include <tesseract/common/cereal_serialization.h>
+#include <tesseract/collision/cereal_serialization.h>
 
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_waypoint_config.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>

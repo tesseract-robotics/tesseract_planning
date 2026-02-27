@@ -1,6 +1,5 @@
-find_package(tesseract_environment REQUIRED)
+find_package(tesseract REQUIRED COMPONENTS environment visualization)
 find_package(tesseract_command_language REQUIRED)
-find_package(tesseract_visualization REQUIRED)
 find_package(Taskflow REQUIRED)
 
 add_executable(${PROJECT_NAME}_example task_composer_example.cpp)
@@ -9,7 +8,7 @@ target_link_libraries(
   PRIVATE ${PROJECT_NAME}
           ${PROJECT_NAME}_taskflow
           console_bridge::console_bridge
-          tesseract::tesseract_environment
+          tesseract::environment
           tesseract::tesseract_command_language)
 target_compile_options(${PROJECT_NAME}_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                        ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -25,9 +24,9 @@ target_link_libraries(
   PRIVATE ${PROJECT_NAME}
           ${PROJECT_NAME}_taskflow
           console_bridge::console_bridge
-          tesseract::tesseract_environment
+          tesseract::environment
           tesseract::tesseract_command_language
-          tesseract::tesseract_visualization)
+          tesseract::visualization)
 target_compile_options(${PROJECT_NAME}_trajopt_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
@@ -42,9 +41,9 @@ target_link_libraries(
   PRIVATE ${PROJECT_NAME}
           ${PROJECT_NAME}_taskflow
           console_bridge::console_bridge
-          tesseract::tesseract_environment
+          tesseract::environment
           tesseract::tesseract_command_language
-          tesseract::tesseract_visualization)
+          tesseract::visualization)
 target_compile_options(${PROJECT_NAME}_raster_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                               ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_raster_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
@@ -58,11 +57,7 @@ configure_component(
   COMPONENT examples
   NAMESPACE tesseract
   TARGETS ${Examples}
-  DEPENDENCIES
-    console_bridge
-    tesseract_environment
-    tesseract_command_language
-    tesseract_visualization)
+  DEPENDENCIES console_bridge "tesseract COMPONENTS environment visualization" tesseract_command_language)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

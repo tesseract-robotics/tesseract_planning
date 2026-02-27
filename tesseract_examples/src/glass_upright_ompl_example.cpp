@@ -21,13 +21,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/glass_upright_ompl_example.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract/environment/core/utils.h>
 #include <trajopt/plot_callback.hpp>
 #include <trajopt/file_write_callback.hpp>
 #include <trajopt/problem_description.hpp>
@@ -37,7 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/config/utils.h>
 #include <tesseract_motion_planners/ompl/config/ompl_planner_constrained_config.h>
-#include <tesseract_visualization/markers/toolpath_marker.h>
+#include <tesseract/visualization/markers/toolpath_marker.h>
 #include <tesseract_task_composer/task_composer_input.h>
 
 #include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>
@@ -59,7 +59,7 @@ class TrajOptGlassUprightConstraint : public ompl::base::Constraint
 {
 public:
   TrajOptGlassUprightConstraint(tesseract::Tesseract::Ptr tesseract,
-                                tesseract_kinematics::ForwardKinematics::Ptr fwd_kin,
+                                tesseract::kinematics::ForwardKinematics::Ptr fwd_kin,
                                 std::string manipulator,
                                 std::string tcp_link,
                                 tesseract_rosutils::ROSPlottingPtr plotter)
@@ -173,7 +173,7 @@ public:
 
 private:
   tesseract::Tesseract::Ptr tesseract_;
-  tesseract_kinematics::ForwardKinematics::Ptr fwd_kin_;
+  tesseract::kinematics::ForwardKinematics::Ptr fwd_kin_;
   std::string manipulator_;
   std::string tcp_link_;
   tesseract_rosutils::ROSPlottingPtr plotter_;
@@ -182,7 +182,7 @@ private:
 class GlassUprightConstraint : public ompl::base::Constraint
 {
 public:
-  GlassUprightConstraint(const Eigen::Vector3d& normal, tesseract_kinematics::ForwardKinematics::Ptr fwd_kin)
+  GlassUprightConstraint(const Eigen::Vector3d& normal, tesseract::kinematics::ForwardKinematics::Ptr fwd_kin)
     : ompl::base::Constraint(fwd_kin->numJoints(), 1), normal_(normal.normalized()), fwd_kin_(std::move(fwd_kin))
   {
   }
@@ -201,11 +201,11 @@ public:
 
 private:
   Eigen::Vector3d normal_;
-  tesseract_kinematics::ForwardKinematics::Ptr fwd_kin_;
+  tesseract::kinematics::ForwardKinematics::Ptr fwd_kin_;
 };
 
 GlassUprightOMPLExample::GlassUprightOMPLExample(std::shared_ptr<tesseract::environment::Environment> env,
-                                                 std::shared_ptr<tesseract_visualization::Visualization> plotter,
+                                                 std::shared_ptr<tesseract::visualization::Visualization> plotter,
                                                  double range,
                                                  double planning_time,
                                                  bool use_trajopt_constraint)
@@ -227,7 +227,7 @@ bool GlassUprightOMPLExample::run()
   Visual::Ptr visual = std::make_shared<Visual>();
   visual->origin = Eigen::Isometry3d::Identity();
   visual->origin.translation() = Eigen::Vector3d(0.5, 0, 0.55);
-  visual->geometry = std::make_shared<tesseract_geometry::Sphere>(0.15);
+  visual->geometry = std::make_shared<tesseract::geometry::Sphere>(0.15);
   link_sphere.visual.push_back(visual);
 
   Collision::Ptr collision = std::make_shared<Collision>();

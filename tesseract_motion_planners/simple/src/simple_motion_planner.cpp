@@ -23,7 +23,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -35,12 +35,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
-#include <tesseract_common/joint_state.h>
-#include <tesseract_common/profile_dictionary.h>
+#include <tesseract/common/joint_state.h>
+#include <tesseract/common/profile_dictionary.h>
 
-#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract/kinematics/joint_group.h>
 
-#include <tesseract_environment/environment.h>
+#include <tesseract/environment/environment.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>

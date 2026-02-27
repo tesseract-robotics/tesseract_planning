@@ -19,7 +19,7 @@
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_LOG_H
 
 #include <memory>
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 
 namespace tesseract::task_composer

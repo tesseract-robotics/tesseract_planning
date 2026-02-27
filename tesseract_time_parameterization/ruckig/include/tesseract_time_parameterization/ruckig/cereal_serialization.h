@@ -3,7 +3,7 @@
 
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing_profiles.h>
 
-#include <tesseract_common/cereal_serialization.h>
+#include <tesseract/common/cereal_serialization.h>
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>

@@ -23,10 +23,10 @@
  */
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_environment/environment.h>
-#include <tesseract_environment/utils.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/collision/discrete_contact_manager.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/environment/utils.h>
 
 namespace tesseract::motion_planners
 {

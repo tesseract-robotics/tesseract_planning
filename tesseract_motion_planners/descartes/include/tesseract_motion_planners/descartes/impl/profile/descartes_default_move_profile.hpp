@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_MOVE_PROFILE_HPP
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_MOVE_PROFILE_HPP
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/edge_evaluators/euclidean_distance_edge_evaluator.h>
 #include <descartes_light/edge_evaluators/compound_edge_evaluator.h>
@@ -39,10 +39,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h>
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
 
-#include <tesseract_common/utils.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_kinematics/core/kinematic_group.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/utils.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/kinematics/kinematic_group.h>
+#include <tesseract/environment/environment.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/utils.h>

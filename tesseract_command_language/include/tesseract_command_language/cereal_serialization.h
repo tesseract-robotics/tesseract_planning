@@ -18,7 +18,7 @@
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
 
-#include <tesseract_common/cereal_serialization.h>
+#include <tesseract/common/cereal_serialization.h>
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>

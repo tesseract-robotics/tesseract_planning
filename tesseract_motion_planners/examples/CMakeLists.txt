@@ -1,4 +1,4 @@
-find_package(tesseract_visualization REQUIRED)
+find_package(tesseract REQUIRED COMPONENTS visualization)
 
 if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJOPT)
   message("Building chain example")
@@ -8,8 +8,8 @@ if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJ
     ${PROJECT_NAME}_descartes
     ${PROJECT_NAME}_trajopt
     ${PROJECT_NAME}_simple
-    tesseract::tesseract_state_solver_ofkt
-    tesseract::tesseract_visualization)
+    tesseract::state_solver_ofkt
+    tesseract::visualization)
   target_compile_options(${PROJECT_NAME}_chain_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
   target_compile_definitions(${PROJECT_NAME}_chain_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
@@ -26,8 +26,8 @@ if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJ
     ${PROJECT_NAME}_descartes
     ${PROJECT_NAME}_trajopt
     ${PROJECT_NAME}_simple
-    tesseract::tesseract_state_solver_ofkt
-    tesseract::tesseract_visualization)
+    tesseract::state_solver_ofkt
+    tesseract::visualization)
   target_compile_options(${PROJECT_NAME}_raster_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                 ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
   target_compile_definitions(${PROJECT_NAME}_raster_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
@@ -44,8 +44,8 @@ if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_OMPL AND TESSERACT_BUILD_TRAJOPT)
     ${PROJECT_NAME}_ompl
     ${PROJECT_NAME}_trajopt
     ${PROJECT_NAME}_simple
-    tesseract::tesseract_state_solver_ofkt
-    tesseract::tesseract_visualization)
+    tesseract::state_solver_ofkt
+    tesseract::visualization)
   target_compile_options(${PROJECT_NAME}_freespace_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                    ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
   target_compile_definitions(${PROJECT_NAME}_freespace_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})

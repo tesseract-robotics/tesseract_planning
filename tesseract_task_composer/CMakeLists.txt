@@ -10,7 +10,7 @@ if(WIN32)
 endif()
 
 find_package(console_bridge REQUIRED)
-find_package(tesseract_common REQUIRED)
+find_package(tesseract REQUIRED COMPONENTS common)
 find_package(boost_plugin_loader REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(cereal REQUIRED)
@@ -80,7 +80,6 @@ install(DIRECTORY config/ DESTINATION share/${PROJECT_NAME}/config COMPONENT cor
 if(TESSERACT_ENABLE_TESTING)
   find_gtest()
   enable_testing()
-  add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
   add_subdirectory(test)
 endif()
 

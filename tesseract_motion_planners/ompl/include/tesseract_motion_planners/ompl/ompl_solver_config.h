@@ -26,7 +26,7 @@
 
 #include <memory>
 #include <vector>
-#include <tesseract_common/fwd.h>
+#include <tesseract/common/fwd.h>
 
 namespace tesseract::motion_planners
 {

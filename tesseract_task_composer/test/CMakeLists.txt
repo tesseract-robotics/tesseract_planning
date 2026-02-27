@@ -33,7 +33,6 @@ target_code_coverage(
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_fix_state_bounds_task_unit)
-add_dependencies(run_tests ${PROJECT_NAME}_fix_state_bounds_task_unit)
 
 add_executable(${PROJECT_NAME}_fix_state_collision_task_unit fix_state_collision_task_unit.cpp)
 target_link_libraries(
@@ -54,7 +53,6 @@ target_code_coverage(
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_fix_state_collision_task_unit)
-add_dependencies(run_tests ${PROJECT_NAME}_fix_state_collision_task_unit)
 
 # Plugin Factories Tests
 add_executable(${PROJECT_NAME}_plugin_factories_unit ${PROJECT_NAME}_plugin_factories_unit.cpp)
@@ -72,7 +70,6 @@ target_code_coverage(
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_plugin_factories_unit)
-add_dependencies(run_tests ${PROJECT_NAME}_plugin_factories_unit)
 add_dependencies(${PROJECT_NAME}_plugin_factories_unit ${PROJECT_NAME})
 if(tesseract_motion_planners_trajopt_ifopt_FOUND)
   target_compile_definitions(${PROJECT_NAME}_plugin_factories_unit PUBLIC TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT=1)
@@ -98,7 +95,6 @@ target_code_coverage(
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_core_unit)
-add_dependencies(run_tests ${PROJECT_NAME}_core_unit)
 add_dependencies(${PROJECT_NAME}_core_unit ${PROJECT_NAME})
 
 # Taskflow Tests
@@ -123,7 +119,6 @@ if(TESSERACT_BUILD_TASK_COMPOSER_TASKFLOW)
     EXCLUDE ${COVERAGE_EXCLUDE}
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
   add_gtest_discover_tests(${PROJECT_NAME}_taskflow_unit)
-  add_dependencies(run_tests ${PROJECT_NAME}_taskflow_unit)
   add_dependencies(${PROJECT_NAME}_taskflow_unit ${PROJECT_NAME})
 endif(TESSERACT_BUILD_TASK_COMPOSER_TASKFLOW)
 
@@ -152,6 +147,5 @@ if(TESSERACT_BUILD_TASK_COMPOSER_PLANNING)
     EXCLUDE ${COVERAGE_EXCLUDE}
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
   add_gtest_discover_tests(${PROJECT_NAME}_planning_unit)
-  add_dependencies(run_tests ${PROJECT_NAME}_planning_unit)
   add_dependencies(${PROJECT_NAME}_planning_unit ${PROJECT_NAME})
 endif()

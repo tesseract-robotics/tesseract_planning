@@ -26,7 +26,7 @@
 
 #include <tesseract_task_composer/planning/profiles/min_length_profile.h>
 #include <yaml-cpp/yaml.h>
-#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract/common/profile_plugin_factory.h>
 
 namespace tesseract::task_composer
 {

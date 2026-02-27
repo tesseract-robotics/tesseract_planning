@@ -9,7 +9,7 @@
 #include <tesseract_task_composer/planning/profiles/profile_switch_profile.h>
 #include <tesseract_task_composer/planning/profiles/upsample_trajectory_profile.h>
 
-#include <tesseract_collision/core/cereal_serialization.h>
+#include <tesseract/collision/cereal_serialization.h>
 #include <tesseract_motion_planners/trajopt/cereal_serialization.h>
 
 #include <cereal/cereal.hpp>

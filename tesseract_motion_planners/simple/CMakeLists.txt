@@ -42,7 +42,7 @@ configure_component(
   TARGETS ${PROJECT_NAME}_simple
   DEPENDENCIES
     "tesseract_motion_planners COMPONENTS core"
-    tesseract_environment
+    "tesseract COMPONENTS environment"
     tesseract_command_language
     cereal)
 

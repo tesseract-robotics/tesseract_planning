@@ -24,16 +24,16 @@
 #ifndef TESSERACT_MOTION_PLANNERS_OMPL_MOTION_PLANNER_H
 #define TESSERACT_MOTION_PLANNERS_OMPL_MOTION_PLANNER_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/planner.h>
-#include <tesseract_common/fwd.h>
-#include <tesseract_kinematics/core/fwd.h>
-#include <tesseract_common/eigen_types.h>
+#include <tesseract/common/fwd.h>
+#include <tesseract/kinematics/fwd.h>
+#include <tesseract/common/eigen_types.h>
 
 namespace tesseract::motion_planners
 {

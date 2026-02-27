@@ -15,7 +15,6 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_ompl_unit)
 add_dependencies(${PROJECT_NAME}_ompl_unit ${PROJECT_NAME}_ompl)
-add_dependencies(run_tests ${PROJECT_NAME}_ompl_unit)
 
 # OMPL YAML Unit tests
 add_executable(${PROJECT_NAME}_ompl_yaml_unit ompl_yaml_conversions_tests.cpp)
@@ -33,7 +32,6 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_ompl_yaml_unit)
 add_dependencies(${PROJECT_NAME}_ompl_yaml_unit ${PROJECT_NAME}_ompl)
-add_dependencies(run_tests ${PROJECT_NAME}_ompl_yaml_unit)
 
 # OMPL Constrained Planning Test/Example Program if(NOT OMPL_VERSION VERSION_LESS "1.4.0")
 # add_executable(${PROJECT_NAME}_ompl_constrained_unit ompl_constrained_planner_tests.cpp)
@@ -43,5 +41,4 @@ add_dependencies(run_tests ${PROJECT_NAME}_ompl_yaml_unit)
 # tesseract_clang_tidy(${PROJECT_NAME}_ompl_constrained_unit)
 # tesseract_code_coverage(${PROJECT_NAME}_ompl_constrained_unit ALL EXCLUDE ${COVERAGE_EXCLUDE})
 # tesseract_gtest_discover_tests(${PROJECT_NAME}_ompl_constrained_unit)
-# add_dependencies(${PROJECT_NAME}_ompl_constrained_unit ${PROJECT_NAME}_ompl) add_dependencies(run_tests
-# ${PROJECT_NAME}_ompl_constrained_unit) endif()
+# add_dependencies(${PROJECT_NAME}_ompl_constrained_unit ${PROJECT_NAME}_ompl) endif()

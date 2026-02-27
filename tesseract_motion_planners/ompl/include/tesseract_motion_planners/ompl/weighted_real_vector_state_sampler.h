@@ -29,7 +29,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_WEIGHTED_REAL_VECTOR_STATE_SAMPLER_H
 #define TESSERACT_MOTION_PLANNERS_WEIGHTED_REAL_VECTOR_STATE_SAMPLER_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/StateSampler.h>
 #include <Eigen/Core>

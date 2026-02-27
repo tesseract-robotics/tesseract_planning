@@ -23,7 +23,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_TEST_PROGRAMS_HPP
 #define TESSERACT_TASK_COMPOSER_TEST_PROGRAMS_HPP
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>

@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_UTILS_H
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_UTILS_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
 #include <Eigen/Geometry>
@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/fwd.h>
-#include <tesseract_collision/core/types.h>
+#include <tesseract/collision/types.h>
 
 namespace tesseract::motion_planners
 {

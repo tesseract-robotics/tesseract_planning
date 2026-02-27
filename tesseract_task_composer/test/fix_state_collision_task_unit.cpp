@@ -1,11 +1,11 @@
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/types.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/types.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/environment/environment.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
@@ -13,7 +13,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
-#include <tesseract_common/resource_locator.h>
+#include <tesseract/common/resource_locator.h>
 
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 
@@ -35,9 +35,9 @@ protected:
     Environment::Ptr env = std::make_shared<Environment>();
 
     std::filesystem::path urdf_path(
-        locator->locateResource("package://tesseract_support/urdf/boxbot.urdf")->getFilePath());
+        locator->locateResource("package://tesseract/support/urdf/boxbot.urdf")->getFilePath());
     std::filesystem::path srdf_path(
-        locator->locateResource("package://tesseract_support/urdf/boxbot.srdf")->getFilePath());
+        locator->locateResource("package://tesseract/support/urdf/boxbot.srdf")->getFilePath());
     EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;
 

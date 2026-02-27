@@ -1,7 +1,7 @@
 
 #include <iostream>
-#include <tesseract_common/utils.h>
-#include <tesseract_common/resource_locator.h>
+#include <tesseract/common/utils.h>
+#include <tesseract/common/resource_locator.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>

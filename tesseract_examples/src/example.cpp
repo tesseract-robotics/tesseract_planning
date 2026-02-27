@@ -24,8 +24,8 @@
 
 #include <tesseract_examples/example.h>
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_visualization/visualization.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/visualization/visualization.h>
 
 namespace tesseract::examples
 {

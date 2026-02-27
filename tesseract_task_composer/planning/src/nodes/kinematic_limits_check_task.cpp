@@ -22,14 +22,14 @@
 #include <tesseract_task_composer/planning/nodes/kinematic_limits_check_task.h>
 #include <tesseract_task_composer/planning/profiles/kinematic_limits_check_profile.h>
 
-#include <tesseract_common/kinematic_limits.h>
-#include <tesseract_common/profile_dictionary.h>
-#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract/common/kinematic_limits.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/kinematics/joint_group.h>
 
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/environment/environment.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 

@@ -25,12 +25,12 @@
 #include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
 #include <tesseract_task_composer/planning/yaml_extensions.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
-#include <tesseract_collision/core/yaml_extensions.h>
+#include <tesseract/collision/yaml_extensions.h>
 #include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 #include <trajopt_common/yaml_extensions.h>
 #include <yaml-cpp/yaml.h>
-#include <tesseract_common/profile_plugin_factory.h>
-#include <tesseract_common/utils.h>
+#include <tesseract/common/profile_plugin_factory.h>
+#include <tesseract/common/utils.h>
 
 namespace tesseract::task_composer
 {

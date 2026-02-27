@@ -24,7 +24,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_OSQP_SOLVER_PROFILE_H
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_OSQP_SOLVER_PROFILE_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <trajopt_sqp/fwd.h>

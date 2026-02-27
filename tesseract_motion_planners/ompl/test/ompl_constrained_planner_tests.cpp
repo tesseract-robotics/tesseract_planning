@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/geometric/planners/sbl/SBL.h>
 #include <ompl/geometric/planners/est/EST.h>
@@ -46,8 +46,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/tesseract.h>
-#include <tesseract_common/types.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract/common/types.h>
+#include <tesseract/environment/core/utils.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/ompl/config/ompl_planner_constrained_config.h>

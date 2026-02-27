@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/variable_sets/var.h>
 #include <trajopt_ifopt/constraints/cartesian_line_constraint.h>
@@ -44,13 +44,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
-#include <tesseract_common/utils.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_collision/core/common.h>
-#include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_collision/core/continuous_contact_manager.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract/common/utils.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/collision/common.h>
+#include <tesseract/collision/discrete_contact_manager.h>
+#include <tesseract/collision/continuous_contact_manager.h>
+#include <tesseract/environment/environment.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 
 namespace tesseract::motion_planners

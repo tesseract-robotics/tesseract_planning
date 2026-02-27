@@ -23,7 +23,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_REMAP_TASK_H
 #define TESSERACT_TASK_COMPOSER_REMAP_TASK_H
 
-#include <tesseract_common/macros.h>
+#include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <map>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP

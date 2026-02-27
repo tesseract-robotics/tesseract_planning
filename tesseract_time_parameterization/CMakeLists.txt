@@ -10,9 +10,7 @@ if(WIN32)
 endif()
 
 find_package(console_bridge REQUIRED)
-find_package(tesseract_common REQUIRED)
-find_package(tesseract_kinematics REQUIRED COMPONENTS core)
-find_package(tesseract_environment REQUIRED)
+find_package(tesseract REQUIRED COMPONENTS common kinematics environment)
 find_package(tesseract_command_language REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(cereal REQUIRED)
@@ -38,7 +36,6 @@ add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENA
 if(TESSERACT_ENABLE_TESTING)
   find_gtest()
   enable_testing()
-  add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
 endif()
 
 # Core
