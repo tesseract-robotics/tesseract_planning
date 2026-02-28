@@ -54,8 +54,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/environment/utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
-constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
-constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution: " };
+constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input" };
+constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
 
 using namespace trajopt;
 
@@ -139,7 +139,8 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
   if (opt->results().status != sco::OptStatus::OPT_CONVERGED)
   {
     response.successful = false;
-    response.message = std::string(ERROR_FAILED_TO_FIND_VALID_SOLUTION) + sco::toString(opt->results().status);
+    response.message =
+        std::string(ERROR_FAILED_TO_FIND_VALID_SOLUTION).append(": ").append(sco::toString(opt->results().status));
   }
   else
   {
