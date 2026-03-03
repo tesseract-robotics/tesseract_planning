@@ -1,0 +1,313 @@
+/**
+ * @file trajopt_default_move_profile.cpp
+ * @brief
+ *
+ * @author Levi Armstrong
+ * @date June 18, 2020
+ *
+ * @copyright Copyright (c) 2020, Southwest Research Institute
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <tesseract/common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/algorithm/string.hpp>
+#include <yaml-cpp/yaml.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract/motion_planners/trajopt/trajopt_utils.h>
+#include <tesseract/motion_planners/trajopt/yaml_extensions.h>
+#include <tesseract/motion_planners/trajopt/profile/trajopt_default_move_profile.h>
+
+#include <tesseract/command_language/poly/move_instruction_poly.h>
+#include <tesseract/command_language/poly/waypoint_poly.h>
+#include <tesseract/command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract/command_language/poly/joint_waypoint_poly.h>
+#include <tesseract/command_language/poly/state_waypoint_poly.h>
+#include <tesseract/command_language/utils.h>
+
+#include <tesseract/common/joint_state.h>
+#include <tesseract/common/manipulator_info.h>
+#include <tesseract/common/profile_plugin_factory.h>
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/environment/environment.h>
+namespace tesseract::motion_planners
+{
+TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile()
+{
+  cartesian_cost_config.enabled = false;
+  joint_cost_config.enabled = false;
+}
+
+TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config,
+                                                     const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptDefaultMoveProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["cartesian_cost_config"])
+      cartesian_cost_config = n.as<TrajOptCartesianWaypointConfig>();
+
+    if (YAML::Node n = config["cartesian_constraint_config"])
+      cartesian_constraint_config = n.as<TrajOptCartesianWaypointConfig>();
+
+    if (YAML::Node n = config["joint_cost_config"])
+      joint_cost_config = n.as<TrajOptJointWaypointConfig>();
+
+    if (YAML::Node n = config["joint_constraint_config"])
+      joint_constraint_config = n.as<TrajOptJointWaypointConfig>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TrajOptDefaultMoveProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
+}
+
+TrajOptWaypointInfo
+TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstructionPoly& move_instruction,
+                                  const tesseract::common::ManipulatorInfo& composite_manip_info,
+                                  const std::shared_ptr<const tesseract::environment::Environment>& env,
+                                  const std::vector<std::string>& active_links,
+                                  int index) const
+{
+  assert(!(composite_manip_info.empty() && move_instruction.getManipulatorInfo().empty()));
+  tesseract::common::ManipulatorInfo mi = composite_manip_info.getCombined(move_instruction.getManipulatorInfo());
+  std::vector<std::string> joint_names = env->getGroupJointNames(mi.manipulator);
+  assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
+
+  TrajOptWaypointInfo info;
+  if (move_instruction.getWaypoint().isCartesianWaypoint())
+  {
+    if (mi.empty())
+      throw std::runtime_error("TrajOptMoveProfile, manipulator info is empty!");
+
+    const auto& cwp = move_instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
+
+    Eigen::Isometry3d tcp_offset = env->findTCPOffset(mi);
+
+    /* Check if this cartesian waypoint is dynamic
+     * (i.e. defined relative to a frame that will move with the kinematic chain)
+     */
+    bool is_active_tcp_frame =
+        (std::find(active_links.begin(), active_links.end(), mi.tcp_frame) != active_links.end());
+    bool is_static_working_frame =
+        (std::find(active_links.begin(), active_links.end(), mi.working_frame) == active_links.end());
+
+    // Override cost tolerances if the profile specifies that they should be overrided.
+    Eigen::VectorXd lower_tolerance_cost = cwp.getLowerTolerance();
+    Eigen::VectorXd upper_tolerance_cost = cwp.getUpperTolerance();
+    if (cartesian_cost_config.use_tolerance_override)
+    {
+      lower_tolerance_cost = cartesian_cost_config.lower_tolerance;
+      upper_tolerance_cost = cartesian_cost_config.upper_tolerance;
+    }
+    Eigen::VectorXd lower_tolerance_cnt = cwp.getLowerTolerance();
+    Eigen::VectorXd upper_tolerance_cnt = cwp.getUpperTolerance();
+    if (cartesian_constraint_config.use_tolerance_override)
+    {
+      lower_tolerance_cnt = cartesian_constraint_config.lower_tolerance;
+      upper_tolerance_cnt = cartesian_constraint_config.upper_tolerance;
+    }
+
+    if ((is_static_working_frame && is_active_tcp_frame) || (!is_active_tcp_frame && !is_static_working_frame))
+    {
+      if (cartesian_cost_config.enabled)
+      {
+        trajopt::TermInfo::Ptr ti = createCartesianWaypointTermInfo(index,
+                                                                    mi.working_frame,
+                                                                    cwp.getTransform(),
+                                                                    mi.tcp_frame,
+                                                                    tcp_offset,
+                                                                    cartesian_cost_config.coeff,
+                                                                    trajopt::TermType::TT_COST,
+                                                                    lower_tolerance_cost,
+                                                                    upper_tolerance_cost);
+        info.term_infos.costs.push_back(ti);
+      }
+      if (cartesian_constraint_config.enabled)
+      {
+        trajopt::TermInfo::Ptr ti = createCartesianWaypointTermInfo(index,
+                                                                    mi.working_frame,
+                                                                    cwp.getTransform(),
+                                                                    mi.tcp_frame,
+                                                                    tcp_offset,
+                                                                    cartesian_constraint_config.coeff,
+                                                                    trajopt::TermType::TT_CNT,
+                                                                    lower_tolerance_cnt,
+                                                                    upper_tolerance_cnt);
+        info.term_infos.constraints.push_back(ti);
+      }
+    }
+    else if (!is_static_working_frame && is_active_tcp_frame)
+    {
+      if (cartesian_cost_config.enabled)
+      {
+        trajopt::TermInfo::Ptr ti = createDynamicCartesianWaypointTermInfo(index,
+                                                                           mi.working_frame,
+                                                                           cwp.getTransform(),
+                                                                           mi.tcp_frame,
+                                                                           tcp_offset,
+                                                                           cartesian_cost_config.coeff,
+                                                                           trajopt::TermType::TT_COST,
+                                                                           lower_tolerance_cost,
+                                                                           upper_tolerance_cost);
+        info.term_infos.costs.push_back(ti);
+      }
+      if (cartesian_constraint_config.enabled)
+      {
+        trajopt::TermInfo::Ptr ti = createDynamicCartesianWaypointTermInfo(index,
+                                                                           mi.working_frame,
+                                                                           cwp.getTransform(),
+                                                                           mi.tcp_frame,
+                                                                           tcp_offset,
+                                                                           cartesian_constraint_config.coeff,
+                                                                           trajopt::TermType::TT_CNT,
+                                                                           lower_tolerance_cnt,
+                                                                           upper_tolerance_cnt);
+        info.term_infos.constraints.push_back(ti);
+      }
+    }
+    else
+    {
+      throw std::runtime_error("TrajOpt, both tcp_frame and working_frame are both static!");
+    }
+
+    if (cwp.hasSeed())
+      info.seed = cwp.getSeed().position;
+    else
+      info.seed = env->getCurrentJointValues(joint_names);
+
+    /** @todo If fixed cartesian and not term_type cost add as fixed */
+    info.fixed = false;
+  }
+  else if (move_instruction.getWaypoint().isJointWaypoint() || move_instruction.getWaypoint().isStateWaypoint())
+  {
+    tesseract::command_language::JointWaypointPoly jwp;
+    if (move_instruction.getWaypoint().isStateWaypoint())
+    {
+      const auto& swp = move_instruction.getWaypoint().as<tesseract::command_language::StateWaypointPoly>();
+      jwp = move_instruction.createJointWaypoint();
+      jwp.setNames(swp.getNames());
+      jwp.setPosition(swp.getPosition());
+      jwp.setIsConstrained(true);
+      info.fixed = true;
+    }
+    else
+    {
+      jwp = move_instruction.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
+      if (jwp.isConstrained())
+      {
+        // Add to fixed indices
+        if (!jwp.isToleranced()) /** @todo Should not make fixed if term_type is cost */
+          info.fixed = true;
+      }
+    }
+
+    // Set seed state
+    info.seed = jwp.getPosition();
+
+    if (jwp.isConstrained())
+    {
+      // Override cost tolerances if the profile specifies that they should be overrided.
+      Eigen::VectorXd lower_tolerance_cost = jwp.getLowerTolerance();
+      Eigen::VectorXd upper_tolerance_cost = jwp.getUpperTolerance();
+      if (joint_cost_config.use_tolerance_override)
+      {
+        lower_tolerance_cost = joint_cost_config.lower_tolerance;
+        upper_tolerance_cost = joint_cost_config.upper_tolerance;
+      }
+      Eigen::VectorXd lower_tolerance_cnt = jwp.getLowerTolerance();
+      Eigen::VectorXd upper_tolerance_cnt = jwp.getUpperTolerance();
+      if (joint_constraint_config.use_tolerance_override)
+      {
+        lower_tolerance_cnt = joint_constraint_config.lower_tolerance;
+        upper_tolerance_cnt = joint_constraint_config.upper_tolerance;
+      }
+      if (jwp.isToleranced())
+      {
+        if (joint_cost_config.enabled)
+        {
+          trajopt::TermInfo::Ptr ti = createTolerancedJointWaypointTermInfo(jwp.getPosition(),
+                                                                            lower_tolerance_cost,
+                                                                            upper_tolerance_cost,
+                                                                            index,
+                                                                            joint_cost_config.coeff,
+                                                                            trajopt::TermType::TT_COST);
+          info.term_infos.costs.push_back(ti);
+        }
+        if (joint_constraint_config.enabled)
+        {
+          trajopt::TermInfo::Ptr ti = createTolerancedJointWaypointTermInfo(jwp.getPosition(),
+                                                                            lower_tolerance_cnt,
+                                                                            upper_tolerance_cnt,
+                                                                            index,
+                                                                            joint_constraint_config.coeff,
+                                                                            trajopt::TermType::TT_CNT);
+          info.term_infos.constraints.push_back(ti);
+        }
+      }
+      else
+      {
+        if (joint_cost_config.enabled)
+        {
+          trajopt::TermInfo::Ptr ti = createJointWaypointTermInfo(
+              jwp.getPosition(), index, joint_cost_config.coeff, trajopt::TermType::TT_COST);
+          info.term_infos.costs.push_back(ti);
+        }
+        if (joint_constraint_config.enabled)
+        {
+          trajopt::TermInfo::Ptr ti = createJointWaypointTermInfo(
+              jwp.getPosition(), index, joint_constraint_config.coeff, trajopt::TermType::TT_CNT);
+          info.term_infos.constraints.push_back(ti);
+        }
+      }
+    }
+  }
+
+  return info;
+}
+
+std::shared_ptr<trajopt::TermInfo>
+TrajOptDefaultMoveProfile::createConstraintFromErrorFunction(sco::VectorOfVector::func error_function,
+                                                             sco::MatrixOfVector::func jacobian_function,
+                                                             sco::ConstraintType type,
+                                                             const Eigen::VectorXd& coeff,
+                                                             int index)
+{
+  trajopt::TermInfo::Ptr ti = createUserDefinedTermInfo(
+      index, index, std::move(error_function), std::move(jacobian_function), trajopt::TermType::TT_CNT);
+
+  // Update the term info with the (possibly) new start and end state indices for which to apply this cost
+  std::shared_ptr<trajopt::UserDefinedTermInfo> ef = std::static_pointer_cast<trajopt::UserDefinedTermInfo>(ti);
+  ef->constraint_type = type;
+  ef->coeff = coeff;
+  return ef;
+}
+
+bool TrajOptDefaultMoveProfile::operator==(const TrajOptDefaultMoveProfile& rhs) const
+{
+  bool equal = true;
+  equal &= (cartesian_cost_config == rhs.cartesian_cost_config);
+  equal &= (cartesian_constraint_config == rhs.cartesian_constraint_config);
+  equal &= (joint_cost_config == rhs.joint_cost_config);
+  equal &= (joint_constraint_config == rhs.joint_constraint_config);
+  return equal;
+}
+
+bool TrajOptDefaultMoveProfile::operator!=(const TrajOptDefaultMoveProfile& rhs) const { return !operator==(rhs); }
+
+}  // namespace tesseract::motion_planners

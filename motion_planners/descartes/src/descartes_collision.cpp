@@ -1,0 +1,97 @@
+/**
+ * @file descartes_collision.cpp
+ * @brief Tesseract Descartes Collision Implementation
+ *
+ * @author Levi Armstrong
+ * @date April 18, 2018
+ *
+ * @copyright Copyright (c) 2017, Southwest Research Institute
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#include <tesseract/motion_planners/descartes/descartes_collision.h>
+
+#include <tesseract/kinematics/joint_group.h>
+#include <tesseract/collision/discrete_contact_manager.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/environment/utils.h>
+
+namespace tesseract::motion_planners
+{
+DescartesCollision::DescartesCollision(const tesseract::environment::Environment& collision_env,
+                                       std::shared_ptr<const tesseract::kinematics::JointGroup> manip,
+                                       const tesseract::collision::ContactManagerConfig& contact_manager_config,
+                                       tesseract::collision::CollisionCheckConfig collision_check_config,
+                                       bool debug)
+  : manip_(std::move(manip))
+  , active_link_names_(manip_->getActiveLinkNames())
+  , contact_manager_(collision_env.getDiscreteContactManager())
+  , collision_check_config_(std::move(collision_check_config))
+  , debug_(debug)
+{
+  contact_manager_->setActiveCollisionObjects(active_link_names_);
+  contact_manager_->applyContactManagerConfig(contact_manager_config);
+}
+
+DescartesCollision::DescartesCollision(const DescartesCollision& collision_interface)
+  : manip_(collision_interface.manip_)
+  , active_link_names_(collision_interface.active_link_names_)
+  , contact_manager_(collision_interface.contact_manager_->clone())
+  , collision_check_config_(collision_interface.collision_check_config_)
+  , debug_(collision_interface.debug_)
+{
+}
+
+bool DescartesCollision::validate(tesseract::collision::ContactResultMap& contact_results,
+                                  tesseract::common::TransformMap& transforms_cache,
+                                  const Eigen::Ref<const Eigen::VectorXd>& pos)
+{
+  // Happens in two phases:
+  // 1. Compute the transform of all objects
+  contact_results.clear();
+  transforms_cache.clear();
+  manip_->calcFwdKin(transforms_cache, pos);
+
+  tesseract::collision::ContactRequest contact_request(collision_check_config_.contact_request);
+  contact_request.type = tesseract::collision::ContactTestType::FIRST;
+
+  tesseract::environment::checkTrajectoryState(contact_results, *contact_manager_, transforms_cache, contact_request);
+  return contact_results.empty();
+}
+
+double DescartesCollision::distance(tesseract::collision::ContactResultMap& contact_results,
+                                    tesseract::common::TransformMap& transforms_cache,
+                                    const Eigen::Ref<const Eigen::VectorXd>& pos)
+{
+  // Happens in two phases:
+  // 1. Compute the transform of all objects
+  contact_results.clear();
+  transforms_cache.clear();
+  manip_->calcFwdKin(transforms_cache, pos);
+
+  tesseract::collision::ContactRequest contact_request(collision_check_config_.contact_request);
+  contact_request.type = tesseract::collision::ContactTestType::CLOSEST;
+
+  tesseract::environment::checkTrajectoryState(contact_results, *contact_manager_, transforms_cache, contact_request);
+
+  if (contact_results.empty())
+    return contact_manager_->getCollisionMarginData().getMaxCollisionMargin();
+
+  return contact_results.begin()->second.front().distance;
+}
+
+DescartesCollision::Ptr DescartesCollision::clone() const { return std::make_shared<DescartesCollision>(*this); }
+
+}  // namespace tesseract::motion_planners

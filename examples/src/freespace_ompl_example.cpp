@@ -1,0 +1,285 @@
+/**
+ * @file freespace_ompl_example.cpp
+ * @brief An example of a feespace motion planning with OMPL.
+ *
+ * @author Levi Armstrong
+ * @date March 16, 2020
+ *
+ * @copyright Copyright (c) 2020, Southwest Research Institute
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <tesseract/common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <console_bridge/console.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract/examples/freespace_ompl_example.h>
+
+#include <tesseract/common/resource_locator.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/common/stopwatch.h>
+
+#include <tesseract/scene_graph/link.h>
+#include <tesseract/scene_graph/joint.h>
+
+#include <tesseract/state_solver/state_solver.h>
+
+#include <tesseract/environment/environment.h>
+#include <tesseract/environment/utils.h>
+#include <tesseract/environment/commands/add_link_command.h>
+
+#include <tesseract/command_language/composite_instruction.h>
+#include <tesseract/command_language/state_waypoint.h>
+#include <tesseract/command_language/cartesian_waypoint.h>
+#include <tesseract/command_language/joint_waypoint.h>
+#include <tesseract/command_language/move_instruction.h>
+#include <tesseract/command_language/utils.h>
+
+#include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
+#include <tesseract/motion_planners/ompl/ompl_planner_configurator.h>
+#include <tesseract/motion_planners/utils.h>
+
+#include <tesseract/task_composer/task_composer_context.h>
+#include <tesseract/task_composer/task_composer_data_storage.h>
+#include <tesseract/task_composer/task_composer_node.h>
+#include <tesseract/task_composer/task_composer_executor.h>
+#include <tesseract/task_composer/task_composer_future.h>
+#include <tesseract/task_composer/task_composer_plugin_factory.h>
+
+#include <tesseract/visualization/visualization.h>
+#include <tesseract/visualization/markers/toolpath_marker.h>
+
+#include <tesseract/geometry/impl/sphere.h>
+
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::visualization;
+using namespace tesseract::task_composer;
+using namespace tesseract::command_language;
+using namespace tesseract::motion_planners;
+using tesseract::common::ManipulatorInfo;
+
+static const std::string OMPL_DEFAULT_NAMESPACE = "OMPLMotionPlannerTask";
+
+namespace tesseract::examples
+{
+FreespaceOMPLExample::FreespaceOMPLExample(std::shared_ptr<tesseract::environment::Environment> env,
+                                           std::shared_ptr<tesseract::visualization::Visualization> plotter,
+                                           double range,
+                                           double planning_time,
+                                           bool debug,
+                                           bool benchmark)
+  : Example(std::move(env), std::move(plotter))
+  , range_(range)
+  , planning_time_(planning_time)
+  , debug_(debug)
+  , benchmark_(benchmark)
+{
+}
+
+inline Command::Ptr addSphere()
+{
+  // Add sphere to environment
+  Link link_sphere("sphere_attached");
+
+  Visual::Ptr visual = std::make_shared<Visual>();
+  visual->origin = Eigen::Isometry3d::Identity();
+  visual->origin.translation() = Eigen::Vector3d(0.5, 0, 0.55);
+  visual->geometry = std::make_shared<tesseract::geometry::Sphere>(0.15);
+  link_sphere.visual.push_back(visual);
+
+  Collision::Ptr collision = std::make_shared<Collision>();
+  collision->origin = visual->origin;
+  collision->geometry = visual->geometry;
+  link_sphere.collision.push_back(collision);
+
+  Joint joint_sphere("joint_sphere_attached");
+  joint_sphere.parent_link_name = "base_link";
+  joint_sphere.child_link_name = link_sphere.getName();
+  joint_sphere.type = JointType::FIXED;
+
+  return std::make_shared<tesseract::environment::AddLinkCommand>(link_sphere, joint_sphere);
+}
+
+bool FreespaceOMPLExample::run()
+{
+  // Add sphere to environment
+  Command::Ptr cmd = addSphere();
+  if (!env_->applyCommand(cmd))
+    return false;
+
+  if (plotter_ != nullptr)
+    plotter_->waitForConnection();
+
+  // Set the robot initial state
+  std::vector<std::string> joint_names;
+  joint_names.emplace_back("joint_a1");
+  joint_names.emplace_back("joint_a2");
+  joint_names.emplace_back("joint_a3");
+  joint_names.emplace_back("joint_a4");
+  joint_names.emplace_back("joint_a5");
+  joint_names.emplace_back("joint_a6");
+  joint_names.emplace_back("joint_a7");
+
+  Eigen::VectorXd joint_start_pos(7);
+  joint_start_pos(0) = -0.4;
+  joint_start_pos(1) = 0.2762;
+  joint_start_pos(2) = 0.0;
+  joint_start_pos(3) = -1.3348;
+  joint_start_pos(4) = 0.0;
+  joint_start_pos(5) = 1.4959;
+  joint_start_pos(6) = 0.0;
+
+  Eigen::VectorXd joint_end_pos(7);
+  joint_end_pos(0) = 0.4;
+  joint_end_pos(1) = 0.2762;
+  joint_end_pos(2) = 0.0;
+  joint_end_pos(3) = -1.3348;
+  joint_end_pos(4) = 0.0;
+  joint_end_pos(5) = 1.4959;
+  joint_end_pos(6) = 0.0;
+
+  env_->setState(joint_names, joint_start_pos);
+
+  if (debug_)
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  else
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+
+  // Create Task Composer Plugin Factory
+  std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
+  std::filesystem::path config_path(
+      locator->locateResource("package://tesseract_planning/task_composer/config/task_composer_plugins.yaml")
+          ->getFilePath());
+  TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
+
+  // Create Program
+  CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "base_link", "tool0"));
+
+  // Start and End Joint Position for the program
+  StateWaypoint wp0{ joint_names, joint_start_pos };
+  StateWaypoint wp1{ joint_names, joint_end_pos };
+
+  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "FREESPACE");
+  start_instruction.setDescription("Start Instruction");
+
+  // Plan freespace from start
+  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "FREESPACE");
+  plan_f0.setDescription("freespace_plan");
+
+  // Add Instructions to program
+  program.push_back(start_instruction);
+  program.push_back(plan_f0);
+
+  // Print Diagnostics
+  if (debug_)
+    program.print("Program: ");
+
+  // Create OMPL Profile
+  auto ompl_profile = std::make_shared<OMPLRealVectorMoveProfile>();
+  auto ompl_planner_config = std::make_shared<RRTConnectConfigurator>();
+  ompl_planner_config->range = range_;
+  ompl_profile->solver_config.planning_time = planning_time_;
+  ompl_profile->solver_config.planners = { ompl_planner_config, ompl_planner_config };
+
+  // Create profile dictionary
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
+
+  // Create task
+  TaskComposerNode::UPtr task = factory.createTaskComposerNode("OMPLPipeline");
+  const std::string output_key = task->getOutputKeys().get("program");
+
+  // Solve task
+  TaskComposerFuture::UPtr future;
+  if (!benchmark_)
+  {
+    // Create Executor
+    auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+
+    // Create Task Composer Data Storage
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("planning_input", program);
+    data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
+    data->setData("profiles", profiles);
+
+    tesseract::common::Stopwatch stopwatch;
+    stopwatch.start();
+    auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(data));
+    future = executor->run(*task, std::move(context));
+    future->wait();
+    stopwatch.stop();
+    CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
+  }
+  else
+  {
+    const int cnt{ 100 };
+    std::vector<std::string> contact_managers{ "BulletDiscreteBVHManager", "BulletDiscreteSimpleManager" };
+
+    for (const auto& contact_manager : contact_managers)
+    {
+      // Create Executor
+      auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+
+      double initial_planning_time{ 0 };
+      double accumulated_time{ 0 };
+      for (int i = 0; i < cnt; ++i)
+      {
+        // Set the active contact manager
+        env_->setActiveDiscreteContactManager(contact_manager);
+
+        // Create Task Composer Data Storage
+        auto data = std::make_unique<TaskComposerDataStorage>();
+        data->setData("planning_input", program);
+        data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
+        data->setData("profiles", profiles);
+
+        tesseract::common::Stopwatch stopwatch;
+        stopwatch.start();
+        auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(data));
+        future = executor->run(*task, std::move(context));
+        future->wait();
+        stopwatch.stop();
+        if (i == 0)
+          initial_planning_time = stopwatch.elapsedSeconds();
+        else
+          accumulated_time += stopwatch.elapsedSeconds();
+      }
+      CONSOLE_BRIDGE_logInform("FreespaceOMPLExample, %s, %f, %f, %d",
+                               contact_manager.c_str(),
+                               initial_planning_time,
+                               accumulated_time / (cnt - 1),
+                               (cnt - 1));
+    }
+  }
+
+  // Plot Process Trajectory
+  if (plotter_ != nullptr && plotter_->isConnected())
+  {
+    plotter_->waitForInput();
+    auto ci = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
+    tesseract::common::Toolpath toolpath = toToolpath(ci, *env_);
+    tesseract::common::JointTrajectory trajectory = toJointTrajectory(ci);
+    auto state_solver = env_->getStateSolver();
+    plotter_->plotMarker(ToolpathMarker(toolpath));
+    plotter_->plotTrajectory(trajectory, *state_solver);
+  }
+
+  return future->context->isSuccessful();
+}
+}  // namespace tesseract::examples

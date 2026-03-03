@@ -98,40 +98,8 @@ jobs:
           cp ./*.deb $GITHUB_WORKSPACE/artifacts
           cp ./*.tar.xz $GITHUB_WORKSPACE/artifacts
 
-      - name: Package tesseract_command_language
-        working-directory: target_ws/build/tesseract_command_language
-        shell: bash
-        run: |
-          cpack --config CPackConfig.cmake
-          cp ./*.deb $GITHUB_WORKSPACE/artifacts
-          cp ./*.tar.xz $GITHUB_WORKSPACE/artifacts
-
-      - name: Package tesseract_examples
-        working-directory: target_ws/build/tesseract_examples
-        shell: bash
-        run: |
-          cpack --config CPackConfig.cmake
-          cp ./*.deb $GITHUB_WORKSPACE/artifacts
-          cp ./*.tar.xz $GITHUB_WORKSPACE/artifacts
-
-      - name: Package tesseract_motion_planners
-        working-directory: target_ws/build/tesseract_motion_planners
-        shell: bash
-        run: |
-          cpack --config CPackConfig.cmake
-          cp ./*.deb $GITHUB_WORKSPACE/artifacts
-          cp ./*.tar.xz $GITHUB_WORKSPACE/artifacts
-
-      - name: Package tesseract_task_composer
-        working-directory: target_ws/build/tesseract_task_composer
-        shell: bash
-        run: |
-          cpack --config CPackConfig.cmake
-          cp ./*.deb $GITHUB_WORKSPACE/artifacts
-          cp ./*.tar.xz $GITHUB_WORKSPACE/artifacts
-
-      - name: Package tesseract_time_parameterization
-        working-directory: target_ws/build/tesseract_time_parameterization
+      - name: Package tesseract_planning
+        working-directory: target_ws/build/tesseract_planning
         shell: bash
         run: |
           cpack --config CPackConfig.cmake
