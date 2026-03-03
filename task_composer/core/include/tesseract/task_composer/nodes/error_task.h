@@ -1,0 +1,51 @@
+/**
+ * @file error_task.h
+ *
+ * @author Levi Armstrong
+ * @date August 5, 2022
+ *
+ * @copyright Copyright (c) 2022, Levi Armstrong
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#ifndef TESSERACT_TASK_COMPOSER_ERROR_TASK_H
+#define TESSERACT_TASK_COMPOSER_ERROR_TASK_H
+
+#include <tesseract/task_composer/task_composer_task.h>
+
+namespace tesseract::task_composer
+{
+class TaskComposerPluginFactory;
+class ErrorTask : public TaskComposerTask
+{
+public:
+  using Ptr = std::shared_ptr<ErrorTask>;
+  using ConstPtr = std::shared_ptr<const ErrorTask>;
+  using UPtr = std::unique_ptr<ErrorTask>;
+  using ConstUPtr = std::unique_ptr<const ErrorTask>;
+
+  ErrorTask();
+  explicit ErrorTask(std::string name, bool is_conditional);
+  explicit ErrorTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
+  ~ErrorTask() override = default;
+
+private:
+  TaskComposerNodeInfo runImpl(TaskComposerContext& context,
+                               OptionalTaskComposerExecutor executor = std::nullopt) const override final;
+};
+
+}  // namespace tesseract::task_composer
+
+#endif  // TESSERACT_TASK_COMPOSER_ERROR_TASK_H

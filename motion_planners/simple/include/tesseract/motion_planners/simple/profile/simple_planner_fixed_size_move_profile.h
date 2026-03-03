@@ -1,0 +1,70 @@
+/**
+ * @file simple_planner_fixed_size_move_profile.h
+ * @brief
+ *
+ * @author Matthew Powelson
+ * @date July 23, 2020
+ *
+ * @copyright Copyright (c) 2020, Southwest Research Institute
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_MOVE_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_MOVE_PROFILE_H
+
+#include <tesseract/motion_planners/simple/profile/simple_planner_profile.h>
+
+namespace YAML
+{
+class Node;
+}
+
+namespace tesseract::motion_planners
+{
+class SimplePlannerFixedSizeMoveProfile : public SimplePlannerMoveProfile
+{
+public:
+  using Ptr = std::shared_ptr<SimplePlannerFixedSizeMoveProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizeMoveProfile>;
+
+  /**
+   * @brief SimplePlannerFixedSizeMoveProfile
+   * @param freespace_steps The number of steps to use for freespace instruction
+   * @param linear_steps The number of steps to use for linear instruction
+   */
+  SimplePlannerFixedSizeMoveProfile(int freespace_steps = 10, int linear_steps = 10);
+  SimplePlannerFixedSizeMoveProfile(const YAML::Node& config,
+                                    const tesseract::common::ProfilePluginFactory& plugin_factory);
+  std::vector<tesseract::command_language::MoveInstructionPoly>
+  generate(const tesseract::command_language::MoveInstructionPoly& prev_instruction,
+           const tesseract::command_language::MoveInstructionPoly& prev_seed,
+           const tesseract::command_language::MoveInstructionPoly& base_instruction,
+           const tesseract::command_language::InstructionPoly& next_instruction,
+           const std::shared_ptr<const tesseract::environment::Environment>& env,
+           const tesseract::common::ManipulatorInfo& global_manip_info) const override;
+
+  /** @brief The number of steps to use for freespace instruction */
+  int freespace_steps;
+
+  /** @brief The number of steps to use for linear instruction */
+  int linear_steps;
+
+  bool operator==(const SimplePlannerFixedSizeMoveProfile& rhs) const;
+  bool operator!=(const SimplePlannerFixedSizeMoveProfile& rhs) const;
+};
+
+}  // namespace tesseract::motion_planners
+
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_MOVE_PROFILE_H

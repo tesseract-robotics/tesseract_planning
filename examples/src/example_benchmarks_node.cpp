@@ -1,0 +1,190 @@
+/**
+ * @file example_benchmarks_node.cpp
+ * @brief Example benchmarks
+ *
+ * @author Levi Armstrong
+ * @date July 22, 2019
+ *
+ * @copyright Copyright (c) 2017, Southwest Research Institute
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <tesseract/examples/basic_cartesian_example.h>
+#include <tesseract/examples/freespace_ompl_example.h>
+#include <tesseract/examples/glass_upright_example.h>
+#include <tesseract/examples/puzzle_piece_example.h>
+#include <tesseract/examples/puzzle_piece_auxillary_axes_example.h>
+
+#include <filesystem>
+#include <console_bridge/console.h>
+#include <tesseract/environment/environment.h>
+#include <tesseract/common/resource_locator.h>
+
+using namespace tesseract::examples;
+using namespace tesseract::common;
+using namespace tesseract::environment;
+
+int main(int /*argc*/, char** /*argv*/)
+{
+  auto locator = std::make_shared<GeneralResourceLocator>();
+
+  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+  CONSOLE_BRIDGE_logInform("Example, Contact Manager, First Solve (s), Remaining Solve Avg. (s), Count");
+
+  {
+    std::filesystem::path urdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
+    std::filesystem::path srdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
+    auto env = std::make_shared<Environment>();
+    if (!env->init(urdf_path, srdf_path, locator))
+      exit(1);
+
+    FreespaceOMPLExample example(env, nullptr, 0.01, 60.0, false, true);
+    if (!example.run())
+    {
+      CONSOLE_BRIDGE_logError("FreespaceOMPLExample failed");
+    }
+  }
+
+  {
+    std::filesystem::path urdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
+    std::filesystem::path srdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
+    auto env = std::make_shared<Environment>();
+    if (!env->init(urdf_path, srdf_path, locator))
+      exit(1);
+
+    BasicCartesianExample example(env, nullptr, false, false, true);
+    if (!example.run())
+    {
+      CONSOLE_BRIDGE_logError("BasicCartesianExample failed");
+    }
+  }
+
+  {
+    std::filesystem::path urdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
+    std::filesystem::path srdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
+    auto env = std::make_shared<Environment>();
+    if (!env->init(urdf_path, srdf_path, locator))
+      exit(1);
+
+    BasicCartesianExample example(env, nullptr, true, false, true);
+    if (!example.run())
+    {
+      CONSOLE_BRIDGE_logError("BasicCartesianExample(Ifopt) failed");
+    }
+  }
+
+  {
+    std::filesystem::path urdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
+    std::filesystem::path srdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
+    auto env = std::make_shared<Environment>();
+    if (!env->init(urdf_path, srdf_path, locator))
+      exit(1);
+
+    GlassUprightExample example(env, nullptr, false, false, true);
+    if (!example.run())
+    {
+      CONSOLE_BRIDGE_logError("GlassUprightExample failed");
+    }
+  }
+
+  {
+    std::filesystem::path urdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
+    std::filesystem::path srdf_path =
+        locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
+    auto env = std::make_shared<Environment>();
+    if (!env->init(urdf_path, srdf_path, locator))
+      exit(1);
+
+    GlassUprightExample example(env, nullptr, true, false, true);
+    if (!example.run())
+    {
+      CONSOLE_BRIDGE_logError("GlassUprightExample(Ifopt) failed");
+    }
+  }
+
+  {
+    std::filesystem::path urdf_path =
+        locator->locateResource("package://tesseract/support/urdf/puzzle_piece_workcell.urdf")->getFilePath();
+    std::filesystem::path srdf_path =
+        locator->locateResource("package://tesseract/support/urdf/puzzle_piece_workcell.srdf")->getFilePath();
+    auto env = std::make_shared<Environment>();
+    if (!env->init(urdf_path, srdf_path, locator))
+      exit(1);
+
+    PuzzlePieceExample example(env, nullptr, false, false, true);
+    if (!example.run())
+    {
+      CONSOLE_BRIDGE_logError("PuzzlePieceExample failed");
+    }
+  }
+
+  {
+    std::filesystem::path urdf_path =
+        locator->locateResource("package://tesseract/support/urdf/puzzle_piece_workcell.urdf")->getFilePath();
+    std::filesystem::path srdf_path =
+        locator->locateResource("package://tesseract/support/urdf/puzzle_piece_workcell.srdf")->getFilePath();
+    auto env = std::make_shared<Environment>();
+    if (!env->init(urdf_path, srdf_path, locator))
+      exit(1);
+
+    PuzzlePieceExample example(env, nullptr, true, false, true);
+    if (!example.run())
+    {
+      CONSOLE_BRIDGE_logError("PuzzlePieceExample(Ifopt) failed");
+    }
+  }
+
+  {
+    std::filesystem::path urdf_path =
+        locator->locateResource("package://tesseract/support/urdf/puzzle_piece_workcell.urdf")->getFilePath();
+    std::filesystem::path srdf_path =
+        locator->locateResource("package://tesseract/support/urdf/puzzle_piece_workcell.srdf")->getFilePath();
+    auto env = std::make_shared<Environment>();
+    if (!env->init(urdf_path, srdf_path, locator))
+      exit(1);
+
+    PuzzlePieceAuxillaryAxesExample example(env, nullptr, false, false, true);
+    if (!example.run())
+    {
+      CONSOLE_BRIDGE_logError("PuzzlePieceAuxillaryAxesExample failed");
+    }
+  }
+
+  {
+    std::filesystem::path urdf_path =
+        locator->locateResource("package://tesseract/support/urdf/puzzle_piece_workcell.urdf")->getFilePath();
+    std::filesystem::path srdf_path =
+        locator->locateResource("package://tesseract/support/urdf/puzzle_piece_workcell.srdf")->getFilePath();
+    auto env = std::make_shared<Environment>();
+    if (!env->init(urdf_path, srdf_path, locator))
+      exit(1);
+
+    PuzzlePieceAuxillaryAxesExample example(env, nullptr, true, false, true);
+    if (!example.run())
+    {
+      CONSOLE_BRIDGE_logError("PuzzlePieceAuxillaryAxesExample(Ifopt) failed");
+    }
+  }
+}

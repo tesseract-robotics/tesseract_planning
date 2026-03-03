@@ -71,6 +71,6 @@ jobs:
           if [[ "${{ matrix.job_type }}" == "codecov" ]]; then
             source $GITHUB_WORKSPACE/target_ws/install/setup.bash
             cd $GITHUB_WORKSPACE/target_ws
-            colcon build --cmake-target ccov-all --packages-select tesseract_command_language tesseract_motion_planners tesseract_task_composer tesseract_time_parameterization
+            colcon build --cmake-target ccov-all --packages-select tesseract_planning
             bash <(curl -s https://codecov.io/bash) -t 6e7f085e-77c5-47fc-a4a9-c2dd5ef1d78d -s $GITHUB_WORKSPACE/target_ws/build -f *all-merged.info
           fi

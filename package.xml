@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>tesseract_planning</name>
+  <version>0.34.0</version>
+  <description>Tesseract motion planning framework</description>
+  <maintainer email="levi.armstrong@gmail.com">Levi Armstrong</maintainer>
+  <license>Apache 2.0</license>
+  <license>BSD</license>
+  <author>Levi Armstrong</author>
+
+  <!-- Following recommendations of REP 136 -->
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <build_depend>ros_industrial_cmake_boilerplate</build_depend>
+
+  <build_depend>eigen</build_depend>
+  <build_export_depend>eigen</build_export_depend>
+
+  <!-- Core dependencies -->
+  <depend>libconsole-bridge-dev</depend>
+  <depend>tesseract</depend>
+  <depend>cereal</depend>
+  <depend>yaml-cpp</depend>
+  <depend>boost_plugin_loader</depend>
+
+  <!-- Motion planners -->
+  <depend>descartes_light</depend>
+  <depend>ompl</depend>
+  <depend>trajopt</depend>
+  <depend>trajopt_ifopt</depend>
+  <depend>trajopt_sco</depend>
+  <depend>trajopt_sqp</depend>
+
+  <!-- Time parameterization -->
+  <depend>ruckig</depend>
+
+  <!-- Task composer -->
+  <depend>taskflow</depend>
+
+  <!-- Test dependencies -->
+  <test_depend>gtest</test_depend>
+  <test_depend>gperftools</test_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

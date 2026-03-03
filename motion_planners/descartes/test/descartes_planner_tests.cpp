@@ -1,0 +1,393 @@
+/**
+ * @file descartes_planner_tests.cpp
+ * @brief This contains unit test for the tesseract descartes planner
+ *
+ * @author Levi Armstrong
+ * @date September 16, 2019
+ *
+ * @copyright Copyright (c) 2019, Southwest Research Institute
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <tesseract/common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <gtest/gtest.h>
+#include <tesseract/motion_planners/descartes/descartes_collision.h>
+#include <descartes_light/edge_evaluators/euclidean_distance_edge_evaluator.h>
+#include <tesseract/kinematics/utils.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract/common/types.h>
+#include <tesseract/common/profile_dictionary.h>
+#include <tesseract/common/unit_test_utils.h>
+#include <tesseract/common/resource_locator.h>
+#include <tesseract/common/serialization.h>
+
+#include <tesseract/kinematics/kinematic_group.h>
+
+#include <tesseract/environment/environment.h>
+
+#include <tesseract/command_language/joint_waypoint.h>
+#include <tesseract/command_language/cartesian_waypoint.h>
+#include <tesseract/command_language/move_instruction.h>
+#include <tesseract/command_language/utils.h>
+
+#include <tesseract/motion_planners/descartes/descartes_motion_planner.h>
+#include <tesseract/motion_planners/descartes/descartes_utils.h>
+#include <tesseract/motion_planners/descartes/cereal_serialization.h>
+#include <tesseract/motion_planners/descartes/profile/descartes_default_move_profile.h>
+#include <tesseract/motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
+#include <tesseract/motion_planners/simple/interpolation.h>
+#include <tesseract/motion_planners/types.h>
+#include <tesseract/motion_planners/utils.h>
+
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
+using namespace tesseract::kinematics;
+using namespace descartes_light;
+
+static const bool DEBUG = false;
+static const std::string DESCARTES_DEFAULT_NAMESPACE = "DescartesMotionPlannerTask";
+
+class TesseractPlanningDescartesUnit : public ::testing::Test
+{
+protected:
+  Environment::Ptr env_;
+  tesseract::common::ManipulatorInfo manip;
+
+  void SetUp() override
+  {
+    auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
+    Environment::Ptr env = std::make_shared<Environment>();
+    std::filesystem::path urdf_path(
+        locator->locateResource("package://tesseract/support/urdf/abb_irb2400.urdf")->getFilePath());
+    std::filesystem::path srdf_path(
+        locator->locateResource("package://tesseract/support/urdf/abb_irb2400.srdf")->getFilePath());
+    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
+    env_ = env;
+
+    manip.tcp_frame = "tool0";
+    manip.manipulator = "manipulator";
+    manip.manipulator_ik_solver = "OPWInvKin";
+    manip.working_frame = "base_link";
+  }
+};
+
+TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
+{
+  // Specify a start waypoint
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+
+  // Specify a end waypoint
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+
+  // Define Start Instruction
+  MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
+
+  // Define Plan Instructions
+  MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
+
+  // Create a program
+  CompositeInstruction program;
+  program.setManipulatorInfo(manip);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
+
+  // Create a seed
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
+
+  // Create Profiles
+  auto solver_profile = std::make_shared<DescartesLadderGraphSolverProfileD>();
+  solver_profile->num_threads = 1;
+
+  auto move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
+
+  // Serialization
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, DescartesLadderGraphSolverProfileD>(
+      solver_profile, "descartes_solver_profile");
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, DescartesDefaultMoveProfileD>(
+      move_profile,
+      "descartes_"
+      "move_"
+      "profile");
+
+  // Profile Dictionary
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
+
+  // Create Planner
+  DescartesMotionPlannerD single_descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
+
+  // Create Planning Request
+  PlannerRequest request;
+  request.instructions = interpolated_program;
+  request.env = env_;
+  request.profiles = profiles;
+
+  PlannerResponse single_planner_response = single_descartes_planner.solve(request);
+  EXPECT_TRUE(&single_planner_response);
+
+  CompositeInstruction official_results = single_planner_response.results;
+
+  for (int i = 0; i < 10; ++i)
+  {
+    DescartesMotionPlannerD descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
+    solver_profile->num_threads = 4;
+
+    PlannerResponse planner_response = descartes_planner.solve(request);
+
+    if (DEBUG)
+    {
+      std::cout << "Request Instructions:\n";
+      request.instructions.print();
+      std::cout << "Single Planner Response Results:\n";
+      single_planner_response.results.print();
+      std::cout << "Threaded Planner Response Results:\n";
+      planner_response.results.print();
+    }
+
+    EXPECT_TRUE(&planner_response);
+    EXPECT_EQ(official_results.size(), planner_response.results.size());
+    for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
+    {
+      if (official_results[j].isCompositeInstruction())  //
+      {
+        const auto& sub_official = official_results[j].as<CompositeInstruction>();
+        const auto& sub = interpolated_program[j].as<CompositeInstruction>();
+        for (std::size_t k = 0; k < sub.size(); ++k)
+        {
+          if (sub_official[k].isCompositeInstruction())
+          {
+            EXPECT_TRUE(false);
+          }
+          else if (sub_official[k].isMoveInstruction())
+          {
+            const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
+            const auto& mv = sub[k].as<MoveInstructionPoly>();
+            EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
+          }
+        }
+      }
+      else if (official_results[j].isMoveInstruction())
+      {
+        const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
+        const auto& mv = planner_response.results[j].as<MoveInstructionPoly>();
+        EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
+      }
+    }
+  }
+}
+
+TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
+{
+  // Specify a start waypoint
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+
+  // Specify a end waypoint
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+
+  // Define Start Instruction
+  MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
+
+  // Define Plan Instructions
+  MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
+
+  // Create a program
+  CompositeInstruction program;
+  program.setManipulatorInfo(manip);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
+
+  // Create a seed
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
+
+  // Create Profiles
+  auto solver_profile = std::make_shared<DescartesLadderGraphSolverProfileD>();
+  solver_profile->num_threads = 1;
+
+  auto move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
+
+  // Make this a tool z-axis free sampler
+  move_profile->target_pose_fixed = false;
+  move_profile->target_pose_sample_axis = Eigen::Vector3d(0, 0, 1);
+  move_profile->target_pose_sample_resolution = M_PI_4;
+
+  // Profile Dictionary
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
+
+  // Create Planner
+  DescartesMotionPlannerD single_descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
+
+  // Create Planning Request
+  PlannerRequest request;
+  request.instructions = interpolated_program;
+  request.env = env_;
+  request.profiles = profiles;
+
+  PlannerResponse single_planner_response = single_descartes_planner.solve(request);
+  EXPECT_TRUE(&single_planner_response);
+
+  CompositeInstruction official_results = single_planner_response.results;
+
+  for (int i = 0; i < 10; ++i)
+  {
+    DescartesMotionPlannerD descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
+    solver_profile->num_threads = 4;
+
+    PlannerResponse planner_response = descartes_planner.solve(request);
+    EXPECT_TRUE(&planner_response);
+    EXPECT_TRUE(official_results.size() == planner_response.results.size());
+    for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
+    {
+      if (official_results[j].isCompositeInstruction())
+      {
+        const auto& sub_official = official_results[j].as<CompositeInstruction>();
+        const auto& sub = planner_response.results[j].as<CompositeInstruction>();
+        for (std::size_t k = 0; k < sub.size(); ++k)
+        {
+          if (sub_official[k].isCompositeInstruction())
+          {
+            EXPECT_TRUE(false);
+          }
+          else if (sub_official[k].isMoveInstruction())
+          {
+            const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
+            const auto& mv = sub[k].as<MoveInstructionPoly>();
+            EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
+          }
+        }
+      }
+      else if (official_results[j].isMoveInstruction())
+      {
+        const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
+        const auto& mv = planner_response.results[j].as<MoveInstructionPoly>();
+        EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
+      }
+    }
+  }
+}
+
+TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  // NOLINT
+{
+  // Specify a start waypoint
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.10, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+
+  // Specify a end waypoint
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .10, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+
+  // Define Start Instruction
+  MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
+
+  // Define Plan Instructions
+  MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
+
+  // Create a program
+  CompositeInstruction program;
+  program.setManipulatorInfo(manip);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
+
+  // Create a seed
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 2);
+
+  // Create Profiles
+  auto solver_profile = std::make_shared<DescartesLadderGraphSolverProfileD>();
+  solver_profile->num_threads = 1;
+
+  auto move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
+
+  // Make this a tool z-axis free sampler
+  move_profile->target_pose_fixed = false;
+  move_profile->target_pose_sample_axis = Eigen::Vector3d(0, 0, 1);
+  move_profile->target_pose_sample_resolution = 60 * M_PI * 180.0;
+
+  // Add collision edge evaluator
+  move_profile->enable_edge_collision = true;
+
+  // Profile Dictionary
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
+
+  // Create Planning Request
+  PlannerRequest request;
+  request.instructions = interpolated_program;
+  request.env = env_;
+  request.profiles = profiles;
+
+  // Create Planner
+  DescartesMotionPlannerD single_descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
+
+  PlannerResponse single_planner_response = single_descartes_planner.solve(request);
+  EXPECT_TRUE(&single_planner_response);
+
+  CompositeInstruction official_results = single_planner_response.results;
+
+  for (int i = 0; i < 10; ++i)
+  {
+    DescartesMotionPlannerD descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
+    solver_profile->num_threads = 4;
+
+    PlannerResponse planner_response = descartes_planner.solve(request);
+    EXPECT_TRUE(&planner_response);
+    EXPECT_TRUE(official_results.size() == planner_response.results.size());
+    for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
+    {
+      if (official_results[j].isCompositeInstruction())
+      {
+        const auto& sub_official = official_results[j].as<CompositeInstruction>();
+        const auto& sub = planner_response.results[j].as<CompositeInstruction>();
+        for (std::size_t k = 0; k < sub.size(); ++k)
+        {
+          if (sub_official[k].isCompositeInstruction())
+          {
+            EXPECT_TRUE(false);
+          }
+          else if (sub_official[k].isMoveInstruction())
+          {
+            const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
+            const auto& mv = sub[k].as<MoveInstructionPoly>();
+            EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
+          }
+        }
+      }
+      else if (official_results[j].isMoveInstruction())
+      {
+        const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
+        const auto& mv = planner_response.results[j].as<MoveInstructionPoly>();
+        EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
+      }
+    }
+  }
+}
+
+int main(int argc, char** argv)
+{
+  testing::InitGoogleTest(&argc, argv);
+
+  return RUN_ALL_TESTS();
+}
