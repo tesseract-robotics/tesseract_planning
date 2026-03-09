@@ -7,7 +7,10 @@ on:
       - 'dev**'
   pull_request:
     paths:
-      - 'tesseract**'
+      - 'command_language/**'
+      - 'examples/**'
+      - 'motion_planners/**'
+      - 'time_parameterization/**'
       - '.github/workflows/mac.yml'
       - '**.repos'
   schedule:
