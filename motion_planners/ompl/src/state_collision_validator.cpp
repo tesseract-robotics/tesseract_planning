@@ -49,9 +49,9 @@ StateCollisionValidator::StateCollisionValidator(
   , contact_manager_(env.getDiscreteContactManager())
   , extractor_(std::move(extractor))
 {
-  links_ = manip_->getActiveLinkNames();
+  link_ids_ = manip_->getActiveLinkIds();
 
-  contact_manager_->setActiveCollisionObjects(links_);
+  contact_manager_->setActiveCollisionObjects(link_ids_);
   contact_manager_->applyContactManagerConfig(contact_manager_config);
 }
 

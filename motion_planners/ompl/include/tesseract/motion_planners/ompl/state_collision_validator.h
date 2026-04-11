@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/motion_planners/ompl/types.h>
 
+#include <tesseract/common/types.h>
 #include <tesseract/environment/fwd.h>
 #include <tesseract/kinematics/fwd.h>
 #include <tesseract/collision/fwd.h>
@@ -65,8 +66,8 @@ private:
   /** @brief The continuous contact manager used for creating cached continuous contact managers. */
   std::shared_ptr<tesseract::collision::DiscreteContactManager> contact_manager_;
 
-  /** @brief A list of active links */
-  std::vector<std::string> links_;
+  /** @brief A list of active link IDs */
+  std::vector<tesseract::common::LinkId> link_ids_;
 
   /** @brief This will extract an Eigen::VectorXd from the OMPL State */
   OMPLStateExtractor extractor_;

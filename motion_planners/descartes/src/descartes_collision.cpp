@@ -36,18 +36,18 @@ DescartesCollision::DescartesCollision(const tesseract::environment::Environment
                                        tesseract::collision::CollisionCheckConfig collision_check_config,
                                        bool debug)
   : manip_(std::move(manip))
-  , active_link_names_(manip_->getActiveLinkNames())
+  , active_link_ids_(manip_->getActiveLinkIds())
   , contact_manager_(collision_env.getDiscreteContactManager())
   , collision_check_config_(std::move(collision_check_config))
   , debug_(debug)
 {
-  contact_manager_->setActiveCollisionObjects(active_link_names_);
+  contact_manager_->setActiveCollisionObjects(active_link_ids_);
   contact_manager_->applyContactManagerConfig(contact_manager_config);
 }
 
 DescartesCollision::DescartesCollision(const DescartesCollision& collision_interface)
   : manip_(collision_interface.manip_)
-  , active_link_names_(collision_interface.active_link_names_)
+  , active_link_ids_(collision_interface.active_link_ids_)
   , contact_manager_(collision_interface.contact_manager_->clone())
   , collision_check_config_(collision_interface.collision_check_config_)
   , debug_(collision_interface.debug_)

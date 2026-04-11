@@ -178,7 +178,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
   {
     tesseract::kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(start_mi.manipulator);
     assert(checkJointPositionFormat(joint_group->getJointNames(), start_instruction.getWaypoint()));
-    contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkNames());
+    contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkIds());
     const Eigen::VectorXd& cur_position = getJointPosition(start_instruction.getWaypoint());
     applyStartStates(*simple_setup, cur_position, *joint_group, *contact_checker);
   }
@@ -193,7 +193,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
     else
       kin_group = env->getKinematicGroup(start_mi.manipulator, start_mi.manipulator_ik_solver);
 
-    contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkNames());
+    contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkIds());
     tesseract::kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, start_mi.working_frame, start_mi.tcp_frame);
     const Eigen::VectorXd seed = cur_wp.hasSeed() ? cur_wp.getSeed().position : Eigen::VectorXd();
     applyStartStates(*simple_setup, ik_input, *kin_group, *contact_checker, seed);
@@ -208,7 +208,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
   {
     tesseract::kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(end_mi.manipulator);
     assert(checkJointPositionFormat(joint_group->getJointNames(), end_instruction.getWaypoint()));
-    contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkNames());
+    contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkIds());
     const Eigen::VectorXd& cur_position = getJointPosition(end_instruction.getWaypoint());
     applyGoalStates(*simple_setup, cur_position, *joint_group, *contact_checker);
   }
@@ -223,7 +223,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
     else
       kin_group = env->getKinematicGroup(end_mi.manipulator, end_mi.manipulator_ik_solver);
 
-    contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkNames());
+    contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkIds());
     tesseract::kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, end_mi.working_frame, end_mi.tcp_frame);
     const Eigen::VectorXd seed = cur_wp.hasSeed() ? cur_wp.getSeed().position : Eigen::VectorXd();
     applyGoalStates(*simple_setup, ik_input, *kin_group, *contact_checker, seed);

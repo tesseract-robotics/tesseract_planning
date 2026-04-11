@@ -50,9 +50,9 @@ ContinuousMotionValidator::ContinuousMotionValidator(
   , continuous_contact_manager_(env.getContinuousContactManager())
   , extractor_(std::move(extractor))
 {
-  links_ = manip_->getActiveLinkNames();
+  link_ids_ = manip_->getActiveLinkIds();
 
-  continuous_contact_manager_->setActiveCollisionObjects(links_);
+  continuous_contact_manager_->setActiveCollisionObjects(link_ids_);
   continuous_contact_manager_->applyContactManagerConfig(contact_manager_config);
 }
 
