@@ -75,12 +75,7 @@ tesseract::common::JointTrajectory toJointTrajectory(const CompositeInstruction&
       {
         const auto& jwp = pi.getWaypoint().as<JointWaypointPoly>();
         tesseract::common::JointState joint_state;
-        {
-          const auto& names = jwp.getNames();
-          joint_state.joint_ids.reserve(names.size());
-          for (const auto& n : names)
-            joint_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
-        }
+        joint_state.joint_ids = jwp.getJointIds();
         joint_state.position = jwp.getPosition();
 
         double dt = 1;
@@ -95,12 +90,7 @@ tesseract::common::JointTrajectory toJointTrajectory(const CompositeInstruction&
         const auto& swp = pi.getWaypoint().as<StateWaypointPoly>();
 
         tesseract::common::JointState joint_state;
-        {
-          const auto& names = swp.getNames();
-          joint_state.joint_ids.reserve(names.size());
-          for (const auto& n : names)
-            joint_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
-        }
+        joint_state.joint_ids = swp.getJointIds();
         joint_state.position = swp.getPosition();
         joint_state.velocity = swp.getVelocity();
         joint_state.acceleration = swp.getAcceleration();
@@ -169,6 +159,26 @@ std::vector<std::string> getJointNames(const WaypointPoly& waypoint)
     const auto& cwp = waypoint.as<CartesianWaypointPoly>();
     if (cwp.hasSeed())
       return cwp.getSeed().getJointNames();
+
+    throw std::runtime_error("CartesianWaypoint does not have a seed.");
+  }
+
+  throw std::runtime_error("Unsupported waypoint type.");
+}
+
+std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint)
+{
+  if (waypoint.isJointWaypoint())
+    return waypoint.as<JointWaypointPoly>().getJointIds();
+
+  if (waypoint.isStateWaypoint())
+    return waypoint.as<StateWaypointPoly>().getJointIds();
+
+  if (waypoint.isCartesianWaypoint())
+  {
+    const auto& cwp = waypoint.as<CartesianWaypointPoly>();
+    if (cwp.hasSeed())
+      return cwp.getSeed().getJointIds();
 
     throw std::runtime_error("CartesianWaypoint does not have a seed.");
   }

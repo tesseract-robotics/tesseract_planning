@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/fwd.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::command_language
 {
@@ -82,15 +83,17 @@ const Eigen::VectorXd& getJointPosition(const T&) = delete;
  * @param waypoint The waypoint to try and extract the joint position from
  * @return The joint names
  */
-const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint);
+std::vector<std::string> getJointNames(const WaypointPoly& waypoint);
 
 /**
- * @brief This prevent implicit cast to WaypointPoly
- * @details Since we are returning by reference if the type passed is converted
- * to a WaypointPoly then the object return is referencing a temporary value.
+ * @brief Gets joint IDs from waypoints that contain that information.
+ *
+ * Throws if waypoint does not directly contain that information
+ *
+ * @param waypoint The waypoint to try and extract the joint IDs from
+ * @return The joint IDs
  */
-template <class T>
-const std::vector<std::string>& getJointNames(const T&) = delete;
+std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint);
 
 /**
  * @brief Get the joint positions ordered by the provided joint names
