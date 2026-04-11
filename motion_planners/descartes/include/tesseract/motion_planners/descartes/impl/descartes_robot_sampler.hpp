@@ -98,7 +98,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
     if (ik_solutions.empty())
       continue;
 
-    tesseract::collision::ContactTrajectoryResults traj_contacts(manip_->getJointNames(),
+    tesseract::collision::ContactTrajectoryResults traj_contacts(manip_->getJointIds(),
                                                                  static_cast<int>(ik_solutions.size()));
 
     found_ik_sol = true;
