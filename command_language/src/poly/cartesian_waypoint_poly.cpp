@@ -110,8 +110,8 @@ const tesseract::common::JointState& CartesianWaypointPoly::getSeed() const { re
 bool CartesianWaypointPoly::hasSeed() const
 {
   const auto& seed = std::as_const(*impl_).getSeed();
-  return (seed.position.size() != 0 && !seed.joint_names.empty() &&
-          static_cast<std::size_t>(seed.position.size()) == seed.joint_names.size());
+  return (seed.position.size() != 0 && !seed.joint_ids.empty() &&
+          static_cast<std::size_t>(seed.position.size()) == seed.joint_ids.size());
 }
 
 void CartesianWaypointPoly::clearSeed() { impl_->setSeed(tesseract::common::JointState()); }

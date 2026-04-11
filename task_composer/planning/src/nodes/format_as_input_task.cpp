@@ -139,16 +139,14 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
     if (mi.getWaypoint().isCartesianWaypoint())
     {
       auto& cwp = mi.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
-      cwp.setSeed(tesseract::common::JointState(getJointNames(umi.getWaypoint()), getJointPosition(umi.getWaypoint())));
+      cwp.setSeed(tesseract::common::JointState(getJointIds(umi.getWaypoint()), getJointPosition(umi.getWaypoint())));
     }
     else if (mi.getWaypoint().isJointWaypoint())
     {
       auto& jwp = mi.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
       if (!jwp.isConstrained() || (jwp.isConstrained() && jwp.isToleranced()))
       {
-        // Reorder the waypoint — including tolerances — to match the post-planning
-        // joint order, then overwrite position with the post-planning values.
-        formatJointPosition(getJointNames(umi.getWaypoint()), mi.getWaypoint());
+        jwp.setJointIds(getJointIds(umi.getWaypoint()));
         jwp.setPosition(getJointPosition(umi.getWaypoint()));
       }
     }

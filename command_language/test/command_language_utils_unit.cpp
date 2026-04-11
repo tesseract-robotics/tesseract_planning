@@ -28,6 +28,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/utils.h>
+#include <tesseract/common/types.h>
 #include <tesseract/common/utils.h>
 #include "command_language_test_program.hpp"
 
@@ -181,7 +182,9 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionTests)  // NOLINT
   end_instruction.setDescription("End Instruction");
 
   tesseract::common::JointState seed_state;
-  seed_state.joint_names = joint_names;
+  seed_state.joint_ids.reserve(joint_names.size());
+  for (const auto& n : joint_names)
+    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses
@@ -229,7 +232,9 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
   tesseract::common::JointState seed_state;
-  seed_state.joint_names = joint_names;
+  seed_state.joint_ids.reserve(joint_names.size());
+  for (const auto& n : joint_names)
+    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
   seed_state.position = seed_position;
 
   // Define raster poses
@@ -284,7 +289,9 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionTests)  // NOLINT
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
   tesseract::common::JointState seed_state;
-  seed_state.joint_names = joint_names;
+  seed_state.joint_ids.reserve(joint_names.size());
+  for (const auto& n : joint_names)
+    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
   seed_state.position = seed_position;
 
   // Define raster poses
@@ -427,7 +434,9 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
   tesseract::common::JointState seed_state;
-  seed_state.joint_names = joint_names;
+  seed_state.joint_ids.reserve(joint_names.size());
+  for (const auto& n : joint_names)
+    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
   seed_state.position = seed_position;
 
   // Define raster poses
@@ -474,7 +483,9 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
   end_instruction.setDescription("End Instruction");
 
   tesseract::common::JointState seed_state;
-  seed_state.joint_names = joint_names;
+  seed_state.joint_ids.reserve(joint_names.size());
+  for (const auto& n : joint_names)
+    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses
@@ -494,7 +505,7 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
 
   WaypointPoly wp1_poly{ wp1 };
   const std::vector<std::string>& n1 = getJointNames(wp1_poly);
-  EXPECT_EQ(n1, wp1.getSeed().joint_names);
+  EXPECT_EQ(n1, wp1.getSeed().getJointNames());
 
   WaypointPoly wp2_poly{ wp2 };
   EXPECT_ANY_THROW(getJointNames(wp2_poly));  // NOLINT
@@ -517,7 +528,9 @@ TEST(TesseractCommandLanguageUtilsUnit, setJointPositionTests)  // NOLINT
   Eigen::VectorXd set_position = Eigen::VectorXd::Constant(6, 1);
 
   tesseract::common::JointState seed_state;
-  seed_state.joint_names = joint_names;
+  seed_state.joint_ids.reserve(joint_names.size());
+  for (const auto& n : joint_names)
+    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses

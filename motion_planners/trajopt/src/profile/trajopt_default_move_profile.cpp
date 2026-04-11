@@ -201,7 +201,7 @@ TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstruc
     {
       const auto& swp = move_instruction.getWaypoint().as<tesseract::command_language::StateWaypointPoly>();
       jwp = move_instruction.createJointWaypoint();
-      jwp.setNames(swp.getNames());
+      jwp.setJointIds(swp.getJointIds());
       jwp.setPosition(swp.getPosition());
       jwp.setIsConstrained(true);
       info.fixed = true;

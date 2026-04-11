@@ -340,7 +340,7 @@ bool OnlinePlanningExample::onlinePlan()
         init_trajectory.emplace_back(state.position.head(manip_->numJoints()));
       }
 
-      env_->setState(state.joint_names, state.position);
+      env_->setState(state.getJointNames(), state.position);
 
       // Setup problem again which should use a new start state
       setupProblem(init_trajectory);

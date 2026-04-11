@@ -132,7 +132,7 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
       if (!request.format_result_as_input)
       {
         tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
-        swp.setNames(getJointNames(mi.getWaypoint()));
+        swp.setJointIds(getJointIds(mi.getWaypoint()));
         swp.setPosition(jp);
         mi.getWaypoint() = swp;
       }
@@ -149,7 +149,7 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
         if (!request.format_result_as_input)
         {
           tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
-          swp.setNames(cwp.getSeed().joint_names);
+          swp.setJointIds(cwp.getSeed().getJointIds());
           swp.setPosition(jp);
           mi.getWaypoint() = swp;
         }
