@@ -21,6 +21,7 @@
 #include <tesseract/common/cereal_serialization.h>
 
 #include <cereal/cereal.hpp>
+#include <cereal/specialize.hpp>
 #include <cereal/types/memory.hpp>
 #include <cereal/types/unordered_map.hpp>
 #include <cereal/types/polymorphic.hpp>
@@ -109,17 +110,28 @@ void serialize(Archive& ar, CartesianWaypoint& obj)
 }
 
 template <class Archive>
-void serialize(Archive& ar, JointWaypoint& obj)
+void save(Archive& ar, const JointWaypoint& obj)
 {
-  ar(cereal::base_class<JointWaypointInterface>(&obj));
+  // base_class<JointWaypointInterface> serialization is a no-op
   ar(cereal::make_nvp("name", obj.name_));
   std::vector<std::string> names;
-  // For save: populate names from joint_ids_
   names.reserve(obj.joint_ids_.size());
   for (const auto& id : obj.joint_ids_)
     names.push_back(id.name());
   ar(cereal::make_nvp("names", names));
-  // For load: reconstruct joint_ids_ from deserialized names
+  ar(cereal::make_nvp("position", obj.position_));
+  ar(cereal::make_nvp("upper_tolerance", obj.upper_tolerance_));
+  ar(cereal::make_nvp("lower_tolerance", obj.lower_tolerance_));
+  ar(cereal::make_nvp("is_constrained", obj.is_constrained_));
+}
+
+template <class Archive>
+void load(Archive& ar, JointWaypoint& obj)
+{
+  ar(cereal::base_class<JointWaypointInterface>(&obj));
+  ar(cereal::make_nvp("name", obj.name_));
+  std::vector<std::string> names;
+  ar(cereal::make_nvp("names", names));
   obj.joint_ids_.clear();
   obj.joint_ids_.reserve(names.size());
   for (const auto& name : names)
@@ -131,11 +143,33 @@ void serialize(Archive& ar, JointWaypoint& obj)
 }
 
 template <class Archive>
-void serialize(Archive& ar, StateWaypoint& obj)
+void save(Archive& ar, const StateWaypoint& obj)
+{
+  // base_class<StateWaypointInterface> serialization is a no-op
+  ar(cereal::make_nvp("name", obj.name_));
+  std::vector<std::string> names;
+  names.reserve(obj.joint_ids_.size());
+  for (const auto& id : obj.joint_ids_)
+    names.push_back(id.name());
+  ar(cereal::make_nvp("joint_names", names));
+  ar(cereal::make_nvp("position", obj.position_));
+  ar(cereal::make_nvp("velocity", obj.velocity_));
+  ar(cereal::make_nvp("acceleration", obj.acceleration_));
+  ar(cereal::make_nvp("effort", obj.effort_));
+  ar(cereal::make_nvp("time", obj.time_));
+}
+
+template <class Archive>
+void load(Archive& ar, StateWaypoint& obj)
 {
   ar(cereal::base_class<StateWaypointInterface>(&obj));
   ar(cereal::make_nvp("name", obj.name_));
-  ar(cereal::make_nvp("joint_names", obj.joint_names_));
+  std::vector<std::string> names;
+  ar(cereal::make_nvp("joint_names", names));
+  obj.joint_ids_.clear();
+  obj.joint_ids_.reserve(names.size());
+  for (const auto& name : names)
+    obj.joint_ids_.push_back(tesseract::common::JointId::fromName(name));
   ar(cereal::make_nvp("position", obj.position_));
   ar(cereal::make_nvp("velocity", obj.velocity_));
   ar(cereal::make_nvp("acceleration", obj.acceleration_));

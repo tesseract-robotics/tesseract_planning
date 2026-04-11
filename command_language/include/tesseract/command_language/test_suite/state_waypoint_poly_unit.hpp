@@ -122,7 +122,7 @@ void runStateWaypointTest()
 
     {  // Test assigning
       StateWaypointPoly wp{ T() };
-      wp.getNames() = names;
+      wp.setNames(names);
       EXPECT_TRUE(std::as_const(wp).getNames() == names);
     }
   }
@@ -290,7 +290,7 @@ void runStateWaypointTest()
 
       StateWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
       StateWaypointPoly wp2{ wp1 };
-      wp1.getNames() = names;
+      wp1.setNames(names);
       wp1.getPosition() = positions;
       wp1.getVelocity() = velocities;
       wp1.getAcceleration() = accelerations;

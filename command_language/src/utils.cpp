@@ -269,7 +269,6 @@ void applyJointPermutation(Eigen::VectorXd& vec, const std::vector<std::size_t>&
 bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint)
 {
   Eigen::VectorXd* jv{ nullptr };
-  std::vector<std::string>* jn_ptr{ nullptr };
   std::vector<std::string> jn_local;
   if (waypoint.isJointWaypoint())
   {
@@ -282,8 +281,7 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
   {
     auto& swp = waypoint.as<StateWaypointPoly>();
     jv = &(swp.getPosition());
-    jn_ptr = &(swp.getNames());
-    jn_local = *jn_ptr;
+    jn_local = swp.getNames();
   }
 
   if (waypoint.isCartesianWaypoint())
@@ -350,8 +348,8 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
 
   if (waypoint.isJointWaypoint())
     waypoint.as<JointWaypointPoly>().setNames(joint_names);
-  else if (jn_ptr != nullptr)
-    *jn_ptr = joint_names;
+  else if (waypoint.isStateWaypoint())
+    waypoint.as<StateWaypointPoly>().setNames(joint_names);
   *jv = output;
 
   return true;

@@ -80,8 +80,14 @@ bool StateWaypointPoly::equals(const WaypointInterface& other) const
 void StateWaypointPoly::print(const std::string& prefix) const { std::as_const(*impl_).print(prefix); }
 
 void StateWaypointPoly::setNames(const std::vector<std::string>& names) { impl_->setNames(names); }
-std::vector<std::string>& StateWaypointPoly::getNames() { return impl_->getNames(); }
-const std::vector<std::string>& StateWaypointPoly::getNames() const { return std::as_const(*impl_).getNames(); }
+std::vector<std::string> StateWaypointPoly::getNames() const { return std::as_const(*impl_).getNames(); }
+
+void StateWaypointPoly::setJointIds(const std::vector<tesseract::common::JointId>& ids) { impl_->setJointIds(ids); }
+const std::vector<tesseract::common::JointId>& StateWaypointPoly::getJointIds() const
+{
+  return std::as_const(*impl_).getJointIds();
+}
+std::vector<tesseract::common::JointId>& StateWaypointPoly::getJointIds() { return impl_->getJointIds(); }
 
 void StateWaypointPoly::setPosition(const Eigen::VectorXd& position) { impl_->setPosition(position); }
 Eigen::VectorXd& StateWaypointPoly::getPosition() { return impl_->getPosition(); }
