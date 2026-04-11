@@ -414,7 +414,8 @@ bool CarSeatExample::run()
   joint_seat_1_robot.child_link_name = "seat_1";
   joint_seat_1_robot.type = JointType::FIXED;
   joint_seat_1_robot.parent_to_joint_origin_transform =
-      state.link_transforms.at("end_effector").inverse() * state.link_transforms.at("seat_1");
+      state.link_transforms.at(tesseract::common::LinkId::fromName("end_effector")).inverse() *
+      state.link_transforms.at(tesseract::common::LinkId::fromName("seat_1"));
 
   cmds.clear();
   cmds.push_back(std::make_shared<MoveLinkCommand>(joint_seat_1_robot));

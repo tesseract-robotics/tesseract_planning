@@ -74,12 +74,10 @@ ompl::base::Cost CollisionCostObjective::stateCost(const ompl::base::State* stat
   mutex_.unlock();
 
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
-  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state1;
-  state1.clear();
+  TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state1;
   manip_->calcFwdKin(state1, finish_joints);
 
-  for (const auto& link_name : links_)
-    cm->setCollisionObjectsTransform(link_name, state1[link_name]);
+  cm->setCollisionObjectsTransform(state1);
 
   tesseract::collision::ContactResultMap contact_map;
   cm->contactTest(contact_map, tesseract::collision::ContactTestType::CLOSEST);

@@ -115,8 +115,8 @@ public:
     pci.cnt_infos.push_back(collision);
 
     auto fn = [this](const Eigen::VectorXd& jv) {
-      Eigen::Isometry3d pose;
-      fwd_kin_->calcFwdKin(pose, jv);
+      auto transforms = fwd_kin_->calcFwdKin(jv);
+      const Eigen::Isometry3d& pose = transforms.begin()->second;
 
       Eigen::Vector3d z_axis = pose.matrix().col(2).template head<3>().normalized();
 
@@ -191,8 +191,8 @@ public:
 
   void function(const Eigen::Ref<const Eigen::VectorXd>& x, Eigen::Ref<Eigen::VectorXd> out) const override
   {
-    Eigen::Isometry3d pose;
-    fwd_kin_->calcFwdKin(pose, x);
+    auto transforms = fwd_kin_->calcFwdKin(x);
+    const Eigen::Isometry3d& pose = transforms.begin()->second;
 
     Eigen::Vector3d z_axis = pose.matrix().col(2).template head<3>().normalized();
 

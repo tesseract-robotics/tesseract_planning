@@ -58,6 +58,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/kinematics/kinematic_group.h>
 #include <tesseract/collision/discrete_contact_manager.h>
 #include <tesseract/environment/environment.h>
+#include <tesseract/state_solver/state_solver.h>
 
 #include <tesseract/common/profile_plugin_factory.h>
 #include <tesseract/common/joint_state.h>
@@ -316,8 +317,8 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
     for (std::size_t i = 0; i < contact_map_vec.size(); i++)
       for (const auto& contact_vec : contact_map_vec[i])
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_names[0] + ", " +
-                                   contact.link_names[1] + "  Distance: " + std::to_string(contact.distance))
+          CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_ids[0].name() + ", " +
+                                   contact.link_ids[1].name() + "  Distance: " + std::to_string(contact.distance))
                                       .c_str());
     throw std::runtime_error("In OMPLRealVectorMoveProfile: All goal states are either in collision or outside limits");
   }
@@ -352,7 +353,7 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
     CONSOLE_BRIDGE_logError("In OMPLRealVectorMoveProfile: Goal state is in collision");
     for (const auto& contact_vec : contact_map)
       for (const auto& contact : contact_vec.second)
-        CONSOLE_BRIDGE_logError(("Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
+        CONSOLE_BRIDGE_logError(("Links: " + contact.link_ids[0].name() + ", " + contact.link_ids[1].name() +
                                  "  Distance: " + std::to_string(contact.distance))
                                     .c_str());
   }
@@ -439,8 +440,8 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
     for (std::size_t i = 0; i < contact_map_vec.size(); i++)
       for (const auto& contact_vec : contact_map_vec[i])
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_names[0] + ", " +
-                                   contact.link_names[1] + "  Distance: " + std::to_string(contact.distance))
+          CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_ids[0].name() + ", " +
+                                   contact.link_ids[1].name() + "  Distance: " + std::to_string(contact.distance))
                                       .c_str());
     throw std::runtime_error("In OMPLPlannerFreespaceConfig: All start states are either in collision or outside "
                              "limits");
@@ -474,7 +475,7 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
     CONSOLE_BRIDGE_logError("In OMPLPlannerFreespaceConfig: Start state is in collision");
     for (const auto& contact_vec : contact_map)
       for (const auto& contact : contact_vec.second)
-        CONSOLE_BRIDGE_logError(("Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
+        CONSOLE_BRIDGE_logError(("Links: " + contact.link_ids[0].name() + ", " + contact.link_ids[1].name() +
                                  "  Distance: " + std::to_string(contact.distance))
                                     .c_str());
   }

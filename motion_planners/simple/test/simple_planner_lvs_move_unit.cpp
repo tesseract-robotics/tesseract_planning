@@ -191,8 +191,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSMoveProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
   auto ctl = ctl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
-  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(manip_info_.tcp_frame);
-  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
+  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
   double trans_dist = (p2.translation() - p1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
   EXPECT_GT(static_cast<int>(ctl.size()), min_steps);
@@ -229,7 +229,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -257,7 +257,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 
   // Ensure equal to minimum number steps when all params set large
@@ -291,7 +291,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -318,7 +318,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 
   // Ensure equal to minimum number steps when all params set large
@@ -331,7 +331,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSMoveProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
   auto ctl = ctl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
-  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
   double trans_dist = (wp2.getTransform().translation() - p1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
   EXPECT_GT(static_cast<int>(ctl.size()), min_steps);
@@ -360,7 +360,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame) };
+  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
@@ -421,7 +421,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame) };
+  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
   MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
@@ -465,7 +465,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSMoveProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
   auto ctl = ctl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
-  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
   double trans_dist = (p2.translation() - wp1.getTransform().translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
   EXPECT_GT(static_cast<int>(ctl.size()), min_steps);
@@ -493,12 +493,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame) };
+  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -526,7 +526,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 
   // Ensure equal to minimum number steps when all params set large
@@ -554,12 +554,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame) };
+  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
   MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -586,7 +586,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 
   // Ensure equal to minimum number steps when all params set large

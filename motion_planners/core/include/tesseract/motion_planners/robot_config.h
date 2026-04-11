@@ -76,12 +76,13 @@ inline RobotConfig getRobotConfig(const tesseract::kinematics::JointGroup& joint
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
   // Get state
-  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state;
-  state.clear();
+  TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state;
   joint_group.calcFwdKin(state, joint_values.template cast<double>());
 
   // Get the pose at tool0
-  Eigen::Isometry3d pose = state.at(base_link).inverse() * state.at(tcp_frame);
+  Eigen::Isometry3d pose =
+      state.at(tesseract::common::LinkId::fromName(base_link)).inverse() *
+      state.at(tesseract::common::LinkId::fromName(tcp_frame));
 
   // Get Manipulator values
   auto mjv = joint_values.tail(6);

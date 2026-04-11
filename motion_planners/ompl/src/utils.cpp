@@ -112,11 +112,9 @@ bool checkStateInCollision(tesseract::collision::ContactResultMap& contact_map,
                            const Eigen::VectorXd& state)
 {
   /** @brief Making this thread_local does not help because it is only used by applyStartState and applyGoalState */
-  tesseract::common::TransformMap link_transforms;
-  manip.calcFwdKin(link_transforms, state);
+  auto link_transforms = manip.calcFwdKin(state);
 
-  for (const auto& link_name : contact_checker.getActiveCollisionObjects())
-    contact_checker.setCollisionObjectsTransform(link_name, link_transforms[link_name]);
+  contact_checker.setCollisionObjectsTransform(link_transforms);
 
   contact_checker.contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
 

@@ -73,10 +73,8 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
   manager->applyContactManagerConfig(profile.contact_manager_config);
 
-  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state;
-  state.clear();
   contacts.clear();
-  joint_group->calcFwdKin(state, start_pos);
+  auto state = joint_group->calcFwdKin(start_pos);
   checkTrajectoryState(contacts, *manager, state, profile.collision_check_config.contact_request);
   if (contacts.empty())
   {
@@ -92,7 +90,7 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
     for (const auto& pair : contacts)
     {
       for (const auto& contact : pair.second)
-        CONSOLE_BRIDGE_logDebug(("Contact Results: Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
+        CONSOLE_BRIDGE_logDebug(("Contact Results: Links: " + contact.link_ids[0].name() + ", " + contact.link_ids[1].name() +
                                  " Dist: " + std::to_string(contact.distance))
                                     .c_str());
     }
@@ -334,10 +332,7 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
     TESSERACT_THREAD_LOCAL tesseract::collision::ContactResultMap collisions;
     collisions.clear();
 
-    TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state;
-    state.clear();
-
-    pci.kin->calcFwdKin(state, start_pos);
+    auto state = pci.kin->calcFwdKin(start_pos);
     tesseract::collision::DiscreteContactManager::Ptr manager = pci.env->getDiscreteContactManager();
     manager->setActiveCollisionObjects(pci.kin->getActiveLinkNames());
     manager->applyContactManagerConfig(profile.contact_manager_config);
@@ -348,7 +343,7 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
     {
       std::stringstream ss;
       const auto& front = collision.second.front();
-      ss << "Discrete collision detected between '" << front.link_names[0] << "' and '" << front.link_names[1]
+      ss << "Discrete collision detected between '" << front.link_ids[0].name() << "' and '" << front.link_ids[1].name()
          << "' with distance " << front.distance << "\n";
 
       CONSOLE_BRIDGE_logError(ss.str().c_str());

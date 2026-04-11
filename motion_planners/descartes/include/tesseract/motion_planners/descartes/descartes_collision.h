@@ -79,7 +79,7 @@ public:
    * @return ContactResultMap containing any contacts for the given solution
    */
   bool validate(tesseract::collision::ContactResultMap& contact_results,
-                tesseract::common::TransformMap& transforms_cache,
+                tesseract::common::LinkIdTransformMap& transforms_cache,
                 const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
@@ -89,7 +89,7 @@ public:
    * @return The distance to the closest object
    */
   double distance(tesseract::collision::ContactResultMap& contact_results,
-                  tesseract::common::TransformMap& transforms_cache,
+                  tesseract::common::LinkIdTransformMap& transforms_cache,
                   const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**

@@ -105,7 +105,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
 
     // These get cleared in the validate and distance calls
     TESSERACT_THREAD_LOCAL tesseract::collision::ContactResultMap coll_results;
-    TESSERACT_THREAD_LOCAL tesseract::common::TransformMap transforms;
+    TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap transforms;
 
     // Check each individual joint solution
     for (std::size_t j = 0; j < ik_solutions.size(); j++)

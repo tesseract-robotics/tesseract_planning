@@ -184,7 +184,8 @@ bool ConstantTCPSpeedParameterization::compute(tesseract::command_language::Comp
     // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
     KDL::Path_Composite path;
     /** @brief Making this thread_local does not help because it is not called enough during planning */
-    tesseract::common::TransformMap transforms;
+    tesseract::common::LinkIdTransformMap transforms;
+    const auto tcp_id = tesseract::common::LinkId::fromName(manip_info.tcp_frame);
     Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
     for (Eigen::Index i = 1; i < trajectory.size(); ++i)
     {
@@ -194,12 +195,12 @@ bool ConstantTCPSpeedParameterization::compute(tesseract::command_language::Comp
       // Perform FK to get Cartesian poses
       KDL::Frame start;
       jg->calcFwdKin(transforms, start_joints);
-      pose = transforms.at(manip_info.tcp_frame) * tcp_offset;
+      pose = transforms.at(tcp_id) * tcp_offset;
       tesseract::kinematics::EigenToKDL(pose, start);
 
       KDL::Frame end;
       jg->calcFwdKin(transforms, end_joints);
-      pose = transforms.at(manip_info.tcp_frame) * tcp_offset;
+      pose = transforms.at(tcp_id) * tcp_offset;
       tesseract::kinematics::EigenToKDL(pose, end);
 
       // Convert to KDL::Path

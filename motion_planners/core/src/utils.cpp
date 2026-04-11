@@ -70,7 +70,7 @@ Eigen::Isometry3d calcPose(const tesseract::command_language::WaypointPoly& wp,
     const auto& swp = wp.as<tesseract::command_language::StateWaypointPoly>();
     assert(static_cast<long>(swp.getNames().size()) == swp.getPosition().size());
     tesseract::scene_graph::SceneState state = state_solver.getState(swp.getNames(), swp.getPosition());
-    return (state.link_transforms[tip_link] * tcp);
+    return (state.link_transforms.at(tesseract::common::LinkId::fromName(tip_link)) * tcp);
   }
 
   if (wp.isJointWaypoint())
@@ -78,7 +78,7 @@ Eigen::Isometry3d calcPose(const tesseract::command_language::WaypointPoly& wp,
     const auto& jwp = wp.as<tesseract::command_language::JointWaypointPoly>();
     assert(static_cast<long>(jwp.getNames().size()) == jwp.getPosition().size());
     tesseract::scene_graph::SceneState state = state_solver.getState(jwp.getNames(), jwp.getPosition());
-    return (state.link_transforms[tip_link] * tcp);
+    return (state.link_transforms.at(tesseract::common::LinkId::fromName(tip_link)) * tcp);
   }
 
   if (wp.isCartesianWaypoint())
@@ -87,7 +87,7 @@ Eigen::Isometry3d calcPose(const tesseract::command_language::WaypointPoly& wp,
     if (working_frame.empty())
       return cwp.getTransform();
 
-    return (current_state.link_transforms.at(working_frame) * cwp.getTransform());
+    return (current_state.link_transforms.at(tesseract::common::LinkId::fromName(working_frame)) * cwp.getTransform());
   }
 
   throw std::runtime_error("toToolpath: Unsupported Waypoint Type!");
@@ -367,8 +367,8 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   contacts.clear();
   contacts.reserve(mi.size());
 
-  tesseract::common::TransformMap link_transforms;
-  tesseract::common::TransformMap link_transforms1;
+  tesseract::common::LinkIdTransformMap link_transforms;
+  tesseract::common::LinkIdTransformMap link_transforms1;
 
   /** @brief Making this thread_local does not help because it is not called enough during planning */
   tesseract::collision::ContactResultMap state_results;
@@ -651,7 +651,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   contacts.clear();
   contacts.reserve(mi.size());
 
-  tesseract::common::TransformMap link_transforms;
+  tesseract::common::LinkIdTransformMap link_transforms;
 
   /** @brief Making this thread_local does not help because it is not called enough during planning */
   tesseract::collision::ContactResultMap state_results;

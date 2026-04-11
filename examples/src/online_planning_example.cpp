@@ -195,7 +195,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   }
   // Add the target pose constraint for the final step
   {
-    target_pose_base_frame_ = manip_->calcFwdKin(target_joint_position).at("tool0");
+    target_pose_base_frame_ = manip_->calcFwdKin(target_joint_position).at(tesseract::common::LinkId::fromName("tool0"));
     std::cout << "Target Joint Position: " << target_joint_position.transpose() << "\n";
     std::cout << "Target TF:\n" << target_pose_base_frame_.matrix() << "\n";
 
