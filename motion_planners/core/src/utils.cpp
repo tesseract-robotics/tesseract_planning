@@ -359,10 +359,11 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
 
   bool debug_logging = console_bridge::getLogLevel() < console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO;
 
-  // Grab the first waypoint to get the joint names
-  const auto& joint_names =
-      getJointNames(mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint());
-  tesseract::collision::ContactTrajectoryResults traj_contacts(joint_names, static_cast<int>(mi.size()));
+  // Grab the first waypoint to get the joint ids
+  const auto& wp0 = mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint();
+  const auto joint_ids = getJointIds(wp0);
+  const auto& joint_names = getJointNames(wp0);
+  tesseract::collision::ContactTrajectoryResults traj_contacts(joint_ids, static_cast<int>(mi.size()));
 
   contacts.clear();
   contacts.reserve(mi.size());
@@ -385,7 +386,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   {
     const auto& joint_positions =
         getJointPosition(mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint());
-    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_ids, joint_positions);
     sub_state_results.clear();
     tesseract::environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
 
@@ -406,7 +407,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   {
     const auto& joint_positions =
         getJointPosition(mi.back().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint());
-    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_ids, joint_positions);
     sub_state_results.clear();
     tesseract::environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
 
@@ -472,8 +473,8 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
 
         for (long iSubStep = start_idx; iSubStep < end_idx; ++iSubStep)
         {
-          state_solver.getLinkTransforms(link_transforms, joint_names, subtraj.row(iSubStep));
-          state_solver.getLinkTransforms(link_transforms1, joint_names, subtraj.row(iSubStep + 1));
+          state_solver.getLinkTransforms(link_transforms, joint_ids, subtraj.row(iSubStep));
+          state_solver.getLinkTransforms(link_transforms1, joint_ids, subtraj.row(iSubStep + 1));
           sub_state_results.clear();
           tesseract::environment::checkTrajectorySegment(
               sub_state_results, manager, link_transforms, link_transforms1, config.contact_request);
@@ -644,10 +645,11 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
 
   bool debug_logging = console_bridge::getLogLevel() < console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO;
 
-  // Grab the first waypoint to get the joint names
-  const auto& joint_names =
-      getJointNames(mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint());
-  tesseract::collision::ContactTrajectoryResults traj_contacts(joint_names, static_cast<int>(mi.size()));
+  // Grab the first waypoint to get the joint ids
+  const auto& dwp0 = mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint();
+  const auto joint_ids = getJointIds(dwp0);
+  const auto& joint_names = getJointNames(dwp0);
+  tesseract::collision::ContactTrajectoryResults traj_contacts(joint_ids, static_cast<int>(mi.size()));
 
   contacts.clear();
   contacts.reserve(mi.size());
@@ -669,7 +671,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   {
     const auto& joint_positions =
         getJointPosition(mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint());
-    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_ids, joint_positions);
     sub_state_results.clear();
     tesseract::environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
 
@@ -690,7 +692,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   {
     const auto& joint_positions =
         getJointPosition(mi.back().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint());
-    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_ids, joint_positions);
     sub_state_results.clear();
     tesseract::environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
 
@@ -722,7 +724,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
     state_results.clear();
     const auto& joint_positions =
         getJointPosition(mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint());
-    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_ids, joint_positions);
 
     sub_state_results.clear();
     tesseract::environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
