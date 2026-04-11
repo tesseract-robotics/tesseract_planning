@@ -336,7 +336,7 @@ bool GlassUprightOMPLExample::run()
 
     manager->setActiveCollisionObjects(adjacency_map->getActiveLinkNames());
     manager->setContactDistanceThreshold(0);
-    bool found = checkTrajectory(collisions, *manager, *state_solver, kin->getJointNames(), traj);
+    bool found = checkTrajectory(collisions, *manager, *state_solver, kin->getJointIds(), traj);
 
     CONSOLE_BRIDGE_logInform((found) ? ("Final trajectory is in collision") : ("Final trajectory is collision free"));
 
