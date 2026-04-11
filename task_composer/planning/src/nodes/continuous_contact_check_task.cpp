@@ -136,7 +136,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   tesseract::scene_graph::StateSolver::UPtr state_solver = env->getStateSolver();
 
   tesseract::collision::ContinuousContactManager::Ptr manager = env->getContinuousContactManager();
-  manager->setActiveCollisionObjects(manip->getActiveLinkNames());
+  manager->setActiveCollisionObjects(manip->getActiveLinkIds());
   manager->applyContactManagerConfig(cur_composite_profile->contact_manager_config);
 
   std::vector<tesseract::collision::ContactResultMap> contacts;

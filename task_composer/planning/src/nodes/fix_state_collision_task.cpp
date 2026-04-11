@@ -70,7 +70,7 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   auto joint_group = env.getJointGroup(manip_info.manipulator);
 
   DiscreteContactManager::Ptr manager = env.getDiscreteContactManager();
-  manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
+  manager->setActiveCollisionObjects(joint_group->getActiveLinkIds());
   manager->applyContactManagerConfig(profile.contact_manager_config);
 
   contacts.clear();
@@ -334,7 +334,7 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
 
     auto state = pci.kin->calcFwdKin(start_pos);
     tesseract::collision::DiscreteContactManager::Ptr manager = pci.env->getDiscreteContactManager();
-    manager->setActiveCollisionObjects(pci.kin->getActiveLinkNames());
+    manager->setActiveCollisionObjects(pci.kin->getActiveLinkIds());
     manager->applyContactManagerConfig(profile.contact_manager_config);
     manager->setCollisionObjectsTransform(state);
     manager->contactTest(collisions, profile.collision_check_config.contact_request);
