@@ -126,7 +126,7 @@ void runJointWaypointTest()
 
     {  // Test assigning
       JointWaypointPoly wp{ T() };
-      wp.getNames() = names;
+      wp.setNames(names);
       EXPECT_TRUE(std::as_const(wp).getNames() == names);
     }
   }

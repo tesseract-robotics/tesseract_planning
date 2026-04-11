@@ -85,8 +85,14 @@ std::unique_ptr<WaypointInterface> JointWaypointPoly::clone() const
 void JointWaypointPoly::print(const std::string& prefix) const { std::as_const(*impl_).print(prefix); }
 
 void JointWaypointPoly::setNames(const std::vector<std::string>& names) { impl_->setNames(names); }
-std::vector<std::string>& JointWaypointPoly::getNames() { return impl_->getNames(); }
-const std::vector<std::string>& JointWaypointPoly::getNames() const { return std::as_const(*impl_).getNames(); }
+std::vector<std::string> JointWaypointPoly::getNames() const { return std::as_const(*impl_).getNames(); }
+
+void JointWaypointPoly::setJointIds(const std::vector<tesseract::common::JointId>& ids) { impl_->setJointIds(ids); }
+const std::vector<tesseract::common::JointId>& JointWaypointPoly::getJointIds() const
+{
+  return std::as_const(*impl_).getJointIds();
+}
+std::vector<tesseract::common::JointId>& JointWaypointPoly::getJointIds() { return impl_->getJointIds(); }
 
 void JointWaypointPoly::setPosition(const Eigen::VectorXd& position) { impl_->setPosition(position); }
 Eigen::VectorXd& JointWaypointPoly::getPosition() { return impl_->getPosition(); }

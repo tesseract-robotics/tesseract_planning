@@ -75,7 +75,12 @@ tesseract::common::JointTrajectory toJointTrajectory(const CompositeInstruction&
       {
         const auto& jwp = pi.getWaypoint().as<JointWaypointPoly>();
         tesseract::common::JointState joint_state;
-        joint_state.joint_names = jwp.getNames();
+        {
+          const auto& names = jwp.getNames();
+          joint_state.joint_ids.reserve(names.size());
+          for (const auto& n : names)
+            joint_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
+        }
         joint_state.position = jwp.getPosition();
 
         double dt = 1;
@@ -90,7 +95,12 @@ tesseract::common::JointTrajectory toJointTrajectory(const CompositeInstruction&
         const auto& swp = pi.getWaypoint().as<StateWaypointPoly>();
 
         tesseract::common::JointState joint_state;
-        joint_state.joint_names = swp.getNames();
+        {
+          const auto& names = swp.getNames();
+          joint_state.joint_ids.reserve(names.size());
+          for (const auto& n : names)
+            joint_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
+        }
         joint_state.position = swp.getPosition();
         joint_state.velocity = swp.getVelocity();
         joint_state.acceleration = swp.getAcceleration();
@@ -146,7 +156,7 @@ const Eigen::VectorXd& getJointPosition(const WaypointPoly& waypoint)
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint)
+std::vector<std::string> getJointNames(const WaypointPoly& waypoint)
 {
   if (waypoint.isJointWaypoint())
     return waypoint.as<JointWaypointPoly>().getNames();
@@ -158,7 +168,7 @@ const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint)
   {
     const auto& cwp = waypoint.as<CartesianWaypointPoly>();
     if (cwp.hasSeed())
-      return cwp.getSeed().joint_names;
+      return cwp.getSeed().getJointNames();
 
     throw std::runtime_error("CartesianWaypoint does not have a seed.");
   }
@@ -189,7 +199,7 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
       throw std::runtime_error("Cartesian waypoint does not have a seed.");
 
     jv = cwp.getSeed().position;
-    jn = cwp.getSeed().joint_names;
+    jn = cwp.getSeed().getJointNames();
   }
   else
   {
@@ -258,35 +268,22 @@ void applyJointPermutation(Eigen::VectorXd& vec, const std::vector<std::size_t>&
 
 bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint)
 {
+  Eigen::VectorXd* jv{ nullptr };
+  std::vector<std::string>* jn_ptr{ nullptr };
+  std::vector<std::string> jn_local;
   if (waypoint.isJointWaypoint())
   {
     auto& jwp = waypoint.as<JointWaypointPoly>();
-    const std::vector<std::string>& current = jwp.getNames();
-    if (current == joint_names)
-      return false;
-
-    const std::vector<std::size_t> perm = buildJointPermutation(joint_names, current);
-    applyJointPermutation(jwp.getPosition(), perm);
-    applyJointPermutation(jwp.getLowerTolerance(), perm);
-    applyJointPermutation(jwp.getUpperTolerance(), perm);
-    jwp.setNames(joint_names);
-    return true;
+    jv = &(jwp.getPosition());
+    jn_local = jwp.getNames();
   }
 
   if (waypoint.isStateWaypoint())
   {
     auto& swp = waypoint.as<StateWaypointPoly>();
-    const std::vector<std::string>& current = swp.getNames();
-    if (current == joint_names)
-      return false;
-
-    const std::vector<std::size_t> perm = buildJointPermutation(joint_names, current);
-    applyJointPermutation(swp.getPosition(), perm);
-    applyJointPermutation(swp.getVelocity(), perm);
-    applyJointPermutation(swp.getAcceleration(), perm);
-    applyJointPermutation(swp.getEffort(), perm);
-    swp.setNames(joint_names);
-    return true;
+    jv = &(swp.getPosition());
+    jn_ptr = &(swp.getNames());
+    jn_local = *jn_ptr;
   }
 
   if (waypoint.isCartesianWaypoint())
@@ -296,19 +293,68 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
       return false;
 
     auto& seed = cwp.getSeed();
-    if (seed.joint_names == joint_names)
+    std::vector<std::string> seed_names = seed.getJointNames();
+
+    if (seed_names.size() != joint_names.size())
+      throw std::runtime_error("Joint name sizes do not match!");
+
+    if (joint_names == seed_names)
       return false;
 
-    const std::vector<std::size_t> perm = buildJointPermutation(joint_names, seed.joint_names);
-    applyJointPermutation(seed.position, perm);
-    applyJointPermutation(seed.velocity, perm);
-    applyJointPermutation(seed.acceleration, perm);
-    applyJointPermutation(seed.effort, perm);
-    seed.joint_names = joint_names;
+    Eigen::VectorXd output = seed.position;
+    for (std::size_t i = 0; i < joint_names.size(); ++i)
+    {
+      if (joint_names[i] == seed_names[i])
+        continue;
+
+      auto it = std::find(seed_names.begin(), seed_names.end(), joint_names[i]);
+      if (it == seed_names.end())
+        throw std::runtime_error("Joint names do not match!");
+
+      long idx = std::distance(seed_names.begin(), it);
+      output(static_cast<long>(i)) = seed.position(idx);
+    }
+
+    seed.joint_ids.clear();
+    seed.joint_ids.reserve(joint_names.size());
+    for (const auto& name : joint_names)
+      seed.joint_ids.push_back(tesseract::common::JointId::fromName(name));
+    seed.position = output;
+
     return true;
   }
+  else
+  {
+    throw std::runtime_error("Unsupported waypoint type.");
+  }
 
-  throw std::runtime_error("Unsupported waypoint type.");
+  if (jn_local.size() != joint_names.size())
+    throw std::runtime_error("Joint name sizes do not match!");
+
+  if (joint_names == jn_local)
+    return false;
+
+  Eigen::VectorXd output = *jv;
+  for (std::size_t i = 0; i < joint_names.size(); ++i)
+  {
+    if (joint_names[i] == jn_local[i])
+      continue;
+
+    auto it = std::find(jn_local.begin(), jn_local.end(), joint_names[i]);
+    if (it == jn_local.end())
+      throw std::runtime_error("Joint names do not match!");
+
+    long idx = std::distance(jn_local.begin(), it);
+    output(static_cast<long>(i)) = (*jv)(idx);
+  }
+
+  if (waypoint.isJointWaypoint())
+    waypoint.as<JointWaypointPoly>().setNames(joint_names);
+  else if (jn_ptr != nullptr)
+    *jn_ptr = joint_names;
+  *jv = output;
+
+  return true;
 }
 
 bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)
@@ -323,7 +369,7 @@ bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const
   {
     const auto& cwp = waypoint.as<CartesianWaypointPoly>();
     if (cwp.hasSeed())
-      return (joint_names == waypoint.as<CartesianWaypointPoly>().getSeed().joint_names);
+      return (joint_names == waypoint.as<CartesianWaypointPoly>().getSeed().getJointNames());
   }
 
   throw std::runtime_error("Unsupported waypoint type.");

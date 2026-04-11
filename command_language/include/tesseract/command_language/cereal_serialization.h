@@ -113,7 +113,17 @@ void serialize(Archive& ar, JointWaypoint& obj)
 {
   ar(cereal::base_class<JointWaypointInterface>(&obj));
   ar(cereal::make_nvp("name", obj.name_));
-  ar(cereal::make_nvp("names", obj.names_));
+  std::vector<std::string> names;
+  // For save: populate names from joint_ids_
+  names.reserve(obj.joint_ids_.size());
+  for (const auto& id : obj.joint_ids_)
+    names.push_back(id.name());
+  ar(cereal::make_nvp("names", names));
+  // For load: reconstruct joint_ids_ from deserialized names
+  obj.joint_ids_.clear();
+  obj.joint_ids_.reserve(names.size());
+  for (const auto& name : names)
+    obj.joint_ids_.push_back(tesseract::common::JointId::fromName(name));
   ar(cereal::make_nvp("position", obj.position_));
   ar(cereal::make_nvp("upper_tolerance", obj.upper_tolerance_));
   ar(cereal::make_nvp("lower_tolerance", obj.lower_tolerance_));

@@ -28,9 +28,11 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <vector>
+#include <type_traits>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/poly/joint_waypoint_poly.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::command_language
 {
@@ -52,6 +54,30 @@ public:
                 const Eigen::VectorXd& position,
                 const Eigen::VectorXd& lower_tol,
                 const Eigen::VectorXd& upper_tol);
+  // SFINAE-guarded JointId constructors to prevent overload ambiguity with string brace-init
+  template <typename T, std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
+  JointWaypoint(T&& joint_ids, const Eigen::VectorXd& position, bool is_constrained = true)
+    : joint_ids_(std::forward<T>(joint_ids)), position_(position), is_constrained_(is_constrained)
+  {
+    if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
+      throw std::runtime_error("JointWaypoint: parameters are not the same size!");
+  }
+
+  template <typename T, std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
+  JointWaypoint(T&& joint_ids,
+                const Eigen::VectorXd& position,
+                const Eigen::VectorXd& lower_tol,
+                const Eigen::VectorXd& upper_tol)
+    : joint_ids_(std::forward<T>(joint_ids))
+    , position_(position)
+    , lower_tolerance_(lower_tol)
+    , upper_tolerance_(upper_tol)
+    , is_constrained_(true)
+  {
+    if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() ||
+        position_.size() != lower_tolerance_.size() || position_.size() != upper_tolerance_.size())
+      throw std::runtime_error("JointWaypoint: parameters are not the same size!");
+  }
   JointWaypoint(std::initializer_list<std::string> names,
                 std::initializer_list<double> position,
                 bool is_constrained = true);
@@ -67,8 +93,11 @@ public:
 
   // Joint Waypoint
   void setNames(const std::vector<std::string>& names) override final;
-  std::vector<std::string>& getNames() override final;
-  const std::vector<std::string>& getNames() const override final;
+  std::vector<std::string> getNames() const override final;
+
+  void setJointIds(const std::vector<tesseract::common::JointId>& ids) override final;
+  const std::vector<tesseract::common::JointId>& getJointIds() const override final;
+  std::vector<tesseract::common::JointId>& getJointIds() override final;
 
   void setPosition(const Eigen::VectorXd& position) override final;
   Eigen::VectorXd& getPosition() override final;
@@ -90,8 +119,8 @@ public:
 private:
   /** @brief The name of the waypoint */
   std::string name_;
-  /** @brief The names of the joints */
-  std::vector<std::string> names_;
+  /** @brief The joint IDs */
+  std::vector<tesseract::common::JointId> joint_ids_;
   /** @brief The position of the joints */
   Eigen::VectorXd position_;
   /** @brief Joint distance below position that is allowed. Each element should be <= 0 */

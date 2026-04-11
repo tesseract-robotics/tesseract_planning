@@ -31,6 +31,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract/common/types.h>
+
 #include <tesseract/command_language/poly/waypoint_poly.h>
 #include <tesseract/common/fwd.h>
 
@@ -94,8 +96,19 @@ public:
    * @brief Get the joint names
    * @return The joint names
    */
-  virtual std::vector<std::string>& getNames() = 0;
-  virtual const std::vector<std::string>& getNames() const = 0;
+  virtual std::vector<std::string> getNames() const = 0;
+
+  /**
+   * @brief Set the joint IDs
+   * @param ids The joint IDs
+   */
+  virtual void setJointIds(const std::vector<tesseract::common::JointId>& ids) = 0;
+  /**
+   * @brief Get the joint IDs
+   * @return The joint IDs
+   */
+  virtual const std::vector<tesseract::common::JointId>& getJointIds() const = 0;
+  virtual std::vector<tesseract::common::JointId>& getJointIds() = 0;
 
   /**
    * @brief Set the joint positions
@@ -207,8 +220,19 @@ public:
    * @brief Get the joint names
    * @return The joint names
    */
-  std::vector<std::string>& getNames();
-  const std::vector<std::string>& getNames() const;
+  std::vector<std::string> getNames() const;
+
+  /**
+   * @brief Set the joint IDs
+   * @param ids The joint IDs
+   */
+  void setJointIds(const std::vector<tesseract::common::JointId>& ids);
+  /**
+   * @brief Get the joint IDs
+   * @return The joint IDs
+   */
+  const std::vector<tesseract::common::JointId>& getJointIds() const;
+  std::vector<tesseract::common::JointId>& getJointIds();
 
   /**
    * @brief Set the joint positions
