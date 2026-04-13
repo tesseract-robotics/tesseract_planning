@@ -67,9 +67,9 @@ createKinematicGroup(const tesseract::common::ManipulatorInfo& manip_info,
 }
 
 std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
-                                                                   const std::string& working_frame,
+                                                                   const tesseract::common::LinkId& working_frame,
                                                                    const Eigen::Isometry3d& c_wp,
-                                                                   const std::string& tcp_frame,
+                                                                   const tesseract::common::LinkId& tcp_frame,
                                                                    const Eigen::Isometry3d& tcp_offset,
                                                                    const Eigen::VectorXd& coeffs,
                                                                    trajopt::TermType type,
@@ -81,10 +81,10 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
   pose_info->name = "cartesian_waypoint_" + std::to_string(index);
   pose_info->timestep = index;
 
-  pose_info->source_frame_id = tesseract::common::LinkId::fromName(tcp_frame);
+  pose_info->source_frame_id = tcp_frame;
   pose_info->source_frame_offset = tcp_offset;
 
-  pose_info->target_frame_id = tesseract::common::LinkId::fromName(working_frame);
+  pose_info->target_frame_id = working_frame;
   pose_info->target_frame_offset = c_wp;
 
   if (coeffs.size() == 1)
@@ -141,9 +141,9 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
 }
 
 std::shared_ptr<trajopt::TermInfo> createDynamicCartesianWaypointTermInfo(int index,
-                                                                          const std::string& working_frame,
+                                                                          const tesseract::common::LinkId& working_frame,
                                                                           const Eigen::Isometry3d& c_wp,
-                                                                          const std::string& tcp_frame,
+                                                                          const tesseract::common::LinkId& tcp_frame,
                                                                           const Eigen::Isometry3d& tcp_offset,
                                                                           const Eigen::VectorXd& coeffs,
                                                                           trajopt::TermType type,
@@ -155,10 +155,10 @@ std::shared_ptr<trajopt::TermInfo> createDynamicCartesianWaypointTermInfo(int in
   pose->name = "dyn_cartesian_waypoint_" + std::to_string(index);
   pose->timestep = index;
 
-  pose->source_frame_id = tesseract::common::LinkId::fromName(tcp_frame);
+  pose->source_frame_id = tcp_frame;
   pose->source_frame_offset = tcp_offset;
 
-  pose->target_frame_id = tesseract::common::LinkId::fromName(working_frame);
+  pose->target_frame_id = working_frame;
   pose->target_frame_offset = c_wp;
 
   if (coeffs.size() == 1)

@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/fwd.h>
 #include <tesseract/collision/types.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::motion_planners
 {
@@ -42,9 +43,9 @@ createKinematicGroup(const tesseract::common::ManipulatorInfo& manip_info,
 
 std::shared_ptr<trajopt::TermInfo>
 createCartesianWaypointTermInfo(int index,
-                                const std::string& working_frame,
+                                const tesseract::common::LinkId& working_frame,
                                 const Eigen::Isometry3d& c_wp,
-                                const std::string& tcp_frame,
+                                const tesseract::common::LinkId& tcp_frame,
                                 const Eigen::Isometry3d& tcp_offset,
                                 const Eigen::VectorXd& coeffs,
                                 trajopt::TermType type,
@@ -53,9 +54,9 @@ createCartesianWaypointTermInfo(int index,
 
 std::shared_ptr<trajopt::TermInfo>
 createDynamicCartesianWaypointTermInfo(int index,
-                                       const std::string& working_frame,
+                                       const tesseract::common::LinkId& working_frame,
                                        const Eigen::Isometry3d& c_wp,
-                                       const std::string& tcp_frame,
+                                       const tesseract::common::LinkId& tcp_frame,
                                        const Eigen::Isometry3d& tcp_offset,
                                        const Eigen::VectorXd& coeffs,
                                        trajopt::TermType type,
