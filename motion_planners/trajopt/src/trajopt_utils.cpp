@@ -23,6 +23,7 @@
  */
 #include <tesseract/motion_planners/trajopt/trajopt_utils.h>
 #include <tesseract/common/manipulator_info.h>
+#include <tesseract/common/types.h>
 #include <tesseract/kinematics/kinematic_group.h>
 #include <tesseract/environment/environment.h>
 #include <trajopt/problem_description.hpp>
@@ -80,10 +81,10 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
   pose_info->name = "cartesian_waypoint_" + std::to_string(index);
   pose_info->timestep = index;
 
-  pose_info->source_frame = tcp_frame;
+  pose_info->source_frame_id = tesseract::common::LinkId::fromName(tcp_frame);
   pose_info->source_frame_offset = tcp_offset;
 
-  pose_info->target_frame = working_frame;
+  pose_info->target_frame_id = tesseract::common::LinkId::fromName(working_frame);
   pose_info->target_frame_offset = c_wp;
 
   if (coeffs.size() == 1)
@@ -154,10 +155,10 @@ std::shared_ptr<trajopt::TermInfo> createDynamicCartesianWaypointTermInfo(int in
   pose->name = "dyn_cartesian_waypoint_" + std::to_string(index);
   pose->timestep = index;
 
-  pose->source_frame = tcp_frame;
+  pose->source_frame_id = tesseract::common::LinkId::fromName(tcp_frame);
   pose->source_frame_offset = tcp_offset;
 
-  pose->target_frame = working_frame;
+  pose->target_frame_id = tesseract::common::LinkId::fromName(working_frame);
   pose->target_frame_offset = c_wp;
 
   if (coeffs.size() == 1)
@@ -423,7 +424,7 @@ std::shared_ptr<trajopt::TermInfo> createAvoidSingularityTermInfo(int start_inde
 {
   auto as = std::make_shared<trajopt::AvoidSingularityTermInfo>();
   as->term_type = type;
-  as->link = link;
+  as->link_id = tesseract::common::LinkId::fromName(link);
   as->first_step = start_index;
   as->last_step = end_index;
   as->coeffs = std::vector<double>(1, coeff);
