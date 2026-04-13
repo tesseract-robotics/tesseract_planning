@@ -125,8 +125,8 @@ Command::Ptr addPointCloud()
   link_octomap.collision.push_back(collision);
 
   Joint joint_octomap("joint_octomap_attached");
-  joint_octomap.parent_link_name = "base_link";
-  joint_octomap.child_link_name = link_octomap.getName();
+  joint_octomap.parent_link_id = tesseract::common::LinkId::fromName("base_link");
+  joint_octomap.child_link_id = tesseract::common::LinkId::fromName(link_octomap.getName());
   joint_octomap.type = JointType::FIXED;
 
   return std::make_shared<tesseract::environment::AddLinkCommand>(link_octomap, joint_octomap);

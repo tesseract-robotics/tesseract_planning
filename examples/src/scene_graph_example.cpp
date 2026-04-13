@@ -80,8 +80,8 @@ bool SceneGraphExample::run()
   // Attach the iiwa to the end of the ABB using moveLink.
   // The link to be moved is inferred to be the given Joint child
   tesseract::scene_graph::Joint new_joint("to_iiwa_mount");
-  new_joint.parent_link_name = "tool0";
-  new_joint.child_link_name = "iiwa_mount";
+  new_joint.parent_link_id = tesseract::common::LinkId::fromName("tool0");
+  new_joint.child_link_id = tesseract::common::LinkId::fromName("iiwa_mount");
   new_joint.type = tesseract::scene_graph::JointType::FIXED;
   new_joint.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   new_joint.parent_to_joint_origin_transform.rotate(Eigen::AngleAxisd(-M_PI / 2, Eigen::Vector3d(0, 1, 0)));

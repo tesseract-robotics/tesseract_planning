@@ -120,8 +120,8 @@ Command::Ptr addBox(double box_x, double box_y, double box_side)
   link_box.collision.push_back(collision);
 
   Joint joint_box("joint_box");
-  joint_box.parent_link_name = "workcell_base";
-  joint_box.child_link_name = LINK_BOX_NAME;
+  joint_box.parent_link_id = tesseract::common::LinkId::fromName("workcell_base");
+  joint_box.child_link_id = tesseract::common::LinkId::fromName(LINK_BOX_NAME);
   joint_box.type = JointType::FIXED;
   joint_box.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   joint_box.parent_to_joint_origin_transform.translation() += Eigen::Vector3d(box_x, box_y, (box_side / 2.0) + OFFSET);
@@ -360,8 +360,8 @@ bool PickAndPlaceExample::run()
   // Detach the simulated box from the world and attach to the end effector
   tesseract::environment::Commands cmds;
   Joint joint_box2("joint_box2");
-  joint_box2.parent_link_name = LINK_END_EFFECTOR_NAME;
-  joint_box2.child_link_name = LINK_BOX_NAME;
+  joint_box2.parent_link_id = tesseract::common::LinkId::fromName(LINK_END_EFFECTOR_NAME);
+  joint_box2.child_link_id = tesseract::common::LinkId::fromName(LINK_BOX_NAME);
   joint_box2.type = JointType::FIXED;
   joint_box2.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   joint_box2.parent_to_joint_origin_transform.translation() += Eigen::Vector3d(0, 0, box_size_ / 2.0);

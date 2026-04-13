@@ -112,8 +112,8 @@ static void addBox(tesseract::environment::Environment& env)
   link_1.collision.push_back(collision);
 
   Joint joint_1("joint_n1");
-  joint_1.parent_link_name = "base_link";
-  joint_1.child_link_name = link_1.getName();
+  joint_1.parent_link_id = tesseract::common::LinkId::fromName("base_link");
+  joint_1.child_link_id = tesseract::common::LinkId::fromName(link_1.getName());
   joint_1.type = JointType::FIXED;
 
   env.applyCommand(std::make_shared<AddLinkCommand>(link_1, joint_1));

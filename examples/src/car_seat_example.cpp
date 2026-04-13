@@ -126,8 +126,8 @@ Commands addSeats(const tesseract::common::ResourceLocator::ConstPtr& locator)
     }
 
     Joint joint_seat("joint_seat_" + std::to_string(i + 1));
-    joint_seat.parent_link_name = "world";
-    joint_seat.child_link_name = link_seat.getName();
+    joint_seat.parent_link_id = tesseract::common::LinkId::fromName("world");
+    joint_seat.child_link_id = tesseract::common::LinkId::fromName(link_seat.getName());
     joint_seat.type = JointType::FIXED;
     joint_seat.parent_to_joint_origin_transform = Eigen::AngleAxisd(0.0, Eigen::Vector3d::UnitX()) *
                                                   Eigen::AngleAxisd(0.0, Eigen::Vector3d::UnitY()) *
@@ -410,8 +410,8 @@ bool CarSeatExample::run()
 
   // Now we to detach seat_1 and attach it to the robot end_effector
   Joint joint_seat_1_robot("joint_seat_1_robot");
-  joint_seat_1_robot.parent_link_name = "end_effector";
-  joint_seat_1_robot.child_link_name = "seat_1";
+  joint_seat_1_robot.parent_link_id = tesseract::common::LinkId::fromName("end_effector");
+  joint_seat_1_robot.child_link_id = tesseract::common::LinkId::fromName("seat_1");
   joint_seat_1_robot.type = JointType::FIXED;
   joint_seat_1_robot.parent_to_joint_origin_transform =
       state.link_transforms.at(tesseract::common::LinkId::fromName("end_effector")).inverse() *
