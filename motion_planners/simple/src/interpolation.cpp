@@ -72,10 +72,10 @@ JointGroupInstructionInfo::JointGroupInstructionInfo(
   if (mi.manipulator.empty())
     throw std::runtime_error("InstructionInfo, manipulator is empty!");
 
-  if (mi.tcp_frame.empty())
+  if (!mi.tcp_frame.isValid())
     throw std::runtime_error("InstructionInfo, TCP frame is empty!");
 
-  if (mi.working_frame.empty())
+  if (!mi.working_frame.isValid())
     throw std::runtime_error("InstructionInfo, working frame is empty!");
 
   // Get Previous Instruction Kinematics
@@ -103,11 +103,10 @@ Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::Vect
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap transforms;
   manip->calcFwdKin(transforms, jp);
 
-  const auto tcp_id = tesseract::common::LinkId::fromName(tcp_frame);
   if (in_world)
-    return transforms[tcp_id] * tcp_offset;
+    return transforms[tcp_frame] * tcp_offset;
 
-  return working_frame_transform.inverse() * (transforms[tcp_id] * tcp_offset);
+  return working_frame_transform.inverse() * (transforms[tcp_frame] * tcp_offset);
 }
 
 Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose(bool in_world) const
@@ -143,10 +142,10 @@ KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(
   if (mi.manipulator.empty())
     throw std::runtime_error("InstructionInfo, manipulator is empty!");
 
-  if (mi.tcp_frame.empty())
+  if (!mi.tcp_frame.isValid())
     throw std::runtime_error("InstructionInfo, TCP frame is empty!");
 
-  if (mi.working_frame.empty())
+  if (!mi.working_frame.isValid())
     throw std::runtime_error("InstructionInfo, working frame is empty!");
 
   // Get Previous Instruction Kinematics
@@ -174,7 +173,7 @@ Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap transforms;
   manip->calcFwdKin(transforms, jp);
 
-  const auto tcp_id = tesseract::common::LinkId::fromName(tcp_frame);
+  const auto& tcp_id = tcp_frame;
   if (in_world)
     return transforms[tcp_id] * tcp_offset;
 

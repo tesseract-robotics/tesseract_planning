@@ -200,7 +200,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
     std::cout << "Target TF:\n" << target_pose_base_frame_.matrix() << "\n";
 
     target_pose_constraint_ = std::make_shared<trajopt_ifopt::CartPosConstraint>(
-        vars.back(), manip_, "tool0", "world", Eigen::Isometry3d::Identity(), target_pose_base_frame_);
+        vars.back(), manip_, tesseract::common::LinkId::fromName("tool0"), tesseract::common::LinkId::fromName("world"), Eigen::Isometry3d::Identity(), target_pose_base_frame_);
     nlp_->addConstraintSet(target_pose_constraint_);
   }
   // Add joint velocity cost for all timesteps

@@ -43,11 +43,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/common/utils.h>
 
 using namespace tesseract::command_language;
+using tesseract::common::LinkId;
 using tesseract::common::ManipulatorInfo;
 
 CompositeInstruction getProgram()
 {
-  CompositeInstruction program("raster_program", ManipulatorInfo("manipulator", "world", "tool0"));
+  CompositeInstruction program("raster_program", ManipulatorInfo("manipulator", LinkId::fromName("world"), LinkId::fromName("tool0")));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };

@@ -142,7 +142,8 @@ tesseract::common::VectorIsometry3d toPoses(const tesseract::command_language::C
     Eigen::Isometry3d tcp_offset = env.findTCPOffset(manip_info);
 
     // Calculate pose
-    poses.push_back(calcPose(wp, manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, state_solver));
+    poses.push_back(
+        calcPose(wp, manip_info.working_frame.name(), manip_info.tcp_frame.name(), tcp_offset, state, state_solver));
   }
 
   return poses;
@@ -200,7 +201,8 @@ tesseract::common::Toolpath toToolpath(const tesseract::command_language::MoveIn
 
   // Calculate pose
   poses.push_back(
-      calcPose(mi.getWaypoint(), manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, *state_solver));
+      calcPose(
+          mi.getWaypoint(), manip_info.working_frame.name(), manip_info.tcp_frame.name(), tcp_offset, state, *state_solver));
 
   toolpath.push_back(poses);
   return toolpath;

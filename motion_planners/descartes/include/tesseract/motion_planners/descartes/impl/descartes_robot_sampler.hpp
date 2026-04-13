@@ -80,7 +80,10 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
 
   // Solve IK (TODO Should tcp_offset be stored in KinGroupIKInput?)
   tesseract::kinematics::KinGroupIKInputs ik_inputs;
-  ik_inputs.emplace_back(Eigen::Isometry3d::Identity(), target_working_frame_, tcp_frame_);
+  ik_inputs.emplace_back(
+      Eigen::Isometry3d::Identity(),
+      tesseract::common::LinkId::fromName(target_working_frame_),
+      tesseract::common::LinkId::fromName(tcp_frame_));
 
   // Generate the IK solutions for those poses
   std::vector<descartes_light::StateSample<FloatType>> samples;

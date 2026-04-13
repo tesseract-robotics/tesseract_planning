@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include "command_language_test_program.hpp"
 
 using namespace tesseract::command_language;
+using tesseract::common::LinkId;
 using tesseract::common::ManipulatorInfo;
 
 static const bool DEBUG = false;
@@ -159,7 +160,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
 TEST(TesseractCommandLanguageUtilsUnit, toJointTrajectoryTests)  // NOLINT
 {
   std::string profile{ "raster_program" };
-  ManipulatorInfo manip_info("manipulator", "world", "tool0");
+  ManipulatorInfo manip_info("manipulator", LinkId::fromName("world"), LinkId::fromName("tool0"));
   CompositeInstructionOrder order{ CompositeInstructionOrder::ORDERED };
   CompositeInstruction program = getTestProgram(profile, order, manip_info);
   InstructionPoly instr{ program };
@@ -700,7 +701,7 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
 TEST(TesseractCommandLanguageUtilsUnit, makeTimeContinuous)  // NOLINT
 {
   std::string profile{ "profile" };
-  ManipulatorInfo manip_info("manipulator", "world", "tool0");
+  ManipulatorInfo manip_info("manipulator", LinkId::fromName("world"), LinkId::fromName("tool0"));
   CompositeInstruction program(profile, manip_info);
 
   // Start Joint Position for the program

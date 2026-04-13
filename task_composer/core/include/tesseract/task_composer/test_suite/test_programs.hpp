@@ -41,6 +41,7 @@ using tesseract::command_language::JointWaypoint;
 using tesseract::command_language::MoveInstruction;
 using tesseract::command_language::MoveInstructionType;
 using tesseract::command_language::StateWaypoint;
+using tesseract::common::LinkId;
 using tesseract::common::ManipulatorInfo;
 
 inline CompositeInstruction freespaceExampleProgramIIWA(
@@ -48,7 +49,7 @@ inline CompositeInstruction freespaceExampleProgramIIWA(
     const std::string& composite_profile = DEFAULT_PROFILE_KEY,
     const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
-  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", LinkId::fromName("base_link"), LinkId::fromName("tool0")));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
@@ -76,7 +77,7 @@ inline CompositeInstruction freespaceExampleProgramABB(
     const std::string& composite_profile = DEFAULT_PROFILE_KEY,
     const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
-  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", LinkId::fromName("base_link"), LinkId::fromName("tool0")));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
@@ -103,7 +104,7 @@ jointInterpolatedExampleSolutionIIWA(bool use_joint_waypoint = false,
                                      const std::string& composite_profile = DEFAULT_PROFILE_KEY,
                                      const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
-  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", LinkId::fromName("base_link"), LinkId::fromName("tool0")));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
@@ -148,7 +149,7 @@ jointInterpolateExampleProgramABB(bool use_joint_waypoint = false,
                                   const std::string& composite_profile = DEFAULT_PROFILE_KEY,
                                   const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
-  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", LinkId::fromName("base_link"), LinkId::fromName("tool0")));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
@@ -190,7 +191,7 @@ jointInterpolateExampleProgramABB(bool use_joint_waypoint = false,
 inline CompositeInstruction rasterExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
                                                  const std::string& process_profile = "PROCESS")
 {
-  CompositeInstruction program(DEFAULT_PROFILE_KEY, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program(DEFAULT_PROFILE_KEY, ManipulatorInfo("manipulator", LinkId::fromName("base_link"), LinkId::fromName("tool0")));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
@@ -293,7 +294,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
 inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
                                                      const std::string& process_profile = "PROCESS")
 {
-  CompositeInstruction program(DEFAULT_PROFILE_KEY, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program(DEFAULT_PROFILE_KEY, ManipulatorInfo("manipulator", LinkId::fromName("base_link"), LinkId::fromName("tool0")));
 
   for (int i = 0; i < 4; ++i)
   {
@@ -371,7 +372,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
 inline CompositeInstruction rasterSegmentsOnlyExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
                                                              const std::string& process_profile = "PROCESS")
 {
-  CompositeInstruction program(DEFAULT_PROFILE_KEY, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program(DEFAULT_PROFILE_KEY, ManipulatorInfo("manipulator", LinkId::fromName("base_link"), LinkId::fromName("tool0")));
 
   for (int i = 0; i < 4; ++i)
   {

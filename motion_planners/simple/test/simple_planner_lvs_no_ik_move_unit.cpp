@@ -189,7 +189,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSNoIKMoveProfileUnit, JointCart_NoIK_Free
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -243,7 +243,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSNoIKMoveProfileUnit, JointCart_NoIK_Line
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -292,7 +292,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSNoIKMoveProfileUnit, CartJoint_NoIK_Free
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
@@ -347,7 +347,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSNoIKMoveProfileUnit, CartJoint_NoIK_Line
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
@@ -406,12 +406,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSNoIKMoveProfileUnit, CartCart_NoIK_Frees
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -462,12 +462,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSNoIKMoveProfileUnit, CartCart_NoIK_Linea
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp1{ joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -733,7 +733,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSNoIKMoveProfileUnit, MixedMotionTypes_No
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
   // Create constrained cartesian waypoint with linear motion
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -782,7 +782,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSNoIKMoveProfileUnit, SeedPositionHandlin
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -821,7 +821,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSNoIKMoveProfileUnit, SeedPositionConsist
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, custom_seed);
 
-  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame)) };
+  CartesianWaypoint wp2{ joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;

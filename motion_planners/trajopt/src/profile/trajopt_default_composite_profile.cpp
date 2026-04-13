@@ -149,7 +149,7 @@ TrajOptDefaultCompositeProfile::create(const tesseract::common::ManipulatorInfo&
 
   if (avoid_singularity)
     term_infos.costs.push_back(createAvoidSingularityTermInfo(
-        start_index, end_index, composite_manip_info.tcp_frame, avoid_singularity_coeff));
+        start_index, end_index, composite_manip_info.tcp_frame.name(), avoid_singularity_coeff));
 
   return term_infos;
 }

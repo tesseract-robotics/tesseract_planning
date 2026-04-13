@@ -83,8 +83,8 @@ protected:
         locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
     EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;
-    manip.tcp_frame = "tool0";
-    manip.working_frame = "base_link";
+    manip.tcp_frame = tesseract::common::LinkId::fromName("tool0");
+    manip.working_frame = tesseract::common::LinkId::fromName("base_link");
     manip.manipulator = "manipulator";
     manip.manipulator_ik_solver = "KDLInvKinChainLMA";
   }
@@ -391,7 +391,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE");
-  start_instruction.getManipulatorInfo().working_frame = "base_link";
+  start_instruction.getManipulatorInfo().working_frame = tesseract::common::LinkId::fromName("base_link");
 
   // Define Plan Instructions
   MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
@@ -475,11 +475,11 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE");
-  start_instruction.getManipulatorInfo().working_frame = "base_link";
+  start_instruction.getManipulatorInfo().working_frame = tesseract::common::LinkId::fromName("base_link");
 
   // Define Plan Instructions
   MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
-  plan_f1.getManipulatorInfo().working_frame = "base_link";
+  plan_f1.getManipulatorInfo().working_frame = tesseract::common::LinkId::fromName("base_link");
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -560,11 +560,11 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE");
-  start_instruction.getManipulatorInfo().working_frame = "base_link";
+  start_instruction.getManipulatorInfo().working_frame = tesseract::common::LinkId::fromName("base_link");
 
   // Define Plan Instructions
   MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE");
-  plan_f1.getManipulatorInfo().working_frame = "base_link";
+  plan_f1.getManipulatorInfo().working_frame = tesseract::common::LinkId::fromName("base_link");
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");

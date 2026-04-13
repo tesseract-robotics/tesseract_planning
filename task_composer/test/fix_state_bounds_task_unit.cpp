@@ -21,6 +21,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract::task_composer;
 using namespace tesseract::command_language;
 using namespace tesseract::environment;
+using tesseract::common::LinkId;
 using tesseract::common::ManipulatorInfo;
 
 static const std::string FIX_STATE_BOUNDS_TASK_NAME = "FixStateBoundsTask";
@@ -51,7 +52,7 @@ CompositeInstruction createProgram(const Eigen::VectorXd& start_state,
                                    const Eigen::VectorXd& goal_state,
                                    const std::string& composite_profile)
 {
-  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", LinkId::fromName("base_link"), LinkId::fromName("tool0")));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };

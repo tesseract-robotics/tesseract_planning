@@ -120,12 +120,12 @@ DescartesDefaultMoveProfile<FloatType>::createWaypointSampler(
   auto ve = createVertexEvaluator(move_instruction, manip, env);
   auto pose_sampler = createPoseSampler(move_instruction, manip, env);
   return std::make_unique<DescartesRobotSampler<FloatType>>(
-      manip_info.working_frame,
+      manip_info.working_frame.name(),
       move_instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>().getTransform(),
       pose_sampler,
       manip,
       descartes_collision,
-      manip_info.tcp_frame,
+      manip_info.tcp_frame.name(),
       tcp_offset,
       allow_collision,
       std::move(ve),

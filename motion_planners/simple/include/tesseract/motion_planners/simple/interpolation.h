@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/fwd.h>
 
 #include <tesseract/common/eigen_types.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::motion_planners
 {
@@ -57,9 +58,9 @@ struct JointGroupInstructionInfo
   const tesseract::command_language::MoveInstructionPoly&
       instruction;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip;
-  std::string working_frame;
+  tesseract::common::LinkId working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
-  std::string tcp_frame;
+  tesseract::common::LinkId tcp_frame;
   Eigen::Isometry3d tcp_offset{ Eigen::Isometry3d::Identity() };
   bool has_cartesian_waypoint{ false };
 
@@ -109,9 +110,9 @@ struct KinematicGroupInstructionInfo
   const tesseract::command_language::MoveInstructionPoly&
       instruction;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
   std::shared_ptr<const tesseract::kinematics::KinematicGroup> manip;
-  std::string working_frame;
+  tesseract::common::LinkId working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
-  std::string tcp_frame;
+  tesseract::common::LinkId tcp_frame;
   Eigen::Isometry3d tcp_offset{ Eigen::Isometry3d::Identity() };
   bool has_cartesian_waypoint{ false };
 

@@ -170,7 +170,7 @@ bool FreespaceHybridExample::run()
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
-  CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", tesseract::common::LinkId::fromName("base_link"), tesseract::common::LinkId::fromName("tool0")));
 
   // Start and End Joint Position for the program
   StateWaypoint wp0{ joint_names, joint_start_pos };

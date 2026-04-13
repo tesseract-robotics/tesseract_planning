@@ -188,7 +188,7 @@ bool PickAndPlaceExample::run()
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
-  CompositeInstruction pick_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
+  CompositeInstruction pick_program("DEFAULT", ManipulatorInfo("manipulator", tesseract::common::LinkId::fromName(LINK_BASE_NAME), tesseract::common::LinkId::fromName(LINK_END_EFFECTOR_NAME)));
 
   StateWaypoint pick_swp{ joint_names, joint_pos };
   MoveInstruction start_instruction(pick_swp, MoveInstructionType::FREESPACE, "FREESPACE");
@@ -406,7 +406,7 @@ bool PickAndPlaceExample::run()
   place_approach_pose.translation() += Eigen::Vector3d(0.0, -0.25, 0);
 
   // Create Program
-  CompositeInstruction place_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
+  CompositeInstruction place_program("DEFAULT", ManipulatorInfo("manipulator", tesseract::common::LinkId::fromName(LINK_BASE_NAME), tesseract::common::LinkId::fromName(LINK_END_EFFECTOR_NAME)));
 
   // Define the approach pose
   CartesianWaypoint place_wp0{ retreat_pose };

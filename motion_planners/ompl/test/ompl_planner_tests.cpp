@@ -161,8 +161,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   tesseract::common::ManipulatorInfo manip;
   manip.manipulator = "manipulator";
-  manip.working_frame = "base_link";
-  manip.tcp_frame = "tool0";
+  manip.working_frame = tesseract::common::LinkId::fromName("base_link");
+  manip.tcp_frame = tesseract::common::LinkId::fromName("tool0");
 
   // Step 2: Add box to environment
   addBox(*env);
@@ -320,9 +320,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   // Set manipulator
   tesseract::common::ManipulatorInfo manip;
-  manip.tcp_frame = "tool0";
+  manip.tcp_frame = tesseract::common::LinkId::fromName("tool0");
   manip.manipulator = "manipulator";
-  manip.working_frame = "base_link";
+  manip.working_frame = tesseract::common::LinkId::fromName("base_link");
 
   // Step 2: Add box to environment
   addBox(*(env));
@@ -336,7 +336,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   // Specify a end waypoint
   auto goal_jv = Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size()));
-  Eigen::Isometry3d goal = kin_group->calcFwdKin(goal_jv).at(tesseract::common::LinkId::fromName(manip.tcp_frame));
+  Eigen::Isometry3d goal = kin_group->calcFwdKin(goal_jv).at(manip.tcp_frame);
   CartesianWaypoint wp2{ goal };
 
   // Define Start Instruction
@@ -390,7 +390,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   Eigen::Isometry3d check_goal =
       kin_group->calcFwdKin(getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()))
-          .at(tesseract::common::LinkId::fromName(manip.tcp_frame));
+          .at(manip.tcp_frame);
   EXPECT_TRUE(wp2.getTransform().isApprox(check_goal, 1e-3));
 }
 
@@ -410,9 +410,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   // Set manipulator
   tesseract::common::ManipulatorInfo manip;
-  manip.tcp_frame = "tool0";
+  manip.tcp_frame = tesseract::common::LinkId::fromName("tool0");
   manip.manipulator = "manipulator";
-  manip.working_frame = "base_link";
+  manip.working_frame = tesseract::common::LinkId::fromName("base_link");
 
   // Step 2: Add box to environment
   addBox(*(env));
@@ -422,7 +422,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   // Specify a start waypoint
   auto start_jv = Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size()));
-  Eigen::Isometry3d start = kin_group->calcFwdKin(start_jv).at(tesseract::common::LinkId::fromName(manip.tcp_frame));
+  Eigen::Isometry3d start = kin_group->calcFwdKin(start_jv).at(manip.tcp_frame);
   CartesianWaypoint wp1{ start };
 
   // Specify a end waypoint
@@ -486,7 +486,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   Eigen::Isometry3d check_start =
       kin_group->calcFwdKin(getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()))
-          .at(tesseract::common::LinkId::fromName(manip.tcp_frame));
+          .at(manip.tcp_frame);
   EXPECT_TRUE(wp1.getTransform().isApprox(check_start, 1e-3));
 }
 

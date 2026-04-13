@@ -159,7 +159,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeMoveProfileUnit, JointCart_JointIn
 
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
   auto manip = env_->getJointGroup(manip_info_.manipulator);
-  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
+  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 }
 
@@ -300,7 +300,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeMoveProfileUnit, CartCart_JointInt
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
   auto manip = env_->getJointGroup(manip_info_.manipulator);
-  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
+  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 }
 
@@ -384,7 +384,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeMoveProfileUnit, JointToCart_Inter
 
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
   auto manip = env_->getJointGroup(manip_info_.manipulator);
-  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
+  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 }
 
@@ -427,7 +427,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeMoveProfileUnit, CartToCart_Interp
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
   auto manip = env_->getJointGroup(manip_info_.manipulator);
-  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
+  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 }
 

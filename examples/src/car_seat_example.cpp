@@ -348,7 +348,7 @@ bool CarSeatExample::run()
   CONSOLE_BRIDGE_logInform("Car Seat Demo Started");
 
   {  // Create Program to pick up first seat
-    CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "world", "end_effector"));
+    CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", tesseract::common::LinkId::fromName("world"), tesseract::common::LinkId::fromName("end_effector")));
     program.setDescription("Pick up the first seat!");
 
     // Start and End Joint Position for the program
@@ -435,7 +435,7 @@ bool CarSeatExample::run()
     return false;
 
   {  // Create Program to place first seat
-    CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "world", "end_effector"));
+    CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", tesseract::common::LinkId::fromName("world"), tesseract::common::LinkId::fromName("end_effector")));
     program.setDescription("Place the first seat!");
 
     // Start and End Joint Position for the program

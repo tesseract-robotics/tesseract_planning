@@ -621,8 +621,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, TranslationSegmen
       profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Calculate expected steps based on translation distance
-  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
-  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
+  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(manip_info_.tcp_frame);
   double trans_dist = (p2.translation() - p1.translation()).norm();
   int expected_steps = static_cast<int>(trans_dist / small_trans_length) + 1;
   expected_steps = std::max(expected_steps, min_steps);
@@ -673,8 +673,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, RotationSegmentLe
       profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Calculate expected steps based on rotation distance
-  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
-  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(tesseract::common::LinkId::fromName(manip_info_.tcp_frame));
+  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(manip_info_.tcp_frame);
   double rot_dist = Eigen::Quaterniond(p1.linear()).angularDistance(Eigen::Quaterniond(p2.linear()));
   int expected_steps = static_cast<int>(rot_dist / small_rot_length) + 1;
   expected_steps = std::max(expected_steps, min_steps);
