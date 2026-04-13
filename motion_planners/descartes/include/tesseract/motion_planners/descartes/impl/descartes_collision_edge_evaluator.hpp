@@ -126,7 +126,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const descartes_light::Stat
   {
     for (const auto& pair : contact_result_map)
     {
-      const double margin = contact_margin_data_.getCollisionMargin(pair.first.first, pair.first.second);
+      const double margin = contact_margin_data_.getCollisionMargin(pair.first);
       for (const auto& contact_result : pair.second)
         cost = std::max(cost, margin - contact_result.distance);
     }
