@@ -383,6 +383,24 @@ bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
+bool checkJointPositionFormat(const std::vector<tesseract::common::JointId>& joint_ids, const WaypointPoly& waypoint)
+{
+  if (waypoint.isJointWaypoint())
+    return (joint_ids == waypoint.as<JointWaypointPoly>().getJointIds());
+
+  if (waypoint.isStateWaypoint())
+    return (joint_ids == waypoint.as<StateWaypointPoly>().getJointIds());
+
+  if (waypoint.isCartesianWaypoint())
+  {
+    const auto& cwp = waypoint.as<CartesianWaypointPoly>();
+    if (cwp.hasSeed())
+      return (joint_ids == waypoint.as<CartesianWaypointPoly>().getSeed().getJointIds());
+  }
+
+  throw std::runtime_error("Unsupported waypoint type.");
+}
+
 bool setJointPosition(WaypointPoly& waypoint, const Eigen::Ref<const Eigen::VectorXd>& position)
 {
   if (waypoint.isJointWaypoint())

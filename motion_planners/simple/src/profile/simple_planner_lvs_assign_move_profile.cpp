@@ -115,7 +115,7 @@ SimplePlannerLVSAssignMoveProfile::generate(const tesseract::command_language::M
         else
         {
           // Use current env_state as seed
-          j1 = getClosestJointSolution(prev, env->getCurrentJointValues(prev.manip->getJointNames()));
+          j1 = getClosestJointSolution(prev, env->getCurrentJointValues(prev.manip->getJointIds()));
         }
       }
       else

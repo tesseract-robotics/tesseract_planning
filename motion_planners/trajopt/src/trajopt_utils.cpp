@@ -140,15 +140,16 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
   return pose_info;
 }
 
-std::shared_ptr<trajopt::TermInfo> createDynamicCartesianWaypointTermInfo(int index,
-                                                                          const tesseract::common::LinkId& working_frame,
-                                                                          const Eigen::Isometry3d& c_wp,
-                                                                          const tesseract::common::LinkId& tcp_frame,
-                                                                          const Eigen::Isometry3d& tcp_offset,
-                                                                          const Eigen::VectorXd& coeffs,
-                                                                          trajopt::TermType type,
-                                                                          const Eigen::VectorXd& lower_tolerance,
-                                                                          const Eigen::VectorXd& upper_tolerance)
+std::shared_ptr<trajopt::TermInfo>
+createDynamicCartesianWaypointTermInfo(int index,
+                                       const tesseract::common::LinkId& working_frame,
+                                       const Eigen::Isometry3d& c_wp,
+                                       const tesseract::common::LinkId& tcp_frame,
+                                       const Eigen::Isometry3d& tcp_offset,
+                                       const Eigen::VectorXd& coeffs,
+                                       trajopt::TermType type,
+                                       const Eigen::VectorXd& lower_tolerance,
+                                       const Eigen::VectorXd& upper_tolerance)
 {
   std::shared_ptr<trajopt::DynamicCartPoseTermInfo> pose = std::make_shared<trajopt::DynamicCartPoseTermInfo>();
   pose->term_type = type;
@@ -418,13 +419,13 @@ std::shared_ptr<trajopt::TermInfo> createUserDefinedTermInfo(int start_index,
 
 std::shared_ptr<trajopt::TermInfo> createAvoidSingularityTermInfo(int start_index,
                                                                   int end_index,
-                                                                  const std::string& link,
+                                                                  const tesseract::common::LinkId& link,
                                                                   double coeff,
                                                                   trajopt::TermType type)
 {
   auto as = std::make_shared<trajopt::AvoidSingularityTermInfo>();
   as->term_type = type;
-  as->link_id = tesseract::common::LinkId::fromName(link);
+  as->link_id = link;
   as->first_step = start_index;
   as->last_step = end_index;
   as->coeffs = std::vector<double>(1, coeff);

@@ -461,7 +461,8 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
 
   // Format is not correct size or invalid joint name
   EXPECT_FALSE(checkJointPositionFormat({ "joint_1" }, wp0_poly));
-  EXPECT_FALSE(checkJointPositionFormat({ "joint_3", "joint_1" }, wp0_poly));
+  std::vector<std::string> joints = { "joint_3", "joint_1" };
+  EXPECT_FALSE(checkJointPositionFormat(joints, wp0_poly));
 
   WaypointPoly wp2_poly{ wp2 };
   EXPECT_ANY_THROW(checkJointPositionFormat(joint_names, wp2_poly));         // NOLINT

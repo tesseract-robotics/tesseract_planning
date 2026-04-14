@@ -199,7 +199,7 @@ SimpleMotionPlanner::processCompositeInstruction(tesseract::command_language::Mo
         auto& start_waypoint = prev_instruction.getWaypoint();
         if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
         {
-          assert(checkJointPositionFormat(manip->getJointNames(), start_waypoint));
+          assert(checkJointPositionFormat(manip->getJointIds(), start_waypoint));
         }
         else if (start_waypoint.isCartesianWaypoint())
         {
@@ -208,7 +208,7 @@ SimpleMotionPlanner::processCompositeInstruction(tesseract::command_language::Mo
             // Run IK to find solution closest to start
             KinematicGroupInstructionInfo info(
                 prev_instruction, *request.env, request.instructions.getManipulatorInfo());
-            auto start_seed = getClosestJointSolution(info, start_state.getJointValues(manip->getJointNames()));
+            auto start_seed = getClosestJointSolution(info, start_state.getJointValues(manip->getJointIds()));
             start_waypoint.as<tesseract::command_language::CartesianWaypointPoly>().setSeed(
                 tesseract::common::JointState(manip->getJointNames(), start_seed));
           }

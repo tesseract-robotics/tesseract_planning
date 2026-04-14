@@ -103,7 +103,7 @@ std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerFixed
         else
         {
           // Use current env_state as seed
-          j2 = getClosestJointSolution(base, env->getCurrentJointValues(base.manip->getJointNames()));
+          j2 = getClosestJointSolution(base, env->getCurrentJointValues(base.manip->getJointIds()));
         }
       }
       else

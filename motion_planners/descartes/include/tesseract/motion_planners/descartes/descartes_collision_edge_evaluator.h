@@ -57,7 +57,7 @@ protected:
   /** @brief The tesseract state solver */
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip_;
   /** @brief A vector of active link names */
-  std::vector<std::string> active_link_names_;
+  std::vector<tesseract::common::LinkId> active_link_ids_;
   /** @brief The discrete contact manager */
   std::shared_ptr<tesseract::collision::DiscreteContactManager> discrete_contact_manager_;
   /** @brief The discrete contact manager */

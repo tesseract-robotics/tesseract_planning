@@ -107,7 +107,7 @@ std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerFixed
   }
   else
   {
-    Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointNames());
+    Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointIds());
     tesseract::common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
     if (base.instruction.isLinear())

@@ -177,7 +177,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
   if (start_instruction.getWaypoint().isJointWaypoint() || start_instruction.getWaypoint().isStateWaypoint())
   {
     tesseract::kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(start_mi.manipulator);
-    assert(checkJointPositionFormat(joint_group->getJointNames(), start_instruction.getWaypoint()));
+    assert(checkJointPositionFormat(joint_group->getJointIds(), start_instruction.getWaypoint()));
     contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkIds());
     const Eigen::VectorXd& cur_position = getJointPosition(start_instruction.getWaypoint());
     applyStartStates(*simple_setup, cur_position, *joint_group, *contact_checker);
@@ -207,7 +207,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
   if (end_instruction.getWaypoint().isJointWaypoint() || end_instruction.getWaypoint().isStateWaypoint())
   {
     tesseract::kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(end_mi.manipulator);
-    assert(checkJointPositionFormat(joint_group->getJointNames(), end_instruction.getWaypoint()));
+    assert(checkJointPositionFormat(joint_group->getJointIds(), end_instruction.getWaypoint()));
     contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkIds());
     const Eigen::VectorXd& cur_position = getJointPosition(end_instruction.getWaypoint());
     applyGoalStates(*simple_setup, cur_position, *joint_group, *contact_checker);

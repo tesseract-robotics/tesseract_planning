@@ -149,7 +149,7 @@ std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerLVSAs
   else
   {
     // Replicate current joint position
-    Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointNames());
+    Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointIds());
     tesseract::common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
     states = seed.replicate(1, steps + 1);
   }

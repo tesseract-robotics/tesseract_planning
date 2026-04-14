@@ -96,7 +96,7 @@ DescartesDefaultMoveProfile<FloatType>::createWaypointSampler(
 
   if (!move_instruction.getWaypoint().isCartesianWaypoint())
   {
-    assert(checkJointPositionFormat(manip->getJointNames(), move_instruction.getWaypoint()));
+    assert(checkJointPositionFormat(manip->getJointIds(), move_instruction.getWaypoint()));
     const Eigen::VectorXd& joint_waypoint = getJointPosition(move_instruction.getWaypoint());
     auto state = std::make_shared<descartes_light::State<FloatType>>(joint_waypoint.cast<FloatType>());
     return std::make_unique<descartes_light::FixedJointWaypointSampler<FloatType>>(state);
@@ -106,8 +106,8 @@ DescartesDefaultMoveProfile<FloatType>::createWaypointSampler(
 
   /* Check if this cartesian waypoint is dynamic
    * (i.e. defined relative to a frame that will move with the kinematic chain) */
-  //  auto it = std::find(active_links.begin(), active_links.end(), prob.manip_inv_kin->getBaseLinkName());
-  //  if (it != active_links.end() && prob.manip_inv_kin->getBaseLinkName() != mi.working_frame)
+  //  auto it = std::find(active_links.begin(), active_links.end(), prob.manip_inv_kin->getBaseLinkId());
+  //  if (it != active_links.end() && prob.manip_inv_kin->getBaseLinkId() != mi.working_frame)
   //    throw std::runtime_error("DescartesDefaultMoveProfile: Assigned dynamic waypoint but parent instruction working
   //    is "
   //                             "not set to the base link of manipulator!");

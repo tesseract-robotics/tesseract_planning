@@ -130,7 +130,7 @@ std::shared_ptr<trajopt::TermInfo> createUserDefinedTermInfo(int start_index,
 
 std::shared_ptr<trajopt::TermInfo> createAvoidSingularityTermInfo(int start_index,
                                                                   int end_index,
-                                                                  const std::string& link,
+                                                                  const tesseract::common::LinkId& link,
                                                                   double coeff = 5.0,
                                                                   trajopt::TermType type = trajopt::TermType::TT_COST);
 }  // namespace tesseract::motion_planners

@@ -384,7 +384,7 @@ interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
                             const tesseract::scene_graph::SceneState& scene_state)
 {
   // Get IK seed
-  Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointNames());
+  Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointIds());
   tesseract::common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
   std::array<Eigen::VectorXd, 2> sol;
@@ -683,7 +683,7 @@ interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
                             const tesseract::scene_graph::SceneState& scene_state)
 {
   // Get IK seed
-  Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointNames());
+  Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointIds());
   tesseract::common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
   // Calculate IK for start and end
@@ -942,7 +942,7 @@ interpolateCartCartWaypoint(const JointGroupInstructionInfo& prev,
                             const tesseract::scene_graph::SceneState& scene_state)
 {
   // Get IK seed
-  Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointNames());
+  Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointIds());
   tesseract::common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
   // Calculate IK for start and end

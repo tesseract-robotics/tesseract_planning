@@ -59,8 +59,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::motion_planners
 {
 Eigen::Isometry3d calcPose(const tesseract::command_language::WaypointPoly& wp,
-                           const std::string& working_frame,
-                           const std::string& tip_link,
+                           const tesseract::common::LinkId& working_frame,
+                           const tesseract::common::LinkId& tip_link,
                            const Eigen::Isometry3d& tcp,
                            const tesseract::scene_graph::SceneState& current_state,
                            tesseract::scene_graph::StateSolver& state_solver)
@@ -70,7 +70,7 @@ Eigen::Isometry3d calcPose(const tesseract::command_language::WaypointPoly& wp,
     const auto& swp = wp.as<tesseract::command_language::StateWaypointPoly>();
     assert(static_cast<long>(swp.getNames().size()) == swp.getPosition().size());
     tesseract::scene_graph::SceneState state = state_solver.getState(swp.getNames(), swp.getPosition());
-    return (state.link_transforms.at(tesseract::common::LinkId::fromName(tip_link)) * tcp);
+    return (state.link_transforms.at(tip_link) * tcp);
   }
 
   if (wp.isJointWaypoint())
@@ -78,16 +78,16 @@ Eigen::Isometry3d calcPose(const tesseract::command_language::WaypointPoly& wp,
     const auto& jwp = wp.as<tesseract::command_language::JointWaypointPoly>();
     assert(static_cast<long>(jwp.getNames().size()) == jwp.getPosition().size());
     tesseract::scene_graph::SceneState state = state_solver.getState(jwp.getNames(), jwp.getPosition());
-    return (state.link_transforms.at(tesseract::common::LinkId::fromName(tip_link)) * tcp);
+    return (state.link_transforms.at(tip_link) * tcp);
   }
 
   if (wp.isCartesianWaypoint())
   {
     const auto& cwp = wp.as<tesseract::command_language::CartesianWaypointPoly>();
-    if (working_frame.empty())
+    if (!working_frame.isValid())
       return cwp.getTransform();
 
-    return (current_state.link_transforms.at(tesseract::common::LinkId::fromName(working_frame)) * cwp.getTransform());
+    return (current_state.link_transforms.at(working_frame) * cwp.getTransform());
   }
 
   throw std::runtime_error("toToolpath: Unsupported Waypoint Type!");
@@ -142,8 +142,7 @@ tesseract::common::VectorIsometry3d toPoses(const tesseract::command_language::C
     Eigen::Isometry3d tcp_offset = env.findTCPOffset(manip_info);
 
     // Calculate pose
-    poses.push_back(
-        calcPose(wp, manip_info.working_frame.name(), manip_info.tcp_frame.name(), tcp_offset, state, state_solver));
+    poses.push_back(calcPose(wp, manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, state_solver));
   }
 
   return poses;
@@ -201,8 +200,7 @@ tesseract::common::Toolpath toToolpath(const tesseract::command_language::MoveIn
 
   // Calculate pose
   poses.push_back(
-      calcPose(
-          mi.getWaypoint(), manip_info.working_frame.name(), manip_info.tcp_frame.name(), tcp_offset, state, *state_solver));
+      calcPose(mi.getWaypoint(), manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, *state_solver));
 
   toolpath.push_back(poses);
   return toolpath;
@@ -231,9 +229,9 @@ void assignCurrentStateAsSeed(tesseract::command_language::CompositeInstruction&
       }
       else
       {
-        std::vector<std::string> joint_names = env.getGroupJointNames(mi.manipulator);
-        Eigen::VectorXd jv = state.getJointValues(joint_names);
-        tesseract::common::JointState seed(joint_names, jv);
+        std::vector<tesseract::common::JointId> joint_ids = env.getGroupJointIds(mi.manipulator);
+        Eigen::VectorXd jv = state.getJointValues(joint_ids);
+        tesseract::common::JointState seed(joint_ids, jv);
         manip_joint_state[mi.manipulator] = seed;
         cwp.setSeed(seed);
       }
@@ -371,11 +369,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   contacts.reserve(mi.size());
 
   // Convert active collision objects to LinkId set for addInterpolatedCollisionResults
-  const std::vector<std::string> active_obj_names = manager.getActiveCollisionObjects();
-  std::unordered_set<tesseract::common::LinkId, tesseract::common::LinkId::Hash> active_link_ids;
-  active_link_ids.reserve(active_obj_names.size());
-  for (const auto& name : active_obj_names)
-    active_link_ids.insert(tesseract::common::LinkId::fromName(name));
+  auto active_link_ids = manager.getActiveCollisionObjectIds();
 
   tesseract::common::LinkIdTransformMap link_transforms;
   tesseract::common::LinkIdTransformMap link_transforms1;
@@ -656,12 +650,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   contacts.clear();
   contacts.reserve(mi.size());
 
-  // Convert active collision objects to LinkId set for addInterpolatedCollisionResults
-  const std::vector<std::string> active_obj_names = manager.getActiveCollisionObjects();
-  std::unordered_set<tesseract::common::LinkId, tesseract::common::LinkId::Hash> active_link_ids;
-  active_link_ids.reserve(active_obj_names.size());
-  for (const auto& name : active_obj_names)
-    active_link_ids.insert(tesseract::common::LinkId::fromName(name));
+  auto active_link_ids = manager.getActiveCollisionObjectIds();
 
   tesseract::common::LinkIdTransformMap link_transforms;
 
