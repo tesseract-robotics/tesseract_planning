@@ -10,29 +10,29 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::command_language
 {
 // NOLINTNEXTLINE(modernize-pass-by-value)
-JointWaypoint::JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position, bool is_constrained)
-  : position_(position), is_constrained_(is_constrained)
+JointWaypoint::JointWaypoint(const std::vector<std::string>& names, Eigen::VectorXd position, bool is_constrained)
+  : position_(std::move(position)), is_constrained_(is_constrained)
 {
   joint_ids_.reserve(names.size());
-  for (auto& name : names)
+  for (const auto& name : names)
     joint_ids_.push_back(tesseract::common::JointId::fromName(name));
 
   if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
 }
 
-JointWaypoint::JointWaypoint(std::vector<std::string> names,
+JointWaypoint::JointWaypoint(const std::vector<std::string>& names,
                              const Eigen::VectorXd& position,   // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& lower_tol,  // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& upper_tol)  // NOLINT(modernize-pass-by-value)
   : position_(position), lower_tolerance_(lower_tol), upper_tolerance_(upper_tol), is_constrained_(true)
 {
   joint_ids_.reserve(names.size());
-  for (auto& name : names)
+  for (const auto& name : names)
     joint_ids_.push_back(tesseract::common::JointId::fromName(name));
 
-  if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() ||
-      position_.size() != lower_tolerance_.size() || position_.size() != upper_tolerance_.size())
+  if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() || position_.size() != lower_tolerance_.size() ||
+      position_.size() != upper_tolerance_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
 }
 

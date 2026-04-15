@@ -27,6 +27,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
+#include <utility>
 #include <vector>
 #include <type_traits>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -51,29 +52,28 @@ public:
   // LCOV_EXCL_STOP
 
   JointWaypoint() = default;
-  JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position, bool is_constrained = true);
-  JointWaypoint(std::vector<std::string> names,
+  JointWaypoint(const std::vector<std::string>& names, Eigen::VectorXd position, bool is_constrained = true);
+  JointWaypoint(const std::vector<std::string>& names,
                 const Eigen::VectorXd& position,
                 const Eigen::VectorXd& lower_tol,
                 const Eigen::VectorXd& upper_tol);
   // SFINAE-guarded JointId constructors to prevent overload ambiguity with string brace-init
-  template <typename T, std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
-  JointWaypoint(T&& joint_ids, const Eigen::VectorXd& position, bool is_constrained = true)
-    : joint_ids_(std::forward<T>(joint_ids)), position_(position), is_constrained_(is_constrained)
+  template <typename T,
+            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
+  JointWaypoint(T&& joint_ids, Eigen::VectorXd position, bool is_constrained = true)
+    : joint_ids_(std::forward<T>(joint_ids)), position_(std::move(position)), is_constrained_(is_constrained)
   {
     if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
       throw std::runtime_error("JointWaypoint: parameters are not the same size!");
   }
 
-  template <typename T, std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
-  JointWaypoint(T&& joint_ids,
-                const Eigen::VectorXd& position,
-                const Eigen::VectorXd& lower_tol,
-                const Eigen::VectorXd& upper_tol)
+  template <typename T,
+            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
+  JointWaypoint(T&& joint_ids, Eigen::VectorXd position, Eigen::VectorXd lower_tol, Eigen::VectorXd upper_tol)
     : joint_ids_(std::forward<T>(joint_ids))
-    , position_(position)
-    , lower_tolerance_(lower_tol)
-    , upper_tolerance_(upper_tol)
+    , position_(std::move(position))
+    , lower_tolerance_(std::move(lower_tol))
+    , upper_tolerance_(std::move(upper_tol))
     , is_constrained_(true)
   {
     if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() ||

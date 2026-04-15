@@ -27,6 +27,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
+#include <utility>
 #include <vector>
 #include <type_traits>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -51,7 +52,7 @@ public:
   // LCOV_EXCL_STOP
 
   StateWaypoint() = default;
-  StateWaypoint(std::vector<std::string> joint_names, const Eigen::Ref<const Eigen::VectorXd>& position);
+  StateWaypoint(const std::vector<std::string>& joint_names, const Eigen::Ref<const Eigen::VectorXd>& position);
   StateWaypoint(const std::vector<std::string>& names,
                 const Eigen::VectorXd& position,
                 const Eigen::VectorXd& velocity,
@@ -70,14 +71,14 @@ public:
   template <typename T,
             std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
   StateWaypoint(T&& joint_ids,
-                const Eigen::VectorXd& position,
-                const Eigen::VectorXd& velocity,
-                const Eigen::VectorXd& acceleration,
+                Eigen::VectorXd position,
+                Eigen::VectorXd velocity,
+                Eigen::VectorXd acceleration,
                 double time)
     : joint_ids_(std::forward<T>(joint_ids))
-    , position_(position)
-    , velocity_(velocity)
-    , acceleration_(acceleration)
+    , position_(std::move(position))
+    , velocity_(std::move(velocity))
+    , acceleration_(std::move(acceleration))
     , time_(time)
   {
     if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() || position_.size() != velocity_.size() ||

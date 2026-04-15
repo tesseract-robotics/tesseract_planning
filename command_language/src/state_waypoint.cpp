@@ -34,11 +34,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::command_language
 {
 // NOLINTNEXTLINE(modernize-pass-by-value)
-StateWaypoint::StateWaypoint(std::vector<std::string> joint_names, const Eigen::Ref<const Eigen::VectorXd>& position)
+StateWaypoint::StateWaypoint(const std::vector<std::string>& joint_names,
+                             const Eigen::Ref<const Eigen::VectorXd>& position)
   : position_(position)
 {
   joint_ids_.reserve(joint_names.size());
-  for (auto& name : joint_names)
+  for (const auto& name : joint_names)
     joint_ids_.push_back(tesseract::common::JointId::fromName(name));
 
   if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
