@@ -81,10 +81,10 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
   pose_info->name = "cartesian_waypoint_" + std::to_string(index);
   pose_info->timestep = index;
 
-  pose_info->source_frame_id = tcp_frame;
+  pose_info->source_frame = tcp_frame;
   pose_info->source_frame_offset = tcp_offset;
 
-  pose_info->target_frame_id = working_frame;
+  pose_info->target_frame = working_frame;
   pose_info->target_frame_offset = c_wp;
 
   if (coeffs.size() == 1)
@@ -156,10 +156,10 @@ createDynamicCartesianWaypointTermInfo(int index,
   pose->name = "dyn_cartesian_waypoint_" + std::to_string(index);
   pose->timestep = index;
 
-  pose->source_frame_id = tcp_frame;
+  pose->source_frame = tcp_frame;
   pose->source_frame_offset = tcp_offset;
 
-  pose->target_frame_id = working_frame;
+  pose->target_frame = working_frame;
   pose->target_frame_offset = c_wp;
 
   if (coeffs.size() == 1)
