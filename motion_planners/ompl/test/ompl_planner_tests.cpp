@@ -112,8 +112,8 @@ static void addBox(tesseract::environment::Environment& env)
   link_1.collision.push_back(collision);
 
   Joint joint_1("joint_n1");
-  joint_1.parent_link_id = tesseract::common::LinkId::fromName("base_link");
-  joint_1.child_link_id = tesseract::common::LinkId::fromName(link_1.getName());
+  joint_1.parent_link_id = tesseract::common::LinkId("base_link");
+  joint_1.child_link_id = tesseract::common::LinkId(link_1.getName());
   joint_1.type = JointType::FIXED;
 
   env.applyCommand(std::make_shared<AddLinkCommand>(link_1, joint_1));
@@ -161,8 +161,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   tesseract::common::ManipulatorInfo manip;
   manip.manipulator = "manipulator";
-  manip.working_frame = tesseract::common::LinkId::fromName("base_link");
-  manip.tcp_frame = tesseract::common::LinkId::fromName("tool0");
+  manip.working_frame = tesseract::common::LinkId("base_link");
+  manip.tcp_frame = tesseract::common::LinkId("tool0");
 
   // Step 2: Add box to environment
   addBox(*env);
@@ -320,9 +320,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   // Set manipulator
   tesseract::common::ManipulatorInfo manip;
-  manip.tcp_frame = tesseract::common::LinkId::fromName("tool0");
+  manip.tcp_frame = tesseract::common::LinkId("tool0");
   manip.manipulator = "manipulator";
-  manip.working_frame = tesseract::common::LinkId::fromName("base_link");
+  manip.working_frame = tesseract::common::LinkId("base_link");
 
   // Step 2: Add box to environment
   addBox(*(env));
@@ -410,9 +410,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   // Set manipulator
   tesseract::common::ManipulatorInfo manip;
-  manip.tcp_frame = tesseract::common::LinkId::fromName("tool0");
+  manip.tcp_frame = tesseract::common::LinkId("tool0");
   manip.manipulator = "manipulator";
-  manip.working_frame = tesseract::common::LinkId::fromName("base_link");
+  manip.working_frame = tesseract::common::LinkId("base_link");
 
   // Step 2: Add box to environment
   addBox(*(env));

@@ -45,7 +45,7 @@ namespace tesseract::motion_planners
  * back
  *
  */
-enum class RobotConfig
+enum class RobotConfig : std::uint8_t
 {
   NUT = 0,
   FUT = 1,
@@ -70,8 +70,8 @@ static const std::vector<std::string> RobotConfigString = { "NUT", "FUT", "NDT",
  */
 template <typename FloatType>
 inline RobotConfig getRobotConfig(const tesseract::kinematics::JointGroup& joint_group,
-                                  const std::string& base_link,
-                                  const std::string& tcp_frame,
+                                  const common::LinkId& base_link,
+                                  const common::LinkId& tcp_frame,
                                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
@@ -80,9 +80,7 @@ inline RobotConfig getRobotConfig(const tesseract::kinematics::JointGroup& joint
   joint_group.calcFwdKin(state, joint_values.template cast<double>());
 
   // Get the pose at tool0
-  Eigen::Isometry3d pose =
-      state.at(tesseract::common::LinkId::fromName(base_link)).inverse() *
-      state.at(tesseract::common::LinkId::fromName(tcp_frame));
+  Eigen::Isometry3d pose = state.at(base_link).inverse() * state.at(tcp_frame);
 
   // Get Manipulator values
   auto mjv = joint_values.tail(6);

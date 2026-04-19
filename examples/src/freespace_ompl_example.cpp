@@ -109,8 +109,8 @@ inline Command::Ptr addSphere()
   link_sphere.collision.push_back(collision);
 
   Joint joint_sphere("joint_sphere_attached");
-  joint_sphere.parent_link_id = tesseract::common::LinkId::fromName("base_link");
-  joint_sphere.child_link_id = tesseract::common::LinkId::fromName(link_sphere.getName());
+  joint_sphere.parent_link_id = tesseract::common::LinkId("base_link");
+  joint_sphere.child_link_id = tesseract::common::LinkId(link_sphere.getName());
   joint_sphere.type = JointType::FIXED;
 
   return std::make_shared<tesseract::environment::AddLinkCommand>(link_sphere, joint_sphere);
@@ -169,7 +169,7 @@ bool FreespaceOMPLExample::run()
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
-  CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", tesseract::common::LinkId::fromName("base_link"), tesseract::common::LinkId::fromName("tool0")));
+  CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", tesseract::common::LinkId("base_link"), tesseract::common::LinkId("tool0")));
 
   // Start and End Joint Position for the program
   StateWaypoint wp0{ joint_names, joint_start_pos };

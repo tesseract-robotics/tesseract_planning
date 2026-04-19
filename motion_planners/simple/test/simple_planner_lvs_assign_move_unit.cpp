@@ -788,7 +788,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, CartCart_WithSeed
   tesseract::common::JointState joint_seed;
   joint_seed.joint_ids.reserve(joint_names_.size());
   for (const auto& n : joint_names_)
-    joint_seed.joint_ids.push_back(tesseract::common::JointId::fromName(n));
+    joint_seed.joint_ids.push_back(tesseract::common::JointId(n));
   joint_seed.position = Eigen::VectorXd::Ones(7) * 0.5;
   wp2.setSeed(joint_seed);
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);

@@ -126,8 +126,8 @@ Commands addSeats(const tesseract::common::ResourceLocator::ConstPtr& locator)
     }
 
     Joint joint_seat("joint_seat_" + std::to_string(i + 1));
-    joint_seat.parent_link_id = tesseract::common::LinkId::fromName("world");
-    joint_seat.child_link_id = tesseract::common::LinkId::fromName(link_seat.getName());
+    joint_seat.parent_link_id = tesseract::common::LinkId("world");
+    joint_seat.child_link_id = tesseract::common::LinkId(link_seat.getName());
     joint_seat.type = JointType::FIXED;
     joint_seat.parent_to_joint_origin_transform = Eigen::AngleAxisd(0.0, Eigen::Vector3d::UnitX()) *
                                                   Eigen::AngleAxisd(0.0, Eigen::Vector3d::UnitY()) *
@@ -348,7 +348,7 @@ bool CarSeatExample::run()
   CONSOLE_BRIDGE_logInform("Car Seat Demo Started");
 
   {  // Create Program to pick up first seat
-    CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", tesseract::common::LinkId::fromName("world"), tesseract::common::LinkId::fromName("end_effector")));
+    CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", tesseract::common::LinkId("world"), tesseract::common::LinkId("end_effector")));
     program.setDescription("Pick up the first seat!");
 
     // Start and End Joint Position for the program
@@ -410,12 +410,12 @@ bool CarSeatExample::run()
 
   // Now we to detach seat_1 and attach it to the robot end_effector
   Joint joint_seat_1_robot("joint_seat_1_robot");
-  joint_seat_1_robot.parent_link_id = tesseract::common::LinkId::fromName("end_effector");
-  joint_seat_1_robot.child_link_id = tesseract::common::LinkId::fromName("seat_1");
+  joint_seat_1_robot.parent_link_id = tesseract::common::LinkId("end_effector");
+  joint_seat_1_robot.child_link_id = tesseract::common::LinkId("seat_1");
   joint_seat_1_robot.type = JointType::FIXED;
   joint_seat_1_robot.parent_to_joint_origin_transform =
-      state.link_transforms.at(tesseract::common::LinkId::fromName("end_effector")).inverse() *
-      state.link_transforms.at(tesseract::common::LinkId::fromName("seat_1"));
+      state.link_transforms.at(tesseract::common::LinkId("end_effector")).inverse() *
+      state.link_transforms.at(tesseract::common::LinkId("seat_1"));
 
   cmds.clear();
   cmds.push_back(std::make_shared<MoveLinkCommand>(joint_seat_1_robot));
@@ -435,7 +435,7 @@ bool CarSeatExample::run()
     return false;
 
   {  // Create Program to place first seat
-    CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", tesseract::common::LinkId::fromName("world"), tesseract::common::LinkId::fromName("end_effector")));
+    CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", tesseract::common::LinkId("world"), tesseract::common::LinkId("end_effector")));
     program.setDescription("Place the first seat!");
 
     // Start and End Joint Position for the program

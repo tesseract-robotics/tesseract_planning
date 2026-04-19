@@ -82,10 +82,10 @@ protected:
     EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;
 
-    manip.tcp_frame = tesseract::common::LinkId::fromName("tool0");
+    manip.tcp_frame = tesseract::common::LinkId("tool0");
     manip.manipulator = "manipulator";
     manip.manipulator_ik_solver = "OPWInvKin";
-    manip.working_frame = tesseract::common::LinkId::fromName("base_link");
+    manip.working_frame = tesseract::common::LinkId("base_link");
   }
 };
 

@@ -534,7 +534,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   test_suite::runInstructionInterfaceTest(InstructionPoly(T()), false);
 
   std::string profile{ "raster_program" };
-  ManipulatorInfo manip_info("manipulator", LinkId::fromName("world"), LinkId::fromName("tool0"));
+  ManipulatorInfo manip_info("manipulator", "world", "tool0");
   CompositeInstructionOrder order{ CompositeInstructionOrder::ORDERED };
   T instr = getTestProgram(profile, order, manip_info);
   EXPECT_FALSE(instr.getUUID().is_nil());

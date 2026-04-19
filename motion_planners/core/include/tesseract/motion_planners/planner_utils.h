@@ -76,8 +76,8 @@ bool isWithinJointLimits(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::
  */
 template <typename FloatType>
 bool isValidState(const tesseract::kinematics::JointGroup& joint_group,
-                  const std::string& base_link,
-                  const std::string& tcp_frame,
+                  const common::LinkId& base_link,
+                  const common::LinkId& tcp_frame,
                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                   const Eigen::Matrix<FloatType, Eigen::Dynamic, 2>& limits)
 {

@@ -236,8 +236,8 @@ bool GlassUprightOMPLExample::run()
   link_sphere.collision.push_back(collision);
 
   Joint joint_sphere("joint_sphere_attached");
-  joint_sphere.parent_link_id = tesseract::common::LinkId::fromName("base_link");
-  joint_sphere.child_link_id = tesseract::common::LinkId::fromName(link_sphere.getName());
+  joint_sphere.parent_link_id = tesseract::common::LinkId("base_link");
+  joint_sphere.child_link_id = tesseract::common::LinkId(link_sphere.getName());
   joint_sphere.type = JointType::FIXED;
 
   tesseract_->getEnvironment()->addLink(link_sphere, joint_sphere);

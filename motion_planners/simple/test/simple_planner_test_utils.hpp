@@ -52,8 +52,8 @@ protected:
     env_ = env;
 
     manip_info_.manipulator = "manipulator";
-    manip_info_.tcp_frame = tesseract::common::LinkId::fromName("tool0");
-    manip_info_.working_frame = tesseract::common::LinkId::fromName("base_link");
+    manip_info_.tcp_frame = tesseract::common::LinkId("tool0");
+    manip_info_.working_frame = tesseract::common::LinkId("base_link");
     joint_names_ = env_->getJointGroup("manipulator")->getJointNames();
   }
 };

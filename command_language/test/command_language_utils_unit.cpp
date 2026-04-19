@@ -160,7 +160,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
 TEST(TesseractCommandLanguageUtilsUnit, toJointTrajectoryTests)  // NOLINT
 {
   std::string profile{ "raster_program" };
-  ManipulatorInfo manip_info("manipulator", LinkId::fromName("world"), LinkId::fromName("tool0"));
+  ManipulatorInfo manip_info("manipulator", "world", "tool0");
   CompositeInstructionOrder order{ CompositeInstructionOrder::ORDERED };
   CompositeInstruction program = getTestProgram(profile, order, manip_info);
   InstructionPoly instr{ program };
@@ -215,8 +215,8 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionTests)  // NOLINT
 TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLINT
 {
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
-  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> format_joint_names = { "joint_2", "joint_1" };
   Eigen::VectorXd position0 = Eigen::Vector2d(1, 2);
   Eigen::VectorXd position00 = Eigen::Vector2d(3, 4);
   Eigen::VectorXd format_position0 = Eigen::Vector2d(2, 1);
@@ -231,9 +231,7 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
   tesseract::common::JointState seed_state;
-  seed_state.joint_ids.reserve(joint_names.size());
-  for (const auto& n : joint_names)
-    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
+  seed_state.joint_ids = joint_names;
   seed_state.position = seed_position;
 
   // Define raster poses
@@ -437,7 +435,8 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
 TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
 {
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
+                                                          "joint_4", "joint_5", "joint_6" };
   StateWaypoint wp0{ joint_names, Eigen::VectorXd::Constant(6, 3) };
   JointWaypoint wp00{ joint_names, Eigen::VectorXd::Constant(6, 5) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
@@ -446,9 +445,7 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
   end_instruction.setDescription("End Instruction");
 
   tesseract::common::JointState seed_state;
-  seed_state.joint_ids.reserve(joint_names.size());
-  for (const auto& n : joint_names)
-    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
+  seed_state.joint_ids = joint_names;
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses
@@ -480,7 +477,8 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
 TEST(TesseractCommandLanguageUtilsUnit, setJointPositionTests)  // NOLINT
 {
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
+                                                          "joint_4", "joint_5", "joint_6" };
   StateWaypoint wp0{ joint_names, Eigen::VectorXd::Constant(6, 3) };
   JointWaypoint wp00{ joint_names, Eigen::VectorXd::Constant(6, 5) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
@@ -491,9 +489,7 @@ TEST(TesseractCommandLanguageUtilsUnit, setJointPositionTests)  // NOLINT
   Eigen::VectorXd set_position = Eigen::VectorXd::Constant(6, 1);
 
   tesseract::common::JointState seed_state;
-  seed_state.joint_ids.reserve(joint_names.size());
-  for (const auto& n : joint_names)
-    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
+  seed_state.joint_ids = joint_names;
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses
@@ -526,7 +522,7 @@ TEST(TesseractCommandLanguageUtilsUnit, isWithinJointLimits)  // NOLINT
 {
   Eigen::MatrixX2d limits(3, 2);
   limits << 0, 2, 0, 2, 0, 2;
-  std::vector<std::string> joint_names = { "1", "2", "3" };
+  std::vector<tesseract::common::JointId> joint_names = { "1", "2", "3" };
   Eigen::VectorXd values(3);
 
   // Within limits
@@ -663,7 +659,7 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
 TEST(TesseractCommandLanguageUtilsUnit, makeTimeContinuous)  // NOLINT
 {
   std::string profile{ "profile" };
-  ManipulatorInfo manip_info("manipulator", LinkId::fromName("world"), LinkId::fromName("tool0"));
+  ManipulatorInfo manip_info("manipulator", "world", "tool0");
   CompositeInstruction program(profile, manip_info);
 
   // Start Joint Position for the program

@@ -195,12 +195,12 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   }
   // Add the target pose constraint for the final step
   {
-    target_pose_base_frame_ = manip_->calcFwdKin(target_joint_position).at(tesseract::common::LinkId::fromName("tool0"));
+    target_pose_base_frame_ = manip_->calcFwdKin(target_joint_position).at(tesseract::common::LinkId("tool0"));
     std::cout << "Target Joint Position: " << target_joint_position.transpose() << "\n";
     std::cout << "Target TF:\n" << target_pose_base_frame_.matrix() << "\n";
 
     target_pose_constraint_ = std::make_shared<trajopt_ifopt::CartPosConstraint>(
-        vars.back(), manip_, tesseract::common::LinkId::fromName("tool0"), tesseract::common::LinkId::fromName("world"), Eigen::Isometry3d::Identity(), target_pose_base_frame_);
+        vars.back(), manip_, tesseract::common::LinkId("tool0"), tesseract::common::LinkId("world"), Eigen::Isometry3d::Identity(), target_pose_base_frame_);
     nlp_->addConstraintSet(target_pose_constraint_);
   }
   // Add joint velocity cost for all timesteps

@@ -42,12 +42,12 @@ namespace tesseract::motion_planners
 {
 template <typename FloatType>
 DescartesRobotSampler<FloatType>::DescartesRobotSampler(
-    std::string target_working_frame,
+    tesseract::common::LinkId target_working_frame,
     const Eigen::Isometry3d& target_pose,  // NOLINT(modernize-pass-by-value)
     PoseSamplerFn target_pose_sampler,
     std::shared_ptr<const tesseract::kinematics::KinematicGroup> manip,
     std::shared_ptr<DescartesCollision> collision,
-    std::string tcp_frame,
+    tesseract::common::LinkId tcp_frame,
     const Eigen::Isometry3d& tcp_offset,  // NOLINT(modernize-pass-by-value)
     bool allow_collision,
     std::shared_ptr<DescartesVertexEvaluator> is_valid,
@@ -80,10 +80,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
 
   // Solve IK (TODO Should tcp_offset be stored in KinGroupIKInput?)
   tesseract::kinematics::KinGroupIKInputs ik_inputs;
-  ik_inputs.emplace_back(
-      Eigen::Isometry3d::Identity(),
-      tesseract::common::LinkId::fromName(target_working_frame_),
-      tesseract::common::LinkId::fromName(tcp_frame_));
+  ik_inputs.emplace_back(Eigen::Isometry3d::Identity(), target_working_frame_, tcp_frame_);
 
   // Generate the IK solutions for those poses
   std::vector<descartes_light::StateSample<FloatType>> samples;
@@ -226,7 +223,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
 template <typename FloatType>
 void DescartesRobotSampler<FloatType>::print(std::ostream& os) const
 {
-  os << "Working Frame: " << target_working_frame_ << ", TCP Frame: " << tcp_frame_ << "\n";
+  os << "Working Frame: " << target_working_frame_.name() << ", TCP Frame: " << tcp_frame_.name() << "\n";
   os << "Target Pose:\n" << target_pose_.matrix() << "\n";
   os << "TCP Offset:\n" << tcp_offset_.matrix() << "\n";
   os << "Error string:\n" << error_string_;
