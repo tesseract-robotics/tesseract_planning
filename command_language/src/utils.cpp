@@ -186,6 +186,59 @@ std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
+Eigen::VectorXd getJointPosition(const std::vector<common::JointId>& joint_ids, const WaypointPoly& waypoint)
+{
+  Eigen::VectorXd jv;
+  std::vector<common::JointId> jn;
+  if (waypoint.isJointWaypoint())
+  {
+    const auto& jwp = waypoint.as<JointWaypointPoly>();
+    jv = jwp.getPosition();
+    jn = jwp.getJointIds();
+  }
+  else if (waypoint.isStateWaypoint())
+  {
+    const auto& swp = waypoint.as<StateWaypointPoly>();
+    jv = swp.getPosition();
+    jn = swp.getJointIds();
+  }
+  else if (waypoint.isCartesianWaypoint())
+  {
+    const auto& cwp = waypoint.as<CartesianWaypointPoly>();
+    if (!cwp.hasSeed())
+      throw std::runtime_error("Cartesian waypoint does not have a seed.");
+
+    jv = cwp.getSeed().position;
+    jn = cwp.getSeed().getJointIds();
+  }
+  else
+  {
+    throw std::runtime_error("Unsupported waypoint type.");
+  }
+
+  if (jn.size() != joint_ids.size())
+    throw std::runtime_error("Joint name sizes do not match!");
+
+  if (joint_ids == jn)
+    return jv;
+
+  Eigen::VectorXd output = jv;
+  for (std::size_t i = 0; i < joint_ids.size(); ++i)
+  {
+    if (joint_ids[i] == jn[i])
+      continue;
+
+    auto it = std::find(jn.begin(), jn.end(), joint_ids[i]);
+    if (it == jn.end())
+      throw std::runtime_error("Joint names do not match!");
+
+    long idx = std::distance(jn.begin(), it);
+    output(static_cast<long>(i)) = jv(idx);
+  }
+
+  return output;
+}
+
 Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)
 {
   Eigen::VectorXd jv;
@@ -239,59 +292,22 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
   return output;
 }
 
-namespace
-{
-/// @brief Build an index permutation such that out[i] = in[perm[i]] gives `in` reordered to `target_names`.
-/// Throws if sizes mismatch or a target name is absent from `current_names`.
-std::vector<std::size_t> buildJointPermutation(const std::vector<std::string>& target_names,
-                                               const std::vector<std::string>& current_names)
-{
-  if (current_names.size() != target_names.size())
-    throw std::runtime_error("Joint name sizes do not match!");
-
-  std::vector<std::size_t> perm(target_names.size());
-  for (std::size_t i = 0; i < target_names.size(); ++i)
-  {
-    auto it = std::find(current_names.begin(), current_names.end(), target_names[i]);
-    if (it == current_names.end())
-      throw std::runtime_error("Joint names do not match!");
-    perm[i] = static_cast<std::size_t>(std::distance(current_names.begin(), it));
-  }
-  return perm;
-}
-
-/// @brief Apply `perm` to `vec` in-place. No-op when `vec` is empty.
-/// Throws when `vec` is non-empty but its size does not match `perm`.
-void applyJointPermutation(Eigen::VectorXd& vec, const std::vector<std::size_t>& perm)
-{
-  if (vec.size() == 0)
-    return;
-  if (static_cast<std::size_t>(vec.size()) != perm.size())
-    throw std::runtime_error("Joint-correlated vector size does not match joint count!");
-
-  Eigen::VectorXd out(vec.size());
-  for (std::size_t i = 0; i < perm.size(); ++i)
-    out(static_cast<Eigen::Index>(i)) = vec(static_cast<Eigen::Index>(perm[i]));
-  vec = std::move(out);
-}
-}  // namespace
-
-bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint)
+bool formatJointPosition(const std::vector<common::JointId>& joint_ids, WaypointPoly& waypoint)
 {
   Eigen::VectorXd* jv{ nullptr };
-  std::vector<std::string> jn_local;
+  std::vector<common::JointId> jn_local;
   if (waypoint.isJointWaypoint())
   {
     auto& jwp = waypoint.as<JointWaypointPoly>();
     jv = &(jwp.getPosition());
-    jn_local = jwp.getNames();
+    jn_local = jwp.getJointIds();
   }
 
   if (waypoint.isStateWaypoint())
   {
     auto& swp = waypoint.as<StateWaypointPoly>();
     jv = &(swp.getPosition());
-    jn_local = swp.getNames();
+    jn_local = swp.getJointIds();
   }
 
   if (waypoint.isCartesianWaypoint())
@@ -301,32 +317,29 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
       return false;
 
     auto& seed = cwp.getSeed();
-    std::vector<std::string> seed_names = seed.getJointNames();
+    const std::vector<common::JointId>& seed_ids = seed.joint_ids;
 
-    if (seed_names.size() != joint_names.size())
+    if (seed_ids.size() != joint_ids.size())
       throw std::runtime_error("Joint name sizes do not match!");
 
-    if (joint_names == seed_names)
+    if (joint_ids == seed_ids)
       return false;
 
     Eigen::VectorXd output = seed.position;
-    for (std::size_t i = 0; i < joint_names.size(); ++i)
+    for (std::size_t i = 0; i < joint_ids.size(); ++i)
     {
-      if (joint_names[i] == seed_names[i])
+      if (joint_ids[i] == seed_ids[i])
         continue;
 
-      auto it = std::find(seed_names.begin(), seed_names.end(), joint_names[i]);
-      if (it == seed_names.end())
+      auto it = std::find(seed_ids.begin(), seed_ids.end(), joint_ids[i]);
+      if (it == seed_ids.end())
         throw std::runtime_error("Joint names do not match!");
 
-      long idx = std::distance(seed_names.begin(), it);
+      long idx = std::distance(seed_ids.begin(), it);
       output(static_cast<long>(i)) = seed.position(idx);
     }
 
-    seed.joint_ids.clear();
-    seed.joint_ids.reserve(joint_names.size());
-    for (const auto& name : joint_names)
-      seed.joint_ids.push_back(tesseract::common::JointId::fromName(name));
+    seed.joint_ids = joint_ids;
     seed.position = output;
 
     return true;
@@ -336,19 +349,19 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
     throw std::runtime_error("Unsupported waypoint type.");
   }
 
-  if (jn_local.size() != joint_names.size())
+  if (jn_local.size() != joint_ids.size())
     throw std::runtime_error("Joint name sizes do not match!");
 
-  if (joint_names == jn_local)
+  if (joint_ids == jn_local)
     return false;
 
   Eigen::VectorXd output = *jv;
-  for (std::size_t i = 0; i < joint_names.size(); ++i)
+  for (std::size_t i = 0; i < joint_ids.size(); ++i)
   {
-    if (joint_names[i] == jn_local[i])
+    if (joint_ids[i] == jn_local[i])
       continue;
 
-    auto it = std::find(jn_local.begin(), jn_local.end(), joint_names[i]);
+    auto it = std::find(jn_local.begin(), jn_local.end(), joint_ids[i]);
     if (it == jn_local.end())
       throw std::runtime_error("Joint names do not match!");
 
@@ -357,12 +370,17 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
   }
 
   if (waypoint.isJointWaypoint())
-    waypoint.as<JointWaypointPoly>().setNames(joint_names);
+    waypoint.as<JointWaypointPoly>().setJointIds(joint_ids);
   else if (waypoint.isStateWaypoint())
-    waypoint.as<StateWaypointPoly>().setNames(joint_names);
+    waypoint.as<StateWaypointPoly>().setJointIds(joint_ids);
   *jv = output;
 
   return true;
+}
+
+bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint)
+{
+  return formatJointPosition(tesseract::common::toIds<tesseract::common::JointId>(joint_names), waypoint);
 }
 
 bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)

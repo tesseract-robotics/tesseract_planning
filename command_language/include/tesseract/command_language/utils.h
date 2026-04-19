@@ -96,6 +96,20 @@ std::vector<std::string> getJointNames(const WaypointPoly& waypoint);
 std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint);
 
 /**
+ * @brief Get the joint positions ordered by the provided joint ids
+ *
+ * Throws if waypoint does not directly contain that information
+ *
+ * Also this is an expensive call so the motion planners do not leverage this and they expect the order through out
+ * the program all match.
+ *
+ * @param joint_ids The joint ids defining the order desired
+ * @param waypoint The waypoint to
+ * @return The joint values ordered by the provided joint_names
+ */
+Eigen::VectorXd getJointPosition(const std::vector<common::JointId>& joint_ids, const WaypointPoly& waypoint);
+
+/**
  * @brief Get the joint positions ordered by the provided joint names
  *
  * Throws if waypoint does not directly contain that information
@@ -108,6 +122,20 @@ std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint
  * @return The joint values ordered by the provided joint_names
  */
 Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint);
+
+/**
+ * @brief Format the waypoints joint ordered by the provided joint ids
+ *
+ * Throws if waypoint does not directly contain that information
+ *
+ * Also this is an expensive call so the motion planners do not leverage this and they expect the order through out
+ * the program all match.
+ *
+ * @param joint_ids The joint ids defining the order desired
+ * @param waypoint The waypoint to format
+ * @return True if formatting was required, otherwise false.
+ */
+bool formatJointPosition(const std::vector<common::JointId>& joint_ids, WaypointPoly& waypoint);
 
 /**
  * @brief Format the waypoints joint ordered by the provided joint names
@@ -128,6 +156,8 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
  * @details Since we are returning by reference if the type passed is converted
  * to a WaypointPoly then the object return is referencing a temporary value.
  */
+template <class T>
+bool formatJointPosition(const std::vector<common::JointId>&, T&) = delete;
 template <class T>
 bool formatJointPosition(const std::vector<std::string>&, T&) = delete;
 
