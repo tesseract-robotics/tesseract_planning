@@ -31,9 +31,7 @@ inline CompositeInstruction getTestProgram(std::string profile,
   end_instruction.setDescription("End Instruction");
 
   tesseract::common::JointState seed_state;
-  seed_state.joint_ids.reserve(joint_names.size());
-  for (const auto& n : joint_names)
-    seed_state.joint_ids.push_back(tesseract::common::JointId::fromName(n));
+  seed_state.joint_ids = tesseract::common::toIds<tesseract::common::JointId>(joint_names);
   seed_state.position = Eigen::VectorXd::Zero(6);
 
   // Define raster poses

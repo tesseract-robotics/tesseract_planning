@@ -9,14 +9,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract::command_language
 {
-// NOLINTNEXTLINE(modernize-pass-by-value)
 JointWaypoint::JointWaypoint(const std::vector<std::string>& names, Eigen::VectorXd position, bool is_constrained)
-  : position_(std::move(position)), is_constrained_(is_constrained)
+  : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
+  , position_(std::move(position))
+  , is_constrained_(is_constrained)
 {
-  joint_ids_.reserve(names.size());
-  for (const auto& name : names)
-    joint_ids_.push_back(tesseract::common::JointId::fromName(name));
-
   if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
 }
@@ -25,12 +22,12 @@ JointWaypoint::JointWaypoint(const std::vector<std::string>& names,
                              const Eigen::VectorXd& position,   // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& lower_tol,  // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& upper_tol)  // NOLINT(modernize-pass-by-value)
-  : position_(position), lower_tolerance_(lower_tol), upper_tolerance_(upper_tol), is_constrained_(true)
+  : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
+  , position_(position)
+  , lower_tolerance_(lower_tol)
+  , upper_tolerance_(upper_tol)
+  , is_constrained_(true)
 {
-  joint_ids_.reserve(names.size());
-  for (const auto& name : names)
-    joint_ids_.push_back(tesseract::common::JointId::fromName(name));
-
   if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() || position_.size() != lower_tolerance_.size() ||
       position_.size() != upper_tolerance_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
@@ -69,20 +66,10 @@ std::unique_ptr<JointWaypointInterface> JointWaypoint::clone() const { return st
 // Joint Waypoint
 void JointWaypoint::setNames(const std::vector<std::string>& names)
 {
-  joint_ids_.clear();
-  joint_ids_.reserve(names.size());
-  for (const auto& name : names)
-    joint_ids_.push_back(tesseract::common::JointId::fromName(name));
+  joint_ids_ = tesseract::common::toIds<tesseract::common::JointId>(names);
 }
 
-std::vector<std::string> JointWaypoint::getNames() const
-{
-  std::vector<std::string> names;
-  names.reserve(joint_ids_.size());
-  for (const auto& id : joint_ids_)
-    names.push_back(id.name());
-  return names;
-}
+std::vector<std::string> JointWaypoint::getNames() const { return tesseract::common::toNames(joint_ids_); }
 
 void JointWaypoint::setJointIds(const std::vector<tesseract::common::JointId>& ids) { joint_ids_ = ids; }
 const std::vector<tesseract::common::JointId>& JointWaypoint::getJointIds() const { return joint_ids_; }
