@@ -41,7 +41,6 @@ using tesseract::command_language::JointWaypoint;
 using tesseract::command_language::MoveInstruction;
 using tesseract::command_language::MoveInstructionType;
 using tesseract::command_language::StateWaypoint;
-using tesseract::common::LinkId;
 using tesseract::common::ManipulatorInfo;
 
 inline CompositeInstruction freespaceExampleProgramIIWA(

@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include "command_language_test_program.hpp"
 
 using namespace tesseract::command_language;
-using tesseract::common::LinkId;
 using tesseract::common::ManipulatorInfo;
 
 static const bool DEBUG = false;

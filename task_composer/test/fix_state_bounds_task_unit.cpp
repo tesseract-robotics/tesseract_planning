@@ -21,7 +21,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract::task_composer;
 using namespace tesseract::command_language;
 using namespace tesseract::environment;
-using tesseract::common::LinkId;
 using tesseract::common::ManipulatorInfo;
 
 static const std::string FIX_STATE_BOUNDS_TASK_NAME = "FixStateBoundsTask";

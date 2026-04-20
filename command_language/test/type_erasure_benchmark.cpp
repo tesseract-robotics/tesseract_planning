@@ -43,7 +43,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/common/utils.h>
 
 using namespace tesseract::command_language;
-using tesseract::common::LinkId;
 using tesseract::common::ManipulatorInfo;
 
 CompositeInstruction getProgram()
