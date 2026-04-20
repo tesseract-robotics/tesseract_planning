@@ -217,7 +217,7 @@ Eigen::VectorXd getJointPosition(const std::vector<common::JointId>& joint_ids, 
   }
 
   if (jn.size() != joint_ids.size())
-    throw std::runtime_error("Joint name sizes do not match!");
+    throw std::runtime_error("Joint ID sizes do not match!");
 
   if (joint_ids == jn)
     return jv;
@@ -230,7 +230,7 @@ Eigen::VectorXd getJointPosition(const std::vector<common::JointId>& joint_ids, 
 
     auto it = std::find(jn.begin(), jn.end(), joint_ids[i]);
     if (it == jn.end())
-      throw std::runtime_error("Joint names do not match!");
+      throw std::runtime_error("Joint IDs do not match!");
 
     long idx = std::distance(jn.begin(), it);
     output(static_cast<long>(i)) = jv(idx);
@@ -320,7 +320,7 @@ bool formatJointPosition(const std::vector<common::JointId>& joint_ids, Waypoint
     const std::vector<common::JointId>& seed_ids = seed.joint_ids;
 
     if (seed_ids.size() != joint_ids.size())
-      throw std::runtime_error("Joint name sizes do not match!");
+      throw std::runtime_error("Joint ID sizes do not match!");
 
     if (joint_ids == seed_ids)
       return false;
@@ -333,7 +333,7 @@ bool formatJointPosition(const std::vector<common::JointId>& joint_ids, Waypoint
 
       auto it = std::find(seed_ids.begin(), seed_ids.end(), joint_ids[i]);
       if (it == seed_ids.end())
-        throw std::runtime_error("Joint names do not match!");
+        throw std::runtime_error("Joint IDs do not match!");
 
       long idx = std::distance(seed_ids.begin(), it);
       output(static_cast<long>(i)) = seed.position(idx);
@@ -350,7 +350,7 @@ bool formatJointPosition(const std::vector<common::JointId>& joint_ids, Waypoint
   }
 
   if (jn_local.size() != joint_ids.size())
-    throw std::runtime_error("Joint name sizes do not match!");
+    throw std::runtime_error("Joint ID sizes do not match!");
 
   if (joint_ids == jn_local)
     return false;
@@ -363,7 +363,7 @@ bool formatJointPosition(const std::vector<common::JointId>& joint_ids, Waypoint
 
     auto it = std::find(jn_local.begin(), jn_local.end(), joint_ids[i]);
     if (it == jn_local.end())
-      throw std::runtime_error("Joint names do not match!");
+      throw std::runtime_error("Joint IDs do not match!");
 
     long idx = std::distance(jn_local.begin(), it);
     output(static_cast<long>(i)) = (*jv)(idx);
