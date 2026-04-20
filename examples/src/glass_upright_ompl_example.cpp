@@ -67,7 +67,7 @@ public:
     , tesseract_(std::move(tesseract))
     , fwd_kin_(std::move(fwd_kin))
     , manipulator_(std::move(manipulator))
-    , tcp_link_(std::move(tcp_link))
+    , tcp_link_(tcp_link)
     , plotter_(plotter)
   {
     trajopt_common::gLogLevel = trajopt_common::LevelError;
@@ -116,7 +116,7 @@ public:
 
     auto fn = [this](const Eigen::VectorXd& jv) {
       auto transforms = fwd_kin_->calcFwdKin(jv);
-      const Eigen::Isometry3d& pose = transforms.at(tesseract::common::LinkId(tcp_link_));
+      const Eigen::Isometry3d& pose = transforms.at(tcp_link_);
 
       Eigen::Vector3d z_axis = pose.matrix().col(2).template head<3>().normalized();
 
@@ -175,7 +175,7 @@ private:
   tesseract::Tesseract::Ptr tesseract_;
   tesseract::kinematics::ForwardKinematics::Ptr fwd_kin_;
   std::string manipulator_;
-  std::string tcp_link_;
+  tesseract::common::LinkId tcp_link_;
   tesseract_rosutils::ROSPlottingPtr plotter_;
 };
 
@@ -188,7 +188,7 @@ public:
     : ompl::base::Constraint(fwd_kin->numJoints(), 1)
     , normal_(normal.normalized())
     , fwd_kin_(std::move(fwd_kin))
-    , tcp_link_(std::move(tcp_link))
+    , tcp_link_(tcp_link)
   {
   }
 
@@ -197,7 +197,7 @@ public:
   void function(const Eigen::Ref<const Eigen::VectorXd>& x, Eigen::Ref<Eigen::VectorXd> out) const override
   {
     auto transforms = fwd_kin_->calcFwdKin(x);
-    const Eigen::Isometry3d& pose = transforms.at(tesseract::common::LinkId(tcp_link_));
+    const Eigen::Isometry3d& pose = transforms.at(tcp_link_);
 
     Eigen::Vector3d z_axis = pose.matrix().col(2).template head<3>().normalized();
 
@@ -207,7 +207,7 @@ public:
 private:
   Eigen::Vector3d normal_;
   tesseract::kinematics::ForwardKinematics::Ptr fwd_kin_;
-  std::string tcp_link_;
+  tesseract::common::LinkId tcp_link_;
 };
 
 GlassUprightOMPLExample::GlassUprightOMPLExample(std::shared_ptr<tesseract::environment::Environment> env,
