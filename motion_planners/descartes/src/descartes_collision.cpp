@@ -61,7 +61,7 @@ bool DescartesCollision::validate(tesseract::collision::ContactResultMap& contac
   // Happens in two phases:
   // 1. Compute the transform of all objects
   contact_results.clear();
-  transforms_cache = manip_->calcFwdKin(pos);
+  manip_->calcFwdKin(transforms_cache, pos);
 
   tesseract::collision::ContactRequest contact_request(collision_check_config_.contact_request);
   contact_request.type = tesseract::collision::ContactTestType::FIRST;
@@ -77,7 +77,7 @@ double DescartesCollision::distance(tesseract::collision::ContactResultMap& cont
   // Happens in two phases:
   // 1. Compute the transform of all objects
   contact_results.clear();
-  transforms_cache = manip_->calcFwdKin(pos);
+  manip_->calcFwdKin(transforms_cache, pos);
 
   tesseract::collision::ContactRequest contact_request(collision_check_config_.contact_request);
   contact_request.type = tesseract::collision::ContactTestType::CLOSEST;
