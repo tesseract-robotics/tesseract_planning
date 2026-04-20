@@ -74,7 +74,8 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   manager->applyContactManagerConfig(profile.contact_manager_config);
 
   contacts.clear();
-  auto state = joint_group->calcFwdKin(start_pos);
+  TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state;
+  joint_group->calcFwdKin(state, start_pos);
   checkTrajectoryState(contacts, *manager, state, profile.collision_check_config.contact_request);
   if (contacts.empty())
   {
