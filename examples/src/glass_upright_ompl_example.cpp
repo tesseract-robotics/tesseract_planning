@@ -116,7 +116,7 @@ public:
 
     auto fn = [this](const Eigen::VectorXd& jv) {
       auto transforms = fwd_kin_->calcFwdKin(jv);
-      const Eigen::Isometry3d& pose = transforms.begin()->second;
+      const Eigen::Isometry3d& pose = transforms.at(tesseract::common::LinkId(tcp_link_));
 
       Eigen::Vector3d z_axis = pose.matrix().col(2).template head<3>().normalized();
 
@@ -182,8 +182,13 @@ private:
 class GlassUprightConstraint : public ompl::base::Constraint
 {
 public:
-  GlassUprightConstraint(const Eigen::Vector3d& normal, tesseract::kinematics::ForwardKinematics::Ptr fwd_kin)
-    : ompl::base::Constraint(fwd_kin->numJoints(), 1), normal_(normal.normalized()), fwd_kin_(std::move(fwd_kin))
+  GlassUprightConstraint(const Eigen::Vector3d& normal,
+                         tesseract::kinematics::ForwardKinematics::Ptr fwd_kin,
+                         std::string tcp_link)
+    : ompl::base::Constraint(fwd_kin->numJoints(), 1)
+    , normal_(normal.normalized())
+    , fwd_kin_(std::move(fwd_kin))
+    , tcp_link_(std::move(tcp_link))
   {
   }
 
@@ -192,7 +197,7 @@ public:
   void function(const Eigen::Ref<const Eigen::VectorXd>& x, Eigen::Ref<Eigen::VectorXd> out) const override
   {
     auto transforms = fwd_kin_->calcFwdKin(x);
-    const Eigen::Isometry3d& pose = transforms.begin()->second;
+    const Eigen::Isometry3d& pose = transforms.at(tesseract::common::LinkId(tcp_link_));
 
     Eigen::Vector3d z_axis = pose.matrix().col(2).template head<3>().normalized();
 
@@ -202,6 +207,7 @@ public:
 private:
   Eigen::Vector3d normal_;
   tesseract::kinematics::ForwardKinematics::Ptr fwd_kin_;
+  std::string tcp_link_;
 };
 
 GlassUprightOMPLExample::GlassUprightOMPLExample(std::shared_ptr<tesseract::environment::Environment> env,
@@ -291,7 +297,7 @@ bool GlassUprightOMPLExample::run()
   else
   {
     Eigen::Vector3d normal = -1.0 * Eigen::Vector3d::UnitZ();
-    ompl_config->constraint = std::make_shared<GlassUprightConstraint>(normal, kin);
+    ompl_config->constraint = std::make_shared<GlassUprightConstraint>(normal, kin, "tool0");
   }
 
   for (int i = 0; i < 4; ++i)
