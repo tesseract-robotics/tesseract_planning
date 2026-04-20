@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/command_language/constants.h>
 #include <tesseract/kinematics/joint_group.h>
 #include <tesseract/common/kinematic_limits.h>
+#include <tesseract/common/types.h>
 #include <tesseract/motion_planners/robot_config.h>
 #include <tesseract/motion_planners/types.h>
 

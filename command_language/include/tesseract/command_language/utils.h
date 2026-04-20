@@ -80,7 +80,7 @@ const Eigen::VectorXd& getJointPosition(const T&) = delete;
  *
  * Throws if waypoint does not directly contain that information
  *
- * @param waypoint The waypoint to try and extract the joint position from
+ * @param waypoint The waypoint to try and extract the joint names from
  * @return The joint names
  */
 std::vector<std::string> getJointNames(const WaypointPoly& waypoint);
