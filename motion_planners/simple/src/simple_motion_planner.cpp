@@ -210,7 +210,7 @@ SimpleMotionPlanner::processCompositeInstruction(tesseract::command_language::Mo
                 prev_instruction, *request.env, request.instructions.getManipulatorInfo());
             auto start_seed = getClosestJointSolution(info, start_state.getJointValues(manip->getJointIds()));
             start_waypoint.as<tesseract::command_language::CartesianWaypointPoly>().setSeed(
-                tesseract::common::JointState(manip->getJointNames(), start_seed));
+                tesseract::common::JointState(manip->getJointIds(), start_seed));
           }
         }
         else
