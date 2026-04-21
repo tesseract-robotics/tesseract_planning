@@ -195,8 +195,8 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   // Create manipulator information for program
   tesseract::common::ManipulatorInfo mi;
   mi.manipulator = "manipulator_aux";
-  mi.working_frame = tesseract::common::LinkId("part");
-  mi.tcp_frame = tesseract::common::LinkId("grinder_frame");
+  mi.working_frame = "part";
+  mi.tcp_frame = "grinder_frame";
 
   // Create Task Composer Plugin Factory
   std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();

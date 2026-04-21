@@ -22,6 +22,7 @@
  * limitations under the License.
  */
 #include <tesseract/common/macros.h>
+#include <tesseract/common/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <trajopt/plot_callback.hpp>
@@ -217,7 +218,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   pci->callbacks = solver_profile->createOptimizationCallbacks();
 
   // Get kinematics information
-  std::vector<std::string> active_links = pci->kin->getActiveLinkNames();
+  std::vector<common::LinkId> active_links = pci->kin->getActiveLinkIds();
 
   // Create a temp seed storage.
   std::vector<Eigen::VectorXd> seed_states;

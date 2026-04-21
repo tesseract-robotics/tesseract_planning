@@ -120,8 +120,8 @@ Command::Ptr addBox(double box_x, double box_y, double box_side)
   link_box.collision.push_back(collision);
 
   Joint joint_box("joint_box");
-  joint_box.parent_link_id = tesseract::common::LinkId("workcell_base");
-  joint_box.child_link_id = tesseract::common::LinkId(LINK_BOX_NAME);
+  joint_box.parent_link_id = "workcell_base";
+  joint_box.child_link_id = LINK_BOX_NAME;
   joint_box.type = JointType::FIXED;
   joint_box.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   joint_box.parent_to_joint_origin_transform.translation() += Eigen::Vector3d(box_x, box_y, (box_side / 2.0) + OFFSET);
@@ -188,7 +188,7 @@ bool PickAndPlaceExample::run()
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
-  CompositeInstruction pick_program("DEFAULT", ManipulatorInfo("manipulator", tesseract::common::LinkId(LINK_BASE_NAME), tesseract::common::LinkId(LINK_END_EFFECTOR_NAME)));
+  CompositeInstruction pick_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
   StateWaypoint pick_swp{ joint_names, joint_pos };
   MoveInstruction start_instruction(pick_swp, MoveInstructionType::FREESPACE, "FREESPACE");
@@ -360,8 +360,8 @@ bool PickAndPlaceExample::run()
   // Detach the simulated box from the world and attach to the end effector
   tesseract::environment::Commands cmds;
   Joint joint_box2("joint_box2");
-  joint_box2.parent_link_id = tesseract::common::LinkId(LINK_END_EFFECTOR_NAME);
-  joint_box2.child_link_id = tesseract::common::LinkId(LINK_BOX_NAME);
+  joint_box2.parent_link_id = LINK_END_EFFECTOR_NAME;
+  joint_box2.child_link_id = LINK_BOX_NAME;
   joint_box2.type = JointType::FIXED;
   joint_box2.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   joint_box2.parent_to_joint_origin_transform.translation() += Eigen::Vector3d(0, 0, box_size_ / 2.0);
@@ -406,7 +406,7 @@ bool PickAndPlaceExample::run()
   place_approach_pose.translation() += Eigen::Vector3d(0.0, -0.25, 0);
 
   // Create Program
-  CompositeInstruction place_program("DEFAULT", ManipulatorInfo("manipulator", tesseract::common::LinkId(LINK_BASE_NAME), tesseract::common::LinkId(LINK_END_EFFECTOR_NAME)));
+  CompositeInstruction place_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
   // Define the approach pose
   CartesianWaypoint place_wp0{ retreat_pose };

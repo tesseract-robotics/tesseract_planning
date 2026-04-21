@@ -125,8 +125,8 @@ Command::Ptr addPointCloud()
   link_octomap.collision.push_back(collision);
 
   Joint joint_octomap("joint_octomap_attached");
-  joint_octomap.parent_link_id = tesseract::common::LinkId("base_link");
-  joint_octomap.child_link_id = tesseract::common::LinkId(link_octomap.getName());
+  joint_octomap.parent_link_id = "base_link";
+  joint_octomap.child_link_id = link_octomap.getId();
   joint_octomap.type = JointType::FIXED;
 
   return std::make_shared<tesseract::environment::AddLinkCommand>(link_octomap, joint_octomap);
@@ -185,7 +185,7 @@ bool BasicCartesianExample::run()
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
-  CompositeInstruction program("cartesian_program", ManipulatorInfo("manipulator", tesseract::common::LinkId("base_link"), tesseract::common::LinkId("tool0")));
+  CompositeInstruction program("cartesian_program", ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
   StateWaypoint wp0{ joint_names, joint_pos };

@@ -94,8 +94,8 @@ protected:
     env_ = env;
 
     manip_.manipulator = "manipulator";
-    manip_.working_frame = tesseract::common::LinkId("base_link");
-    manip_.tcp_frame = tesseract::common::LinkId("tool0");
+    manip_.working_frame = "base_link";
+    manip_.tcp_frame = "tool0";
   }
 };
 

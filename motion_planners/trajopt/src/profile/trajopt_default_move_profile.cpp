@@ -81,7 +81,7 @@ TrajOptWaypointInfo
 TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstructionPoly& move_instruction,
                                   const tesseract::common::ManipulatorInfo& composite_manip_info,
                                   const std::shared_ptr<const tesseract::environment::Environment>& env,
-                                  const std::vector<std::string>& active_links,
+                                  const std::vector<tesseract::common::LinkId>& active_links,
                                   int index) const
 {
   assert(!(composite_manip_info.empty() && move_instruction.getManipulatorInfo().empty()));
@@ -103,9 +103,9 @@ TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstruc
      * (i.e. defined relative to a frame that will move with the kinematic chain)
      */
     bool is_active_tcp_frame =
-        (std::find(active_links.begin(), active_links.end(), mi.tcp_frame.name()) != active_links.end());
+        (std::find(active_links.begin(), active_links.end(), mi.tcp_frame) != active_links.end());
     bool is_static_working_frame =
-        (std::find(active_links.begin(), active_links.end(), mi.working_frame.name()) == active_links.end());
+        (std::find(active_links.begin(), active_links.end(), mi.working_frame) == active_links.end());
 
     // Override cost tolerances if the profile specifies that they should be overrided.
     Eigen::VectorXd lower_tolerance_cost = cwp.getLowerTolerance();

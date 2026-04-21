@@ -83,8 +83,8 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     tesseract::common::ManipulatorInfo manip;
-    manip.tcp_frame = tesseract::common::LinkId("tool0");
-    manip.working_frame = tesseract::common::LinkId("base_link");
+    manip.tcp_frame = "tool0";
+    manip.working_frame = "base_link";
     manip.manipulator = "manipulator";
     manip.manipulator_ik_solver = "OPWInvKin";
 
