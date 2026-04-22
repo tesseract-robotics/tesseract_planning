@@ -108,7 +108,7 @@ private:
   bool isContactAllowed(const std::string& a, const std::string& b) const;
 
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip_; /**< @brief The tesseract state solver */
-  std::vector<tesseract::common::LinkId> active_link_ids_;          /**< @brief A vector of active link IDs */
+  std::vector<tesseract::common::LinkId> active_link_ids_;         /**< @brief A vector of active link IDs */
   std::shared_ptr<tesseract::collision::DiscreteContactManager> contact_manager_; /**< @brief The discrete contact
                                                                                     manager */
   tesseract::collision::CollisionCheckConfig collision_check_config_;

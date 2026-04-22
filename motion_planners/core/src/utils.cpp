@@ -530,8 +530,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
         const auto joint_ids1 =
             getJointIds(mi.at(iStep + 1).get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint());
 
-        state_solver.getLinkTransforms(
-            link_transforms, joint_ids0, joint_positions0);
+        state_solver.getLinkTransforms(link_transforms, joint_ids0, joint_positions0);
         state_solver.getLinkTransforms(link_transforms1, joint_ids1, joint_positions1);
 
         tesseract::environment::checkTrajectorySegment(

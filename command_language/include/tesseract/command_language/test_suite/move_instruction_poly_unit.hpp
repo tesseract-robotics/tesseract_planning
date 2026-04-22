@@ -537,15 +537,13 @@ void runMoveInstructionSettersTest()
 
   EXPECT_TRUE(instr.getManipulatorInfo().empty());
   EXPECT_TRUE(std::as_const(instr).getManipulatorInfo().empty());
-  tesseract::common::ManipulatorInfo manip_info(
-      "manip", "base_link", "tool0");
+  tesseract::common::ManipulatorInfo manip_info("manip", "base_link", "tool0");
   instr.setManipulatorInfo(manip_info);
   EXPECT_FALSE(instr.getManipulatorInfo().empty());
   EXPECT_FALSE(std::as_const(instr).getManipulatorInfo().empty());
   EXPECT_TRUE(instr.getManipulatorInfo() == manip_info);
 
-  tesseract::common::ManipulatorInfo manip_info2(
-      "manip2", "base_link2", "tool02");
+  tesseract::common::ManipulatorInfo manip_info2("manip2", "base_link2", "tool02");
   instr.getManipulatorInfo() = manip_info2;
   EXPECT_FALSE(instr.getManipulatorInfo().empty());
   EXPECT_TRUE(instr.getManipulatorInfo() == manip_info2);

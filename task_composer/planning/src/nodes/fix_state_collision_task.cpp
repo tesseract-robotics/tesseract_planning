@@ -91,8 +91,8 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
     for (const auto& pair : contacts)
     {
       for (const auto& contact : pair.second)
-        CONSOLE_BRIDGE_logDebug(("Contact Results: Links: " + contact.link_ids[0].name() + ", " + contact.link_ids[1].name() +
-                                 " Dist: " + std::to_string(contact.distance))
+        CONSOLE_BRIDGE_logDebug(("Contact Results: Links: " + contact.link_ids[0].name() + ", " +
+                                 contact.link_ids[1].name() + " Dist: " + std::to_string(contact.distance))
                                     .c_str());
     }
   }

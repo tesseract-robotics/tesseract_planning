@@ -202,9 +202,7 @@ void runCartesianWaypointTest()
 
   {  // Set/Get Seed
     tesseract::common::JointState seed_state;
-    seed_state.joint_ids = { tesseract::common::JointId("joint_1"),
-                             "joint_2",
-                             "joint_3" };
+    seed_state.joint_ids = { tesseract::common::JointId("joint_1"), "joint_2", "joint_3" };
     seed_state.position.resize(3);
     seed_state.position << .01, .02, .03;
     seed_state.velocity.resize(3);
