@@ -218,64 +218,96 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
   return output;
 }
 
+namespace
+{
+/// @brief Build an index permutation such that out[i] = in[perm[i]] gives `in` reordered to `target_names`.
+/// Throws if sizes mismatch or a target name is absent from `current_names`.
+std::vector<std::size_t> buildJointPermutation(const std::vector<std::string>& target_names,
+                                               const std::vector<std::string>& current_names)
+{
+  if (current_names.size() != target_names.size())
+    throw std::runtime_error("Joint name sizes do not match!");
+
+  std::vector<std::size_t> perm(target_names.size());
+  for (std::size_t i = 0; i < target_names.size(); ++i)
+  {
+    auto it = std::find(current_names.begin(), current_names.end(), target_names[i]);
+    if (it == current_names.end())
+      throw std::runtime_error("Joint names do not match!");
+    perm[i] = static_cast<std::size_t>(std::distance(current_names.begin(), it));
+  }
+  return perm;
+}
+
+/// @brief Apply `perm` to `vec` in-place. No-op when `vec` is empty.
+/// Throws when `vec` is non-empty but its size does not match `perm`.
+void applyJointPermutation(Eigen::VectorXd& vec, const std::vector<std::size_t>& perm)
+{
+  if (vec.size() == 0)
+    return;
+  if (static_cast<std::size_t>(vec.size()) != perm.size())
+    throw std::runtime_error("Joint-correlated vector size does not match joint count!");
+
+  Eigen::VectorXd out(vec.size());
+  for (std::size_t i = 0; i < perm.size(); ++i)
+    out(static_cast<Eigen::Index>(i)) = vec(static_cast<Eigen::Index>(perm[i]));
+  vec = std::move(out);
+}
+}  // namespace
+
 bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint)
 {
-  Eigen::VectorXd* jv{ nullptr };
-  std::vector<std::string>* jn{ nullptr };
   if (waypoint.isJointWaypoint())
   {
     auto& jwp = waypoint.as<JointWaypointPoly>();
-    jv = &(jwp.getPosition());
-    jn = &(jwp.getNames());
+    const std::vector<std::string>& current = jwp.getNames();
+    if (current == joint_names)
+      return false;
+
+    const std::vector<std::size_t> perm = buildJointPermutation(joint_names, current);
+    applyJointPermutation(jwp.getPosition(), perm);
+    applyJointPermutation(jwp.getLowerTolerance(), perm);
+    applyJointPermutation(jwp.getUpperTolerance(), perm);
+    jwp.setNames(joint_names);
+    return true;
   }
-  else if (waypoint.isStateWaypoint())
+
+  if (waypoint.isStateWaypoint())
   {
     auto& swp = waypoint.as<StateWaypointPoly>();
-    jv = &(swp.getPosition());
-    jn = &(swp.getNames());
+    const std::vector<std::string>& current = swp.getNames();
+    if (current == joint_names)
+      return false;
+
+    const std::vector<std::size_t> perm = buildJointPermutation(joint_names, current);
+    applyJointPermutation(swp.getPosition(), perm);
+    applyJointPermutation(swp.getVelocity(), perm);
+    applyJointPermutation(swp.getAcceleration(), perm);
+    applyJointPermutation(swp.getEffort(), perm);
+    swp.setNames(joint_names);
+    return true;
   }
-  else if (waypoint.isCartesianWaypoint())
+
+  if (waypoint.isCartesianWaypoint())
   {
     auto& cwp = waypoint.as<CartesianWaypointPoly>();
-    if (cwp.hasSeed())
-    {
-      jv = &(cwp.getSeed().position);
-      jn = &(cwp.getSeed().joint_names);
-    }
-    else
-    {
+    if (!cwp.hasSeed())
       return false;
-    }
-  }
-  else
-  {
-    throw std::runtime_error("Unsupported waypoint type.");
-  }
 
-  if (jn->size() != joint_names.size())
-    throw std::runtime_error("Joint name sizes do not match!");
+    auto& seed = cwp.getSeed();
+    if (seed.joint_names == joint_names)
+      return false;
 
-  if (joint_names == *jn)
-    return false;
-
-  Eigen::VectorXd output = *jv;
-  for (std::size_t i = 0; i < joint_names.size(); ++i)
-  {
-    if (joint_names[i] == (*jn)[i])
-      continue;
-
-    auto it = std::find(jn->begin(), jn->end(), joint_names[i]);
-    if (it == jn->end())
-      throw std::runtime_error("Joint names do not match!");
-
-    long idx = std::distance(jn->begin(), it);
-    output(static_cast<long>(i)) = (*jv)(idx);
+    const std::vector<std::size_t> perm = buildJointPermutation(joint_names, seed.joint_names);
+    applyJointPermutation(seed.position, perm);
+    applyJointPermutation(seed.velocity, perm);
+    applyJointPermutation(seed.acceleration, perm);
+    applyJointPermutation(seed.effort, perm);
+    seed.joint_names = joint_names;
+    return true;
   }
 
-  *jn = joint_names;
-  *jv = output;
-
-  return true;
+  throw std::runtime_error("Unsupported waypoint type.");
 }
 
 bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)

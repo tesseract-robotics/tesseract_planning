@@ -321,6 +321,26 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionTests)  // NOLINT
   EXPECT_ANY_THROW(formatJointPosition(format_joint_names, error_poly));  // NOLINT
 }
 
+TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersJointWaypointTolerances)  // NOLINT
+{
+  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
+  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  Eigen::VectorXd position = Eigen::Vector2d(3.0, 4.0);
+  Eigen::VectorXd lower = Eigen::Vector2d(-0.1, -0.2);
+  Eigen::VectorXd upper = Eigen::Vector2d(0.3, 0.4);
+
+  JointWaypoint jwp{ joint_names, position, lower, upper };
+  WaypointPoly wp_poly{ jwp };
+
+  EXPECT_TRUE(formatJointPosition(format_joint_names, wp_poly));
+
+  const auto& out = wp_poly.as<JointWaypointPoly>();
+  EXPECT_EQ(out.getNames(), format_joint_names);
+  EXPECT_TRUE(out.getPosition().isApprox(Eigen::Vector2d(4.0, 3.0)));
+  EXPECT_TRUE(out.getLowerTolerance().isApprox(Eigen::Vector2d(-0.2, -0.1)));
+  EXPECT_TRUE(out.getUpperTolerance().isApprox(Eigen::Vector2d(0.4, 0.3)));
+}
+
 TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLINT
 {
   // Start Joint Position for the program
