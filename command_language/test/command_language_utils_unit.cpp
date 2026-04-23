@@ -382,6 +382,32 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionStateWaypointEmptyAux
   EXPECT_EQ(out.getEffort().size(), 0);
 }
 
+TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersCartesianSeedAuxVectors)  // NOLINT
+{
+  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
+  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+
+  tesseract::common::JointState seed;
+  seed.joint_names = joint_names;
+  seed.position = Eigen::Vector2d(1.0, 2.0);
+  seed.velocity = Eigen::Vector2d(0.1, 0.2);
+  seed.acceleration = Eigen::Vector2d(0.01, 0.02);
+  seed.effort = Eigen::Vector2d(10.0, 20.0);
+
+  CartesianWaypoint cwp(Eigen::Isometry3d::Identity());
+  cwp.setSeed(seed);
+
+  WaypointPoly wp_poly{ cwp };
+  EXPECT_TRUE(formatJointPosition(format_joint_names, wp_poly));
+
+  const auto& out_seed = wp_poly.as<CartesianWaypointPoly>().getSeed();
+  EXPECT_EQ(out_seed.joint_names, format_joint_names);
+  EXPECT_TRUE(out_seed.position.isApprox(Eigen::Vector2d(2.0, 1.0)));
+  EXPECT_TRUE(out_seed.velocity.isApprox(Eigen::Vector2d(0.2, 0.1)));
+  EXPECT_TRUE(out_seed.acceleration.isApprox(Eigen::Vector2d(0.02, 0.01)));
+  EXPECT_TRUE(out_seed.effort.isApprox(Eigen::Vector2d(20.0, 10.0)));
+}
+
 TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLINT
 {
   // Start Joint Position for the program
