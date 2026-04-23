@@ -725,6 +725,48 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
   }
 }
 
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskReordersTolerances)  // NOLINT
+{
+  // joint_1/joint_2 in pre-planning (formatted) order; post-planning reverses to joint_2/joint_1.
+  std::vector<std::string> orig_names = { "joint_1", "joint_2" };
+  std::vector<std::string> post_names = { "joint_2", "joint_1" };
+
+  // Pre-planning program: one toleranced JointWaypoint in orig_names order.
+  JointWaypoint jwp_pre(
+      orig_names, Eigen::Vector2d(10.0, 20.0), Eigen::Vector2d(-0.1, -0.2), Eigen::Vector2d(0.3, 0.4));
+  MoveInstruction mi_pre(JointWaypointPoly(jwp_pre), MoveInstructionType::FREESPACE, "freespace_profile");
+  CompositeInstruction ci_pre;
+  ci_pre.push_back(mi_pre);
+
+  // Post-planning program: same move but in post_names order with new positions.
+  JointWaypoint jwp_post(post_names, Eigen::Vector2d(99.0, 88.0));
+  MoveInstruction mi_post(JointWaypointPoly(jwp_post), MoveInstructionType::FREESPACE, "freespace_profile");
+  CompositeInstruction ci_post;
+  ci_post.push_back(mi_post);
+
+  auto data = std::make_unique<TaskComposerDataStorage>();
+  data->setData("pre_key", ci_pre);
+  data->setData("post_key", ci_post);
+  auto context = std::make_shared<TaskComposerContext>("abc", std::move(data));
+  FormatAsInputTask task("abc", "pre_key", "post_key", "out_key", true);
+  EXPECT_EQ(task.run(*context), 1);
+  auto node_info = context->task_infos->getInfo(task.getUUID());
+  ASSERT_TRUE(node_info.has_value());
+  EXPECT_EQ(node_info->return_value, 1);
+
+  auto ci_out_poly = context->data_storage->getData("out_key");
+  const auto& ci_out = ci_out_poly.as<CompositeInstruction>();
+  auto moves = ci_out.flatten();
+  ASSERT_EQ(moves.size(), 1U);
+  const auto& jwp_out = moves[0].get().as<MoveInstructionPoly>().getWaypoint().as<JointWaypointPoly>();
+
+  EXPECT_EQ(jwp_out.getNames(), post_names);
+  EXPECT_TRUE(jwp_out.getPosition().isApprox(Eigen::Vector2d(99.0, 88.0)));
+  // After reorder, joint_2's tolerance (index 1) should be first, joint_1's (index 0) second.
+  EXPECT_TRUE(jwp_out.getLowerTolerance().isApprox(Eigen::Vector2d(-0.2, -0.1)));
+  EXPECT_TRUE(jwp_out.getUpperTolerance().isApprox(Eigen::Vector2d(0.4, 0.3)));
+}
+
 TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  // NOLINT
 {
   {  // Construction

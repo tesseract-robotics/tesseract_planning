@@ -146,7 +146,9 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
       auto& jwp = mi.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
       if (!jwp.isConstrained() || (jwp.isConstrained() && jwp.isToleranced()))
       {
-        jwp.setNames(getJointNames(umi.getWaypoint()));
+        // Reorder the waypoint — including tolerances — to match the post-planning
+        // joint order, then overwrite position with the post-planning values.
+        formatJointPosition(getJointNames(umi.getWaypoint()), mi.getWaypoint());
         jwp.setPosition(getJointPosition(umi.getWaypoint()));
       }
     }
