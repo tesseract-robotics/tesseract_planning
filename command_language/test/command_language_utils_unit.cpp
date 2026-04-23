@@ -341,6 +341,47 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersJointWaypoint
   EXPECT_TRUE(out.getUpperTolerance().isApprox(Eigen::Vector2d(0.4, 0.3)));
 }
 
+TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersStateWaypointAuxVectors)  // NOLINT
+{
+  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
+  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  Eigen::VectorXd position = Eigen::Vector2d(1.0, 2.0);
+  Eigen::VectorXd velocity = Eigen::Vector2d(0.1, 0.2);
+  Eigen::VectorXd acceleration = Eigen::Vector2d(0.01, 0.02);
+  Eigen::VectorXd effort = Eigen::Vector2d(10.0, 20.0);
+
+  StateWaypoint swp{ joint_names, position };
+  swp.setVelocity(velocity);
+  swp.setAcceleration(acceleration);
+  swp.setEffort(effort);
+
+  WaypointPoly wp_poly{ swp };
+  EXPECT_TRUE(formatJointPosition(format_joint_names, wp_poly));
+
+  const auto& out = wp_poly.as<StateWaypointPoly>();
+  EXPECT_EQ(out.getNames(), format_joint_names);
+  EXPECT_TRUE(out.getPosition().isApprox(Eigen::Vector2d(2.0, 1.0)));
+  EXPECT_TRUE(out.getVelocity().isApprox(Eigen::Vector2d(0.2, 0.1)));
+  EXPECT_TRUE(out.getAcceleration().isApprox(Eigen::Vector2d(0.02, 0.01)));
+  EXPECT_TRUE(out.getEffort().isApprox(Eigen::Vector2d(20.0, 10.0)));
+}
+
+TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionStateWaypointEmptyAuxIsNoop)  // NOLINT
+{
+  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
+  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  Eigen::VectorXd position = Eigen::Vector2d(1.0, 2.0);
+
+  StateWaypoint swp{ joint_names, position };  // velocity/accel/effort default-empty
+  WaypointPoly wp_poly{ swp };
+
+  EXPECT_NO_THROW(formatJointPosition(format_joint_names, wp_poly));  // NOLINT
+  const auto& out = wp_poly.as<StateWaypointPoly>();
+  EXPECT_EQ(out.getVelocity().size(), 0);
+  EXPECT_EQ(out.getAcceleration().size(), 0);
+  EXPECT_EQ(out.getEffort().size(), 0);
+}
+
 TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLINT
 {
   // Start Joint Position for the program
