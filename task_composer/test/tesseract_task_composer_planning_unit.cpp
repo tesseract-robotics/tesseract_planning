@@ -751,7 +751,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskReordersT
   FormatAsInputTask task("abc", "pre_key", "post_key", "out_key", true);
   EXPECT_EQ(task.run(*context), 1);
   auto node_info = context->task_infos->getInfo(task.getUUID());
-  ASSERT_TRUE(node_info.has_value());
+  if (!node_info.has_value())
+    throw std::runtime_error("failed");
+
+  EXPECT_TRUE(node_info.has_value());
   EXPECT_EQ(node_info->return_value, 1);
 
   auto ci_out_poly = context->data_storage->getData("out_key");
