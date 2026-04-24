@@ -7,9 +7,13 @@ on:
       - 'dev**'
   pull_request:
     paths:
-      - 'tesseract**'
-      - '.github/workflows/windows.yml'
-      - '.github/workflows/windows_dependencies.repos'
+      - 'command_language/**'
+      - 'examples/**'
+      - 'motion_planners/**'
+      - 'time_parameterization/**'
+      - 'task_composer/**'
+      - ".github/workflows/unstable.yml"
+      - "**.repos"
   schedule:
     - cron: '0 5 * * *'
 

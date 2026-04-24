@@ -11,6 +11,7 @@ on:
       - 'examples/**'
       - 'motion_planners/**'
       - 'time_parameterization/**'
+      - 'task_composer/**'
       - '.github/workflows/ubuntu.yml'
       - '**.repos'
   schedule:

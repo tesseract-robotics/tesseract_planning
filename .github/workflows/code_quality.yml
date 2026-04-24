@@ -11,6 +11,7 @@ on:
       - 'examples/**'
       - 'motion_planners/**'
       - 'time_parameterization/**'
+      - 'task_composer/**'
       - '.github/workflows/code_quality.yml'
       - '.clang-tidy'
   schedule:
