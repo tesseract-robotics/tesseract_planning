@@ -377,6 +377,93 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionByIdTests)  // NOLINT
   EXPECT_ANY_THROW(formatJointPosition(format_joint_ids, error_poly));  // NOLINT
 }
 
+TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersJointWaypointTolerances)  // NOLINT
+{
+  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
+  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  Eigen::VectorXd position = Eigen::Vector2d(3.0, 4.0);
+  Eigen::VectorXd lower = Eigen::Vector2d(-0.1, -0.2);
+  Eigen::VectorXd upper = Eigen::Vector2d(0.3, 0.4);
+
+  JointWaypoint jwp{ joint_names, position, lower, upper };
+  WaypointPoly wp_poly{ jwp };
+
+  EXPECT_TRUE(formatJointPosition(format_joint_names, wp_poly));
+
+  const auto& out = wp_poly.as<JointWaypointPoly>();
+  EXPECT_EQ(out.getNames(), format_joint_names);
+  EXPECT_TRUE(out.getPosition().isApprox(Eigen::Vector2d(4.0, 3.0)));
+  EXPECT_TRUE(out.getLowerTolerance().isApprox(Eigen::Vector2d(-0.2, -0.1)));
+  EXPECT_TRUE(out.getUpperTolerance().isApprox(Eigen::Vector2d(0.4, 0.3)));
+}
+
+TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersStateWaypointAuxVectors)  // NOLINT
+{
+  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
+  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  Eigen::VectorXd position = Eigen::Vector2d(1.0, 2.0);
+  Eigen::VectorXd velocity = Eigen::Vector2d(0.1, 0.2);
+  Eigen::VectorXd acceleration = Eigen::Vector2d(0.01, 0.02);
+  Eigen::VectorXd effort = Eigen::Vector2d(10.0, 20.0);
+
+  StateWaypoint swp{ joint_names, position };
+  swp.setVelocity(velocity);
+  swp.setAcceleration(acceleration);
+  swp.setEffort(effort);
+
+  WaypointPoly wp_poly{ swp };
+  EXPECT_TRUE(formatJointPosition(format_joint_names, wp_poly));
+
+  const auto& out = wp_poly.as<StateWaypointPoly>();
+  EXPECT_EQ(out.getNames(), format_joint_names);
+  EXPECT_TRUE(out.getPosition().isApprox(Eigen::Vector2d(2.0, 1.0)));
+  EXPECT_TRUE(out.getVelocity().isApprox(Eigen::Vector2d(0.2, 0.1)));
+  EXPECT_TRUE(out.getAcceleration().isApprox(Eigen::Vector2d(0.02, 0.01)));
+  EXPECT_TRUE(out.getEffort().isApprox(Eigen::Vector2d(20.0, 10.0)));
+}
+
+TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionStateWaypointEmptyAuxIsNoop)  // NOLINT
+{
+  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
+  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  Eigen::VectorXd position = Eigen::Vector2d(1.0, 2.0);
+
+  StateWaypoint swp{ joint_names, position };  // velocity/accel/effort default-empty
+  WaypointPoly wp_poly{ swp };
+
+  EXPECT_NO_THROW(formatJointPosition(format_joint_names, wp_poly));  // NOLINT
+  const auto& out = wp_poly.as<StateWaypointPoly>();
+  EXPECT_EQ(out.getVelocity().size(), 0);
+  EXPECT_EQ(out.getAcceleration().size(), 0);
+  EXPECT_EQ(out.getEffort().size(), 0);
+}
+
+TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersCartesianSeedAuxVectors)  // NOLINT
+{
+  std::vector<tesseract::common::JointId> joint_ids = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> format_joint_ids = { "joint_2", "joint_1" };
+
+  tesseract::common::JointState seed;
+  seed.joint_ids = joint_ids;
+  seed.position = Eigen::Vector2d(1.0, 2.0);
+  seed.velocity = Eigen::Vector2d(0.1, 0.2);
+  seed.acceleration = Eigen::Vector2d(0.01, 0.02);
+  seed.effort = Eigen::Vector2d(10.0, 20.0);
+
+  CartesianWaypoint cwp(Eigen::Isometry3d::Identity());
+  cwp.setSeed(seed);
+
+  WaypointPoly wp_poly{ cwp };
+  EXPECT_TRUE(formatJointPosition(format_joint_ids, wp_poly));
+
+  const auto& out_seed = wp_poly.as<CartesianWaypointPoly>().getSeed();
+  EXPECT_EQ(out_seed.joint_ids, format_joint_ids);
+  EXPECT_TRUE(out_seed.position.isApprox(Eigen::Vector2d(2.0, 1.0)));
+  EXPECT_TRUE(out_seed.velocity.isApprox(Eigen::Vector2d(0.2, 0.1)));
+  EXPECT_TRUE(out_seed.acceleration.isApprox(Eigen::Vector2d(0.02, 0.01)));
+  EXPECT_TRUE(out_seed.effort.isApprox(Eigen::Vector2d(20.0, 10.0)));
+}
+
 TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLINT
 {
   // Start Joint Position for the program

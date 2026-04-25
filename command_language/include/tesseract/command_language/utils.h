@@ -76,16 +76,6 @@ template <class T>
 const Eigen::VectorXd& getJointPosition(const T&) = delete;
 
 /**
- * @brief Gets joint names from waypoints that contain that information.
- *
- * Throws if waypoint does not directly contain that information
- *
- * @param waypoint The waypoint to try and extract the joint names from
- * @return The joint names
- */
-std::vector<std::string> getJointNames(const WaypointPoly& waypoint);
-
-/**
  * @brief Gets joint IDs from waypoints that contain that information.
  *
  * Throws if waypoint does not directly contain that information
@@ -94,6 +84,16 @@ std::vector<std::string> getJointNames(const WaypointPoly& waypoint);
  * @return The joint IDs
  */
 std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint);
+
+/**
+ * @brief Gets joint names from waypoints that contain that information.
+ *
+ * Throws if waypoint does not directly contain that information
+ *
+ * @param waypoint The waypoint to try and extract the joint names from
+ * @return The joint names
+ */
+std::vector<std::string> getJointNames(const WaypointPoly& waypoint);
 
 /**
  * @brief Get the joint positions ordered by the provided joint ids
@@ -162,20 +162,6 @@ template <class T>
 bool formatJointPosition(const std::vector<std::string>&, T&) = delete;
 
 /**
- * @brief Check the waypoints joint order against the provided joint names
- *
- * Throws if waypoint does not directly contain that information
- *
- * Also this is an expensive call so the motion planners do not leverage this and they expect the order through out
- * the program all match.
- *
- * @param joint_names The joint names defining the order desired
- * @param waypoint The waypoint to check format
- * @return True if waypoint format is correct, otherwise false.
- */
-bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint);
-
-/**
  * @brief Check the waypoints joint order against the provided joint ids
  *
  * Throws if waypoint does not directly contain that information
@@ -188,6 +174,20 @@ bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const
  * @return True if waypoint format is correct, otherwise false.
  */
 bool checkJointPositionFormat(const std::vector<tesseract::common::JointId>& joint_ids, const WaypointPoly& waypoint);
+
+/**
+ * @brief Check the waypoints joint order against the provided joint names
+ *
+ * Throws if waypoint does not directly contain that information
+ *
+ * Also this is an expensive call so the motion planners do not leverage this and they expect the order through out
+ * the program all match.
+ *
+ * @param joint_names The joint names defining the order desired
+ * @param waypoint The waypoint to check format
+ * @return True if waypoint format is correct, otherwise false.
+ */
+bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint);
 
 /**
  * @brief Set the joint position for waypoints that contain that information
