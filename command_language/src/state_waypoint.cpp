@@ -33,22 +33,23 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract::command_language
 {
-StateWaypoint::StateWaypoint(const std::vector<std::string>& joint_names,
+StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                              const Eigen::Ref<const Eigen::VectorXd>& position)
-  : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(joint_names)), position_(position)
+  : joint_ids_(std::move(joint_ids)), position_(position)
 {
   if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
     throw std::runtime_error("StateWaypoint: parameters are not the same size!");
 }
-StateWaypoint::StateWaypoint(const std::vector<std::string>& names,
-                             const Eigen::VectorXd& position,      // NOLINT(modernize-pass-by-value)
-                             const Eigen::VectorXd& velocity,      // NOLINT(modernize-pass-by-value)
-                             const Eigen::VectorXd& acceleration,  // NOLINT(modernize-pass-by-value)
+
+StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
+                             Eigen::VectorXd position,
+                             Eigen::VectorXd velocity,
+                             Eigen::VectorXd acceleration,
                              double time)
-  : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
-  , position_(position)
-  , velocity_(velocity)
-  , acceleration_(acceleration)
+  : joint_ids_(std::move(joint_ids))
+  , position_(std::move(position))
+  , velocity_(std::move(velocity))
+  , acceleration_(std::move(acceleration))
   , time_(time)
 {
   if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() || position_.size() != velocity_.size() ||
@@ -57,7 +58,7 @@ StateWaypoint::StateWaypoint(const std::vector<std::string>& names,
 }
 
 StateWaypoint::StateWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position)
-  : StateWaypoint(names,
+  : StateWaypoint(std::vector<std::string>(names),
                   Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())))
 {
 }
@@ -68,7 +69,7 @@ StateWaypoint::StateWaypoint(std::initializer_list<std::string> names,
                              std::initializer_list<double> acceleration,
                              double time)
   : StateWaypoint(
-        names,
+        std::vector<std::string>(names),
         Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
         Eigen::Map<const Eigen::VectorXd>(velocity.begin(), static_cast<Eigen::Index>(velocity.size())),
         Eigen::Map<const Eigen::VectorXd>(acceleration.begin(), static_cast<Eigen::Index>(acceleration.size())),

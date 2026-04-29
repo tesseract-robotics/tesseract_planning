@@ -171,8 +171,7 @@ bool ConstantTCPSpeedParameterization::compute(tesseract::command_language::Comp
 
   // Construct the KDL chain
   tesseract::kinematics::KDLChainData data;
-  if (!tesseract::kinematics::parseSceneGraph(
-          data, *env.getSceneGraph(), jg->getBaseLinkId().name(), manip_info.tcp_frame.name()))
+  if (!tesseract::kinematics::parseSceneGraph(data, *env.getSceneGraph(), jg->getBaseLinkId(), manip_info.tcp_frame))
     throw std::runtime_error("Failed to construct KDL chain");
 
   // Create a Jacobian derivative solver

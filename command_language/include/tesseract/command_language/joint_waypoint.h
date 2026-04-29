@@ -52,25 +52,23 @@ public:
   // LCOV_EXCL_STOP
 
   JointWaypoint() = default;
-  JointWaypoint(const std::vector<std::string>& names, Eigen::VectorXd position, bool is_constrained = true);
-  JointWaypoint(const std::vector<std::string>& names,
-                const Eigen::VectorXd& position,
-                const Eigen::VectorXd& lower_tol,
-                const Eigen::VectorXd& upper_tol);
-  // SFINAE-guarded JointId constructors to prevent overload ambiguity with string brace-init
+
+  // SFINAE-guarded string constructors (legacy/convenience). Names are hashed into JointIds via toIds.
   template <typename T,
-            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
-  JointWaypoint(T&& joint_ids, Eigen::VectorXd position, bool is_constrained = true)
-    : joint_ids_(std::forward<T>(joint_ids)), position_(std::move(position)), is_constrained_(is_constrained)
+            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<std::string>>, int> = 0>
+  JointWaypoint(const T& names, Eigen::VectorXd position, bool is_constrained = true)
+    : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
+    , position_(std::move(position))
+    , is_constrained_(is_constrained)
   {
     if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
       throw std::runtime_error("JointWaypoint: parameters are not the same size!");
   }
 
   template <typename T,
-            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
-  JointWaypoint(T&& joint_ids, Eigen::VectorXd position, Eigen::VectorXd lower_tol, Eigen::VectorXd upper_tol)
-    : joint_ids_(std::forward<T>(joint_ids))
+            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<std::string>>, int> = 0>
+  JointWaypoint(const T& names, Eigen::VectorXd position, Eigen::VectorXd lower_tol, Eigen::VectorXd upper_tol)
+    : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
     , position_(std::move(position))
     , lower_tolerance_(std::move(lower_tol))
     , upper_tolerance_(std::move(upper_tol))
@@ -80,6 +78,15 @@ public:
         position_.size() != lower_tolerance_.size() || position_.size() != upper_tolerance_.size())
       throw std::runtime_error("JointWaypoint: parameters are not the same size!");
   }
+
+  // JointId constructors (preferred path; no name->id hashing)
+  JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
+                Eigen::VectorXd position,
+                bool is_constrained = true);
+  JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
+                Eigen::VectorXd position,
+                Eigen::VectorXd lower_tol,
+                Eigen::VectorXd upper_tol);
   JointWaypoint(std::initializer_list<std::string> names,
                 std::initializer_list<double> position,
                 bool is_constrained = true);

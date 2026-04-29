@@ -12,7 +12,7 @@ if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJ
     tesseract::visualization)
   target_compile_options(motion_planners_chain_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-  target_compile_definitions(motion_planners_chain_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+  target_compile_definitions(motion_planners_chain_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
   target_clang_tidy(motion_planners_chain_example ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
   target_cxx_version(motion_planners_chain_example PRIVATE VERSION ${TESSERACT_CXX_VERSION})
   install(TARGETS motion_planners_chain_example DESTINATION bin)
@@ -30,7 +30,7 @@ if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJ
     tesseract::visualization)
   target_compile_options(motion_planners_raster_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                 ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-  target_compile_definitions(motion_planners_raster_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+  target_compile_definitions(motion_planners_raster_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
   target_clang_tidy(motion_planners_raster_example ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
   target_cxx_version(motion_planners_raster_example PRIVATE VERSION ${TESSERACT_CXX_VERSION})
   install(TARGETS motion_planners_raster_example DESTINATION bin)
@@ -48,7 +48,7 @@ if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_OMPL AND TESSERACT_BUILD_TRAJOPT)
     tesseract::visualization)
   target_compile_options(motion_planners_freespace_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                    ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-  target_compile_definitions(motion_planners_freespace_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+  target_compile_definitions(motion_planners_freespace_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
   target_clang_tidy(motion_planners_freespace_example ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
   target_cxx_version(motion_planners_freespace_example PRIVATE VERSION ${TESSERACT_CXX_VERSION})
   install(TARGETS motion_planners_freespace_example DESTINATION bin)

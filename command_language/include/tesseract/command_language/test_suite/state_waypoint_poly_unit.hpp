@@ -122,7 +122,7 @@ void runStateWaypointTest()
 
     {  // Test assigning
       StateWaypointPoly wp{ T() };
-      wp.setNames(names);
+      wp.getJointIds() = common::toIds<common::JointId>(names);
       EXPECT_TRUE(std::as_const(wp).getNames() == names);
     }
   }

@@ -9,23 +9,23 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract::command_language
 {
-JointWaypoint::JointWaypoint(const std::vector<std::string>& names, Eigen::VectorXd position, bool is_constrained)
-  : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
-  , position_(std::move(position))
-  , is_constrained_(is_constrained)
+JointWaypoint::JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
+                             Eigen::VectorXd position,
+                             bool is_constrained)
+  : joint_ids_(std::move(joint_ids)), position_(std::move(position)), is_constrained_(is_constrained)
 {
   if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
 }
 
-JointWaypoint::JointWaypoint(const std::vector<std::string>& names,
-                             const Eigen::VectorXd& position,   // NOLINT(modernize-pass-by-value)
-                             const Eigen::VectorXd& lower_tol,  // NOLINT(modernize-pass-by-value)
-                             const Eigen::VectorXd& upper_tol)  // NOLINT(modernize-pass-by-value)
-  : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
-  , position_(position)
-  , lower_tolerance_(lower_tol)
-  , upper_tolerance_(upper_tol)
+JointWaypoint::JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
+                             Eigen::VectorXd position,
+                             Eigen::VectorXd lower_tol,
+                             Eigen::VectorXd upper_tol)
+  : joint_ids_(std::move(joint_ids))
+  , position_(std::move(position))
+  , lower_tolerance_(std::move(lower_tol))
+  , upper_tolerance_(std::move(upper_tol))
   , is_constrained_(true)
 {
   if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() || position_.size() != lower_tolerance_.size() ||
@@ -36,7 +36,7 @@ JointWaypoint::JointWaypoint(const std::vector<std::string>& names,
 JointWaypoint::JointWaypoint(std::initializer_list<std::string> names,
                              std::initializer_list<double> position,
                              bool is_constrained)
-  : JointWaypoint(names,
+  : JointWaypoint(std::vector<std::string>(names),
                   Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
                   is_constrained)
 {
@@ -46,7 +46,7 @@ JointWaypoint::JointWaypoint(std::initializer_list<std::string> names,
                              std::initializer_list<double> position,
                              std::initializer_list<double> lower_tol,
                              std::initializer_list<double> upper_tol)
-  : JointWaypoint(names,
+  : JointWaypoint(std::vector<std::string>(names),
                   Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
                   Eigen::Map<const Eigen::VectorXd>(lower_tol.begin(), static_cast<Eigen::Index>(lower_tol.size())),
                   Eigen::Map<const Eigen::VectorXd>(upper_tol.begin(), static_cast<Eigen::Index>(upper_tol.size())))

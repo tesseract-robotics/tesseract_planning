@@ -11,7 +11,8 @@ target_include_directories(time_parameterization_totg PUBLIC "$<BUILD_INTERFACE:
                                                              "$<INSTALL_INTERFACE:include>")
 target_compile_options(time_parameterization_totg PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(time_parameterization_totg PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(time_parameterization_totg PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(time_parameterization_totg PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(time_parameterization_totg PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_clang_tidy(time_parameterization_totg ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(time_parameterization_totg PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(

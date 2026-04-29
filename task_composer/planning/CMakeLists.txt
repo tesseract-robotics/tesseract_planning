@@ -132,7 +132,8 @@ set_target_properties(task_composer_planning_nodes PROPERTIES OUTPUT_NAME tesser
 target_link_libraries(task_composer_planning_nodes PUBLIC ${LIB_SOURCE_LINK_LIBRARIES})
 target_compile_options(task_composer_planning_nodes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(task_composer_planning_nodes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(task_composer_planning_nodes PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(task_composer_planning_nodes PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(task_composer_planning_nodes PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_clang_tidy(task_composer_planning_nodes ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(task_composer_planning_nodes PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
@@ -161,7 +162,8 @@ set_target_properties(task_composer_planning_factories PROPERTIES OUTPUT_NAME
 target_link_libraries(task_composer_planning_factories PUBLIC ${FACTORIES_SOURCE_LINK_LIBRARIES})
 target_compile_options(task_composer_planning_factories PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(task_composer_planning_factories PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(task_composer_planning_factories PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(task_composer_planning_factories PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(task_composer_planning_factories PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_cxx_version(task_composer_planning_factories PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_clang_tidy(task_composer_planning_factories ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_code_coverage(

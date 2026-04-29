@@ -52,30 +52,25 @@ public:
   // LCOV_EXCL_STOP
 
   StateWaypoint() = default;
-  StateWaypoint(const std::vector<std::string>& joint_names, const Eigen::Ref<const Eigen::VectorXd>& position);
-  StateWaypoint(const std::vector<std::string>& names,
-                const Eigen::VectorXd& position,
-                const Eigen::VectorXd& velocity,
-                const Eigen::VectorXd& acceleration,
-                double time);
-  // SFINAE-guarded JointId constructors to prevent overload ambiguity with string brace-init
+
+  // SFINAE-guarded string constructors (legacy/convenience). Names are hashed into JointIds via toIds.
   template <typename T,
-            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
-  StateWaypoint(T&& joint_ids, const Eigen::Ref<const Eigen::VectorXd>& position)
-    : joint_ids_(std::forward<T>(joint_ids)), position_(position)
+            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<std::string>>, int> = 0>
+  StateWaypoint(const T& joint_names, const Eigen::Ref<const Eigen::VectorXd>& position)
+    : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(joint_names)), position_(position)
   {
     if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
       throw std::runtime_error("StateWaypoint: parameters are not the same size!");
   }
 
   template <typename T,
-            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<tesseract::common::JointId>>, int> = 0>
-  StateWaypoint(T&& joint_ids,
+            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<std::string>>, int> = 0>
+  StateWaypoint(const T& names,
                 Eigen::VectorXd position,
                 Eigen::VectorXd velocity,
                 Eigen::VectorXd acceleration,
                 double time)
-    : joint_ids_(std::forward<T>(joint_ids))
+    : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
     , position_(std::move(position))
     , velocity_(std::move(velocity))
     , acceleration_(std::move(acceleration))
@@ -85,6 +80,14 @@ public:
         position_.size() != acceleration_.size())
       throw std::runtime_error("StateWaypoint: parameters are not the same size!");
   }
+
+  // JointId constructors (preferred path; no name->id hashing)
+  StateWaypoint(std::vector<tesseract::common::JointId> joint_ids, const Eigen::Ref<const Eigen::VectorXd>& position);
+  StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
+                Eigen::VectorXd position,
+                Eigen::VectorXd velocity,
+                Eigen::VectorXd acceleration,
+                double time);
 
   StateWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position);
   StateWaypoint(std::initializer_list<std::string> names,

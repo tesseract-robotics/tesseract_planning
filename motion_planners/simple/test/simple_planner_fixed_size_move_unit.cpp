@@ -452,11 +452,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeMoveProfileUnit, WithExplicitSeed_
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
   // Set explicit seed for the target waypoint
   Eigen::VectorXd explicit_seed = Eigen::VectorXd::Ones(7) * 0.5;
-  tesseract::common::JointState joint_seed;
-  joint_seed.joint_ids.reserve(joint_names_.size());
-  for (const auto& n : joint_names_)
-    joint_seed.joint_ids.push_back(tesseract::common::JointId(n));
-  joint_seed.position = explicit_seed;
+  tesseract::common::JointState joint_seed(joint_names_, explicit_seed);
   wp2.setSeed(joint_seed);
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
