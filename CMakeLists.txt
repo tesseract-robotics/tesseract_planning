@@ -58,7 +58,7 @@ add_subdirectory(motion_planners)
 add_subdirectory(time_parameterization)
 add_subdirectory(task_composer)
 if(TESSERACT_ENABLE_EXAMPLES)
-add_subdirectory(examples)
+  add_subdirectory(examples)
 endif()
 
 configure_package(COMPONENT command_language SUPPORTED_COMPONENTS ${SUPPORTED_COMPONENTS})

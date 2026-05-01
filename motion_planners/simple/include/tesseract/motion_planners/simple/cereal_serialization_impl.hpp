@@ -50,4 +50,4 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::SimplePlannerMo
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::SimplePlannerMoveProfile,
                                      tesseract::motion_planners::SimplePlannerLVSNoIKMoveProfile)
 
-#endif // TESSERACT_MOTION_PLANNERS_SIMPLE_CEREAL_SERIALIZATION_IMPL_HPP
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_CEREAL_SERIALIZATION_IMPL_HPP

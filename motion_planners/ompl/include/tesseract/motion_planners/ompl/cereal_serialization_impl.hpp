@@ -56,6 +56,4 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile, tesseract::moti
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::OMPLMoveProfile,
                                      tesseract::motion_planners::OMPLRealVectorMoveProfile)
 
-
-
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_CEREAL_SERIALIZATION_IMPL_HPP

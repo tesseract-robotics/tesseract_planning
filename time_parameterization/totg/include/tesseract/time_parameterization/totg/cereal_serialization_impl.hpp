@@ -11,6 +11,4 @@ CEREAL_REGISTER_TYPE(tesseract::time_parameterization::TimeOptimalTrajectoryGene
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile,
                                      tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile)
 
-
-
-#endif // TESSERACT_TIME_PARAMETERIZATION_TOTG_CEREAL_SERIALIZATION_IMPL_HPP
+#endif  // TESSERACT_TIME_PARAMETERIZATION_TOTG_CEREAL_SERIALIZATION_IMPL_HPP

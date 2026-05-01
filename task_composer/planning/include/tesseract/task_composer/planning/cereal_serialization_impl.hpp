@@ -22,5 +22,4 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile, tesseract::task
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile, tesseract::task_composer::ProfileSwitchProfile)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile, tesseract::task_composer::UpsampleTrajectoryProfile)
 
-
-#endif // TESSERACT_TASK_COMPOSER_PLANNING_CEREAL_SERIALIZATION_IMPL_HPP
+#endif  // TESSERACT_TASK_COMPOSER_PLANNING_CEREAL_SERIALIZATION_IMPL_HPP

@@ -11,4 +11,4 @@ CEREAL_REGISTER_TYPE(tesseract::time_parameterization::ConstantTCPSpeedParameter
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile,
                                      tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile)
 
-#endif // TESSERACT_TIME_PARAMETERIZATION_KDL_CEREAL_SERIALIZATION_IMPL_HPP
+#endif  // TESSERACT_TIME_PARAMETERIZATION_KDL_CEREAL_SERIALIZATION_IMPL_HPP

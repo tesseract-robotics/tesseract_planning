@@ -92,11 +92,12 @@ private:
  * @param env Process env associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
-TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
-                      const tesseract::common::ManipulatorInfo& manip_info,
-                      const tesseract::environment::Environment& env,
-                      const FixStateCollisionProfile& profile,
-                      tesseract::collision::ContactResultMap& contacts);
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool
+stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
+                 const tesseract::common::ManipulatorInfo& manip_info,
+                 const tesseract::environment::Environment& env,
+                 const FixStateCollisionProfile& profile,
+                 tesseract::collision::ContactResultMap& contacts);
 
 /**
  * @brief Checks if a waypoint is in collision
@@ -104,11 +105,12 @@ TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool stateInCollision(const Eigen:
  * @param env Process env associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
-TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool waypointInCollision(const tesseract::command_language::WaypointPoly& waypoint,
-                         const tesseract::common::ManipulatorInfo& manip_info,
-                         const tesseract::environment::Environment& env,
-                         const FixStateCollisionProfile& profile,
-                         tesseract::collision::ContactResultMap& contacts);
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool
+waypointInCollision(const tesseract::command_language::WaypointPoly& waypoint,
+                    const tesseract::common::ManipulatorInfo& manip_info,
+                    const tesseract::environment::Environment& env,
+                    const FixStateCollisionProfile& profile,
+                    tesseract::collision::ContactResultMap& contacts);
 
 /**
  * @brief Takes a waypoint and uses a small trajopt env to push it out of collision if necessary
@@ -117,10 +119,11 @@ TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool waypointInCollision(const tes
  * @param profile Profile containing needed params
  * @return True if successful
  */
-TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly& waypoint,
-                                      const tesseract::common::ManipulatorInfo& manip_info,
-                                      const std::shared_ptr<const tesseract::environment::Environment>& env,
-                                      const FixStateCollisionProfile& profile);
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool
+moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly& waypoint,
+                                 const tesseract::common::ManipulatorInfo& manip_info,
+                                 const std::shared_ptr<const tesseract::environment::Environment>& env,
+                                 const FixStateCollisionProfile& profile);
 
 /**
  * @brief Takes a waypoint and uses random sampling to find a position that is out of collision
@@ -129,16 +132,18 @@ TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool moveWaypointFromCollisionTraj
  * @param profile Profile containing needed params
  * @return True if successful
  */
-TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool moveWaypointFromCollisionRandomSampler(tesseract::command_language::WaypointPoly& waypoint,
-                                            const tesseract::common::ManipulatorInfo& manip_info,
-                                            const tesseract::environment::Environment& env,
-                                            const FixStateCollisionProfile& profile);
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool
+moveWaypointFromCollisionRandomSampler(tesseract::command_language::WaypointPoly& waypoint,
+                                       const tesseract::common::ManipulatorInfo& manip_info,
+                                       const tesseract::environment::Environment& env,
+                                       const FixStateCollisionProfile& profile);
 
-TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool applyCorrectionWorkflow(tesseract::command_language::WaypointPoly& waypoint,
-                             const tesseract::common::ManipulatorInfo& manip_info,
-                             const std::shared_ptr<const tesseract::environment::Environment>& env,
-                             const FixStateCollisionProfile& profile,
-                             tesseract::collision::ContactResultMap& contacts);
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool
+applyCorrectionWorkflow(tesseract::command_language::WaypointPoly& waypoint,
+                        const tesseract::common::ManipulatorInfo& manip_info,
+                        const std::shared_ptr<const tesseract::environment::Environment>& env,
+                        const FixStateCollisionProfile& profile,
+                        tesseract::collision::ContactResultMap& contacts);
 }  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_COLLISION_TASK_H

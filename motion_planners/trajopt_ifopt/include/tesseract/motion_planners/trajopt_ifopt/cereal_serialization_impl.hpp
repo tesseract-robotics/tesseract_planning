@@ -30,4 +30,4 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::TrajOptIfoptCom
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::TrajOptIfoptSolverProfile,
                                      tesseract::motion_planners::TrajOptIfoptOSQPSolverProfile)
 
-#endif // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_CEREAL_SERIALIZATION_IMPL_HPP
+#endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_CEREAL_SERIALIZATION_IMPL_HPP

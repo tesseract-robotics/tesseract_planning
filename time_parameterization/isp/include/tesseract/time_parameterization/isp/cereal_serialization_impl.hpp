@@ -14,5 +14,4 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile,
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile,
                                      tesseract::time_parameterization::IterativeSplineParameterizationMoveProfile)
 
-
-#endif // TESSERACT_TIME_PARAMETERIZATION_ISP_CEREAL_SERIALIZATION_IMPL_HPP
+#endif  // TESSERACT_TIME_PARAMETERIZATION_ISP_CEREAL_SERIALIZATION_IMPL_HPP
