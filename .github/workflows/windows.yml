@@ -40,7 +40,7 @@ jobs:
           boost-program-options boost-graph urdfdom ccd[double-precision] gtest
           ompl taskflow jsoncpp flann benchmark cereal
         triplet: x64-windows-release
-        extra-args: --clean-after-build --overlay-ports=${{ github.workspace }}.github/workflows/vcpkg_overlays
+        extra-args: --clean-after-build --overlay-ports=${{ github.workspace }}/.github/workflows/vcpkg_overlays
         token: ${{ github.token }}
         cache-key: ci-${{ matrix.os }}
 
