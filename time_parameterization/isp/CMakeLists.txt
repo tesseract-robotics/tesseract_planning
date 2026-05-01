@@ -1,4 +1,4 @@
-add_library(time_parameterization_isp src/cereal_serialization.cpp src/iterative_spline_parameterization.cpp
+add_library(time_parameterization_isp src/iterative_spline_parameterization.cpp
                                       src/iterative_spline_parameterization_profiles.cpp)
 add_library(tesseract::time_parameterization_isp ALIAS time_parameterization_isp)
 set_target_properties(time_parameterization_isp PROPERTIES OUTPUT_NAME tesseract_time_parameterization_isp)

@@ -4,7 +4,6 @@ find_package(trajopt_sqp REQUIRED)
 # Trajopt IFOPT Planner
 add_library(
   motion_planners_trajopt_ifopt
-  src/cereal_serialization.cpp
   src/trajopt_ifopt_motion_planner.cpp
   src/trajopt_ifopt_utils.cpp
   src/trajopt_ifopt_waypoint_config.cpp

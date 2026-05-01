@@ -1,5 +1,5 @@
 find_package(tesseract REQUIRED COMPONENTS kinematics_kdl)
-add_library(time_parameterization_kdl src/cereal_serialization.cpp src/constant_tcp_speed_parameterization.cpp
+add_library(time_parameterization_kdl src/constant_tcp_speed_parameterization.cpp
                                       src/constant_tcp_speed_parameterization_profiles.cpp)
 add_library(tesseract::time_parameterization_kdl ALIAS time_parameterization_kdl)
 set_target_properties(time_parameterization_kdl PROPERTIES OUTPUT_NAME tesseract_time_parameterization_kdl)

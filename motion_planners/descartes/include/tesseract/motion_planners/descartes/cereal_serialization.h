@@ -55,4 +55,6 @@ void serialize(Archive& ar, DescartesDefaultMoveProfile<FloatType>& obj)
 
 }  // namespace tesseract::motion_planners
 
+#include <tesseract/motion_planners/descartes/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_CEREAL_SERIALIZATION_H

@@ -33,4 +33,6 @@ void serialize(Archive& ar, IterativeSplineParameterizationMoveProfile& obj)
 
 }  // namespace tesseract::time_parameterization
 
+#include <tesseract/time_parameterization/isp/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_TIME_PARAMETERIZATION_ITERATIVE_SPLINE_PARAMETERIZATION_CEREAL_SERIALIZATION_H

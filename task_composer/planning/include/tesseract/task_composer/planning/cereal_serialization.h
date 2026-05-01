@@ -9,6 +9,7 @@
 #include <tesseract/task_composer/planning/profiles/profile_switch_profile.h>
 #include <tesseract/task_composer/planning/profiles/upsample_trajectory_profile.h>
 
+#include <tesseract/common/cereal_serialization.h>
 #include <tesseract/collision/cereal_serialization.h>
 #include <tesseract/environment/cereal_serialization.h>
 #include <tesseract/motion_planners/trajopt/cereal_serialization.h>
@@ -86,5 +87,7 @@ void serialize(Archive& ar, UpsampleTrajectoryProfile& obj)
 }
 
 }  // namespace tesseract::task_composer
+
+#include <tesseract/task_composer/planning/cereal_serialization_impl.hpp>
 
 #endif  // TESSERACT_TASK_COMPOSER_PLANNING_CEREAL_SERIALIZATION_H

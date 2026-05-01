@@ -97,4 +97,6 @@ void serialize(Archive& ar, SimplePlannerLVSNoIKMoveProfile& obj)
 }
 }  // namespace tesseract::motion_planners
 
+#include <tesseract/motion_planners/simple/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_CEREAL_SERIALIZATION_H

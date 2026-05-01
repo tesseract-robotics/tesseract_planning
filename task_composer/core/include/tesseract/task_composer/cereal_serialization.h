@@ -104,4 +104,6 @@ void serialize(Archive& ar, TaskComposerLog& obj)
 
 }  // namespace tesseract::task_composer
 
+#include <tesseract/task_composer/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_TASK_COMPOSER_CEREAL_SERIALIZATION_H

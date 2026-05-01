@@ -5,7 +5,6 @@ find_package(Boost REQUIRED COMPONENTS program_options)
 
 add_library(
   task_composer
-  src/cereal_serialization.cpp
   src/task_composer_data_storage.cpp
   src/task_composer_context.cpp
   src/task_composer_executor.cpp

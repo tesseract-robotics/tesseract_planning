@@ -8,7 +8,6 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
 find_package(trajopt REQUIRED)
 
 set(LIB_SOURCE_FILES
-    src/cereal_serialization.cpp
     src/nodes/continuous_contact_check_task.cpp
     src/nodes/discrete_contact_check_task.cpp
     src/nodes/fix_state_bounds_task.cpp

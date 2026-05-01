@@ -25,4 +25,6 @@ void serialize(Archive& ar, TimeOptimalTrajectoryGenerationCompositeProfile& obj
 
 }  // namespace tesseract::time_parameterization
 
+#include <tesseract/time_parameterization/totg/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_TIME_PARAMETERIZATION_TIME_OPTIMAL_TRAJECTORY_GENERATION_CEREAL_SERIALIZATION_H

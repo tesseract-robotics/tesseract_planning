@@ -1,4 +1,4 @@
-add_library(time_parameterization_totg src/cereal_serialization.cpp src/time_optimal_trajectory_generation.cpp
+add_library(time_parameterization_totg src/time_optimal_trajectory_generation.cpp
                                        src/time_optimal_trajectory_generation_profiles.cpp)
 add_library(tesseract::time_parameterization_totg ALIAS time_parameterization_totg)
 set_target_properties(time_parameterization_totg PROPERTIES OUTPUT_NAME tesseract_time_parameterization_totg)

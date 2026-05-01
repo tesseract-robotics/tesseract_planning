@@ -1,6 +1,6 @@
 find_package(ruckig REQUIRED)
 
-add_library(time_parameterization_ruckig src/cereal_serialization.cpp src/ruckig_trajectory_smoothing.cpp
+add_library(time_parameterization_ruckig src/ruckig_trajectory_smoothing.cpp
                                          src/ruckig_trajectory_smoothing_profiles.cpp)
 add_library(tesseract::time_parameterization_ruckig ALIAS time_parameterization_ruckig)
 set_target_properties(time_parameterization_ruckig PROPERTIES OUTPUT_NAME tesseract_time_parameterization_ruckig)

@@ -1,4 +1,5 @@
-#include <tesseract/motion_planners/trajopt_ifopt/cereal_serialization.h>
+#ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_CEREAL_SERIALIZATION_IMPL_HPP
+#define TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_CEREAL_SERIALIZATION_IMPL_HPP
 
 // These must be include before calling macro CEREAL_REGISTER_TYPE
 #include <cereal/archives/binary.hpp>
@@ -29,6 +30,4 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::TrajOptIfoptCom
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::TrajOptIfoptSolverProfile,
                                      tesseract::motion_planners::TrajOptIfoptOSQPSolverProfile)
 
-// LCOV_EXCL_START
-CEREAL_REGISTER_DYNAMIC_INIT(tesseract_motion_planners_trajopt_ifopt_cereal)
-// LCOV_EXCL_STOP
+#endif // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_CEREAL_SERIALIZATION_IMPL_HPP

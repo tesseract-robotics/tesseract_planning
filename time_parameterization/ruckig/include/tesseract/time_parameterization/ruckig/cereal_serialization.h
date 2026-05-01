@@ -23,4 +23,6 @@ void serialize(Archive& ar, RuckigTrajectorySmoothingCompositeProfile& obj)
 }
 }  // namespace tesseract::time_parameterization
 
+#include <tesseract/time_parameterization/ruckig/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_TIME_PARAMETERIZATION_RUCKIG_TRAJECTORY_SMOOTHING_CEREAL_SERIALIZATION_H

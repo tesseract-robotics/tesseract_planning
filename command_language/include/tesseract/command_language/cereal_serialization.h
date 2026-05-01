@@ -223,4 +223,6 @@ void serialize(Archive& ar, WaitInstruction& obj)
 
 }  // namespace tesseract::command_language
 
+#include <tesseract/command_language/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_COMMAND_LANGUAGE_CEREAL_SERIALIZATION_H

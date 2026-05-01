@@ -24,4 +24,6 @@ void serialize(Archive& ar, ConstantTCPSpeedParameterizationCompositeProfile& ob
 
 }  // namespace tesseract::time_parameterization
 
+#include <tesseract/time_parameterization/kdl/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_TIME_PARAMETERIZATION_CONSTANT_TCP_SPEED_PARAMETERIZATION_CEREAL_SERIALIZATION_H

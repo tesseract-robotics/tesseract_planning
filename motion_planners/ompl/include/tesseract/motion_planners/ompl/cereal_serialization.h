@@ -167,4 +167,6 @@ void serialize(Archive& ar, OMPLRealVectorMoveProfile& obj)
 }
 }  // namespace tesseract::motion_planners
 
+#include <tesseract/motion_planners/ompl/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_CEREAL_SERIALIZATION_H

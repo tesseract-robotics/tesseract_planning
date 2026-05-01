@@ -156,4 +156,6 @@ void serialize(Archive& ar, TrajOptIfoptOSQPSolverProfile& obj)
 
 }  // namespace tesseract::motion_planners
 
+#include <tesseract/motion_planners/trajopt_ifopt/cereal_serialization_impl.hpp>
+
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_CEREAL_SERIALIZATION_H

@@ -1,4 +1,5 @@
-#include <tesseract/time_parameterization/totg/cereal_serialization.h>
+#ifndef TESSERACT_TIME_PARAMETERIZATION_TOTG_CEREAL_SERIALIZATION_IMPL_HPP
+#define TESSERACT_TIME_PARAMETERIZATION_TOTG_CEREAL_SERIALIZATION_IMPL_HPP
 
 // These must be include before calling macro CEREAL_REGISTER_TYPE
 #include <cereal/archives/binary.hpp>
@@ -10,6 +11,6 @@ CEREAL_REGISTER_TYPE(tesseract::time_parameterization::TimeOptimalTrajectoryGene
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile,
                                      tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile)
 
-// LCOV_EXCL_START
-CEREAL_REGISTER_DYNAMIC_INIT(tesseract_time_parameterization_totg_cereal)
-// LCOV_EXCL_STOP
+
+
+#endif // TESSERACT_TIME_PARAMETERIZATION_TOTG_CEREAL_SERIALIZATION_IMPL_HPP
