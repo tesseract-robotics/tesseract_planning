@@ -22,6 +22,7 @@
 #define TESSERACT_TASK_COMPOSER_PLANNING_PROFILES_KINEMATIC_LIMITS_CHECK_PROFILE_H
 
 #include <memory>
+#include <tesseract/task_composer/planning/tesseract_task_composer_planning_nodes_export.h>
 #include <tesseract/common/profile.h>
 #include <tesseract/common/fwd.h>
 
@@ -32,7 +33,7 @@ class Node;
 
 namespace tesseract::task_composer
 {
-struct KinematicLimitsCheckProfile : public tesseract::common::Profile
+struct TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT KinematicLimitsCheckProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<KinematicLimitsCheckProfile>;
   using ConstPtr = std::shared_ptr<const KinematicLimitsCheckProfile>;

@@ -23,12 +23,17 @@
 #ifndef TESSERACT_TASK_COMPOSER_DONE_TASK_H
 #define TESSERACT_TASK_COMPOSER_DONE_TASK_H
 
+#include <tesseract/common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <tesseract/task_composer/tesseract_task_composer_nodes_export.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract/task_composer/task_composer_task.h>
 
 namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
-class DoneTask : public TaskComposerTask
+class TESSERACT_TASK_COMPOSER_NODES_EXPORT DoneTask : public TaskComposerTask
 {
 public:
   using Ptr = std::shared_ptr<DoneTask>;

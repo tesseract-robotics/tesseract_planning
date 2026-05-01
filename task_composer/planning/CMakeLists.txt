@@ -1,6 +1,8 @@
 # Need to create export header so static class variables can be exported on windows build
 include(GenerateExportHeader)
 
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
+
 # When building in-tree, sibling component targets are already available via add_subdirectory. Optional component
 # detection uses TARGET checks below.
 find_package(trajopt REQUIRED)

@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <string>
 #include <memory>
 #include <typeindex>
+#include <stdexcept>
 
 namespace tesseract::command_language
 {

@@ -27,6 +27,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
+#include <tesseract/task_composer/tesseract_task_composer_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/task_composer_task.h>
@@ -36,7 +37,7 @@ namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 
-class ForEachTask : public TaskComposerTask
+class TESSERACT_TASK_COMPOSER_NODES_EXPORT ForEachTask : public TaskComposerTask
 {
 public:
   // Requried

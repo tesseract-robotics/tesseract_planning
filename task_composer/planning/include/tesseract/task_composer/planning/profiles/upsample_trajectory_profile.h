@@ -26,6 +26,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
+#include <tesseract/task_composer/planning/tesseract_task_composer_planning_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/profile.h>
@@ -38,7 +39,7 @@ class Node;
 
 namespace tesseract::task_composer
 {
-struct UpsampleTrajectoryProfile : public tesseract::common::Profile
+struct TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT UpsampleTrajectoryProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<UpsampleTrajectoryProfile>;
   using ConstPtr = std::shared_ptr<const UpsampleTrajectoryProfile>;

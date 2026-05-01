@@ -92,7 +92,7 @@ private:
  * @param env Process env associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
-bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
                       const tesseract::common::ManipulatorInfo& manip_info,
                       const tesseract::environment::Environment& env,
                       const FixStateCollisionProfile& profile,
@@ -104,7 +104,7 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
  * @param env Process env associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
-bool waypointInCollision(const tesseract::command_language::WaypointPoly& waypoint,
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool waypointInCollision(const tesseract::command_language::WaypointPoly& waypoint,
                          const tesseract::common::ManipulatorInfo& manip_info,
                          const tesseract::environment::Environment& env,
                          const FixStateCollisionProfile& profile,
@@ -117,7 +117,7 @@ bool waypointInCollision(const tesseract::command_language::WaypointPoly& waypoi
  * @param profile Profile containing needed params
  * @return True if successful
  */
-bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly& waypoint,
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly& waypoint,
                                       const tesseract::common::ManipulatorInfo& manip_info,
                                       const std::shared_ptr<const tesseract::environment::Environment>& env,
                                       const FixStateCollisionProfile& profile);
@@ -129,12 +129,12 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
  * @param profile Profile containing needed params
  * @return True if successful
  */
-bool moveWaypointFromCollisionRandomSampler(tesseract::command_language::WaypointPoly& waypoint,
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool moveWaypointFromCollisionRandomSampler(tesseract::command_language::WaypointPoly& waypoint,
                                             const tesseract::common::ManipulatorInfo& manip_info,
                                             const tesseract::environment::Environment& env,
                                             const FixStateCollisionProfile& profile);
 
-bool applyCorrectionWorkflow(tesseract::command_language::WaypointPoly& waypoint,
+TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT bool applyCorrectionWorkflow(tesseract::command_language::WaypointPoly& waypoint,
                              const tesseract::common::ManipulatorInfo& manip_info,
                              const std::shared_ptr<const tesseract::environment::Environment>& env,
                              const FixStateCollisionProfile& profile,
