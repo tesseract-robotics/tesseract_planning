@@ -89,7 +89,6 @@ jobs:
           --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=${{ matrix.config.vcpkg_triplet }} -DCMAKE_BUILD_TYPE=Release
           -DVCPKG_APPLOCAL_DEPS=OFF -DTESSERACT_ENABLE_TESTING=ON \
           -DTESSERACT_ENABLE_BENCHMARKING=OFF -DTESSERACT_ENABLE_RUN_BENCHMARKING=OFF \
-          -DTESSERACT_ENABLE_EXAMPLES=OFF -DTESSERACT_BUILD_TRAJOPT_IFOPT=OFF \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 \
           -DOpenMP_CXX_INCLUDE_DIR=${{ matrix.config.homebrew_root }}/opt/libomp/include \
           -DOpenMP_C_INCLUDE_DIR=${{ matrix.config.homebrew_root }}/opt/libomp/include \
@@ -104,7 +103,6 @@ jobs:
           --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=${{ matrix.config.vcpkg_triplet }} 
           -DCMAKE_BUILD_TYPE=Release -DTESSERACT_ENABLE_TESTING=ON \
           -DTESSERACT_ENABLE_BENCHMARKING=OFF -DTESSERACT_ENABLE_RUN_BENCHMARKING=OFF \
-          -DTESSERACT_ENABLE_EXAMPLES=OFF -DTESSERACT_BUILD_TRAJOPT_IFOPT=OFF \
           -DVCPKG_APPLOCAL_DEPS=OFF \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 \
           -DOpenMP_CXX_INCLUDE_DIR=${{ matrix.config.homebrew_root }}/opt/libomp/include \
@@ -113,12 +111,4 @@ jobs:
           -DOpenMP_C_LIB_NAMES=libomp -DOpenMP_C_FLAGS="-Xpreprocessor -fopenmp" \
           -DOpenMP_libomp_LIBRARY=${{ matrix.config.homebrew_root }}/opt/libomp/lib/libomp.dylib \
           -Dtcmalloc_minimal_LIBRARY=${{ github.workspace }}/vcpkg/installed/${{ matrix.config.vcpkg_triplet }}/lib/libtcmalloc_minimal.dylib
-        run-tests-args: --merge-install --packages-ignore tesseract_examples --ctest-args -E "TesseractTaskComposerFactoryUnit.LoadAndExportPluginTest"
-
-    - name: collect logs
-      if: failure()
-      uses: actions/upload-artifact@v7
-      with:
-        name: ci-mac-logs-${{ matrix.config.runner }}
-        path: ./**/*.log
-        retention-days: 7
+        run-tests-args: --merge-install --packages-ignore tesseract_examples trajopt_ifopt trajopt_sqp vhacd tesseract_python    
