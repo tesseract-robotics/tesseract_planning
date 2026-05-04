@@ -25,6 +25,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <algorithm>
 #include <console_bridge/console.h>
+#include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/kinematic_limits.h>
