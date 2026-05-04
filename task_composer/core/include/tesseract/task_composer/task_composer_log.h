@@ -21,6 +21,7 @@
 #include <memory>
 #include <tesseract/common/fwd.h>
 #include <tesseract/task_composer/task_composer_data_storage.h>
+#include <tesseract/common/serialization_extensions.h>
 
 namespace tesseract::task_composer
 {

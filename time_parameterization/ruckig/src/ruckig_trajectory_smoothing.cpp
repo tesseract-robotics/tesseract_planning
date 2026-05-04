@@ -37,6 +37,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <console_bridge/console.h>
+#include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/time_parameterization/ruckig/ruckig_trajectory_smoothing.h>

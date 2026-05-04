@@ -25,6 +25,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <mutex>
 #include <tesseract/common/utils.h>
+#include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/task_composer_node_info.h>

@@ -39,6 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <limits>
 #include <cmath>
 #include <console_bridge/console.h>
+#include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/time_parameterization/isp/iterative_spline_parameterization.h>

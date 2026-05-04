@@ -19,6 +19,8 @@
 #include <tesseract/task_composer/task_composer_keys.h>
 #include <tesseract/common/any_poly.h>
 
+#include <ostream>
+
 namespace tesseract::task_composer
 {
 void TaskComposerKeys::add(const std::string& port, std::string key) { keys_[port] = std::move(key); }
@@ -79,6 +81,7 @@ bool TaskComposerKeys::operator!=(const TaskComposerKeys& rhs) const { return !o
 
 std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
 {
+  using namespace std;
   for (const auto& pair : keys.data())
   {
     if (pair.second.index() == 0)
