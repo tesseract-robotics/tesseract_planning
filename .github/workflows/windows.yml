@@ -31,7 +31,7 @@ jobs:
         path: target_ws/src
 
     - name: vcpkg build
-      uses: johnwason/vcpkg-action@v7
+      uses: johnwason/vcpkg-action@v8
       with:
         pkgs: >-
           fcl bullet3[multithreading,double-precision,rtti] octomap
