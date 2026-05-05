@@ -40,6 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_common/collision_types.h>
 #include <trajopt_sqp/qp_problem.h>
 #include <OsqpEigen/Settings.hpp>
+#include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
