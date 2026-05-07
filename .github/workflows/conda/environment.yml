@@ -1,0 +1,6 @@
+name: tesseract-build
+channels:
+  - conda-forge
+dependencies:
+  - conda-smithy
+  - rattler-build
