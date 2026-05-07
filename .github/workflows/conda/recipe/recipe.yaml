@@ -50,6 +50,7 @@ requirements:
       - osqp
       - osqp-eigen
       - qpoases
+      - ompl
       - if: unix
         then:
           - xorg-libx11
@@ -77,6 +78,7 @@ requirements:
       - osqp
       - osqp-eigen
       - qpoases
+      - ompl
       - if: unix
         then:
           - xorg-libx11
