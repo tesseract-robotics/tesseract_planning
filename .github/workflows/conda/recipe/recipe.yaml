@@ -52,11 +52,11 @@ requirements:
       - qpoases
       - ompl
       - taskflow <4
-      - gperftools
       - if: unix
         then:
           - xorg-libx11
           - xorg-libxext
+          - gperftools
     run:
       - libboost-devel
       - cereal
@@ -85,6 +85,7 @@ requirements:
         then:
           - xorg-libx11
           - xorg-libxext
+          - gperftools
 
 build:
   number: 0
