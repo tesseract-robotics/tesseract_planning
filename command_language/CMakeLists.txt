@@ -8,7 +8,6 @@ add_library(
   src/poly/move_instruction_poly.cpp
   src/poly/state_waypoint_poly.cpp
   src/poly/waypoint_poly.cpp
-  src/cereal_serialization.cpp
   src/move_instruction.cpp
   src/set_analog_instruction.cpp
   src/set_digital_instruction.cpp
