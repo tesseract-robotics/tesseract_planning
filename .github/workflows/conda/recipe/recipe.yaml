@@ -87,6 +87,19 @@ requirements:
           - xorg-libxext
           - gperftools
 
+tests:
+- package_contents:
+      files:
+      - if: unix
+        then:
+          - opt/tesseract_robotics/include/tesseract/task_composer/task_composer_node.h
+          - if: osx
+            then: opt/tesseract_robotics/lib/libtesseract_motion_planners.dylib
+            else: opt/tesseract_robotics/lib/libtesseract_motion_planners.so
+        else:
+          - opt\\tesseract_robotics\\include\\tesseract\\task_composer\\task_composer_node.h
+          - opt\\tesseract_robotics\\lib\\tesseract_motion_planners.dll
+
 build:
   number: 0
 
