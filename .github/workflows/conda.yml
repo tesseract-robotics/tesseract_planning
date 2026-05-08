@@ -37,15 +37,14 @@ jobs:
         conda-remove-defaults: "true"
     - name: build and test
       run: |
-        cd "${{ runner.temp }}"
         conda info
         conda list
         mkdir conda
-        xcopy /E "${{ github.workspace }}\workspace\src\tesseract_planning\.github\workflows\conda conda"
+        xcopy /E workspace\src\tesseract_planning\.github\workflows\conda conda
         cd conda
         conda-smithy regenerate
         
-        rattler-build build -m .ci_support/win_64_.yaml --recipe recipe/recipe.yaml
+        rattler-build build -m .ci_support/win_64_.yaml --recipe recipe/recipe.yaml --output-dir="${{ runner.temp }}\ws"
 
   conda-linux:
     runs-on: ubuntu-latest
