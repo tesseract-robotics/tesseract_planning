@@ -7,6 +7,8 @@
 #include <tesseract/command_language/joint_waypoint.h>
 #include <tesseract/command_language/state_waypoint.h>
 
+#include <utility>
+
 namespace tesseract::command_language
 {
 // Operators

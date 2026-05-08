@@ -23,6 +23,7 @@
  */
 
 #include <tesseract/command_language/poly/state_waypoint_poly.h>
+#include <utility>
 
 namespace tesseract::command_language
 {

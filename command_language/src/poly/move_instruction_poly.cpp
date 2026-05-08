@@ -1,6 +1,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid.hpp>
+#include <utility>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/poly/move_instruction_poly.h>

@@ -51,7 +51,8 @@ requirements:
       - osqp-eigen
       - qpoases
       - ompl
-      - taskflow
+      - taskflow <4
+      - gperftools
       - if: unix
         then:
           - xorg-libx11
