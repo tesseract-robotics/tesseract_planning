@@ -2,6 +2,12 @@ set -e
 
 # ln -s $BUILD_PREFIX/bin/x86_64-conda-linux-gnu-gcc $BUILD_PREFIX/bin/gcc
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    TCMALLOC_LIB_PATH="$PREFIX/lib/libtcmalloc_minimal.dylib"
+else
+    TCMALLOC_LIB_PATH="$PREFIX/lib/libtcmalloc_minimal.so"
+fi
+
 colcon build --merge-install --install-base="$PREFIX/opt/tesseract_robotics" \
    --event-handlers console_direct+  \
    --packages-ignore gtest osqp osqp_eigen tesseract_examples vhacd \
@@ -22,7 +28,8 @@ colcon build --merge-install --install-base="$PREFIX/opt/tesseract_robotics" \
    -DTRAJOPT_ENABLE_RUN_BENCHMARKING=OFF \
    -DTESSERACT_WARNINGS_AS_ERRORS=OFF \
    -DTRAJOPT_WARNINGS_AS_ERRORS=OFF \
-   -DCMAKE_VERBOSE_MAKEFILE=ON
+   -DCMAKE_VERBOSE_MAKEFILE=ON \
+   -Dtcmalloc_minimal_LIBRARY=$TCMALLOC_LIB_PATH
 
 export TESSERACT_RESOURCE_PATH="$PREFIX/opt/tesseract_robotics/share"
 
