@@ -37,10 +37,11 @@ jobs:
         conda-remove-defaults: "true"
     - name: build and test
       run: |
+        cd "${{ runner.temp }}"
         conda info
         conda list
         mkdir conda
-        xcopy /E workspace\src\tesseract_planning\.github\workflows\conda conda
+        xcopy /E "${{ github.workspace }}\workspace\src\tesseract_planning\.github\workflows\conda conda"
         cd conda
         conda-smithy regenerate
         
