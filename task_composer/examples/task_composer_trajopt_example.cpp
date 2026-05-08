@@ -1,6 +1,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <fstream>
 #include <iostream>
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
