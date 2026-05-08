@@ -23,11 +23,6 @@
  * limitations under the License.
  */
 
-#include <tesseract/command_language/test_suite/cartesian_waypoint_poly_unit.hpp>
-#include <tesseract/command_language/test_suite/joint_waypoint_poly_unit.hpp>
-#include <tesseract/command_language/test_suite/state_waypoint_poly_unit.hpp>
-#include <tesseract/command_language/test_suite/move_instruction_poly_unit.hpp>
-
 #include <tesseract/command_language/poly/waypoint_poly.h>
 #include <tesseract/command_language/poly/move_instruction_poly.h>
 
@@ -45,6 +40,11 @@
 
 #include <tesseract/command_language/cereal_serialization.h>
 #include <tesseract/common/serialization.h>
+
+#include <tesseract/command_language/test_suite/cartesian_waypoint_poly_unit.hpp>
+#include <tesseract/command_language/test_suite/joint_waypoint_poly_unit.hpp>
+#include <tesseract/command_language/test_suite/state_waypoint_poly_unit.hpp>
+#include <tesseract/command_language/test_suite/move_instruction_poly_unit.hpp>
 
 #include "command_language_test_program.hpp"
 
