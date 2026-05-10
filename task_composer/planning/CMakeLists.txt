@@ -148,6 +148,8 @@ generate_export_header(
   EXPORT_FILE_NAME
   ${PROJECT_BINARY_DIR}/tesseract/task_composer/planning/tesseract_task_composer_planning_nodes_export.h)
 
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
 # Create factories target
 add_library(task_composer_planning_factories ${FACTORIES_SOURCE_FILES})
 set_target_properties(task_composer_planning_factories PROPERTIES OUTPUT_NAME
