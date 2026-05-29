@@ -10,31 +10,32 @@ on:
 
 jobs:
   get-tag:
-    # Pre-job to fetch the latest tag
+    # Pre-job to derive major/minor from the triggering ref name
     runs-on: ubuntu-latest
     outputs:
       major: ${{ steps.extract_tag.outputs.major }}
       minor: ${{ steps.extract_tag.outputs.minor }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0  # Ensure all history and tags are fetched
-
-      - name: Get latest tag
+      - name: Extract version from ref name
         id: extract_tag
         run: |
-          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo "Latest tag: $latest_tag"
+          echo "Ref name: ${{ github.ref_name }}"
 
-          # Extract major and minor version from the tag
-          IFS='.' read -r major minor patch <<< "$latest_tag"
+          # Accept semantic versions like 1.2.3, v1.2.3, 1.2.3-rc.1, and 1.2.3+build.7
+          semver_regex='^v?([0-9]+)\.([0-9]+)\.([0-9]+)(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'
+          if [[ ! "${{ github.ref_name }}" =~ ${semver_regex} ]]; then
+            echo "Error: github.ref_name '${{ github.ref_name }}' is not a semantic version (expected examples: v1.2.3 or 1.2.3)."
+            exit 1
+          fi
+
+          major="${BASH_REMATCH[1]}"
+          minor="${BASH_REMATCH[2]}"
           echo "Major: $major"
           echo "Minor: $minor"
 
           # Set as output variables
-          echo "::set-output name=major::$major"
-          echo "::set-output name=minor::$minor"
+          echo "major=$major" >> "$GITHUB_OUTPUT"
+          echo "minor=$minor" >> "$GITHUB_OUTPUT"
 
   Debian:
     name: ${{ matrix.distro }}
