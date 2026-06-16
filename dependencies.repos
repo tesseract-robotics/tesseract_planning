@@ -1,7 +1,7 @@
 - git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git
-    version: 0.4.10
+    version: 0.4.11
 - git:
     local-name: ruckig
     uri: https://github.com/Levi-Armstrong/ruckig.git
