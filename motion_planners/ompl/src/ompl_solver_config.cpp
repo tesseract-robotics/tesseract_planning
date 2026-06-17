@@ -35,6 +35,7 @@ bool OMPLSolverConfig::operator==(const OMPLSolverConfig& rhs) const
   equal &= tesseract::common::almostEqualRelativeAndAbs(planning_time, rhs.planning_time, max_diff);
   equal &= (max_solutions == rhs.max_solutions);
   equal &= (simplify == rhs.simplify);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(simplify_time, rhs.simplify_time, max_diff);
   equal &= (optimize == rhs.optimize);
   equal &= (planners.size() == rhs.planners.size());
 

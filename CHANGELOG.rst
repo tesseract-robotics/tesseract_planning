@@ -2,6 +2,10 @@
 Changelog for package tesseract_planning
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Unreleased
+----------
+* Add ``simplify_time`` to ``OMPLSolverConfig`` to time-bound OMPL path simplification (``simplifySolution(double)``); defaults to 0.0 which preserves the existing unbounded ``simplifyMax`` behavior
+
 0.35.0 (2026-05-28)
 -------------------
 * Update descartes tag

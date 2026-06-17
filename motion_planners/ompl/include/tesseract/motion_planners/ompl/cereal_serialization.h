@@ -147,6 +147,7 @@ void serialize(Archive& ar, OMPLSolverConfig& obj)
   ar(cereal::make_nvp("planning_time", obj.planning_time));
   ar(cereal::make_nvp("max_solutions", obj.max_solutions));
   ar(cereal::make_nvp("simplify", obj.simplify));
+  ar(cereal::make_nvp("simplify_time", obj.simplify_time));
   ar(cereal::make_nvp("optimize", obj.optimize));
   ar(cereal::make_nvp("planners", obj.planners));
 }

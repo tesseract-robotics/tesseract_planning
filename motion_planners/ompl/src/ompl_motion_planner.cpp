@@ -184,7 +184,11 @@ std::pair<bool, std::string> parallelPlan(ompl::geometric::SimpleSetup& simple_s
     return std::make_pair(false, std::string(ERROR_FAILED_TO_FIND_VALID_SOLUTION) + reason);
 
   if (solver_config.simplify)
-    simple_setup.simplifySolution();
+  {
+    // A positive simplify_time bounds the simplification routine; OMPL treats <= 0 (the default) as the
+    // unbounded simplifyMax which runs every simplification step to completion.
+    simple_setup.simplifySolution(solver_config.simplify_time);
+  }
 
   // Interpolate the path if there are currently fewer states than requested
   if (simple_setup.getSolutionPath().getStateCount() < num_output_states)

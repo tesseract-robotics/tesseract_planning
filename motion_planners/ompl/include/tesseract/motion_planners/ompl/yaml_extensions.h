@@ -605,6 +605,7 @@ struct convert<tesseract::motion_planners::OMPLSolverConfig>
     node["planning_time"] = rhs.planning_time;
     node["max_solutions"] = rhs.max_solutions;
     node["simplify"] = rhs.simplify;
+    node["simplify_time"] = rhs.simplify_time;
     node["optimize"] = rhs.optimize;
     node["planners"] = rhs.planners;
 
@@ -620,6 +621,8 @@ struct convert<tesseract::motion_planners::OMPLSolverConfig>
       rhs.max_solutions = n.as<int>();
     if (const YAML::Node& n = node["simplify"])
       rhs.simplify = n.as<bool>();
+    if (const YAML::Node& n = node["simplify_time"])
+      rhs.simplify_time = n.as<double>();
     if (const YAML::Node& n = node["optimize"])
       rhs.optimize = n.as<bool>();
     if (const YAML::Node& n = node["planners"])

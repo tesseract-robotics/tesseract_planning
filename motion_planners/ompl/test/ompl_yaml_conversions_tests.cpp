@@ -569,6 +569,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLOMPLSolverConfigConversionsUnit)  // NOLINT
     EXPECT_NEAR(configurator.planning_time, 5.0, 1e-6);
     EXPECT_EQ(configurator.max_solutions, 10);
     EXPECT_EQ(configurator.simplify, false);
+    EXPECT_NEAR(configurator.simplify_time, 0.0, 1e-6);
     EXPECT_EQ(configurator.optimize, true);
     EXPECT_EQ(configurator.planners.size(), 0);
   }
@@ -577,6 +578,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLOMPLSolverConfigConversionsUnit)  // NOLINT
                                      planning_time: 2.0
                                      max_solutions: 4
                                      simplify: true
+                                     simplify_time: 0.5
                                      optimize: false
                                      planners:
                                        - SBLConfigurator: {}
@@ -601,6 +603,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLOMPLSolverConfigConversionsUnit)  // NOLINT
     EXPECT_NEAR(configurator.planning_time, 2.0, 1e-6);
     EXPECT_EQ(configurator.max_solutions, 4);
     EXPECT_EQ(configurator.simplify, true);
+    EXPECT_NEAR(configurator.simplify_time, 0.5, 1e-6);
     EXPECT_EQ(configurator.optimize, false);
     EXPECT_EQ(containsType(OMPLPlannerType::SBL, configurator.planners), true);
     EXPECT_EQ(containsType(OMPLPlannerType::EST, configurator.planners), true);
@@ -623,6 +626,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLOMPLSolverConfigConversionsUnit)  // NOLINT
     configurator.planning_time = 2.0;
     configurator.max_solutions = 4;
     configurator.simplify = true;
+    configurator.simplify_time = 0.5;
     configurator.optimize = false;
     configurator.planners.push_back(
         std::static_pointer_cast<const OMPLPlannerConfigurator>(std::make_shared<SBLConfigurator>()));
@@ -657,6 +661,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLOMPLSolverConfigConversionsUnit)  // NOLINT
     EXPECT_NEAR(output_n["planning_time"].as<double>(), 2.0, 1e-6);
     EXPECT_EQ(output_n["max_solutions"].as<int>(), 4);
     EXPECT_EQ(output_n["simplify"].as<bool>(), true);
+    EXPECT_NEAR(output_n["simplify_time"].as<double>(), 0.5, 1e-6);
     EXPECT_EQ(output_n["optimize"].as<bool>(), false);
     EXPECT_TRUE(containsPlanner("SBLConfigurator", output_n["planners"]));
     EXPECT_TRUE(containsPlanner("ESTConfigurator", output_n["planners"]));

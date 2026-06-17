@@ -54,6 +54,18 @@ struct OMPLSolverConfig
   bool simplify = false;
 
   /**
+   * @brief Maximum time in seconds to spend simplifying the solution path.
+   *
+   * Only used when @ref simplify is true.
+   *   - If <= 0 (default) the simplification runs to completion
+   *     (ompl::geometric::SimpleSetup::simplifySolution() -> PathSimplifier::simplifyMax), applying every
+   *     simplification step until done. This yields the most simplified path but is unbounded in time.
+   *   - If > 0 the simplification is time bounded (ompl::geometric::SimpleSetup::simplifySolution(double)),
+   *     trading some path quality for a predictable upper bound on simplification time.
+   */
+  double simplify_time = 0.0;
+
+  /**
    * @brief This uses all available planning time to create the most optimized trajectory given the objective function.
    *
    * This is required because not all OMPL planners are optimize graph planners. If the planner you choose is an
