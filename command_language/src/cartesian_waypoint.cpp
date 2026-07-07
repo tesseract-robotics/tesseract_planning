@@ -25,10 +25,12 @@ void CartesianWaypoint::setName(const std::string& name) { name_ = name; }
 const std::string& CartesianWaypoint::getName() const { return name_; }
 void CartesianWaypoint::print(const std::string& prefix) const
 {
+  const Eigen::Quaterniond q(transform_.rotation());
   std::cout << prefix << "Cart WP: xyz=" << transform_.translation().x() << ", " << transform_.translation().y()
-            << ", "                                        // NOLINT
-            << transform_.translation().z() << std::endl;  // NOLINT
-  // TODO: Add rotation
+            << ", "                                                                             // NOLINT
+            << transform_.translation().z()                                                    // NOLINT
+            << " xyzw=" << q.x() << ", " << q.y() << ", " << q.z() << ", " << q.w()          // NOLINT
+            << std::endl;                                                                       // NOLINT
 }
 
 std::unique_ptr<CartesianWaypointInterface> CartesianWaypoint::clone() const
