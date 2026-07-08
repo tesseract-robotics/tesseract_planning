@@ -37,6 +37,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/geometric/planners/prm/PRMstar.h>
 #include <ompl/geometric/planners/prm/LazyPRMstar.h>
 #include <ompl/geometric/planners/prm/SPARS.h>
+#include <ompl/base/spaces/RealVectorStateSpace.h>
+#include <ompl/base/ScopedState.h>
 
 #include <ompl/util/RandomNumbers.h>
 
@@ -65,6 +67,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract/motion_planners/ompl/cereal_serialization.h>
 #include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
+#include <tesseract/motion_planners/ompl/continuous_motion_validator.h>
+#include <tesseract/motion_planners/ompl/utils.h>
 
 #include <tesseract/motion_planners/types.h>
 #include <tesseract/motion_planners/utils.h>
@@ -565,6 +569,66 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 //  kin->getJointNames()); ompl_config->end_waypoint = std::make_shared<tesseract_motion_planners::JointWaypoint>(ewp,
 //  kin->getJointNames());
 //}
+
+namespace
+{
+class AlwaysInvalidStateValidator : public ompl::base::StateValidityChecker
+{
+public:
+  using ompl::base::StateValidityChecker::StateValidityChecker;
+  bool isValid(const ompl::base::State* /*state*/) const override { return false; }
+};
+}  // namespace
+
+TEST(ContinuousMotionValidatorTest, StateValidatorBreakAtFirstInvalidState)  // NOLINT
+{
+  auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
+  auto env = std::make_shared<Environment>();
+  std::filesystem::path urdf_path(
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
+  std::filesystem::path srdf_path(
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
+  ASSERT_TRUE(env->init(urdf_path, srdf_path, locator));
+
+  auto joint_group = env->getJointGroup("manipulator");
+  const auto dof = static_cast<unsigned>(joint_group->numJoints());
+  const std::vector<std::string> joint_names = joint_group->getJointNames();
+  const Eigen::MatrixX2d limits = joint_group->getLimits().joint_limits;
+
+  auto rss = std::make_shared<ompl::base::RealVectorStateSpace>();
+  for (unsigned i = 0; i < dof; ++i)
+    rss->addDimension(joint_names[i], limits(i, 0), limits(i, 1));
+
+  auto si = std::make_shared<ompl::base::SpaceInformation>(rss);
+  si->setup();
+
+  OMPLStateExtractor extractor = [dof](const ompl::base::State* state) -> Eigen::Map<Eigen::VectorXd> {
+    return RealVectorStateSpaceExtractor(state, dof);
+  };
+
+  auto state_validator = std::make_shared<AlwaysInvalidStateValidator>(si);
+  tesseract::collision::ContactManagerConfig contact_config;
+  ContinuousMotionValidator validator(si, state_validator, *env, joint_group, contact_config, extractor);
+
+  ompl::base::ScopedState<ompl::base::RealVectorStateSpace> s1(rss), s2(rss);
+  for (unsigned i = 0; i < dof; ++i)
+  {
+    s1->values[i] = start_state[i];
+    s2->values[i] = end_state[i];
+  }
+
+  const unsigned n_steps = rss->validSegmentCount(s1.get(), s2.get());
+  ASSERT_GT(n_steps, 1u) << "Need multiple segments to exercise break behavior";
+
+  ompl::base::ScopedState<ompl::base::RealVectorStateSpace> last_valid_state(rss);
+  std::pair<ompl::base::State*, double> last_valid = std::make_pair(last_valid_state.get(), 0.0);
+
+  EXPECT_FALSE(validator.checkMotion(s1.get(), s2.get(), last_valid));
+
+  // With break, the loop stops at i=1 (first invalid segment): lastValid.second = 0/n_steps = 0.
+  // Without break, subsequent invalid segments overwrite lastValid.second, ending at (n_steps-2)/n_steps.
+  EXPECT_DOUBLE_EQ(last_valid.second, 0.0);
+}
 
 int main(int argc, char** argv)
 {
