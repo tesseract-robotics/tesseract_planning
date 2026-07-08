@@ -223,7 +223,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
 template <typename FloatType>
 void DescartesRobotSampler<FloatType>::print(std::ostream& os) const
 {
-  os << "Working Frame: " << target_working_frame_.name() << ", TCP Frame: " << tcp_frame_.name() << "\n";
+  os << "Working Frame: " << target_working_frame_ << ", TCP Frame: " << tcp_frame_ << "\n";
   os << "Target Pose:\n" << target_pose_.matrix() << "\n";
   os << "TCP Offset:\n" << tcp_offset_.matrix() << "\n";
   os << "Error string:\n" << error_string_;

@@ -344,7 +344,7 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
     {
       std::stringstream ss;
       const auto& front = collision.second.front();
-      ss << "Discrete collision detected between '" << front.link_ids[0].name() << "' and '" << front.link_ids[1].name()
+      ss << "Discrete collision detected between '" << front.link_ids[0] << "' and '" << front.link_ids[1]
          << "' with distance " << front.distance << "\n";
 
       CONSOLE_BRIDGE_logError(ss.str().c_str());

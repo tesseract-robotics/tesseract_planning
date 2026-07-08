@@ -310,7 +310,7 @@ void printContinuousDebugInfo(const std::vector<tesseract::common::JointId>& joi
 
   ss << "     Names:";
   for (const auto& id : joint_ids)
-    ss << " " << id.name();
+    ss << " " << id;
 
   ss << "\n    State0: " << swp0 << "\n    State1: " << swp1 << "\n";
 
@@ -331,7 +331,7 @@ void printDiscreteDebugInfo(const std::vector<tesseract::common::JointId>& joint
 
   ss << "     Names:";
   for (const auto& id : joint_ids)
-    ss << " " << id.name();
+    ss << " " << id;
 
   ss << "\n    State: " << swp << "\n";
 
