@@ -335,7 +335,7 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
 
   ompl::base::ScopedState<> goal_state(simple_setup.getStateSpace());
   for (unsigned i = 0; i < dof; ++i)
-    goal_state[i] = joint_waypoint[i];
+    goal_state[i] = solution[static_cast<Eigen::Index>(i)];
 
   simple_setup.setGoalState(goal_state);
 }
@@ -444,7 +444,7 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
 
   ompl::base::ScopedState<> start_state(simple_setup.getStateSpace());
   for (unsigned i = 0; i < dof; ++i)
-    start_state[i] = joint_waypoint[i];
+    start_state[i] = solution[static_cast<Eigen::Index>(i)];
 
   simple_setup.addStartState(start_state);
 }
