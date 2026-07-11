@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/task_composer_node.h>
 #include <tesseract/task_composer/task_composer_task.h>
 #include <tesseract/task_composer/task_composer_pipeline.h>
+#include <tesseract/common/property_tree.h>
 #include <tesseract/task_composer/task_composer_graph.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
 
@@ -250,5 +251,16 @@ std::unique_ptr<TaskComposerFuture> TaskflowTaskComposerExecutor::runImpl(const 
 long TaskflowTaskComposerExecutor::getWorkerCount() const { return static_cast<long>(executor_->num_workers()); }
 
 long TaskflowTaskComposerExecutor::getTaskCount() const { return static_cast<long>(executor_->num_topologies()); }
+
+tesseract::common::PropertyTree TaskflowTaskComposerExecutor::schema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .integer("threads").minimum(1).done()
+      .build();
+  // clang-format on
+}
 
 }  // namespace tesseract::task_composer

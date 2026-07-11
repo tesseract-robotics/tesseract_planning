@@ -45,6 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
 #include <tesseract/task_composer/yaml_extensions.h>
 #include <tesseract/task_composer/yaml_utils.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
@@ -518,6 +519,130 @@ std::string TaskComposerGraph::dump(std::ostream& os,
     os << "}\n";
 
   return {};
+}
+
+namespace
+{
+/**
+ * @brief Validator that checks terminals, edge sources, and edge destinations all reference keys in the nodes map.
+ */
+void validateGraphNodeReferences(const tesseract::common::PropertyTree& node,
+                                 const std::string& path,
+                                 std::vector<std::string>& errors)
+{
+  // Collect node keys from the nodes map
+  const auto* nodes_node = node.find("nodes");
+  if (nodes_node == nullptr || nodes_node->getValue().IsNull())
+    return;  // nodes missing — other validators handle that
+
+  std::set<std::string> node_keys;
+  if (nodes_node->getValue().IsMap())
+  {
+    for (auto it = nodes_node->getValue().begin(); it != nodes_node->getValue().end(); ++it)
+      node_keys.insert(it->first.as<std::string>());
+  }
+
+  if (node_keys.empty())
+    return;
+
+  // Validate terminals
+  const auto* terminals_node = node.find("terminals");
+  if (terminals_node != nullptr && terminals_node->getValue().IsSequence())
+  {
+    for (std::size_t i = 0; i < terminals_node->getValue().size(); ++i)
+    {
+      auto name = terminals_node->getValue()[i].as<std::string>();
+      if (node_keys.find(name) == node_keys.end())
+      {
+        std::string error = path;
+        error += ".terminals[";
+        error += std::to_string(i);
+        error += "]: '";
+        error += name;
+        error += "' not found in nodes";
+        errors.push_back(std::move(error));
+      }
+    }
+  }
+
+  // Validate edge sources and destinations
+  const auto* edges_node = node.find("edges");
+  if (edges_node != nullptr && edges_node->getValue().IsSequence())
+  {
+    for (std::size_t i = 0; i < edges_node->getValue().size(); ++i)
+    {
+      const auto& edge = edges_node->getValue()[i];
+      if (edge["source"])
+      {
+        auto source = edge["source"].as<std::string>();
+        if (node_keys.find(source) == node_keys.end())
+        {
+          std::string error = path;
+          error += ".edges[";
+          error += std::to_string(i);
+          error += "].source: '";
+          error += source;
+          error += "' not found in nodes";
+          errors.push_back(std::move(error));
+        }
+      }
+      if (edge["destinations"])
+      {
+        const auto& dests = edge["destinations"];
+        if (dests.IsSequence())
+        {
+          for (std::size_t j = 0; j < dests.size(); ++j)
+          {
+            auto dest = dests[j].as<std::string>();
+            if (node_keys.find(dest) == node_keys.end())
+            {
+              std::string error = path;
+              error += ".edges[";
+              error += std::to_string(i);
+              error += "].destinations[";
+              error += std::to_string(j);
+              error += "]: '";
+              error += dest;
+              error += "' not found in nodes";
+              errors.push_back(std::move(error));
+            }
+          }
+        }
+        else if (dests.IsScalar())
+        {
+          auto dest = dests.as<std::string>();
+          if (node_keys.find(dest) == node_keys.end())
+          {
+            std::string error = path;
+            error += ".edges[";
+            error += std::to_string(i);
+            error += "].destinations: '";
+            error += dest;
+            error += "' not found in nodes";
+            errors.push_back(std::move(error));
+          }
+        }
+      }
+    }
+  }
+}
+}  // namespace
+
+tesseract::common::PropertyTree TaskComposerGraph::schema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .compose(TaskComposerNode::schema())
+      .validator(validateGraphNodeReferences)
+    .customType("nodes", property_type::createMap(SUB_TASK_SCHEMA_KEY))
+          .required().acceptsDerivedTypes().validator(validateCustomType).done()
+    .customType("edges", property_type::createList(GRAPH_EDGE_SCHEMA_KEY)).required()
+          .validator(validateCustomType).done()
+    .customType("terminals", property_type::createList(property_type::STRING)).required().done()
+      .build();
+  // clang-format on
 }
 
 }  // namespace tesseract::task_composer

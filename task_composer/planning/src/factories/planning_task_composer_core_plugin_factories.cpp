@@ -25,6 +25,8 @@
 #include <tesseract/task_composer/planning/planning_task_composer_plugin_factories.h>
 #include <tesseract/task_composer/task_composer_plugin_factory_utils.h>
 
+#include <tesseract/common/schema_registration.h>
+
 #include <tesseract/task_composer/planning/nodes/continuous_contact_check_task.h>
 #include <tesseract/task_composer/planning/nodes/discrete_contact_check_task.h>
 #include <tesseract/task_composer/planning/nodes/fix_state_bounds_task.h>
@@ -60,8 +62,8 @@ using ProfileSwitchTaskFactory = TaskComposerTaskFactory<ProfileSwitchTask>;
 using UpsampleTrajectoryTaskFactory = TaskComposerTaskFactory<UpsampleTrajectoryTask>;
 using RasterMotionTaskFactory = TaskComposerTaskFactory<RasterMotionTask>;
 using RasterOnlyMotionTaskFactory = TaskComposerTaskFactory<RasterOnlyMotionTask>;
-using SimpleMotionPlannerTaskFactory =
-    TaskComposerTaskFactory<MotionPlannerTask<tesseract::motion_planners::SimpleMotionPlanner>>;
+using SimpleMotionPlannerTask = MotionPlannerTask<tesseract::motion_planners::SimpleMotionPlanner>;
+using SimpleMotionPlannerTaskFactory = TaskComposerTaskFactory<SimpleMotionPlannerTask>;
 using ProcessPlanningInputTaskFactory = TaskComposerTaskFactory<ProcessPlanningInputTask>;
 
 // LCOV_EXCL_START
@@ -102,3 +104,42 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::SimpleMotionPl
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::ProcessPlanningInputTaskFactory, ProcessPlanningInputTaskFactory)
 // clang-format on
+
+TESSERACT_SCHEMA_REGISTER(ContinuousContactCheckTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(DiscreteContactCheckTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(FixStateBoundsTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(FixStateCollisionTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(FormatAsInputTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(FormatAsResultTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(FormatPlanningInputTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(KinematicLimitsCheckTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(MinLengthTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(ProfileSwitchTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(UpsampleTrajectoryTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+TESSERACT_SCHEMA_REGISTER(RasterMotionTaskFactory, tesseract::task_composer::RasterMotionTask::schema);
+TESSERACT_SCHEMA_REGISTER(RasterOnlyMotionTaskFactory, tesseract::task_composer::RasterOnlyMotionTask::schema);
+TESSERACT_SCHEMA_REGISTER(SimpleMotionPlannerTaskFactory, tesseract::task_composer::SimpleMotionPlannerTask::schema);
+TESSERACT_SCHEMA_REGISTER(ProcessPlanningInputTaskFactory, tesseract::task_composer::TaskComposerTask::schema);
+
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       ContinuousContactCheckTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       DiscreteContactCheckTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, FixStateBoundsTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, FixStateCollisionTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, FormatAsInputTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, FormatAsResultTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       FormatPlanningInputTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       KinematicLimitsCheckTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, MinLengthTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, ProfileSwitchTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       UpsampleTrajectoryTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, RasterMotionTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, RasterOnlyMotionTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       SimpleMotionPlannerTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       ProcessPlanningInputTaskFactory);

@@ -39,6 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/task_composer_node_info.h>
 #include <tesseract/task_composer/task_composer_data_storage.h>
 #include <tesseract/task_composer/yaml_extensions.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
@@ -93,6 +94,20 @@ TaskComposerNode::TaskComposerNode(std::string name,
 
   if (type != TaskComposerNodeType::GRAPH && type != TaskComposerNodeType::PIPELINE)
     validatePorts();
+}
+
+tesseract::common::PropertyTree TaskComposerNode::schema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .string("namespace").done()
+      .boolean("conditional").done()
+      .customType("inputs", "tesseract::task_composer::TaskComposerKeys").validator(validateCustomType).done()
+      .customType("outputs", "tesseract::task_composer::TaskComposerKeys").validator(validateCustomType).done()
+      .build();
+  // clang-format on
 }
 
 int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExecutor executor) const

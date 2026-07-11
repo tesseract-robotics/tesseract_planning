@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/task_composer_context.h>
 #include <tesseract/task_composer/task_composer_data_storage.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
@@ -103,5 +104,16 @@ TaskComposerNodeInfo RemapTask::runImpl(TaskComposerContext& context, OptionalTa
     info.status_message = "Failed to remap data.";
   }
   return info;
+}
+
+tesseract::common::PropertyTree RemapTask::schema()
+{
+  using namespace tesseract::common;
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .compose(TaskComposerTask::schema())
+      .boolean("copy")
+      .done()
+      .build();
 }
 }  // namespace tesseract::task_composer

@@ -91,6 +91,8 @@ public:
   RasterMotionTask(RasterMotionTask&&) = delete;
   RasterMotionTask& operator=(RasterMotionTask&&) = delete;
 
+  static tesseract::common::PropertyTree schema();
+
 private:
   TaskFactory freespace_task_factory_;
   TaskFactory raster_task_factory_;

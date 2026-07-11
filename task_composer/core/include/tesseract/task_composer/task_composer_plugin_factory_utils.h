@@ -25,6 +25,7 @@
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PLUGIN_FACTORY_UTILS_H
 
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
@@ -38,6 +39,8 @@ public:
   {
     return std::make_unique<TaskType>(name, config, plugin_factory);
   }
+
+  tesseract::common::PropertyTree schema() const override { return TaskType::schema(); }
 };
 
 template <typename ExecutorType>
@@ -48,7 +51,10 @@ public:
   {
     return std::make_unique<ExecutorType>(name, config);
   }
+
+  tesseract::common::PropertyTree schema() const override { return ExecutorType::schema(); }
 };
+
 }  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PLUGIN_FACTORY_UTILS_H

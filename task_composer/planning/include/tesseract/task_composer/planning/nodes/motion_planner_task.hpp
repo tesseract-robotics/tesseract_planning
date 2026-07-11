@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/task_composer_task.h>
+#include <tesseract/common/property_tree.h>
 
 #include <tesseract/task_composer/task_composer_context.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
@@ -91,6 +92,17 @@ public:
     }
   }
   ~MotionPlannerTask() override = default;
+
+  static tesseract::common::PropertyTree schema()
+  {
+    using namespace tesseract::common;
+    return PropertyTreeBuilder()
+        .attribute(property_attribute::TYPE, property_type::CONTAINER)
+        .compose(TaskComposerTask::schema())
+        .boolean("format_result_as_input")
+        .done()
+        .build();
+  }
 
 protected:
   std::shared_ptr<MotionPlannerType> planner_;

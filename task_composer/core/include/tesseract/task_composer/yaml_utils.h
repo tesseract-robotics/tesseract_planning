@@ -26,6 +26,8 @@
 
 #include <memory>
 
+#include <tesseract/common/fwd.h>
+
 namespace YAML
 {
 class Node;
@@ -64,6 +66,38 @@ void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config);
  * @param node The yaml node to validate
  */
 void validateSubTask(const std::string& parent_name, const std::string& key, const YAML::Node& node);
+
+/** @brief Registry key for the graph edge schema. */
+inline constexpr const char* GRAPH_EDGE_SCHEMA_KEY = "tesseract::task_composer::GraphEdge";
+
+/** @brief Registry key for the sub-task schema. */
+inline constexpr const char* SUB_TASK_SCHEMA_KEY = "tesseract::task_composer::SubTask";
+
+/** @brief Registry key for the sub-task config schema. */
+inline constexpr const char* SUB_TASK_CONFIG_SCHEMA_KEY = "tesseract::task_composer::SubTaskConfig";
+
+/**
+ * @brief Return the schema for a sub-task entry.
+ *
+ * A sub-task is a oneOf: either a plugin info structure (class + config)
+ * or a named task reference (task + config with conditional/abort_terminal/override).
+ */
+tesseract::common::PropertyTree subTaskSchema();
+
+/**
+ * @brief Return the schema for a sub-task config (the 'task' branch config).
+ *
+ * Contains optional fields: conditional (bool), abort_terminal (int),
+ * and override (container with inputs/outputs maps).
+ */
+tesseract::common::PropertyTree subTaskConfigSchema();
+
+/**
+ * @brief Return the schema for a graph edge entry.
+ *
+ * Contains a required source (string) and required destinations (list of strings).
+ */
+tesseract::common::PropertyTree graphEdgeSchema();
 
 }  // namespace tesseract::task_composer
 

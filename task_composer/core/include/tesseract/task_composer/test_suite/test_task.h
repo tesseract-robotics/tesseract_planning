@@ -64,6 +64,8 @@ public:
   bool operator==(const TestTask& rhs) const;
   bool operator!=(const TestTask& rhs) const;
 
+  static tesseract::common::PropertyTree schema();
+
 private:
   static TaskComposerNodePorts ports();
 

@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/common/resource_locator.h>
 #include <tesseract/common/yaml_utils.h>
 #include <tesseract/common/yaml_extensions.h>
+#include <tesseract/common/property_tree.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
 #include <tesseract/task_composer/task_composer_node.h>
 #include <tesseract/task_composer/task_composer_executor.h>
@@ -47,7 +48,17 @@ namespace tesseract::task_composer
 {
 std::string TaskComposerExecutorFactory::getSection() { return "TaskExec"; }
 
+tesseract::common::PropertyTree TaskComposerExecutorFactory::schema() const
+{
+  return tesseract::common::PropertyTreeBuilder().build();
+}
+
 std::string TaskComposerNodeFactory::getSection() { return "TaskNode"; }
+
+tesseract::common::PropertyTree TaskComposerNodeFactory::schema() const
+{
+  return tesseract::common::PropertyTreeBuilder().build();
+}
 
 struct TaskComposerPluginFactory::Implementation
 {

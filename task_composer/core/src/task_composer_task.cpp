@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/task_composer_task.h>
 #include <tesseract/task_composer/task_composer_context.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
@@ -54,5 +55,16 @@ TaskComposerTask::TaskComposerTask(std::string name, TaskComposerNodePorts ports
 }
 
 void TaskComposerTask::setTriggerAbort(bool enable) { trigger_abort_ = enable; }
+
+tesseract::common::PropertyTree TaskComposerTask::schema()
+{
+  using namespace tesseract::common;
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .compose(TaskComposerNode::schema())
+      .boolean("trigger_abort")
+      .done()
+      .build();
+}
 
 }  // namespace tesseract::task_composer

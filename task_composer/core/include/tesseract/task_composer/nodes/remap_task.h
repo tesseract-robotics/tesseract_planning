@@ -53,6 +53,8 @@ public:
   explicit RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~RemapTask() override = default;
 
+  static tesseract::common::PropertyTree schema();
+
 private:
   bool copy_{ false };
 

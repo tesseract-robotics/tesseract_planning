@@ -209,7 +209,7 @@ long OMPLMotionPlanner::assignTrajectory(tesseract::command_language::CompositeI
   bool found{ false };
   Eigen::Index row{ 0 };
   auto& ci = output.getInstructions();
-  for (auto it = ci.begin() + static_cast<long>(start_index); it != ci.end(); ++it)
+  for (auto it = ci.begin() + start_index; it != ci.end(); ++it)
   {
     if (it->isMoveInstruction())
     {

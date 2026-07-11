@@ -25,13 +25,15 @@
 #include <tesseract/task_composer/planning/planning_task_composer_plugin_factories.h>
 #include <tesseract/task_composer/task_composer_plugin_factory_utils.h>
 
+#include <tesseract/common/schema_registration.h>
+
 #include <tesseract/task_composer/planning/nodes/motion_planner_task.hpp>
 #include <tesseract/motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
 
 namespace tesseract::task_composer
 {
-using TrajOptIfoptMotionPlannerTaskFactory =
-    TaskComposerTaskFactory<MotionPlannerTask<tesseract::motion_planners::TrajOptIfoptMotionPlanner>>;
+using TrajOptIfoptMotionPlannerTask = MotionPlannerTask<tesseract::motion_planners::TrajOptIfoptMotionPlanner>;
+using TrajOptIfoptMotionPlannerTaskFactory = TaskComposerTaskFactory<TrajOptIfoptMotionPlannerTask>;
 
 }  // namespace tesseract::task_composer
 
@@ -39,3 +41,9 @@ using TrajOptIfoptMotionPlannerTaskFactory =
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::TrajOptIfoptMotionPlannerTaskFactory, TrajOptIfoptMotionPlannerTaskFactory)
 // clang-format on
+
+TESSERACT_SCHEMA_REGISTER(TrajOptIfoptMotionPlannerTaskFactory,
+                          tesseract::task_composer::TrajOptIfoptMotionPlannerTask::schema);
+
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       TrajOptIfoptMotionPlannerTaskFactory);
