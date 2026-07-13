@@ -110,26 +110,12 @@ void serialize(Archive& ar, CartesianWaypoint& obj)
 }
 
 template <class Archive>
-void save(Archive& ar, const JointWaypoint& obj)
-{
-  // base_class<JointWaypointInterface> serialization is a no-op
-  ar(cereal::make_nvp("name", obj.name_));
-  auto names = tesseract::common::toNames(obj.joint_ids_);
-  ar(cereal::make_nvp("names", names));
-  ar(cereal::make_nvp("position", obj.position_));
-  ar(cereal::make_nvp("upper_tolerance", obj.upper_tolerance_));
-  ar(cereal::make_nvp("lower_tolerance", obj.lower_tolerance_));
-  ar(cereal::make_nvp("is_constrained", obj.is_constrained_));
-}
-
-template <class Archive>
-void load(Archive& ar, JointWaypoint& obj)
+void serialize(Archive& ar, JointWaypoint& obj)
 {
   ar(cereal::base_class<JointWaypointInterface>(&obj));
   ar(cereal::make_nvp("name", obj.name_));
-  std::vector<std::string> names;
-  ar(cereal::make_nvp("names", names));
-  obj.joint_ids_ = tesseract::common::toIds<tesseract::common::JointId>(names);
+  // NVP key kept as "names" for archive compat; JointId serializes as its name.
+  ar(cereal::make_nvp("names", obj.joint_ids_));
   ar(cereal::make_nvp("position", obj.position_));
   ar(cereal::make_nvp("upper_tolerance", obj.upper_tolerance_));
   ar(cereal::make_nvp("lower_tolerance", obj.lower_tolerance_));
@@ -137,27 +123,12 @@ void load(Archive& ar, JointWaypoint& obj)
 }
 
 template <class Archive>
-void save(Archive& ar, const StateWaypoint& obj)
-{
-  // base_class<StateWaypointInterface> serialization is a no-op
-  ar(cereal::make_nvp("name", obj.name_));
-  auto names = tesseract::common::toNames(obj.joint_ids_);
-  ar(cereal::make_nvp("joint_names", names));
-  ar(cereal::make_nvp("position", obj.position_));
-  ar(cereal::make_nvp("velocity", obj.velocity_));
-  ar(cereal::make_nvp("acceleration", obj.acceleration_));
-  ar(cereal::make_nvp("effort", obj.effort_));
-  ar(cereal::make_nvp("time", obj.time_));
-}
-
-template <class Archive>
-void load(Archive& ar, StateWaypoint& obj)
+void serialize(Archive& ar, StateWaypoint& obj)
 {
   ar(cereal::base_class<StateWaypointInterface>(&obj));
   ar(cereal::make_nvp("name", obj.name_));
-  std::vector<std::string> names;
-  ar(cereal::make_nvp("joint_names", names));
-  obj.joint_ids_ = tesseract::common::toIds<tesseract::common::JointId>(names);
+  // NVP key kept as "joint_names" for archive compat; JointId serializes as its name.
+  ar(cereal::make_nvp("joint_names", obj.joint_ids_));
   ar(cereal::make_nvp("position", obj.position_));
   ar(cereal::make_nvp("velocity", obj.velocity_));
   ar(cereal::make_nvp("acceleration", obj.acceleration_));

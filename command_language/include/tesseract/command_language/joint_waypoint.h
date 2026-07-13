@@ -40,9 +40,7 @@ namespace tesseract::command_language
 class JointWaypoint;
 
 template <class Archive>
-void save(Archive& ar, const JointWaypoint& obj);
-template <class Archive>
-void load(Archive& ar, JointWaypoint& obj);
+void serialize(Archive& ar, JointWaypoint& obj);
 
 class JointWaypoint final : public JointWaypointInterface
 {
@@ -142,9 +140,7 @@ private:
   bool equals(const JointWaypointInterface& other) const override final;
 
   template <class Archive>
-  friend void ::tesseract::command_language::save(Archive& ar, const JointWaypoint& obj);
-  template <class Archive>
-  friend void ::tesseract::command_language::load(Archive& ar, JointWaypoint& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, JointWaypoint& obj);
 };
 }  // namespace tesseract::command_language
 
