@@ -148,7 +148,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
       {
         // Reorder the waypoint — including tolerances — to match the post-planning
         // joint order, then overwrite position with the post-planning values.
-        formatJointPosition(getJointNames(umi.getWaypoint()), mi.getWaypoint());
+        formatJointPosition(getJointIds(umi.getWaypoint()), mi.getWaypoint());
         jwp.setPosition(getJointPosition(umi.getWaypoint()));
       }
     }

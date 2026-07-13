@@ -543,22 +543,22 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
                         Eigen::Quaterniond(0, 0, -1.0, 0));
 
   WaypointPoly wp0_poly{ wp0 };
-  const std::vector<std::string>& n0 = getJointNames(wp0_poly);
-  EXPECT_EQ(n0, wp0.getNames());
+  const std::vector<tesseract::common::JointId> n0 = getJointIds(wp0_poly);
+  EXPECT_EQ(n0, wp0.getJointIds());
 
   WaypointPoly wp00_poly{ wp00 };
-  const std::vector<std::string>& n00 = getJointNames(wp00_poly);
-  EXPECT_EQ(n00, wp00.getNames());
+  const std::vector<tesseract::common::JointId> n00 = getJointIds(wp00_poly);
+  EXPECT_EQ(n00, wp00.getJointIds());
 
   WaypointPoly wp1_poly{ wp1 };
-  const std::vector<std::string>& n1 = getJointNames(wp1_poly);
-  EXPECT_EQ(n1, wp1.getSeed().getJointNames());
+  const std::vector<tesseract::common::JointId> n1 = getJointIds(wp1_poly);
+  EXPECT_EQ(n1, wp1.getSeed().getJointIds());
 
   WaypointPoly wp2_poly{ wp2 };
-  EXPECT_ANY_THROW(getJointNames(wp2_poly));  // NOLINT
+  EXPECT_ANY_THROW(getJointIds(wp2_poly));  // NOLINT
 
   WaypointPoly error_poly;
-  EXPECT_ANY_THROW(getJointNames(error_poly));  // NOLINT
+  EXPECT_ANY_THROW(getJointIds(error_poly));  // NOLINT
 }
 
 TEST(TesseractCommandLanguageUtilsUnit, setJointPositionTests)  // NOLINT

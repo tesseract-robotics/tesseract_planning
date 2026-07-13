@@ -166,26 +166,6 @@ std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-std::vector<std::string> getJointNames(const WaypointPoly& waypoint)
-{
-  if (waypoint.isJointWaypoint())
-    return waypoint.as<JointWaypointPoly>().getNames();
-
-  if (waypoint.isStateWaypoint())
-    return waypoint.as<StateWaypointPoly>().getNames();
-
-  if (waypoint.isCartesianWaypoint())
-  {
-    const auto& cwp = waypoint.as<CartesianWaypointPoly>();
-    if (cwp.hasSeed())
-      return cwp.getSeed().getJointNames();
-
-    throw std::runtime_error("CartesianWaypoint does not have a seed.");
-  }
-
-  throw std::runtime_error("Unsupported waypoint type.");
-}
-
 Eigen::VectorXd getJointPosition(const std::vector<common::JointId>& joint_ids, const WaypointPoly& waypoint)
 {
   Eigen::VectorXd jv;
@@ -426,12 +406,12 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   std::vector<std::reference_wrapper<const InstructionPoly>> mi = composite_instructions.flatten(&moveFilter);
 
   // Write Joint names as header
-  std::vector<std::string> joint_names = getJointNames(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
+  const std::vector<common::JointId> joint_ids = getJointIds(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
 
-  for (std::size_t i = 0; i < joint_names.size() - 1; ++i)
-    myfile << joint_names[i] << separator;
+  for (std::size_t i = 0; i < joint_ids.size() - 1; ++i)
+    myfile << joint_ids[i].name() << separator;
 
-  myfile << joint_names.back() << "\n";
+  myfile << joint_ids.back().name() << "\n";
 
   // Write Positions
   for (const auto& i : mi)

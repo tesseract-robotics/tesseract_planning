@@ -86,16 +86,6 @@ const Eigen::VectorXd& getJointPosition(const T&) = delete;
 std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint);
 
 /**
- * @brief Gets joint names from waypoints that contain that information.
- *
- * Throws if waypoint does not directly contain that information
- *
- * @param waypoint The waypoint to try and extract the joint names from
- * @return The joint names
- */
-std::vector<std::string> getJointNames(const WaypointPoly& waypoint);
-
-/**
  * @brief Get the joint positions ordered by the provided joint ids
  *
  * Throws if waypoint does not directly contain that information
