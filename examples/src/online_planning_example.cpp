@@ -160,7 +160,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
 {
   // 1) Add Variables
   Eigen::MatrixX2d joint_limits_eigen = manip_->getLimits().joint_limits;
-  Eigen::VectorXd current_position = env_->getCurrentJointValues(manip_->getJointNames());
+  Eigen::VectorXd current_position = env_->getCurrentJointValues(manip_->getJointIds());
   const std::vector<trajopt_ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip_->getLimits().joint_limits);
   //  Eigen::VectorXd home_position = Eigen::VectorXd::Zero(manip_->numJoints());
   Eigen::VectorXd target_joint_position(manip_->numJoints());
@@ -340,7 +340,7 @@ bool OnlinePlanningExample::onlinePlan()
         init_trajectory.emplace_back(state.position.head(manip_->numJoints()));
       }
 
-      env_->setState(state.getJointNames(), state.position);
+      env_->setState(state.joint_ids, state.position);
 
       // Setup problem again which should use a new start state
       setupProblem(init_trajectory);

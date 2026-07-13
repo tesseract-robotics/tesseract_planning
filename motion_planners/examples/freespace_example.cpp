@@ -90,7 +90,7 @@ int main(int /*argc*/, char** /*argv*/)
     auto cur_state = env->getState();
 
     // Specify start location
-    StateWaypoint wp0{ kin_group->getJointNames(), Eigen::VectorXd::Zero(6) };
+    StateWaypoint wp0{ kin_group->getJointIds(), Eigen::VectorXd::Zero(6) };
 
     // Specify freespace start waypoint
     CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
