@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/common/manipulator_info.h>
 #include <tesseract/common/joint_state.h>
 #include <tesseract/common/profile_dictionary.h>
+#include <tesseract/common/types.h>
 
 #include <tesseract/scene_graph/scene_state.h>
 
@@ -1083,7 +1084,7 @@ interpolate_waypoint(const tesseract::command_language::WaypointPoly& start,
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
-getInterpolatedInstructions(const std::vector<std::string>& joint_names,
+getInterpolatedInstructions(const std::vector<tesseract::common::JointId>& joint_ids,
                             const Eigen::MatrixXd& states,
                             const tesseract::command_language::MoveInstructionPoly& base_instruction)
 {
@@ -1093,7 +1094,7 @@ getInterpolatedInstructions(const std::vector<std::string>& joint_names,
   {
     tesseract::command_language::MoveInstructionPoly move_instruction = base_instruction.createChild();
     tesseract::command_language::JointWaypointPoly jwp = move_instruction.createJointWaypoint();
-    jwp.setNames(joint_names);
+    jwp.setJointIds(joint_ids);
     jwp.setPosition(states.col(i));
     jwp.setIsConstrained(false);
     move_instruction.getWaypoint() = jwp;
@@ -1108,15 +1109,24 @@ getInterpolatedInstructions(const std::vector<std::string>& joint_names,
   tesseract::command_language::MoveInstructionPoly move_instruction{ base_instruction };
   if (base_instruction.getWaypoint().isCartesianWaypoint())
     move_instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>().setSeed(
-        tesseract::common::JointState(joint_names, states.col(states.cols() - 1)));
+        tesseract::common::JointState(joint_ids, states.col(states.cols() - 1)));
 
   move_instructions.push_back(move_instruction);
   return move_instructions;
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
+getInterpolatedInstructions(const std::vector<std::string>& joint_names,
+                            const Eigen::MatrixXd& states,
+                            const tesseract::command_language::MoveInstructionPoly& base_instruction)
+{
+  return getInterpolatedInstructions(
+      tesseract::common::toIds<tesseract::common::JointId>(joint_names), states, base_instruction);
+}
+
+std::vector<tesseract::command_language::MoveInstructionPoly>
 getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
-                            const std::vector<std::string>& joint_names,
+                            const std::vector<tesseract::common::JointId>& joint_ids,
                             const Eigen::MatrixXd& states,
                             const tesseract::command_language::MoveInstructionPoly& base_instruction)
 {
@@ -1130,7 +1140,7 @@ getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
       move_instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>().setTransform(
           poses[static_cast<std::size_t>(i)]);
       move_instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>().setSeed(
-          tesseract::common::JointState(joint_names, states.col(i)));
+          tesseract::common::JointState(joint_ids, states.col(i)));
       if (!base_instruction.getPathProfile().empty())
       {
         move_instruction.setProfile(base_instruction.getPathProfile());
@@ -1141,7 +1151,7 @@ getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
 
     tesseract::command_language::MoveInstructionPoly move_instruction = base_instruction;
     move_instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>().setSeed(
-        tesseract::common::JointState(joint_names, states.col(states.cols() - 1)));
+        tesseract::common::JointState(joint_ids, states.col(states.cols() - 1)));
     move_instructions.push_back(move_instruction);
   }
   else
@@ -1151,7 +1161,7 @@ getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
       tesseract::command_language::MoveInstructionPoly move_instruction = base_instruction.createChild();
       tesseract::command_language::CartesianWaypointPoly cwp = move_instruction.createCartesianWaypoint();
       cwp.setTransform(poses[static_cast<std::size_t>(i)]);
-      cwp.setSeed(tesseract::common::JointState(joint_names, states.col(i)));
+      cwp.setSeed(tesseract::common::JointState(joint_ids, states.col(i)));
       move_instruction.getWaypoint() = cwp;
       if (!base_instruction.getPathProfile().empty())
       {
@@ -1165,6 +1175,16 @@ getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
   }
 
   return move_instructions;
+}
+
+std::vector<tesseract::command_language::MoveInstructionPoly>
+getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
+                            const std::vector<std::string>& joint_names,
+                            const Eigen::MatrixXd& states,
+                            const tesseract::command_language::MoveInstructionPoly& base_instruction)
+{
+  return getInterpolatedInstructions(
+      poses, tesseract::common::toIds<tesseract::common::JointId>(joint_names), states, base_instruction);
 }
 
 Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& info, const Eigen::VectorXd& seed)
