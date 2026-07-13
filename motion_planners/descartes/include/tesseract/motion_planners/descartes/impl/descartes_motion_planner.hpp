@@ -142,7 +142,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
 
   // Get Manipulator Information
   tesseract::kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(composite_mi.manipulator);
-  const std::vector<std::string> joint_names = manip->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = manip->getJointIds();
   const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
 
   // Enforce limits
@@ -179,14 +179,14 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
           results_instructions.at(idx).get().as<tesseract::command_language::MoveInstructionPoly>();
       if (move_instruction.getWaypoint().isCartesianWaypoint())
       {
-        assignSolution(move_instruction, joint_names, solution[result_index++], request.format_result_as_input);
+        assignSolution(move_instruction, joint_ids, solution[result_index++], request.format_result_as_input);
       }
       else if (move_instruction.getWaypoint().isJointWaypoint())
       {
         auto& jwp = move_instruction.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
         if (jwp.isConstrained())
         {
-          assignSolution(move_instruction, joint_names, solution[result_index++], request.format_result_as_input);
+          assignSolution(move_instruction, joint_ids, solution[result_index++], request.format_result_as_input);
           continue;
         }
 
@@ -213,7 +213,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
           if (i != 0)
             ++idx;
           auto& interp_mi = results_instructions.at(idx).get().as<tesseract::command_language::MoveInstructionPoly>();
-          assignSolution(interp_mi, joint_names, states.col(i + 1), request.format_result_as_input);
+          assignSolution(interp_mi, joint_ids, states.col(i + 1), request.format_result_as_input);
         }
       }
       else if (move_instruction.getWaypoint().isStateWaypoint())
