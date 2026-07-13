@@ -519,7 +519,7 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
   EXPECT_ANY_THROW(checkJointPositionFormat(format_joint_names, error_poly));  // NOLINT
 }
 
-TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
+TEST(TesseractCommandLanguageUtilsUnit, getJointIdsTests)  // NOLINT
 {
   // Start Joint Position for the program
   std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",

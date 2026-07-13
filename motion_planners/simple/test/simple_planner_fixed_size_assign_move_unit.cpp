@@ -66,12 +66,12 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, Serializati
 TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit,
        JointJoint_AssignJointPosition_Freespace)  // NOLINT
 {
-  JointWaypoint wp1{ joint_names_, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp1{ joint_ids_, Eigen::VectorXd::Zero(7) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
-  JointWaypoint wp2{ joint_names_, Eigen::VectorXd::Ones(7) };
+  JointWaypoint wp2{ joint_ids_, Eigen::VectorXd::Ones(7) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -118,12 +118,12 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit,
  */
 TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, JointJoint_AssignJointPosition_Linear)  // NOLINT
 {
-  JointWaypoint wp1{ joint_names_, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp1{ joint_ids_, Eigen::VectorXd::Zero(7) };
   MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
-  JointWaypoint wp2{ joint_names_, Eigen::VectorXd::Ones(7) };
+  JointWaypoint wp2{ joint_ids_, Eigen::VectorXd::Ones(7) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -169,10 +169,10 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, JointJoint_
  */
 TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, JointCart_AssignJointPosition_Freespace)  // NOLINT
 {
-  JointWaypoint wp1{ joint_names_, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp1{ joint_ids_, Eigen::VectorXd::Zero(7) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
@@ -229,10 +229,10 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, JointCart_A
  */
 TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, JointCart_AssignJointPosition_Linear)  // NOLINT
 {
-  JointWaypoint wp1{ joint_names_, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp1{ joint_ids_, Eigen::VectorXd::Zero(7) };
   MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
@@ -293,9 +293,9 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartJoint_A
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
-  JointWaypoint wp2{ joint_names_, Eigen::VectorXd::Ones(7) };
+  JointWaypoint wp2{ joint_ids_, Eigen::VectorXd::Ones(7) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -346,9 +346,9 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartJoint_A
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
   MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
-  JointWaypoint wp2{ joint_names_, Eigen::VectorXd::Ones(7) };
+  JointWaypoint wp2{ joint_ids_, Eigen::VectorXd::Ones(7) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
@@ -398,7 +398,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_As
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, -0.1, 1);
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
@@ -415,7 +415,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_As
   // This demonstrates the conversion from Cartesian target to joint assignment
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
   tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
-  Eigen::VectorXd seed = env_->getCurrentJointValues(joint_names_);
+  Eigen::VectorXd seed = env_->getCurrentJointValues(joint_ids_);
   tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
@@ -459,7 +459,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_As
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, -0.1, 1);
   MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
@@ -475,7 +475,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_As
   // Solve IK for the Cartesian waypoint to get expected joint position
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
   tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
-  Eigen::VectorXd seed = env_->getCurrentJointValues(joint_names_);
+  Eigen::VectorXd seed = env_->getCurrentJointValues(joint_ids_);
   tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
@@ -520,12 +520,12 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_Wi
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, -0.1, 1);
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
   // Add a seed to the waypoint
-  tesseract::common::JointState joint_seed(joint_names_, Eigen::VectorXd::Ones(7) * 0.5);
+  tesseract::common::JointState joint_seed(joint_ids_, Eigen::VectorXd::Ones(7) * 0.5);
   wp2.setSeed(joint_seed);
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
@@ -575,7 +575,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_Li
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, -0.1, 1);
   MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
 
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
@@ -591,7 +591,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_Li
   // Solve IK for the Cartesian waypoint to get expected joint position
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
   tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
-  Eigen::VectorXd seed = env_->getCurrentJointValues(joint_names_);
+  Eigen::VectorXd seed = env_->getCurrentJointValues(joint_ids_);
   tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
@@ -642,14 +642,14 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, CartCart_Li
  */
 TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignMoveProfileUnit, DifferentStepCounts)  // NOLINT
 {
-  JointWaypoint wp1{ joint_names_, Eigen::VectorXd::Zero(7) };
-  JointWaypoint wp2{ joint_names_, Eigen::VectorXd::Ones(7) };
+  JointWaypoint wp1{ joint_ids_, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp2{ joint_ids_, Eigen::VectorXd::Ones(7) };
 
   // Test freespace with different step count (15 freespace steps vs 10 linear steps)
   // This shows that freespace_steps parameter is used for FREESPACE moves
   MoveInstruction instr1_freespace(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1_freespace };
-  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
   MoveInstruction instr2_freespace(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   InstructionPoly instr3;
 

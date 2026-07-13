@@ -119,7 +119,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
   // Get kinematics
   tesseract::kinematics::JointGroup::ConstPtr manip = env->getJointGroup(end_mi.manipulator);
   const auto dof = static_cast<unsigned>(manip->numJoints());
-  const std::vector<std::string> joint_names = manip->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = manip->getJointIds();
   const Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
 
   // Construct the OMPL state space for this manipulator
@@ -127,7 +127,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
 
   auto rss = std::make_shared<ompl::base::RealVectorStateSpace>();
   for (unsigned i = 0; i < dof; ++i)
-    rss->addDimension(joint_names[i], limits(i, 0), limits(i, 1));
+    rss->addDimension(joint_ids[i].name(), limits(i, 0), limits(i, 1));
 
   rss->setStateSamplerAllocator(createStateSamplerAllocator(env, manip));
 

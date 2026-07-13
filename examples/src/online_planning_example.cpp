@@ -174,10 +174,11 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   else
     initial_states = initial_trajectory;
 
+  const std::vector<std::string> joint_names = tesseract::common::toNames(manip_->getJointIds());
   for (std::size_t ind = 0; ind < static_cast<std::size_t>(steps_); ind++)
   {
     nodes.push_back(std::make_unique<trajopt_ifopt::Node>("Joint_Position_" + std::to_string(ind)));
-    vars.push_back(nodes.back()->addVar("position", manip_->getJointNames(), initial_states[ind], bounds));
+    vars.push_back(nodes.back()->addVar("position", joint_names, initial_states[ind], bounds));
   }
   auto variables = std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes));
 

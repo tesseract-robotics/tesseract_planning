@@ -171,11 +171,11 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   auto joint_group = env->getJointGroup(manip.manipulator);
 
   // Specify a start waypoint
-  JointWaypoint wp1{ joint_group->getJointNames(),
+  JointWaypoint wp1{ joint_group->getJointIds(),
                      Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())) };
 
   // Specify a end waypoint
-  JointWaypoint wp2{ joint_group->getJointNames(),
+  JointWaypoint wp2{ joint_group->getJointIds(),
                      Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())) };
 
   // Define Start Instruction
@@ -249,7 +249,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Define New Start Instruction
   wp1.setPosition(Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size())));
-  wp1.setNames(joint_group->getJointNames());
+  wp1.setJointIds(joint_group->getJointIds());
 
   start_instruction = MoveInstruction(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
@@ -275,10 +275,10 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   std::vector<double> ewp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
 
   wp1.setPosition(Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size())));
-  wp1.setNames(joint_group->getJointNames());
+  wp1.setJointIds(joint_group->getJointIds());
 
   wp2.setPosition(Eigen::Map<const Eigen::VectorXd>(ewp.data(), static_cast<long>(ewp.size())));
-  wp2.setNames(joint_group->getJointNames());
+  wp2.setJointIds(joint_group->getJointIds());
 
   // Define Start Instruction
   start_instruction = MoveInstruction(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE");
@@ -331,7 +331,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   auto kin_group = env->getKinematicGroup(manip.manipulator);
 
   // Specify a start waypoint
-  JointWaypoint wp1{ kin_group->getJointNames(),
+  JointWaypoint wp1{ kin_group->getJointIds(),
                      Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())) };
 
   // Specify a end waypoint
@@ -426,7 +426,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   CartesianWaypoint wp1{ start };
 
   // Specify a end waypoint
-  JointWaypoint wp2{ kin_group->getJointNames(),
+  JointWaypoint wp2{ kin_group->getJointIds(),
                      Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())) };
 
   // Define Start Instruction

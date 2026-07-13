@@ -224,8 +224,8 @@ std::vector<double> getPositionVector(const JointGroup& joint_group, const std::
 {
   std::vector<double> result;
   result.reserve(static_cast<std::size_t>(joint_group.numJoints()));
-  for (const auto& joint_name : joint_group.getJointNames())
-    result.push_back(pos.at(joint_name));
+  for (const auto& joint_id : joint_group.getJointIds())
+    result.push_back(pos.at(joint_id.name()));
 
   return result;
 }
@@ -235,8 +235,8 @@ Eigen::VectorXd getPositionVectorXd(const JointGroup& joint_group, const std::un
   Eigen::VectorXd result;
   result.resize(joint_group.numJoints());
   int cnt = 0;
-  for (const auto& joint_name : joint_group.getJointNames())
-    result[cnt++] = pos.at(joint_name);
+  for (const auto& joint_id : joint_group.getJointIds())
+    result[cnt++] = pos.at(joint_id.name());
 
   return result;
 }
