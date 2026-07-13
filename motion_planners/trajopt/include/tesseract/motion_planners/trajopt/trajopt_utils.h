@@ -63,11 +63,12 @@ createDynamicCartesianWaypointTermInfo(int index,
                                        const Eigen::VectorXd& lower_tolerance = Eigen::VectorXd(),
                                        const Eigen::VectorXd& upper_tolerance = Eigen::VectorXd());
 
-std::shared_ptr<trajopt::TermInfo> createNearJointStateTermInfo(const Eigen::VectorXd& target,
-                                                                const std::vector<std::string>& joint_names,
-                                                                int index,
-                                                                const Eigen::VectorXd& coeffs,
-                                                                trajopt::TermType type);
+std::shared_ptr<trajopt::TermInfo>
+createNearJointStateTermInfo(const Eigen::VectorXd& target,
+                             const std::vector<tesseract::common::JointId>& joint_ids,
+                             int index,
+                             const Eigen::VectorXd& coeffs,
+                             trajopt::TermType type);
 
 std::shared_ptr<trajopt::TermInfo> createJointWaypointTermInfo(const Eigen::VectorXd& j_wp,
                                                                int index,

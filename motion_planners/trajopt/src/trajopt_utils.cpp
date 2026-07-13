@@ -184,18 +184,19 @@ createDynamicCartesianWaypointTermInfo(int index,
   return pose;
 }
 
-std::shared_ptr<trajopt::TermInfo> createNearJointStateTermInfo(const Eigen::VectorXd& target,
-                                                                const std::vector<std::string>& joint_names,
-                                                                int index,
-                                                                const Eigen::VectorXd& coeffs,
-                                                                trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo>
+createNearJointStateTermInfo(const Eigen::VectorXd& target,
+                             const std::vector<tesseract::common::JointId>& joint_ids,
+                             int index,
+                             const Eigen::VectorXd& coeffs,
+                             trajopt::TermType type)
 {
-  assert(static_cast<std::size_t>(target.size()) == joint_names.size());
+  assert(static_cast<std::size_t>(target.size()) == joint_ids.size());
 
   std::shared_ptr<trajopt::JointPosTermInfo> jp = std::make_shared<trajopt::JointPosTermInfo>();
   if (static_cast<std::size_t>(coeffs.size()) == 1)
-    jp->coeffs = std::vector<double>(joint_names.size(), coeffs(0));  // Default value
-  else if (static_cast<std::size_t>(coeffs.size()) == joint_names.size())
+    jp->coeffs = std::vector<double>(joint_ids.size(), coeffs(0));  // Default value
+  else if (static_cast<std::size_t>(coeffs.size()) == joint_ids.size())
     jp->coeffs = std::vector<double>(coeffs.data(), coeffs.data() + coeffs.rows() * coeffs.cols());
 
   jp->targets = std::vector<double>(target.data(), target.data() + target.size());
