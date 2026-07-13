@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/types.h>
 
 #include <tesseract/common/joint_state.h>
+#include <tesseract/common/types.h>
 #include <tesseract/command_language/poly/move_instruction_poly.h>
 #include <tesseract/command_language/poly/waypoint_poly.h>
 #include <tesseract/command_language/poly/cartesian_waypoint_poly.h>
@@ -74,7 +75,7 @@ bool MotionPlanner::checkRequest(const PlannerRequest& request, std::string& rea
 }
 
 void MotionPlanner::assignSolution(tesseract::command_language::MoveInstructionPoly& mi,
-                                   const std::vector<std::string>& joint_names,
+                                   const std::vector<tesseract::common::JointId>& joint_ids,
                                    const Eigen::Ref<const Eigen::VectorXd>& joint_values,
                                    bool format_result_as_input)
 {
@@ -86,7 +87,7 @@ void MotionPlanner::assignSolution(tesseract::command_language::MoveInstructionP
     if (mi.getWaypoint().isCartesianWaypoint())
     {
       auto& cwp = mi.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
-      cwp.setSeed(tesseract::common::JointState(joint_names, joint_values));
+      cwp.setSeed(tesseract::common::JointState(joint_ids, joint_values));
       return;
     }
 
@@ -95,7 +96,7 @@ void MotionPlanner::assignSolution(tesseract::command_language::MoveInstructionP
       auto& jwp = mi.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
       if (!jwp.isConstrained() || (jwp.isConstrained() && jwp.isToleranced()))
       {
-        jwp.setNames(joint_names);
+        jwp.setJointIds(joint_ids);
         jwp.setPosition(joint_values);
       }
       return;
@@ -105,9 +106,18 @@ void MotionPlanner::assignSolution(tesseract::command_language::MoveInstructionP
   }
 
   tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
-  swp.setNames(joint_names);
+  swp.setJointIds(joint_ids);
   swp.setPosition(joint_values);
   mi.getWaypoint() = swp;
+}
+
+void MotionPlanner::assignSolution(tesseract::command_language::MoveInstructionPoly& mi,
+                                   const std::vector<std::string>& joint_names,
+                                   const Eigen::Ref<const Eigen::VectorXd>& joint_values,
+                                   bool format_result_as_input)
+{
+  assignSolution(
+      mi, tesseract::common::toIds<tesseract::common::JointId>(joint_names), joint_values, format_result_as_input);
 }
 
 }  // namespace tesseract::motion_planners

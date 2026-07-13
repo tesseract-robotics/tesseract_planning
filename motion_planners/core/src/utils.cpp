@@ -69,7 +69,7 @@ Eigen::Isometry3d calcPose(const tesseract::command_language::WaypointPoly& wp,
   if (wp.isStateWaypoint())
   {
     const auto& swp = wp.as<tesseract::command_language::StateWaypointPoly>();
-    assert(static_cast<long>(swp.getNames().size()) == swp.getPosition().size());
+    assert(static_cast<long>(swp.getJointIds().size()) == swp.getPosition().size());
     tesseract::scene_graph::SceneState state = state_solver.getState(swp.getJointIds(), swp.getPosition());
     return (state.link_transforms.at(tip_link) * tcp);
   }
@@ -77,7 +77,7 @@ Eigen::Isometry3d calcPose(const tesseract::command_language::WaypointPoly& wp,
   if (wp.isJointWaypoint())
   {
     const auto& jwp = wp.as<tesseract::command_language::JointWaypointPoly>();
-    assert(static_cast<long>(jwp.getNames().size()) == jwp.getPosition().size());
+    assert(static_cast<long>(jwp.getJointIds().size()) == jwp.getPosition().size());
     tesseract::scene_graph::SceneState state = state_solver.getState(jwp.getJointIds(), jwp.getPosition());
     return (state.link_transforms.at(tip_link) * tcp);
   }

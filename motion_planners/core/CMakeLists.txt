@@ -27,6 +27,10 @@ target_include_directories(motion_planners PUBLIC "$<BUILD_INTERFACE:${CMAKE_CUR
 # Mark cpp header files for installation
 install(DIRECTORY include/tesseract DESTINATION include COMPONENT motion_planners)
 
+if(TESSERACT_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
+
 # Configure Components
 configure_component(
   COMPONENT motion_planners
