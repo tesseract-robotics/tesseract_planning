@@ -43,7 +43,6 @@ requirements:
       - pkg-config 
       - xz
       - flann
-      - jsoncpp
       - yaml-cpp
       - bullet-cpp
       - blas
@@ -72,7 +71,6 @@ requirements:
       - gtest
       - gmock
       - xz
-      - jsoncpp
       - taskflow 
       - yaml-cpp
       - bullet-cpp
