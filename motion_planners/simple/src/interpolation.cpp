@@ -242,10 +242,10 @@ interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -307,10 +307,10 @@ interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -371,10 +371,10 @@ interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -476,11 +476,11 @@ interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
   // Convert to MoveInstructions
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -567,10 +567,10 @@ interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
         pose = base.working_frame_transform.inverse() * pose;
 
       assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-      return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+      return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
     }
 
-    return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
   }
 
   // Check min steps requirement
@@ -588,10 +588,10 @@ interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -646,10 +646,10 @@ interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
         pose = base.working_frame_transform.inverse() * pose;
 
       assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-      return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+      return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
     }
 
-    return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
   }
 
   // Check min steps requirement
@@ -667,10 +667,10 @@ interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -771,11 +771,11 @@ interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
   // Convert to MoveInstructions
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -818,10 +818,10 @@ interpolateJointJointWaypoint(const JointGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -872,10 +872,10 @@ interpolateJointCartWaypoint(const JointGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -926,10 +926,10 @@ interpolateCartJointWaypoint(const JointGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
@@ -983,10 +983,10 @@ interpolateCartCartWaypoint(const JointGroupInstructionInfo& prev,
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 tesseract::common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,

@@ -162,10 +162,10 @@ std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerLVSAs
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 bool SimplePlannerLVSAssignNoIKMoveProfile::operator==(const SimplePlannerLVSAssignNoIKMoveProfile& rhs) const
