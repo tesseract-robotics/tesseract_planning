@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/kinematic_limits.h>
 #include <tesseract/common/profile_dictionary.h>
+#include <tesseract/common/types.h>
 #include <tesseract/kinematics/kinematic_group.h>
 #include <tesseract/environment/environment.h>
 
