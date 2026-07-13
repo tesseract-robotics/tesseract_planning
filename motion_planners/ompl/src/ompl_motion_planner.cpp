@@ -44,6 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/types.h>
 
 #include <tesseract/common/profile_dictionary.h>
+#include <tesseract/common/types.h>
 #include <tesseract/kinematics/joint_group.h>
 #include <tesseract/kinematics/kinematic_group.h>
 #include <tesseract/collision/discrete_contact_manager.h>
@@ -201,7 +202,7 @@ long OMPLMotionPlanner::assignTrajectory(tesseract::command_language::CompositeI
                                          boost::uuids::uuid start_uuid,
                                          boost::uuids::uuid end_uuid,
                                          long start_index,
-                                         const std::vector<std::string>& joint_names,
+                                         const std::vector<tesseract::common::JointId>& joint_ids,
                                          const tesseract::common::TrajArray& traj,
                                          const bool format_result_as_input)
 {
@@ -226,14 +227,14 @@ long OMPLMotionPlanner::assignTrajectory(tesseract::command_language::CompositeI
           {
             tesseract::command_language::JointWaypointPoly jwp = mi.createJointWaypoint();
             jwp.setIsConstrained(false);
-            jwp.setNames(joint_names);
+            jwp.setJointIds(joint_ids);
             jwp.setPosition(traj.row(row));
             child.getWaypoint() = jwp;
           }
           else
           {
             tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
-            swp.setNames(joint_names);
+            swp.setJointIds(joint_ids);
             swp.setPosition(traj.row(row));
             child.getWaypoint() = swp;
           }
@@ -241,7 +242,7 @@ long OMPLMotionPlanner::assignTrajectory(tesseract::command_language::CompositeI
           extra.emplace_back(child);
         }
 
-        assignSolution(mi, joint_names, traj.row(row), format_result_as_input);
+        assignSolution(mi, joint_ids, traj.row(row), format_result_as_input);
 
         if (!extra.empty())
           ci.insert(it, extra.begin(), extra.end());
@@ -251,13 +252,30 @@ long OMPLMotionPlanner::assignTrajectory(tesseract::command_language::CompositeI
       }
 
       if (found)
-        assignSolution(mi, joint_names, traj.row(row++), format_result_as_input);
+        assignSolution(mi, joint_ids, traj.row(row++), format_result_as_input);
     }
 
     ++start_index;
   }
 
   return start_index;
+}
+
+long OMPLMotionPlanner::assignTrajectory(tesseract::command_language::CompositeInstruction& output,
+                                         boost::uuids::uuid start_uuid,
+                                         boost::uuids::uuid end_uuid,
+                                         long start_index,
+                                         const std::vector<std::string>& joint_names,
+                                         const tesseract::common::TrajArray& traj,
+                                         const bool format_result_as_input)
+{
+  return assignTrajectory(output,
+                          start_uuid,
+                          end_uuid,
+                          start_index,
+                          tesseract::common::toIds<tesseract::common::JointId>(joint_names),
+                          traj,
+                          format_result_as_input);
 }
 
 PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
@@ -347,7 +365,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     }
 
     // Extract Solution
-    const std::vector<std::string> joint_names = manip->getJointNames();
+    const std::vector<tesseract::common::JointId>& joint_ids = manip->getJointIds();
     const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
     tesseract::common::TrajArray traj = toTrajArray(simple_setup->getSolutionPath(), extractor);
     assert(checkStartState(simple_setup->getProblemDefinition(), traj.row(0), extractor));
@@ -366,7 +384,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
                                    start_move_instruction.getUUID(),
                                    end_move_instruction.getUUID(),
                                    start_index,
-                                   joint_names,
+                                   joint_ids,
                                    traj,
                                    request.format_result_as_input);
 
