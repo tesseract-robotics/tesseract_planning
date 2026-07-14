@@ -89,7 +89,8 @@ bool ContinuousMotionValidator::checkMotion(const ompl::base::State* s1,
         is_valid = false;
         break;
       }
-      else if (!continuousCollisionCheck(start_interp, end_interp))
+      
+      if (!continuousCollisionCheck(start_interp, end_interp))
       {
         lastValid.second = (i - 1) / static_cast<double>(n_steps);
         if (lastValid.first != nullptr)
