@@ -219,11 +219,6 @@ Eigen::VectorXd getJointPosition(const std::vector<common::JointId>& joint_ids, 
   return output;
 }
 
-Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)
-{
-  return getJointPosition(common::toIds<common::JointId>(joint_names), waypoint);
-}
-
 namespace
 {
 /// @brief Build an index permutation such that out[i] = in[perm[i]] gives `in` reordered to `target_names`.
@@ -316,11 +311,6 @@ bool formatJointPosition(const std::vector<common::JointId>& joint_ids, Waypoint
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint)
-{
-  return formatJointPosition(tesseract::common::toIds<tesseract::common::JointId>(joint_names), waypoint);
-}
-
 bool checkJointPositionFormat(const std::vector<tesseract::common::JointId>& joint_ids, const WaypointPoly& waypoint)
 {
   if (waypoint.isJointWaypoint())
@@ -337,11 +327,6 @@ bool checkJointPositionFormat(const std::vector<tesseract::common::JointId>& joi
   }
 
   throw std::runtime_error("Unsupported waypoint type.");
-}
-
-bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)
-{
-  return checkJointPositionFormat(tesseract::common::toIds<tesseract::common::JointId>(joint_names), waypoint);
 }
 
 bool setJointPosition(WaypointPoly& waypoint, const Eigen::Ref<const Eigen::VectorXd>& position)

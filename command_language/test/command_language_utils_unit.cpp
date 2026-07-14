@@ -215,7 +215,7 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
 {
   // Start Joint Position for the program
   std::vector<tesseract::common::JointId> joint_ids = { "joint_1", "joint_2" };
-  std::vector<tesseract::common::JointId> format_joint_names = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> format_joint_ids = { "joint_2", "joint_1" };
   Eigen::VectorXd position0 = Eigen::Vector2d(1, 2);
   Eigen::VectorXd position00 = Eigen::Vector2d(3, 4);
   Eigen::VectorXd format_position0 = Eigen::Vector2d(2, 1);
@@ -241,15 +241,15 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
                         Eigen::Quaterniond(0, 0, -1.0, 0));
 
   WaypointPoly wp0_poly{ wp0 };
-  const Eigen::VectorXd& p0 = getJointPosition(format_joint_names, wp0_poly);
+  const Eigen::VectorXd& p0 = getJointPosition(format_joint_ids, wp0_poly);
   EXPECT_TRUE(p0.isApprox(format_position0));
 
   WaypointPoly wp00_poly{ wp00 };
-  const Eigen::VectorXd& p00 = getJointPosition(format_joint_names, wp00_poly);
+  const Eigen::VectorXd& p00 = getJointPosition(format_joint_ids, wp00_poly);
   EXPECT_TRUE(p00.isApprox(format_position00));
 
   WaypointPoly wp1_poly{ wp1 };
-  const Eigen::VectorXd& p1 = getJointPosition(format_joint_names, wp1_poly);
+  const Eigen::VectorXd& p1 = getJointPosition(format_joint_ids, wp1_poly);
   EXPECT_TRUE(p1.isApprox(format_seed_position));
 
   const Eigen::VectorXd& p1u = getJointPosition(joint_ids, wp1_poly);
@@ -261,66 +261,10 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
       getJointPosition(std::vector<tesseract::common::JointId>{ "joint_3", "joint_1" }, wp0_poly));  // NOLINT
 
   WaypointPoly wp2_poly{ wp2 };
-  EXPECT_ANY_THROW(getJointPosition(format_joint_names, wp2_poly));  // NOLINT
+  EXPECT_ANY_THROW(getJointPosition(format_joint_ids, wp2_poly));  // NOLINT
 
   WaypointPoly error_poly;
-  EXPECT_ANY_THROW(getJointPosition(format_joint_names, error_poly));  // NOLINT
-}
-
-TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionTests)  // NOLINT
-{
-  // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
-  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
-  Eigen::VectorXd position0 = Eigen::Vector2d(1, 2);
-  Eigen::VectorXd position00 = Eigen::Vector2d(3, 4);
-  Eigen::VectorXd format_position0 = Eigen::Vector2d(2, 1);
-  Eigen::VectorXd format_position00 = Eigen::Vector2d(4, 3);
-  StateWaypoint wp0{ joint_names, position0 };
-  JointWaypoint wp00{ joint_names, position00 };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
-  MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
-  start_instruction.setDescription("Start Instruction");
-  end_instruction.setDescription("End Instruction");
-
-  Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
-  Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
-  tesseract::common::JointState seed_state;
-  seed_state.joint_ids = tesseract::common::toIds<tesseract::common::JointId>(joint_names);
-  seed_state.position = seed_position;
-
-  // Define raster poses
-  CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                        Eigen::Quaterniond(0, 0, -1.0, 0));
-  wp1.setSeed(seed_state);
-  CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                        Eigen::Quaterniond(0, 0, -1.0, 0));
-
-  WaypointPoly wp0_poly{ wp0 };
-  EXPECT_TRUE(formatJointPosition(format_joint_names, wp0_poly));
-  EXPECT_TRUE(wp0_poly.as<StateWaypointPoly>().getPosition().isApprox(format_position0));
-
-  WaypointPoly wp00_poly{ wp00 };
-  EXPECT_TRUE(formatJointPosition(format_joint_names, wp00_poly));
-  EXPECT_TRUE(wp00_poly.as<JointWaypointPoly>().getPosition().isApprox(format_position00));
-
-  WaypointPoly wp1_poly{ wp1 };
-  EXPECT_TRUE(formatJointPosition(format_joint_names, wp1_poly));
-  EXPECT_TRUE(wp1_poly.as<CartesianWaypointPoly>().getSeed().position.isApprox(format_seed_position));
-
-  WaypointPoly wp1u_poly{ wp1 };
-  EXPECT_FALSE(formatJointPosition(joint_names, wp1u_poly));
-  EXPECT_TRUE(wp1u_poly.as<CartesianWaypointPoly>().getSeed().position.isApprox(seed_position));
-
-  WaypointPoly wp2_poly{ wp2 };
-  EXPECT_FALSE(formatJointPosition(format_joint_names, wp2_poly));  // NOLINT
-
-  // Format is not correct size or invalid joint name
-  EXPECT_ANY_THROW(formatJointPosition(std::vector<std::string>{ "joint_1" }, wp0_poly));             // NOLINT
-  EXPECT_ANY_THROW(formatJointPosition(std::vector<std::string>{ "joint_3", "joint_1" }, wp0_poly));  // NOLINT
-
-  WaypointPoly error_poly;
-  EXPECT_ANY_THROW(formatJointPosition(format_joint_names, error_poly));  // NOLINT
+  EXPECT_ANY_THROW(getJointPosition(format_joint_ids, error_poly));  // NOLINT
 }
 
 TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionByIdTests)  // NOLINT
@@ -379,19 +323,19 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionByIdTests)  // NOLINT
 
 TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersJointWaypointTolerances)  // NOLINT
 {
-  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
-  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> joint_ids = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> format_joint_ids = { "joint_2", "joint_1" };
   Eigen::VectorXd position = Eigen::Vector2d(3.0, 4.0);
   Eigen::VectorXd lower = Eigen::Vector2d(-0.1, -0.2);
   Eigen::VectorXd upper = Eigen::Vector2d(0.3, 0.4);
 
-  JointWaypoint jwp{ joint_names, position, lower, upper };
+  JointWaypoint jwp{ joint_ids, position, lower, upper };
   WaypointPoly wp_poly{ jwp };
 
-  EXPECT_TRUE(formatJointPosition(format_joint_names, wp_poly));
+  EXPECT_TRUE(formatJointPosition(format_joint_ids, wp_poly));
 
   const auto& out = wp_poly.as<JointWaypointPoly>();
-  EXPECT_EQ(out.getJointIds(), tesseract::common::toIds<tesseract::common::JointId>(format_joint_names));
+  EXPECT_EQ(out.getJointIds(), format_joint_ids);
   EXPECT_TRUE(out.getPosition().isApprox(Eigen::Vector2d(4.0, 3.0)));
   EXPECT_TRUE(out.getLowerTolerance().isApprox(Eigen::Vector2d(-0.2, -0.1)));
   EXPECT_TRUE(out.getUpperTolerance().isApprox(Eigen::Vector2d(0.4, 0.3)));
@@ -399,23 +343,23 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersJointWaypoint
 
 TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersStateWaypointAuxVectors)  // NOLINT
 {
-  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
-  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> joint_ids = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> format_joint_ids = { "joint_2", "joint_1" };
   Eigen::VectorXd position = Eigen::Vector2d(1.0, 2.0);
   Eigen::VectorXd velocity = Eigen::Vector2d(0.1, 0.2);
   Eigen::VectorXd acceleration = Eigen::Vector2d(0.01, 0.02);
   Eigen::VectorXd effort = Eigen::Vector2d(10.0, 20.0);
 
-  StateWaypoint swp{ joint_names, position };
+  StateWaypoint swp{ joint_ids, position };
   swp.setVelocity(velocity);
   swp.setAcceleration(acceleration);
   swp.setEffort(effort);
 
   WaypointPoly wp_poly{ swp };
-  EXPECT_TRUE(formatJointPosition(format_joint_names, wp_poly));
+  EXPECT_TRUE(formatJointPosition(format_joint_ids, wp_poly));
 
   const auto& out = wp_poly.as<StateWaypointPoly>();
-  EXPECT_EQ(out.getJointIds(), tesseract::common::toIds<tesseract::common::JointId>(format_joint_names));
+  EXPECT_EQ(out.getJointIds(), format_joint_ids);
   EXPECT_TRUE(out.getPosition().isApprox(Eigen::Vector2d(2.0, 1.0)));
   EXPECT_TRUE(out.getVelocity().isApprox(Eigen::Vector2d(0.2, 0.1)));
   EXPECT_TRUE(out.getAcceleration().isApprox(Eigen::Vector2d(0.02, 0.01)));
@@ -424,14 +368,14 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersStateWaypoint
 
 TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionStateWaypointEmptyAuxIsNoop)  // NOLINT
 {
-  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
-  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> joint_ids = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> format_joint_ids = { "joint_2", "joint_1" };
   Eigen::VectorXd position = Eigen::Vector2d(1.0, 2.0);
 
-  StateWaypoint swp{ joint_names, position };  // velocity/accel/effort default-empty
+  StateWaypoint swp{ joint_ids, position };  // velocity/accel/effort default-empty
   WaypointPoly wp_poly{ swp };
 
-  EXPECT_NO_THROW(formatJointPosition(format_joint_names, wp_poly));  // NOLINT
+  EXPECT_NO_THROW(formatJointPosition(format_joint_ids, wp_poly));  // NOLINT
   const auto& out = wp_poly.as<StateWaypointPoly>();
   EXPECT_EQ(out.getVelocity().size(), 0);
   EXPECT_EQ(out.getAcceleration().size(), 0);
@@ -467,14 +411,14 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersCartesianSeed
 TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLINT
 {
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2" };
-  std::vector<std::string> format_joint_names = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> joint_ids = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> format_joint_ids = { "joint_2", "joint_1" };
   Eigen::VectorXd position0 = Eigen::Vector2d(1, 2);
   Eigen::VectorXd position00 = Eigen::Vector2d(3, 4);
   Eigen::VectorXd format_position0 = Eigen::Vector2d(2, 1);
   Eigen::VectorXd format_position00 = Eigen::Vector2d(4, 3);
-  StateWaypoint wp0{ joint_names, position0 };
-  JointWaypoint wp00{ joint_names, position00 };
+  StateWaypoint wp0{ joint_ids, position0 };
+  JointWaypoint wp00{ joint_ids, position00 };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
@@ -483,7 +427,7 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
   tesseract::common::JointState seed_state;
-  seed_state.joint_ids = tesseract::common::toIds<tesseract::common::JointId>(joint_names);
+  seed_state.joint_ids = joint_ids;
   seed_state.position = seed_position;
 
   // Define raster poses
@@ -494,29 +438,29 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
                         Eigen::Quaterniond(0, 0, -1.0, 0));
 
   WaypointPoly wp0_poly{ wp0 };
-  EXPECT_TRUE(checkJointPositionFormat(joint_names, wp0_poly));
-  EXPECT_FALSE(checkJointPositionFormat(format_joint_names, wp0_poly));
+  EXPECT_TRUE(checkJointPositionFormat(joint_ids, wp0_poly));
+  EXPECT_FALSE(checkJointPositionFormat(format_joint_ids, wp0_poly));
 
   WaypointPoly wp00_poly{ wp00 };
-  EXPECT_TRUE(checkJointPositionFormat(joint_names, wp00_poly));
-  EXPECT_FALSE(checkJointPositionFormat(format_joint_names, wp00_poly));
+  EXPECT_TRUE(checkJointPositionFormat(joint_ids, wp00_poly));
+  EXPECT_FALSE(checkJointPositionFormat(format_joint_ids, wp00_poly));
 
   WaypointPoly wp1_poly{ wp1 };
-  EXPECT_TRUE(checkJointPositionFormat(joint_names, wp1_poly));
-  EXPECT_FALSE(checkJointPositionFormat(format_joint_names, wp1_poly));
+  EXPECT_TRUE(checkJointPositionFormat(joint_ids, wp1_poly));
+  EXPECT_FALSE(checkJointPositionFormat(format_joint_ids, wp1_poly));
 
   // Format is not correct size or invalid joint name
   EXPECT_FALSE(checkJointPositionFormat(std::vector<tesseract::common::JointId>{ "joint_1" }, wp0_poly));
-  std::vector<std::string> joints = { "joint_3", "joint_1" };
+  std::vector<tesseract::common::JointId> joints = { "joint_3", "joint_1" };
   EXPECT_FALSE(checkJointPositionFormat(joints, wp0_poly));
 
   WaypointPoly wp2_poly{ wp2 };
-  EXPECT_ANY_THROW(checkJointPositionFormat(joint_names, wp2_poly));         // NOLINT
-  EXPECT_ANY_THROW(checkJointPositionFormat(format_joint_names, wp2_poly));  // NOLINT
+  EXPECT_ANY_THROW(checkJointPositionFormat(joint_ids, wp2_poly));         // NOLINT
+  EXPECT_ANY_THROW(checkJointPositionFormat(format_joint_ids, wp2_poly));  // NOLINT
 
   WaypointPoly error_poly;
-  EXPECT_ANY_THROW(checkJointPositionFormat(joint_names, error_poly));         // NOLINT
-  EXPECT_ANY_THROW(checkJointPositionFormat(format_joint_names, error_poly));  // NOLINT
+  EXPECT_ANY_THROW(checkJointPositionFormat(joint_ids, error_poly));         // NOLINT
+  EXPECT_ANY_THROW(checkJointPositionFormat(format_joint_ids, error_poly));  // NOLINT
 }
 
 TEST(TesseractCommandLanguageUtilsUnit, getJointIdsTests)  // NOLINT
