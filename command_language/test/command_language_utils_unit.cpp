@@ -173,7 +173,8 @@ TEST(TesseractCommandLanguageUtilsUnit, toJointTrajectoryTests)  // NOLINT
 TEST(TesseractCommandLanguageUtilsUnit, getJointPositionTests)  // NOLINT
 {
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
+                                                          "joint_4", "joint_5", "joint_6" };
   StateWaypoint wp0{ joint_names, Eigen::VectorXd::Constant(6, 3) };
   JointWaypoint wp00{ joint_names, Eigen::VectorXd::Constant(6, 5) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
@@ -182,7 +183,7 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionTests)  // NOLINT
   end_instruction.setDescription("End Instruction");
 
   tesseract::common::JointState seed_state;
-  seed_state.joint_ids = tesseract::common::toIds<tesseract::common::JointId>(joint_names);
+  seed_state.joint_ids = joint_names;
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses
@@ -591,7 +592,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
 {
   Eigen::MatrixX2d limits(3, 2);
   limits << 0, 2, 0, 2, 0, 2;
-  std::vector<std::string> joint_names = { "1", "2", "3" };
+  std::vector<tesseract::common::JointId> joint_names = { "1", "2", "3" };
   Eigen::VectorXd values(3);
 
   // Within limits
@@ -659,7 +660,7 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
   CompositeInstruction composite;
   composite.setDescription("To Delimited File: Composite");
 
-  std::vector<std::string> joint_names = { "1", "2", "3" };
+  std::vector<tesseract::common::JointId> joint_names = { "1", "2", "3" };
   Eigen::VectorXd values = Eigen::VectorXd::Constant(3, 5);
   {
     JointWaypoint jwp{ joint_names, values };
@@ -696,7 +697,8 @@ TEST(TesseractCommandLanguageUtilsUnit, makeTimeContinuous)  // NOLINT
   CompositeInstruction program(profile, manip_info);
 
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
+                                                          "joint_4", "joint_5", "joint_6" };
 
   for (std::size_t i = 0; i < 10; ++i)
   {

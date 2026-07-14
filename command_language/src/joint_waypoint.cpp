@@ -33,20 +33,20 @@ JointWaypoint::JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
 }
 
-JointWaypoint::JointWaypoint(std::initializer_list<std::string> names,
+JointWaypoint::JointWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids,
                              std::initializer_list<double> position,
                              bool is_constrained)
-  : JointWaypoint(std::vector<std::string>(names),
+  : JointWaypoint(std::vector<tesseract::common::JointId>(joint_ids),
                   Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
                   is_constrained)
 {
 }
 
-JointWaypoint::JointWaypoint(std::initializer_list<std::string> names,
+JointWaypoint::JointWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids,
                              std::initializer_list<double> position,
                              std::initializer_list<double> lower_tol,
                              std::initializer_list<double> upper_tol)
-  : JointWaypoint(std::vector<std::string>(names),
+  : JointWaypoint(std::vector<tesseract::common::JointId>(joint_ids),
                   Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
                   Eigen::Map<const Eigen::VectorXd>(lower_tol.begin(), static_cast<Eigen::Index>(lower_tol.size())),
                   Eigen::Map<const Eigen::VectorXd>(upper_tol.begin(), static_cast<Eigen::Index>(upper_tol.size())))

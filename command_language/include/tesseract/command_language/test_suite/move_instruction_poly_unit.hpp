@@ -99,7 +99,7 @@ template <typename T>
 void runMoveInstructionConstructorTest()
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
-  std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  std::vector<tesseract::common::JointId> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
   Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
   pose.translation() = Eigen::Vector3d(1, 2, 3);
 
@@ -476,7 +476,7 @@ template <typename T>
 void runMoveInstructionSettersTest()
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
-  std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  std::vector<tesseract::common::JointId> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
   Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
   pose.translation() = Eigen::Vector3d(1, 2, 3);
 

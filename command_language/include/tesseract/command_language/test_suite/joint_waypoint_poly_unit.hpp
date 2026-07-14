@@ -62,46 +62,46 @@ void runJointWaypointTest()
       EXPECT_FALSE(wp.isConstrained());
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       JointWaypointPoly wp{ T(names, positions) };
-      EXPECT_EQ(wp.getJointIds(), common::toIds<common::JointId>(names));
+      EXPECT_EQ(wp.getJointIds(), names);
       EXPECT_TRUE(wp.getPosition().isApprox(positions));
       EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
       EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
       EXPECT_TRUE(wp.isConstrained());
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(3, -5);
       Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(3, 5);
       JointWaypointPoly wp{ T(names, positions, lower_tol, uppert_tol) };
-      EXPECT_EQ(wp.getJointIds(), common::toIds<common::JointId>(names));
+      EXPECT_EQ(wp.getJointIds(), names);
       EXPECT_TRUE(wp.getPosition().isApprox(positions));
       EXPECT_TRUE(wp.getLowerTolerance().isApprox(lower_tol));
       EXPECT_TRUE(wp.getUpperTolerance().isApprox(uppert_tol));
       EXPECT_TRUE(wp.isConstrained());
     }
     {
-      std::vector<std::string> names{ "j1", "j2" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions) });  // NOLINT
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(2, 0.0);
       EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions) });  // NOLINT
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(2, -5);
       Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(3, 5);
       EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions, lower_tol, uppert_tol) });  // NOLINT
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(3, -5);
       Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(2, 5);
@@ -117,17 +117,17 @@ void runJointWaypointTest()
   }
 
   {  // Set/Get Names
-    const std::vector<std::string> names{ "j1", "j2", "j3" };
+    const std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
     {  // Test set
       JointWaypointPoly wp{ T() };
-      wp.setJointIds(common::toIds<common::JointId>(names));
-      EXPECT_TRUE(wp.getJointIds() == common::toIds<common::JointId>(names));
+      wp.setJointIds(names);
+      EXPECT_TRUE(wp.getJointIds() == names);
     }
 
     {  // Test assigning
       JointWaypointPoly wp{ T() };
-      wp.getJointIds() = common::toIds<common::JointId>(names);
-      EXPECT_TRUE(std::as_const(wp).getJointIds() == common::toIds<common::JointId>(names));
+      wp.getJointIds() = names;
+      EXPECT_TRUE(std::as_const(wp).getJointIds() == names);
     }
   }
 
@@ -193,7 +193,7 @@ void runJointWaypointTest()
       runWaypointSerializationTest(wp1);
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions, upper_tol, lower_tol;
       positions.resize(3);
       upper_tol.resize(3);
@@ -214,7 +214,7 @@ void runJointWaypointTest()
     // Not equal
     {
       JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
-      JointWaypointPoly wp2{ T(std::vector<std::string>({ "j1" }), Eigen::VectorXd::Zero(1)) };
+      JointWaypointPoly wp2{ T(std::vector<tesseract::common::JointId>({ "j1" }), Eigen::VectorXd::Zero(1)) };
       EXPECT_TRUE(wp1.isConstrained());
       EXPECT_TRUE(wp2.isConstrained());
       EXPECT_FALSE(wp1 == wp2);

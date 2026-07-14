@@ -51,8 +51,8 @@ inline CompositeInstruction freespaceExampleProgramIIWA(
   CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
-                                           "joint_a5", "joint_a6", "joint_a7" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
+                                                          "joint_a5", "joint_a6", "joint_a7" };
   StateWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(7) };
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
   start_instruction.setDescription("Start Instruction");
@@ -79,7 +79,8 @@ inline CompositeInstruction freespaceExampleProgramABB(
   CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
+                                                          "joint_4", "joint_5", "joint_6" };
   StateWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(6) };
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
   start_instruction.setDescription("Start Instruction");
@@ -106,8 +107,8 @@ jointInterpolatedExampleSolutionIIWA(bool use_joint_waypoint = false,
   CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
-                                           "joint_a5", "joint_a6", "joint_a7" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
+                                                          "joint_a5", "joint_a6", "joint_a7" };
   Eigen::VectorXd start_state = Eigen::VectorXd::Zero(7);
   start_state(0) = -M_PI_4;
   Eigen::VectorXd end_state = Eigen::VectorXd::Zero(7);
@@ -151,7 +152,8 @@ jointInterpolateExampleProgramABB(bool use_joint_waypoint = false,
   CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
+                                                          "joint_4", "joint_5", "joint_6" };
   Eigen::VectorXd start_state = Eigen::VectorXd::Zero(6);
   start_state(0) = -M_PI_4;
   Eigen::VectorXd end_state = Eigen::VectorXd::Zero(6);
@@ -193,7 +195,8 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
   CompositeInstruction program(DEFAULT_PROFILE_KEY, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
+                                                          "joint_4", "joint_5", "joint_6" };
   StateWaypoint swp1{ joint_names, Eigen::VectorXd::Zero(6) };
   MoveInstruction start_instruction(swp1, MoveInstructionType::FREESPACE, freespace_profile);
   start_instruction.setDescription("Start");

@@ -149,7 +149,7 @@ bool PickAndPlaceExample::run()
     plotter_->waitForConnection();
 
   // Set the robot initial state
-  std::vector<std::string> joint_names;
+  std::vector<tesseract::common::JointId> joint_names;
   joint_names.emplace_back("iiwa_joint_a1");
   joint_names.emplace_back("iiwa_joint_a2");
   joint_names.emplace_back("iiwa_joint_a3");

@@ -27,9 +27,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
-#include <utility>
 #include <vector>
-#include <type_traits>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/poly/state_waypoint_poly.h>
@@ -51,35 +49,6 @@ public:
 
   StateWaypoint() = default;
 
-  // SFINAE-guarded string constructors (legacy/convenience). Names are hashed into JointIds via toIds.
-  template <typename T,
-            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<std::string>>, int> = 0>
-  StateWaypoint(const T& joint_names, const Eigen::Ref<const Eigen::VectorXd>& position)
-    : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(joint_names)), position_(position)
-  {
-    if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
-      throw std::runtime_error("StateWaypoint: parameters are not the same size!");
-  }
-
-  template <typename T,
-            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<std::string>>, int> = 0>
-  StateWaypoint(const T& names,
-                Eigen::VectorXd position,
-                Eigen::VectorXd velocity,
-                Eigen::VectorXd acceleration,
-                double time)
-    : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
-    , position_(std::move(position))
-    , velocity_(std::move(velocity))
-    , acceleration_(std::move(acceleration))
-    , time_(time)
-  {
-    if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() || position_.size() != velocity_.size() ||
-        position_.size() != acceleration_.size())
-      throw std::runtime_error("StateWaypoint: parameters are not the same size!");
-  }
-
-  // JointId constructors (preferred path; no name->id hashing)
   StateWaypoint(std::vector<tesseract::common::JointId> joint_ids, const Eigen::Ref<const Eigen::VectorXd>& position);
   StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                 Eigen::VectorXd position,
@@ -87,8 +56,8 @@ public:
                 Eigen::VectorXd acceleration,
                 double time);
 
-  StateWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position);
-  StateWaypoint(std::initializer_list<std::string> names,
+  StateWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids, std::initializer_list<double> position);
+  StateWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids,
                 std::initializer_list<double> position,
                 std::initializer_list<double> velocity,
                 std::initializer_list<double> acceleration,

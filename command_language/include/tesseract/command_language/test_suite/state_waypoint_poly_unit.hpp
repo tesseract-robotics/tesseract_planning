@@ -63,10 +63,10 @@ void runStateWaypointTest()
       EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(wp.getTime(), 0.0));
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       StateWaypointPoly wp{ T(names, positions) };
-      EXPECT_EQ(wp.getJointIds(), common::toIds<common::JointId>(names));
+      EXPECT_EQ(wp.getJointIds(), names);
       EXPECT_TRUE(wp.getPosition().isApprox(positions));
       EXPECT_TRUE(wp.getVelocity().rows() == 0);
       EXPECT_TRUE(wp.getAcceleration().rows() == 0);
@@ -74,12 +74,12 @@ void runStateWaypointTest()
       EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(wp.getTime(), 0.0));
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       Eigen::VectorXd velocities = Eigen::VectorXd::Constant(3, -5);
       Eigen::VectorXd accelerations = Eigen::VectorXd::Constant(3, 5);
       StateWaypointPoly wp{ T(names, positions, velocities, accelerations, 5) };
-      EXPECT_EQ(wp.getJointIds(), common::toIds<common::JointId>(names));
+      EXPECT_EQ(wp.getJointIds(), names);
       EXPECT_TRUE(wp.getPosition().isApprox(positions));
       EXPECT_TRUE(wp.getVelocity().isApprox(velocities));
       EXPECT_TRUE(wp.getAcceleration().isApprox(accelerations));
@@ -87,24 +87,24 @@ void runStateWaypointTest()
       EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(wp.getTime(), 5));
     }
     {
-      std::vector<std::string> names{ "j1", "j2" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       EXPECT_ANY_THROW(StateWaypointPoly{ T(names, positions) });  // NOLINT
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(2, 0.0);
       EXPECT_ANY_THROW(StateWaypointPoly{ T(names, positions) });  // NOLINT
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       Eigen::VectorXd velocities = Eigen::VectorXd::Constant(2, -5);
       Eigen::VectorXd accelerations = Eigen::VectorXd::Constant(3, 5);
       EXPECT_ANY_THROW(StateWaypointPoly{ T(names, positions, velocities, accelerations, 5) });  // NOLINT
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       Eigen::VectorXd velocities = Eigen::VectorXd::Constant(3, -5);
       Eigen::VectorXd accelerations = Eigen::VectorXd::Constant(2, 5);
@@ -113,17 +113,17 @@ void runStateWaypointTest()
   }  // namespace tesseract::command_language::test_suite
 
   {  // Set/Get Names
-    const std::vector<std::string> names{ "j1", "j2", "j3" };
+    const std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
     {  // Test set
       StateWaypointPoly wp{ T() };
-      wp.setJointIds(common::toIds<common::JointId>(names));
-      EXPECT_TRUE(wp.getJointIds() == common::toIds<common::JointId>(names));
+      wp.setJointIds(names);
+      EXPECT_TRUE(wp.getJointIds() == names);
     }
 
     {  // Test assigning
       StateWaypointPoly wp{ T() };
-      wp.getJointIds() = common::toIds<common::JointId>(names);
-      EXPECT_TRUE(std::as_const(wp).getJointIds() == common::toIds<common::JointId>(names));
+      wp.getJointIds() = names;
+      EXPECT_TRUE(std::as_const(wp).getJointIds() == names);
     }
   }
 
@@ -225,7 +225,7 @@ void runStateWaypointTest()
       runWaypointSerializationTest(wp1);
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions, velocities, accelerations, efforts;
       positions.resize(3);
       velocities.resize(3);
@@ -260,7 +260,7 @@ void runStateWaypointTest()
     // Not equal
     {
       StateWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
-      StateWaypointPoly wp2{ T(std::vector<std::string>({ "j1" }), Eigen::VectorXd::Zero(1)) };
+      StateWaypointPoly wp2{ T(std::vector<tesseract::common::JointId>({ "j1" }), Eigen::VectorXd::Zero(1)) };
       EXPECT_FALSE(wp1 == wp2);
       EXPECT_FALSE(wp2 == wp1);
       EXPECT_TRUE(wp2 != wp1);
@@ -277,7 +277,7 @@ void runStateWaypointTest()
       runWaypointSerializationTest(wp2);
     }
     {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
+      std::vector<tesseract::common::JointId> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions, velocities, accelerations, efforts;
       positions.resize(3);
       velocities.resize(3);
@@ -290,7 +290,7 @@ void runStateWaypointTest()
 
       StateWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
       StateWaypointPoly wp2{ wp1 };
-      wp1.setJointIds(common::toIds<common::JointId>(names));
+      wp1.setJointIds(names);
       wp1.getPosition() = positions;
       wp1.getVelocity() = velocities;
       wp1.getAcceleration() = accelerations;

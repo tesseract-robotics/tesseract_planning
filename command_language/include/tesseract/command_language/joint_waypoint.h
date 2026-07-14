@@ -27,9 +27,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
-#include <utility>
 #include <vector>
-#include <type_traits>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/poly/joint_waypoint_poly.h>
@@ -51,33 +49,6 @@ public:
 
   JointWaypoint() = default;
 
-  // SFINAE-guarded string constructors (legacy/convenience). Names are hashed into JointIds via toIds.
-  template <typename T,
-            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<std::string>>, int> = 0>
-  JointWaypoint(const T& names, Eigen::VectorXd position, bool is_constrained = true)
-    : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
-    , position_(std::move(position))
-    , is_constrained_(is_constrained)
-  {
-    if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
-      throw std::runtime_error("JointWaypoint: parameters are not the same size!");
-  }
-
-  template <typename T,
-            std::enable_if_t<std::is_same_v<std::decay_t<T>, std::vector<std::string>>, int> = 0>
-  JointWaypoint(const T& names, Eigen::VectorXd position, Eigen::VectorXd lower_tol, Eigen::VectorXd upper_tol)
-    : joint_ids_(tesseract::common::toIds<tesseract::common::JointId>(names))
-    , position_(std::move(position))
-    , lower_tolerance_(std::move(lower_tol))
-    , upper_tolerance_(std::move(upper_tol))
-    , is_constrained_(true)
-  {
-    if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() ||
-        position_.size() != lower_tolerance_.size() || position_.size() != upper_tolerance_.size())
-      throw std::runtime_error("JointWaypoint: parameters are not the same size!");
-  }
-
-  // JointId constructors (preferred path; no name->id hashing)
   JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                 Eigen::VectorXd position,
                 bool is_constrained = true);
@@ -85,10 +56,10 @@ public:
                 Eigen::VectorXd position,
                 Eigen::VectorXd lower_tol,
                 Eigen::VectorXd upper_tol);
-  JointWaypoint(std::initializer_list<std::string> names,
+  JointWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids,
                 std::initializer_list<double> position,
                 bool is_constrained = true);
-  JointWaypoint(std::initializer_list<std::string> names,
+  JointWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids,
                 std::initializer_list<double> position,
                 std::initializer_list<double> lower_tol,
                 std::initializer_list<double> upper_tol);

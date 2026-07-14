@@ -22,7 +22,8 @@ inline CompositeInstruction getTestProgram(std::string profile,
   CompositeInstruction program(std::move(profile), std::move(manipulator_info), order);
 
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
+                                                          "joint_4", "joint_5", "joint_6" };
   StateWaypoint wp0{ joint_names, Eigen::VectorXd::Zero(6) };
   JointWaypoint wp00{ joint_names, Eigen::VectorXd::Zero(6) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
@@ -31,7 +32,7 @@ inline CompositeInstruction getTestProgram(std::string profile,
   end_instruction.setDescription("End Instruction");
 
   tesseract::common::JointState seed_state;
-  seed_state.joint_ids = tesseract::common::toIds<tesseract::common::JointId>(joint_names);
+  seed_state.joint_ids = joint_names;
   seed_state.position = Eigen::VectorXd::Zero(6);
 
   // Define raster poses

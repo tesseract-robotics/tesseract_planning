@@ -50,7 +50,8 @@ CompositeInstruction getProgram()
   CompositeInstruction program("raster_program", ManipulatorInfo("manipulator", "world", "tool0"));
 
   // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
+                                                          "joint_4", "joint_5", "joint_6" };
   StateWaypoint wp0{ joint_names, Eigen::VectorXd::Zero(6) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
@@ -206,7 +207,7 @@ std::vector<std::unique_ptr<StateWaypoint>> createVectorStateWaypointUPtr()
   results.reserve(1000);
   for (std::size_t i = 0; i < 1000; ++i)
   {
-    std::vector<std::string> joint_names = { "j1", "j2", "j3", "j4", "j5", "j6" };
+    std::vector<tesseract::common::JointId> joint_names = { "j1", "j2", "j3", "j4", "j5", "j6" };
     auto wp1 = std::make_unique<StateWaypoint>(joint_names, Eigen::VectorXd::Ones(6));
 
     results.push_back(std::move(wp1));
@@ -241,7 +242,7 @@ BENCHMARK(BM_MoveInstructionCreation);
 
 static void BM_StateWaypointCreation(benchmark::State& state)
 {
-  std::vector<std::string> joint_names{ "a1", "a2", "a3", "a4", "a5", "a6" };
+  std::vector<tesseract::common::JointId> joint_names{ "a1", "a2", "a3", "a4", "a5", "a6" };
   Eigen::VectorXd joint_values = Eigen::VectorXd::Zero(6);
   for (auto _ : state)
     StateWaypoint w(joint_names, joint_values);
@@ -251,7 +252,7 @@ BENCHMARK(BM_StateWaypointCreation);
 
 static void BM_JointWaypointCreation(benchmark::State& state)
 {
-  std::vector<std::string> joint_names{ "a1", "a2", "a3", "a4", "a5", "a6" };
+  std::vector<tesseract::common::JointId> joint_names{ "a1", "a2", "a3", "a4", "a5", "a6" };
   Eigen::VectorXd joint_values = Eigen::VectorXd::Zero(6);
   for (auto _ : state)
     JointWaypoint w(joint_names, joint_values);

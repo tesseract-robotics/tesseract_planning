@@ -728,7 +728,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
 TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskReordersTolerances)  // NOLINT
 {
   // joint_1/joint_2 in pre-planning (formatted) order; post-planning reverses to joint_2/joint_1.
-  std::vector<std::string> orig_names = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> orig_names = { "joint_1", "joint_2" };
   std::vector<tesseract::common::JointId> post_names = { "joint_2", "joint_1" };
 
   // Pre-planning program: one toleranced JointWaypoint in orig_names order.
