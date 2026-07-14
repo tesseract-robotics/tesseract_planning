@@ -60,14 +60,15 @@ CompositeInstruction createStraightTrajectory()
   const double vel_max = 3.0;
   const double acc_max = 5.0;
 
-  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
-                                                          "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_ids = {
+    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
+  };
 
   CompositeInstruction program;
   for (int i = 0; i < num; i++)
   {
     StateWaypoint swp{
-      joint_names, Eigen::VectorXd::Zero(6), Eigen::VectorXd::Zero(6), Eigen::VectorXd::Zero(6), static_cast<double>(i)
+      joint_ids, Eigen::VectorXd::Zero(6), Eigen::VectorXd::Zero(6), Eigen::VectorXd::Zero(6), static_cast<double>(i)
     };
     swp.getPosition()[0] = i * pos_max / num;
     swp.getVelocity()[0] = i * vel_max / num;
@@ -77,7 +78,7 @@ CompositeInstruction createStraightTrajectory()
 
   // leave final velocity/acceleration unset
   StateWaypoint swp{
-    joint_names, Eigen::VectorXd::Zero(6), Eigen::VectorXd::Zero(6), Eigen::VectorXd::Zero(6), static_cast<double>(num)
+    joint_ids, Eigen::VectorXd::Zero(6), Eigen::VectorXd::Zero(6), Eigen::VectorXd::Zero(6), static_cast<double>(num)
   };
   swp.getPosition()[0] = pos_max;
   swp.getVelocity()[0] = vel_max;

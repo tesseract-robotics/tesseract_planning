@@ -54,19 +54,20 @@ CompositeInstruction createProgram(const Eigen::VectorXd& start_state,
   CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
-  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
-                                                          "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_ids = {
+    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
+  };
 
-  JointWaypoint wp1{ joint_names, start_state };
+  JointWaypoint wp1{ joint_ids, start_state };
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE);
   start_instruction.setDescription("Start Instruction");
   program.push_back(start_instruction);
 
-  JointWaypoint wp2{ joint_names, start_state + ((goal_state - start_state) / 2) };
+  JointWaypoint wp2{ joint_ids, start_state + ((goal_state - start_state) / 2) };
   MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE);
   program.push_back(plan_f0);
 
-  JointWaypoint wp3{ joint_names, goal_state };
+  JointWaypoint wp3{ joint_ids, goal_state };
   MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
   program.push_back(plan_f1);
 

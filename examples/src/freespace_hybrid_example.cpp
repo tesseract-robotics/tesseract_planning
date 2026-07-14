@@ -133,14 +133,14 @@ bool FreespaceHybridExample::run()
     plotter_->waitForConnection();
 
   // Set the robot initial state
-  std::vector<tesseract::common::JointId> joint_names;
-  joint_names.emplace_back("joint_a1");
-  joint_names.emplace_back("joint_a2");
-  joint_names.emplace_back("joint_a3");
-  joint_names.emplace_back("joint_a4");
-  joint_names.emplace_back("joint_a5");
-  joint_names.emplace_back("joint_a6");
-  joint_names.emplace_back("joint_a7");
+  std::vector<tesseract::common::JointId> joint_ids;
+  joint_ids.emplace_back("joint_a1");
+  joint_ids.emplace_back("joint_a2");
+  joint_ids.emplace_back("joint_a3");
+  joint_ids.emplace_back("joint_a4");
+  joint_ids.emplace_back("joint_a5");
+  joint_ids.emplace_back("joint_a6");
+  joint_ids.emplace_back("joint_a7");
 
   Eigen::VectorXd joint_start_pos(7);
   joint_start_pos(0) = -0.4;
@@ -160,7 +160,7 @@ bool FreespaceHybridExample::run()
   joint_end_pos(5) = 1.4959;
   joint_end_pos(6) = 0.0;
 
-  env_->setState(joint_names, joint_start_pos);
+  env_->setState(joint_ids, joint_start_pos);
 
   // Create Task Composer Plugin Factory
   std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
@@ -173,8 +173,8 @@ bool FreespaceHybridExample::run()
   CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start and End Joint Position for the program
-  StateWaypoint wp0{ joint_names, joint_start_pos };
-  StateWaypoint wp1{ joint_names, joint_end_pos };
+  StateWaypoint wp0{ joint_ids, joint_start_pos };
+  StateWaypoint wp1{ joint_ids, joint_end_pos };
 
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "FREESPACE");
   start_instruction.setDescription("Start Instruction");

@@ -59,13 +59,14 @@ using namespace tesseract::command_language;
 CompositeInstruction createRepeatedPointTrajectory()
 {
   const int num = 3;
-  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
-                                                          "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_ids = {
+    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
+  };
 
   CompositeInstruction program;
   for (int i = 0; i < num; i++)
   {
-    StateWaypoint swp{ joint_names, Eigen::VectorXd::Zero(6) };
+    StateWaypoint swp{ joint_ids, Eigen::VectorXd::Zero(6) };
     swp.getPosition()[0] = 1;
     program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
   }
@@ -79,19 +80,20 @@ CompositeInstruction createStraightTrajectory()
   const int num = 10;
   const double max = 2.0;
 
-  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
-                                                          "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_ids = {
+    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
+  };
 
   CompositeInstruction program;
   for (int i = 0; i < num; i++)
   {
-    StateWaypoint swp{ joint_names, Eigen::VectorXd::Zero(6) };
+    StateWaypoint swp{ joint_ids, Eigen::VectorXd::Zero(6) };
     swp.getPosition()[0] = i * max / num;
     program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
   }
 
   // leave final velocity/acceleration unset
-  StateWaypoint swp{ joint_names, Eigen::VectorXd::Zero(6) };
+  StateWaypoint swp{ joint_ids, Eigen::VectorXd::Zero(6) };
   swp.getPosition()[0] = max;
   program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
 

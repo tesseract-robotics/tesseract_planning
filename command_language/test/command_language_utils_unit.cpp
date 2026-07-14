@@ -173,17 +173,18 @@ TEST(TesseractCommandLanguageUtilsUnit, toJointTrajectoryTests)  // NOLINT
 TEST(TesseractCommandLanguageUtilsUnit, getJointPositionTests)  // NOLINT
 {
   // Start Joint Position for the program
-  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
-                                                          "joint_4", "joint_5", "joint_6" };
-  StateWaypoint wp0{ joint_names, Eigen::VectorXd::Constant(6, 3) };
-  JointWaypoint wp00{ joint_names, Eigen::VectorXd::Constant(6, 5) };
+  std::vector<tesseract::common::JointId> joint_ids = {
+    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
+  };
+  StateWaypoint wp0{ joint_ids, Eigen::VectorXd::Constant(6, 3) };
+  JointWaypoint wp00{ joint_ids, Eigen::VectorXd::Constant(6, 5) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
   end_instruction.setDescription("End Instruction");
 
   tesseract::common::JointState seed_state;
-  seed_state.joint_ids = joint_names;
+  seed_state.joint_ids = joint_ids;
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses
@@ -592,13 +593,13 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
 {
   Eigen::MatrixX2d limits(3, 2);
   limits << 0, 2, 0, 2, 0, 2;
-  std::vector<tesseract::common::JointId> joint_names = { "1", "2", "3" };
+  std::vector<tesseract::common::JointId> joint_ids = { "1", "2", "3" };
   Eigen::VectorXd values(3);
 
   // Within limits
   {
     values << 1, 1, 1;
-    JointWaypoint jp{ joint_names, values };
+    JointWaypoint jp{ joint_ids, values };
     WaypointPoly tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
     EXPECT_TRUE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
@@ -606,7 +607,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Above limits
   {
     values << 1, 1, 3;
-    JointWaypoint jp{ joint_names, values };
+    JointWaypoint jp{ joint_ids, values };
     WaypointPoly tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
     EXPECT_FALSE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
@@ -615,7 +616,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Below limits
   {
     values << 1, -1, 1;
-    JointWaypoint jp{ joint_names, values };
+    JointWaypoint jp{ joint_ids, values };
     WaypointPoly tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
     EXPECT_FALSE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
@@ -624,7 +625,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Above limits with max deviation
   {
     values << 1, 1, 2.05;
-    JointWaypoint jp{ joint_names, values };
+    JointWaypoint jp{ joint_ids, values };
     WaypointPoly tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
@@ -637,7 +638,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Below limits with max deviation
   {
     values << 1, -0.05, 1;
-    JointWaypoint jp{ joint_names, values };
+    JointWaypoint jp{ joint_ids, values };
     WaypointPoly tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
@@ -660,20 +661,20 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
   CompositeInstruction composite;
   composite.setDescription("To Delimited File: Composite");
 
-  std::vector<tesseract::common::JointId> joint_names = { "1", "2", "3" };
+  std::vector<tesseract::common::JointId> joint_ids = { "1", "2", "3" };
   Eigen::VectorXd values = Eigen::VectorXd::Constant(3, 5);
   {
-    JointWaypoint jwp{ joint_names, values };
+    JointWaypoint jwp{ joint_ids, values };
     composite.push_back(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
   {
     values = Eigen::VectorXd::Constant(3, 10);
-    JointWaypoint jwp{ joint_names, values };
+    JointWaypoint jwp{ joint_ids, values };
     composite.push_back(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
   {
     values = Eigen::VectorXd::Constant(3, 15);
-    JointWaypoint jwp{ joint_names, values };
+    JointWaypoint jwp{ joint_ids, values };
     composite.push_back(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
 
@@ -697,8 +698,9 @@ TEST(TesseractCommandLanguageUtilsUnit, makeTimeContinuous)  // NOLINT
   CompositeInstruction program(profile, manip_info);
 
   // Start Joint Position for the program
-  std::vector<tesseract::common::JointId> joint_names = { "joint_1", "joint_2", "joint_3",
-                                                          "joint_4", "joint_5", "joint_6" };
+  std::vector<tesseract::common::JointId> joint_ids = {
+    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
+  };
 
   for (std::size_t i = 0; i < 10; ++i)
   {
@@ -708,7 +710,7 @@ TEST(TesseractCommandLanguageUtilsUnit, makeTimeContinuous)  // NOLINT
     raster_segment.push_back(SetDigitalInstruction("signal", 0, true));
     for (std::size_t i = 0; i < 10; ++i)
     {
-      StateWaypoint wp{ joint_names, Eigen::VectorXd::Zero(6) };
+      StateWaypoint wp{ joint_ids, Eigen::VectorXd::Zero(6) };
       wp.setTime(static_cast<double>(i));
       raster_segment.push_back(MoveInstruction(wp, MoveInstructionType::LINEAR, "RASTER"));
     }
