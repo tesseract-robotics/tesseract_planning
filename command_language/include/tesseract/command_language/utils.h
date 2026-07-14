@@ -95,7 +95,7 @@ std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint
  *
  * @param joint_ids The joint ids defining the order desired
  * @param waypoint The waypoint to
- * @return The joint values ordered by the provided joint_names
+ * @return The joint values ordered by the provided joint_ids
  */
 Eigen::VectorXd getJointPosition(const std::vector<common::JointId>& joint_ids, const WaypointPoly& waypoint);
 
@@ -129,7 +129,7 @@ bool formatJointPosition(const std::vector<common::JointId>&, T&) = delete;
  * Also this is an expensive call so the motion planners do not leverage this and they expect the order through out
  * the program all match.
  *
- * @param joint_names The joint ids defining the order desired
+ * @param joint_ids The joint ids defining the order desired
  * @param waypoint The waypoint to check format
  * @return True if waypoint format is correct, otherwise false.
  */
