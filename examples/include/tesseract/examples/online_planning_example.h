@@ -113,7 +113,7 @@ private:
 
   // We need to keep this around so we can update it
   std::shared_ptr<trajopt_ifopt::CartPosConstraint> target_pose_constraint_;
-  std::vector<std::string> joint_names_;
+  std::vector<tesseract::common::JointId> joint_ids_;
   std::shared_ptr<trajopt_sqp::QPProblem> nlp_;
 
   void updateAndPlotTrajectory(const Eigen::VectorXd& osqp_vals);

@@ -96,8 +96,8 @@ OnlinePlanningExample::OnlinePlanningExample(std::shared_ptr<tesseract::environm
 
   // Initialize the trajectory
   current_trajectory_ = tesseract::common::TrajArray::Zero(steps_, 10);
-  joint_names_ = { "gantry_axis_1", "gantry_axis_2", "joint_1", "joint_2",       "joint_3",
-                   "joint_4",       "joint_5",       "joint_6", "human_x_joint", "human_y_joint" };
+  joint_ids_ = { "gantry_axis_1", "gantry_axis_2", "joint_1", "joint_2",       "joint_3",
+                 "joint_4",       "joint_5",       "joint_6", "human_x_joint", "human_y_joint" };
 
   target_pose_delta_ = Eigen::Isometry3d::Identity();
   target_pose_base_frame_ = Eigen::Isometry3d::Identity();
@@ -268,7 +268,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
 
 // Convert to joint trajectory
 tesseract::common::JointTrajectory getJointTrajectory(boost::uuids::uuid uuid,
-                                                      const std::vector<std::string>& joint_names,
+                                                      const std::vector<tesseract::common::JointId>& joint_ids,
                                                       const tesseract::common::TrajArray& current_trajectory)
 {
   tesseract::common::JointTrajectory joint_traj;
@@ -277,7 +277,7 @@ tesseract::common::JointTrajectory getJointTrajectory(boost::uuids::uuid uuid,
   double total_time = 0;
   for (long i = 0; i < current_trajectory.rows(); ++i)
   {
-    tesseract::common::JointState js(joint_names, current_trajectory.row(i));
+    tesseract::common::JointState js(joint_ids, current_trajectory.row(i));
     js.time = total_time;
     joint_traj.push_back(js);
     total_time += 0.1;
@@ -293,7 +293,7 @@ void OnlinePlanningExample::updateAndPlotTrajectory(const Eigen::VectorXd& osqp_
 
   // Convert to joint trajectory
   tesseract::common::JointTrajectory joint_traj =
-      getJointTrajectory(current_trajectory_uuid_, joint_names_, current_trajectory_);
+      getJointTrajectory(current_trajectory_uuid_, joint_ids_, current_trajectory_);
   player_.setTrajectory(joint_traj);
 
   // Display Results
