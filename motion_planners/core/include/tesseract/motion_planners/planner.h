@@ -91,12 +91,6 @@ public:
                              const Eigen::Ref<const Eigen::VectorXd>& joint_values,
                              bool format_result_as_input);
 
-  /** @brief Assign a solution to the move instruction */
-  static void assignSolution(tesseract::command_language::MoveInstructionPoly& mi,
-                             const std::vector<std::string>& joint_names,
-                             const Eigen::Ref<const Eigen::VectorXd>& joint_values,
-                             bool format_result_as_input);
-
 protected:
   std::string name_;
 };

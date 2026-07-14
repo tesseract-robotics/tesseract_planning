@@ -1116,15 +1116,6 @@ getInterpolatedInstructions(const std::vector<tesseract::common::JointId>& joint
 }
 
 std::vector<tesseract::command_language::MoveInstructionPoly>
-getInterpolatedInstructions(const std::vector<std::string>& joint_names,
-                            const Eigen::MatrixXd& states,
-                            const tesseract::command_language::MoveInstructionPoly& base_instruction)
-{
-  return getInterpolatedInstructions(
-      tesseract::common::toIds<tesseract::common::JointId>(joint_names), states, base_instruction);
-}
-
-std::vector<tesseract::command_language::MoveInstructionPoly>
 getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
                             const std::vector<tesseract::common::JointId>& joint_ids,
                             const Eigen::MatrixXd& states,
@@ -1175,16 +1166,6 @@ getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
   }
 
   return move_instructions;
-}
-
-std::vector<tesseract::command_language::MoveInstructionPoly>
-getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
-                            const std::vector<std::string>& joint_names,
-                            const Eigen::MatrixXd& states,
-                            const tesseract::command_language::MoveInstructionPoly& base_instruction)
-{
-  return getInterpolatedInstructions(
-      poses, tesseract::common::toIds<tesseract::common::JointId>(joint_names), states, base_instruction);
 }
 
 Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& info, const Eigen::VectorXd& seed)

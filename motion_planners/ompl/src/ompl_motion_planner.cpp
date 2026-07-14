@@ -261,23 +261,6 @@ long OMPLMotionPlanner::assignTrajectory(tesseract::command_language::CompositeI
   return start_index;
 }
 
-long OMPLMotionPlanner::assignTrajectory(tesseract::command_language::CompositeInstruction& output,
-                                         boost::uuids::uuid start_uuid,
-                                         boost::uuids::uuid end_uuid,
-                                         long start_index,
-                                         const std::vector<std::string>& joint_names,
-                                         const tesseract::common::TrajArray& traj,
-                                         const bool format_result_as_input)
-{
-  return assignTrajectory(output,
-                          start_uuid,
-                          end_uuid,
-                          start_index,
-                          tesseract::common::toIds<tesseract::common::JointId>(joint_names),
-                          traj,
-                          format_result_as_input);
-}
-
 PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 {
   if (request.verbose)

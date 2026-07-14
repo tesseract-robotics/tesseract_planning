@@ -492,19 +492,6 @@ getInterpolatedInstructions(const std::vector<tesseract::common::JointId>& joint
 /**
  * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
  * @details This skips the first state
- * @param joint_names The joint names associated with the states
- * @param states The joint states to populate the composite instruction with
- * @param base_instruction The base instruction used to extract profile and manipulator information from
- * @return A vector of move instruction
- */
-std::vector<tesseract::command_language::MoveInstructionPoly>
-getInterpolatedInstructions(const std::vector<std::string>& joint_names,
-                            const Eigen::MatrixXd& states,
-                            const tesseract::command_language::MoveInstructionPoly& base_instruction);
-
-/**
- * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
- * @details This skips the first state
  * @param poses The cartesian poses associated with the states
  * @param joint_ids The joint IDs associated with the states
  * @param states The joint states to populate the composite instruction with
@@ -514,21 +501,6 @@ getInterpolatedInstructions(const std::vector<std::string>& joint_names,
 std::vector<tesseract::command_language::MoveInstructionPoly>
 getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
                             const std::vector<tesseract::common::JointId>& joint_ids,
-                            const Eigen::MatrixXd& states,
-                            const tesseract::command_language::MoveInstructionPoly& base_instruction);
-
-/**
- * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
- * @details This skips the first state
- * @param poses The cartesian poses associated with the states
- * @param joint_names The joint names associated with the states
- * @param states The joint states to populate the composite instruction with
- * @param base_instruction The base instruction used to extract profile and manipulator information from
- * @return A vector of move instruction
- */
-std::vector<tesseract::command_language::MoveInstructionPoly>
-getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
-                            const std::vector<std::string>& joint_names,
                             const Eigen::MatrixXd& states,
                             const tesseract::command_language::MoveInstructionPoly& base_instruction);
 

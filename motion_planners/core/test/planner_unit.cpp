@@ -59,18 +59,6 @@ TEST(TesseractMotionPlannersCoreUnit, AssignSolutionIdsSeedsCartesianWaypoint)  
   EXPECT_EQ(cwp.getSeed().getJointIds(), joint_ids);
 }
 
-TEST(TesseractMotionPlannersCoreUnit, AssignSolutionNamesMatchIds)  // NOLINT
-{
-  const std::vector<std::string> joint_names{ "j1", "j2" };
-  MoveInstructionPoly mi(
-      MoveInstruction(CartesianWaypoint(Eigen::Isometry3d::Identity()), MoveInstructionType::FREESPACE));
-
-  MotionPlanner::assignSolution(mi, joint_names, values(), false);
-
-  const auto& swp = mi.getWaypoint().as<StateWaypointPoly>();
-  EXPECT_EQ(swp.getJointIds(), tesseract::common::toIds<JointId>(joint_names));
-}
-
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);

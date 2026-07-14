@@ -94,25 +94,6 @@ protected:
                                const std::vector<tesseract::common::JointId>& joint_ids,
                                const tesseract::common::TrajArray& traj,
                                bool format_result_as_input);
-
-  /**
-   * @brief This a utility function for assigning the trajectory to the results data structure
-   * @param output The results data structure to update
-   * @param start_uuid The start uuid of the provided trajectory
-   * @param end_uuid The end uuid of the provided trajectory
-   * @param start_index The start index to begin search for start uuid
-   * @param joint_names The joint names
-   * @param traj The provided trajectory
-   * @param format_result_as_input Indicate if the result should be formated as input
-   * @return The start index for the next segment
-   */
-  static long assignTrajectory(tesseract::command_language::CompositeInstruction& output,
-                               boost::uuids::uuid start_uuid,
-                               boost::uuids::uuid end_uuid,
-                               long start_index,
-                               const std::vector<std::string>& joint_names,
-                               const tesseract::common::TrajArray& traj,
-                               bool format_result_as_input);
 };
 
 }  // namespace tesseract::motion_planners

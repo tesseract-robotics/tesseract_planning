@@ -46,17 +46,6 @@ TEST(TesseractMotionPlannersSimpleInterpolationUnit, GetInterpolatedInstructions
   EXPECT_NEAR(jwp.getPosition()(0), 0.5, 1e-12);
 }
 
-TEST(TesseractMotionPlannersSimpleInterpolationUnit, GetInterpolatedInstructionsNamesMatchIds)  // NOLINT
-{
-  const std::vector<std::string> joint_names{ "j1", "j2" };
-  const std::vector<JointId> joint_ids = tesseract::common::toIds<JointId>(joint_names);
-
-  const auto mis = getInterpolatedInstructions(joint_names, states(), baseInstruction(joint_ids));
-
-  ASSERT_EQ(mis.size(), 2);
-  EXPECT_EQ(mis.front().getWaypoint().as<JointWaypointPoly>().getJointIds(), joint_ids);
-}
-
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);

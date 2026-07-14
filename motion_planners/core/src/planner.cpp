@@ -111,13 +111,4 @@ void MotionPlanner::assignSolution(tesseract::command_language::MoveInstructionP
   mi.getWaypoint() = swp;
 }
 
-void MotionPlanner::assignSolution(tesseract::command_language::MoveInstructionPoly& mi,
-                                   const std::vector<std::string>& joint_names,
-                                   const Eigen::Ref<const Eigen::VectorXd>& joint_values,
-                                   bool format_result_as_input)
-{
-  assignSolution(
-      mi, tesseract::common::toIds<tesseract::common::JointId>(joint_names), joint_values, format_result_as_input);
-}
-
 }  // namespace tesseract::motion_planners
