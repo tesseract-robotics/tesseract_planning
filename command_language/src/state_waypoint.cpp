@@ -57,20 +57,19 @@ StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
     throw std::runtime_error("StateWaypoint: parameters are not the same size!");
 }
 
-StateWaypoint::StateWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids,
-                             std::initializer_list<double> position)
-  : StateWaypoint(std::vector<tesseract::common::JointId>(joint_ids),
+StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids, std::initializer_list<double> position)
+  : StateWaypoint(std::move(joint_ids),
                   Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())))
 {
 }
 
-StateWaypoint::StateWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids,
+StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                              std::initializer_list<double> position,
                              std::initializer_list<double> velocity,
                              std::initializer_list<double> acceleration,
                              double time)
   : StateWaypoint(
-        std::vector<tesseract::common::JointId>(joint_ids),
+        std::move(joint_ids),
         Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
         Eigen::Map<const Eigen::VectorXd>(velocity.begin(), static_cast<Eigen::Index>(velocity.size())),
         Eigen::Map<const Eigen::VectorXd>(acceleration.begin(), static_cast<Eigen::Index>(acceleration.size())),

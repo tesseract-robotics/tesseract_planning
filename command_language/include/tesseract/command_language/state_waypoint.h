@@ -56,8 +56,8 @@ public:
                 Eigen::VectorXd acceleration,
                 double time);
 
-  StateWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids, std::initializer_list<double> position);
-  StateWaypoint(std::initializer_list<tesseract::common::JointId> joint_ids,
+  StateWaypoint(std::vector<tesseract::common::JointId> joint_ids, std::initializer_list<double> position);
+  StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                 std::initializer_list<double> position,
                 std::initializer_list<double> velocity,
                 std::initializer_list<double> acceleration,
