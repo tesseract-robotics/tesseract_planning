@@ -86,8 +86,8 @@ TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstruc
 {
   assert(!(composite_manip_info.empty() && move_instruction.getManipulatorInfo().empty()));
   tesseract::common::ManipulatorInfo mi = composite_manip_info.getCombined(move_instruction.getManipulatorInfo());
-  std::vector<std::string> joint_names = env->getGroupJointNames(mi.manipulator);
-  assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
+  std::vector<tesseract::common::JointId> joint_ids = env->getGroupJointIds(mi.manipulator);
+  assert(checkJointPositionFormat(joint_ids, move_instruction.getWaypoint()));
 
   TrajOptWaypointInfo info;
   if (move_instruction.getWaypoint().isCartesianWaypoint())
@@ -189,7 +189,7 @@ TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstruc
     if (cwp.hasSeed())
       info.seed = cwp.getSeed().position;
     else
-      info.seed = env->getCurrentJointValues(joint_names);
+      info.seed = env->getCurrentJointValues(joint_ids);
 
     /** @todo If fixed cartesian and not term_type cost add as fixed */
     info.fixed = false;

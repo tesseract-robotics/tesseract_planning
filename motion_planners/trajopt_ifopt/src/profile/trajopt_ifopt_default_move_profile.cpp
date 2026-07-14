@@ -92,8 +92,9 @@ TrajOptIfoptDefaultMoveProfile::create(const tesseract::command_language::MoveIn
 {
   assert(!(composite_manip_info.empty() && move_instruction.getManipulatorInfo().empty()));
   tesseract::common::ManipulatorInfo mi = composite_manip_info.getCombined(move_instruction.getManipulatorInfo());
-  std::vector<std::string> joint_names = env->getGroupJointNames(mi.manipulator);
-  assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
+  std::vector<tesseract::common::JointId> joint_ids = env->getGroupJointIds(mi.manipulator);
+  assert(checkJointPositionFormat(joint_ids, move_instruction.getWaypoint()));
+  const std::vector<std::string> joint_names = tesseract::common::toNames(joint_ids);
 
   tesseract::kinematics::JointGroup::ConstPtr manip = env->getJointGroup(mi.manipulator);
   const std::vector<trajopt_ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip->getLimits().joint_limits);
@@ -110,7 +111,7 @@ TrajOptIfoptDefaultMoveProfile::create(const tesseract::command_language::MoveIn
     if (cwp.hasSeed())
       seed = cwp.getSeed().position;
     else
-      seed = env->getCurrentJointValues(joint_names);
+      seed = env->getCurrentJointValues(joint_ids);
 
     info.node = std::make_unique<trajopt_ifopt::Node>("Node_" + std::to_string(index));
     std::shared_ptr<const trajopt_ifopt::Var> var = info.node->addVar("position", joint_names, seed, bounds);
