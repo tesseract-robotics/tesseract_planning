@@ -88,17 +88,6 @@ public:
   /////////////////
 
   /**
-   * @brief Set the joint names
-   * @param names The joint names
-   */
-  virtual void setNames(const std::vector<std::string>& names) = 0;
-  /**
-   * @brief Get the joint names
-   * @return The joint names
-   */
-  virtual std::vector<std::string> getNames() const = 0;
-
-  /**
    * @brief Set the joint IDs
    * @param ids The joint IDs
    */
@@ -210,17 +199,6 @@ public:
   /////////////////
   // Joint Waypoint
   /////////////////
-
-  /**
-   * @brief Set the joint names
-   * @param names The joint names
-   */
-  void setNames(const std::vector<std::string>& names);
-  /**
-   * @brief Get the joint names
-   * @return The joint names
-   */
-  std::vector<std::string> getNames() const;
 
   /**
    * @brief Set the joint IDs

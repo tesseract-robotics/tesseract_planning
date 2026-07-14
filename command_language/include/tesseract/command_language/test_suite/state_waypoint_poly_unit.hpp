@@ -55,7 +55,7 @@ void runStateWaypointTest()
   {  // Test construction
     {
       StateWaypointPoly wp{ T() };
-      EXPECT_TRUE(wp.getNames().empty());
+      EXPECT_TRUE(wp.getJointIds().empty());
       EXPECT_TRUE(wp.getPosition().rows() == 0);
       EXPECT_TRUE(wp.getVelocity().rows() == 0);
       EXPECT_TRUE(wp.getAcceleration().rows() == 0);
@@ -66,7 +66,7 @@ void runStateWaypointTest()
       std::vector<std::string> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       StateWaypointPoly wp{ T(names, positions) };
-      EXPECT_EQ(wp.getNames(), names);
+      EXPECT_EQ(wp.getJointIds(), common::toIds<common::JointId>(names));
       EXPECT_TRUE(wp.getPosition().isApprox(positions));
       EXPECT_TRUE(wp.getVelocity().rows() == 0);
       EXPECT_TRUE(wp.getAcceleration().rows() == 0);
@@ -79,7 +79,7 @@ void runStateWaypointTest()
       Eigen::VectorXd velocities = Eigen::VectorXd::Constant(3, -5);
       Eigen::VectorXd accelerations = Eigen::VectorXd::Constant(3, 5);
       StateWaypointPoly wp{ T(names, positions, velocities, accelerations, 5) };
-      EXPECT_EQ(wp.getNames(), names);
+      EXPECT_EQ(wp.getJointIds(), common::toIds<common::JointId>(names));
       EXPECT_TRUE(wp.getPosition().isApprox(positions));
       EXPECT_TRUE(wp.getVelocity().isApprox(velocities));
       EXPECT_TRUE(wp.getAcceleration().isApprox(accelerations));
@@ -116,14 +116,14 @@ void runStateWaypointTest()
     const std::vector<std::string> names{ "j1", "j2", "j3" };
     {  // Test set
       StateWaypointPoly wp{ T() };
-      wp.setNames(names);
-      EXPECT_TRUE(wp.getNames() == names);
+      wp.setJointIds(common::toIds<common::JointId>(names));
+      EXPECT_TRUE(wp.getJointIds() == common::toIds<common::JointId>(names));
     }
 
     {  // Test assigning
       StateWaypointPoly wp{ T() };
       wp.getJointIds() = common::toIds<common::JointId>(names);
-      EXPECT_TRUE(std::as_const(wp).getNames() == names);
+      EXPECT_TRUE(std::as_const(wp).getJointIds() == common::toIds<common::JointId>(names));
     }
   }
 
@@ -290,7 +290,7 @@ void runStateWaypointTest()
 
       StateWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
       StateWaypointPoly wp2{ wp1 };
-      wp1.setNames(names);
+      wp1.setJointIds(common::toIds<common::JointId>(names));
       wp1.getPosition() = positions;
       wp1.getVelocity() = velocities;
       wp1.getAcceleration() = accelerations;

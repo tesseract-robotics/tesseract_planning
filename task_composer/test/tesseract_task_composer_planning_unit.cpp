@@ -580,7 +580,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     MoveInstructionPoly last = input_program.back().as<MoveInstructionPoly>();
     const auto& jwp = last.getWaypoint().as<JointWaypointPoly>();
     CartesianWaypoint cwp{ Eigen::Isometry3d::Identity() };
-    cwp.setSeed(tesseract::common::JointState(jwp.getNames(), jwp.getPosition()));
+    cwp.setSeed(tesseract::common::JointState(jwp.getJointIds(), jwp.getPosition()));
     last.getWaypoint() = CartesianWaypointPoly(cwp);
     input_program.back() = last;
     EXPECT_EQ(input_program.size(), 2);
@@ -729,7 +729,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskReordersT
 {
   // joint_1/joint_2 in pre-planning (formatted) order; post-planning reverses to joint_2/joint_1.
   std::vector<std::string> orig_names = { "joint_1", "joint_2" };
-  std::vector<std::string> post_names = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> post_names = { "joint_2", "joint_1" };
 
   // Pre-planning program: one toleranced JointWaypoint in orig_names order.
   JointWaypoint jwp_pre(
@@ -763,7 +763,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskReordersT
   ASSERT_EQ(moves.size(), 1U);
   const auto& jwp_out = moves[0].get().as<MoveInstructionPoly>().getWaypoint().as<JointWaypointPoly>();
 
-  EXPECT_EQ(jwp_out.getNames(), post_names);
+  EXPECT_EQ(jwp_out.getJointIds(), post_names);
   EXPECT_TRUE(jwp_out.getPosition().isApprox(Eigen::Vector2d(99.0, 88.0)));
   // After reorder, joint_2's tolerance (index 1) should be first, joint_1's (index 0) second.
   EXPECT_TRUE(jwp_out.getLowerTolerance().isApprox(Eigen::Vector2d(-0.2, -0.1)));

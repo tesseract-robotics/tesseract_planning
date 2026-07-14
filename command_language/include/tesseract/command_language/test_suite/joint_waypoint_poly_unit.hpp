@@ -55,7 +55,7 @@ void runJointWaypointTest()
   {  // Test construction
     {
       JointWaypointPoly wp{ T() };
-      EXPECT_TRUE(wp.getNames().empty());
+      EXPECT_TRUE(wp.getJointIds().empty());
       EXPECT_TRUE(wp.getPosition().rows() == 0);
       EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
       EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
@@ -65,7 +65,7 @@ void runJointWaypointTest()
       std::vector<std::string> names{ "j1", "j2", "j3" };
       Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
       JointWaypointPoly wp{ T(names, positions) };
-      EXPECT_EQ(wp.getNames(), names);
+      EXPECT_EQ(wp.getJointIds(), common::toIds<common::JointId>(names));
       EXPECT_TRUE(wp.getPosition().isApprox(positions));
       EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
       EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
@@ -77,7 +77,7 @@ void runJointWaypointTest()
       Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(3, -5);
       Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(3, 5);
       JointWaypointPoly wp{ T(names, positions, lower_tol, uppert_tol) };
-      EXPECT_EQ(wp.getNames(), names);
+      EXPECT_EQ(wp.getJointIds(), common::toIds<common::JointId>(names));
       EXPECT_TRUE(wp.getPosition().isApprox(positions));
       EXPECT_TRUE(wp.getLowerTolerance().isApprox(lower_tol));
       EXPECT_TRUE(wp.getUpperTolerance().isApprox(uppert_tol));
@@ -120,14 +120,14 @@ void runJointWaypointTest()
     const std::vector<std::string> names{ "j1", "j2", "j3" };
     {  // Test set
       JointWaypointPoly wp{ T() };
-      wp.setNames(names);
-      EXPECT_TRUE(wp.getNames() == names);
+      wp.setJointIds(common::toIds<common::JointId>(names));
+      EXPECT_TRUE(wp.getJointIds() == common::toIds<common::JointId>(names));
     }
 
     {  // Test assigning
       JointWaypointPoly wp{ T() };
       wp.getJointIds() = common::toIds<common::JointId>(names);
-      EXPECT_TRUE(std::as_const(wp).getNames() == names);
+      EXPECT_TRUE(std::as_const(wp).getJointIds() == common::toIds<common::JointId>(names));
     }
   }
 

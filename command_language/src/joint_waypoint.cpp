@@ -64,13 +64,6 @@ void JointWaypoint::print(const std::string& prefix) const
 std::unique_ptr<JointWaypointInterface> JointWaypoint::clone() const { return std::make_unique<JointWaypoint>(*this); }
 
 // Joint Waypoint
-void JointWaypoint::setNames(const std::vector<std::string>& names)
-{
-  joint_ids_ = tesseract::common::toIds<tesseract::common::JointId>(names);
-}
-
-std::vector<std::string> JointWaypoint::getNames() const { return tesseract::common::toNames(joint_ids_); }
-
 void JointWaypoint::setJointIds(const std::vector<tesseract::common::JointId>& ids) { joint_ids_ = ids; }
 const std::vector<tesseract::common::JointId>& JointWaypoint::getJointIds() const { return joint_ids_; }
 std::vector<tesseract::common::JointId>& JointWaypoint::getJointIds() { return joint_ids_; }

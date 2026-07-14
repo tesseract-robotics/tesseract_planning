@@ -100,9 +100,6 @@ public:
   void print(const std::string& prefix = "") const override final;
 
   // State Waypoint
-  void setNames(const std::vector<std::string>& names) override final;
-  std::vector<std::string> getNames() const override final;
-
   void setJointIds(const std::vector<tesseract::common::JointId>& ids) override final;
   const std::vector<tesseract::common::JointId>& getJointIds() const override final;
   std::vector<tesseract::common::JointId>& getJointIds() override final;

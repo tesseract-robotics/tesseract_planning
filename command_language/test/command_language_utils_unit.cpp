@@ -391,7 +391,7 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersJointWaypoint
   EXPECT_TRUE(formatJointPosition(format_joint_names, wp_poly));
 
   const auto& out = wp_poly.as<JointWaypointPoly>();
-  EXPECT_EQ(out.getNames(), format_joint_names);
+  EXPECT_EQ(out.getJointIds(), tesseract::common::toIds<tesseract::common::JointId>(format_joint_names));
   EXPECT_TRUE(out.getPosition().isApprox(Eigen::Vector2d(4.0, 3.0)));
   EXPECT_TRUE(out.getLowerTolerance().isApprox(Eigen::Vector2d(-0.2, -0.1)));
   EXPECT_TRUE(out.getUpperTolerance().isApprox(Eigen::Vector2d(0.4, 0.3)));
@@ -415,7 +415,7 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionReordersStateWaypoint
   EXPECT_TRUE(formatJointPosition(format_joint_names, wp_poly));
 
   const auto& out = wp_poly.as<StateWaypointPoly>();
-  EXPECT_EQ(out.getNames(), format_joint_names);
+  EXPECT_EQ(out.getJointIds(), tesseract::common::toIds<tesseract::common::JointId>(format_joint_names));
   EXPECT_TRUE(out.getPosition().isApprox(Eigen::Vector2d(2.0, 1.0)));
   EXPECT_TRUE(out.getVelocity().isApprox(Eigen::Vector2d(0.2, 0.1)));
   EXPECT_TRUE(out.getAcceleration().isApprox(Eigen::Vector2d(0.02, 0.01)));

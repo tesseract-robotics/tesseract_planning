@@ -88,13 +88,6 @@ void StateWaypoint::print(const std::string& prefix) const
 std::unique_ptr<StateWaypointInterface> StateWaypoint::clone() const { return std::make_unique<StateWaypoint>(*this); }
 
 // State Waypoint
-void StateWaypoint::setNames(const std::vector<std::string>& names)
-{
-  joint_ids_ = tesseract::common::toIds<tesseract::common::JointId>(names);
-}
-
-std::vector<std::string> StateWaypoint::getNames() const { return tesseract::common::toNames(joint_ids_); }
-
 void StateWaypoint::setJointIds(const std::vector<tesseract::common::JointId>& ids) { joint_ids_ = ids; }
 const std::vector<tesseract::common::JointId>& StateWaypoint::getJointIds() const { return joint_ids_; }
 std::vector<tesseract::common::JointId>& StateWaypoint::getJointIds() { return joint_ids_; }
