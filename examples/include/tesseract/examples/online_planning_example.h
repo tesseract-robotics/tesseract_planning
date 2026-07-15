@@ -74,10 +74,10 @@ public:
 
   /**
    * @brief Update the current state
-   * @param joint_names The joint names
+   * @param joint_ids The joint ids
    * @param joint_values The joint values
    */
-  void updateState(const std::vector<std::string>& joint_names, const std::vector<double>& joint_values);
+  void updateState(const std::vector<tesseract::common::JointId>& joint_ids, const std::vector<double>& joint_values);
 
   /**
    * @brief Toggle real-time mode

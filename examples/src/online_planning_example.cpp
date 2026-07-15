@@ -103,12 +103,11 @@ OnlinePlanningExample::OnlinePlanningExample(std::shared_ptr<tesseract::environm
   target_pose_base_frame_ = Eigen::Isometry3d::Identity();
 }
 
-void OnlinePlanningExample::updateState(const std::vector<std::string>& joint_names,
+void OnlinePlanningExample::updateState(const std::vector<tesseract::common::JointId>& joint_ids,
                                         const std::vector<double>& joint_values)
 {
   // Set the environment state to update the collision model
-  // Set the environment state to update the collision model
-  env_->setState(joint_names,
+  env_->setState(joint_ids,
                  Eigen::Map<const Eigen::VectorXd>(joint_values.data(), static_cast<long>(joint_values.size())));
 
   // Update current_trajectory_ so the live trajectory will be visualized correctly

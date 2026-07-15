@@ -147,11 +147,11 @@ CarSeatExample::CarSeatExample(std::shared_ptr<tesseract::environment::Environme
 {
 }
 
-std::unordered_map<std::string, std::unordered_map<std::string, double>> getPredefinedPosition()
+std::unordered_map<std::string, SceneState::JointValues> getPredefinedPosition()
 {
-  std::unordered_map<std::string, std::unordered_map<std::string, double>> result;
+  std::unordered_map<std::string, SceneState::JointValues> result;
 
-  std::unordered_map<std::string, double> default_pos;
+  SceneState::JointValues default_pos;
   default_pos["carriage_rail"] = 1.0;
   default_pos["joint_b"] = 0.0;
   default_pos["joint_e"] = 0.0;
@@ -162,7 +162,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   default_pos["joint_u"] = -1.5707;
   result["Default"] = default_pos;
 
-  std::unordered_map<std::string, double> pick1;
+  SceneState::JointValues pick1;
   pick1["carriage_rail"] = 2.22;
   pick1["joint_b"] = 0.39;
   pick1["joint_e"] = 0.0;
@@ -173,7 +173,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   pick1["joint_u"] = -1.45;
   result["Pick1"] = pick1;
 
-  std::unordered_map<std::string, double> pick2;
+  SceneState::JointValues pick2;
   pick2["carriage_rail"] = 1.22;
   pick1["joint_b"] = 0.39;
   pick1["joint_e"] = 0.0;
@@ -184,7 +184,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   pick1["joint_u"] = -1.45;
   result["Pick2"] = pick2;
 
-  std::unordered_map<std::string, double> pick3;
+  SceneState::JointValues pick3;
   pick3["carriage_rail"] = 0.22;
   pick1["joint_b"] = 0.39;
   pick1["joint_e"] = 0.0;
@@ -195,7 +195,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   pick1["joint_u"] = -1.45;
   result["Pick3"] = pick3;
 
-  std::unordered_map<std::string, double> place1;
+  SceneState::JointValues place1;
   place1["carriage_rail"] = 4.15466;
   place1["joint_b"] = 0.537218;
   place1["joint_e"] = 0.0189056;
@@ -206,7 +206,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   place1["joint_u"] = -1.2813;
   result["Place1"] = place1;
 
-  std::unordered_map<std::string, double> home;
+  SceneState::JointValues home;
   home["carriage_rail"] = 0.0;
   home["joint_b"] = 0.0;
   home["joint_e"] = 0.0;
@@ -220,23 +220,23 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   return result;
 }
 
-std::vector<double> getPositionVector(const JointGroup& joint_group, const std::unordered_map<std::string, double>& pos)
+std::vector<double> getPositionVector(const JointGroup& joint_group, const SceneState::JointValues& pos)
 {
   std::vector<double> result;
   result.reserve(static_cast<std::size_t>(joint_group.numJoints()));
   for (const auto& joint_id : joint_group.getJointIds())
-    result.push_back(pos.at(joint_id.name()));
+    result.push_back(pos.at(joint_id));
 
   return result;
 }
 
-Eigen::VectorXd getPositionVectorXd(const JointGroup& joint_group, const std::unordered_map<std::string, double>& pos)
+Eigen::VectorXd getPositionVectorXd(const JointGroup& joint_group, const SceneState::JointValues& pos)
 {
   Eigen::VectorXd result;
   result.resize(joint_group.numJoints());
   int cnt = 0;
   for (const auto& joint_id : joint_group.getJointIds())
-    result[cnt++] = pos.at(joint_id.name());
+    result[cnt++] = pos.at(joint_id);
 
   return result;
 }

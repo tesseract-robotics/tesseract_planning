@@ -163,14 +163,14 @@ bool PuzzlePieceExample::run()
     plotter_->waitForConnection();
 
   // Set the robot initial state
-  std::vector<std::string> joint_names;
-  joint_names.emplace_back("joint_a1");
-  joint_names.emplace_back("joint_a2");
-  joint_names.emplace_back("joint_a3");
-  joint_names.emplace_back("joint_a4");
-  joint_names.emplace_back("joint_a5");
-  joint_names.emplace_back("joint_a6");
-  joint_names.emplace_back("joint_a7");
+  std::vector<tesseract::common::JointId> joint_ids;
+  joint_ids.emplace_back("joint_a1");
+  joint_ids.emplace_back("joint_a2");
+  joint_ids.emplace_back("joint_a3");
+  joint_ids.emplace_back("joint_a4");
+  joint_ids.emplace_back("joint_a5");
+  joint_ids.emplace_back("joint_a6");
+  joint_ids.emplace_back("joint_a7");
 
   Eigen::VectorXd joint_pos(7);
   joint_pos(0) = -0.785398;
@@ -181,7 +181,7 @@ bool PuzzlePieceExample::run()
   joint_pos(5) = 1.0;
   joint_pos(6) = 0.0;
 
-  env_->setState(joint_names, joint_pos);
+  env_->setState(joint_ids, joint_pos);
 
   // Get Tool Poses
   tesseract::common::VectorIsometry3d tool_poses = makePuzzleToolPoses(env_->getResourceLocator());
