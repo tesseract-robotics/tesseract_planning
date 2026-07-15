@@ -114,7 +114,8 @@ void serialize(Archive& ar, JointWaypoint& obj)
 {
   ar(cereal::base_class<JointWaypointInterface>(&obj));
   ar(cereal::make_nvp("name", obj.name_));
-  // NVP key kept as "names" for archive compat; JointId serializes as its name.
+  // Keep the "names" archive key though the field is joint_ids_: a JointId serializes as its name
+  // string (see save_minimal), so the on-disk key stays stable and portable across builds.
   ar(cereal::make_nvp("names", obj.joint_ids_));
   ar(cereal::make_nvp("position", obj.position_));
   ar(cereal::make_nvp("upper_tolerance", obj.upper_tolerance_));
@@ -127,7 +128,8 @@ void serialize(Archive& ar, StateWaypoint& obj)
 {
   ar(cereal::base_class<StateWaypointInterface>(&obj));
   ar(cereal::make_nvp("name", obj.name_));
-  // NVP key kept as "joint_names" for archive compat; JointId serializes as its name.
+  // Keep the "joint_names" archive key though the field is joint_ids_: a JointId serializes as its
+  // name string (see save_minimal), so the on-disk key stays stable and portable across builds.
   ar(cereal::make_nvp("joint_names", obj.joint_ids_));
   ar(cereal::make_nvp("position", obj.position_));
   ar(cereal::make_nvp("velocity", obj.velocity_));
