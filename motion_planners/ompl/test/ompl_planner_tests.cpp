@@ -618,7 +618,7 @@ TEST(ContinuousMotionValidatorTest, StateValidatorBreakAtFirstInvalidState)  // 
   }
 
   const unsigned n_steps = rss->validSegmentCount(s1.get(), s2.get());
-  ASSERT_GT(n_steps, 1u) << "Need multiple segments to exercise break behavior";
+  ASSERT_GT(n_steps, 1U) << "Need multiple segments to exercise break behavior";
 
   ompl::base::ScopedState<ompl::base::RealVectorStateSpace> last_valid_state(rss);
   std::pair<ompl::base::State*, double> last_valid = std::make_pair(last_valid_state.get(), 0.0);
