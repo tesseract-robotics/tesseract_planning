@@ -272,8 +272,8 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
 TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionByIdTests)  // NOLINT
 {
   using tesseract::common::JointId;
-  std::vector<JointId> joint_ids = { JointId("joint_1"), JointId("joint_2") };
-  std::vector<JointId> format_joint_ids = { JointId("joint_2"), JointId("joint_1") };
+  std::vector<JointId> joint_ids = { "joint_1", "joint_2" };
+  std::vector<JointId> format_joint_ids = { "joint_2", "joint_1" };
   Eigen::VectorXd position0 = Eigen::Vector2d(1, 2);
   Eigen::VectorXd position00 = Eigen::Vector2d(3, 4);
   Eigen::VectorXd format_position0 = Eigen::Vector2d(2, 1);
@@ -315,9 +315,9 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionByIdTests)  // NOLINT
   WaypointPoly wp2_poly{ wp2 };
   EXPECT_FALSE(formatJointPosition(format_joint_ids, wp2_poly));  // NOLINT
 
-  EXPECT_ANY_THROW(formatJointPosition(std::vector<JointId>{ JointId("joint_1") }, wp0_poly));  // NOLINT
+  EXPECT_ANY_THROW(formatJointPosition(std::vector<JointId>{ "joint_1" }, wp0_poly));  // NOLINT
   EXPECT_ANY_THROW(
-      formatJointPosition(std::vector<JointId>{ JointId("joint_3"), JointId("joint_1") }, wp0_poly));  // NOLINT
+      formatJointPosition(std::vector<JointId>{ "joint_3", "joint_1" }, wp0_poly));  // NOLINT
 
   WaypointPoly error_poly;
   EXPECT_ANY_THROW(formatJointPosition(format_joint_ids, error_poly));  // NOLINT

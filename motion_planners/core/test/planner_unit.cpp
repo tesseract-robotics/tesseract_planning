@@ -33,7 +33,7 @@ Eigen::VectorXd values()
 
 TEST(TesseractMotionPlannersCoreUnit, AssignSolutionIdsCreatesStateWaypoint)  // NOLINT
 {
-  const std::vector<JointId> joint_ids{ JointId("j1"), JointId("j2") };
+  const std::vector<JointId> joint_ids{ "j1", "j2" };
   MoveInstructionPoly mi(
       MoveInstruction(CartesianWaypoint(Eigen::Isometry3d::Identity()), MoveInstructionType::FREESPACE));
 
@@ -47,7 +47,7 @@ TEST(TesseractMotionPlannersCoreUnit, AssignSolutionIdsCreatesStateWaypoint)  //
 
 TEST(TesseractMotionPlannersCoreUnit, AssignSolutionIdsSeedsCartesianWaypoint)  // NOLINT
 {
-  const std::vector<JointId> joint_ids{ JointId("j1"), JointId("j2") };
+  const std::vector<JointId> joint_ids{ "j1", "j2" };
   MoveInstructionPoly mi(
       MoveInstruction(CartesianWaypoint(Eigen::Isometry3d::Identity()), MoveInstructionType::FREESPACE));
 

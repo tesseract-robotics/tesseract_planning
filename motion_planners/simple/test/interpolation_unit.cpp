@@ -35,7 +35,7 @@ MoveInstruction baseInstruction(const std::vector<JointId>& joint_ids)
 
 TEST(TesseractMotionPlannersSimpleInterpolationUnit, GetInterpolatedInstructionsIds)  // NOLINT
 {
-  const std::vector<JointId> joint_ids{ JointId("j1"), JointId("j2") };
+  const std::vector<JointId> joint_ids{ "j1", "j2" };
 
   const auto mis = getInterpolatedInstructions(joint_ids, states(), baseInstruction(joint_ids));
 

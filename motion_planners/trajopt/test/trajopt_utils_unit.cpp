@@ -14,7 +14,7 @@ TEST(TesseractMotionPlannersTrajoptUtilsUnit, CreateNearJointStateTermInfoIds)  
 {
   Eigen::VectorXd target(2);
   target << 0.1, 0.2;
-  const std::vector<JointId> joint_ids{ JointId("j1"), JointId("j2") };
+  const std::vector<JointId> joint_ids{ "j1", "j2" };
   const Eigen::VectorXd coeffs = Eigen::VectorXd::Constant(1, 5.0);
 
   const auto term = createNearJointStateTermInfo(target, joint_ids, 3, coeffs, trajopt::TermType::TT_COST);
