@@ -60,6 +60,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/environment/environment.h>
 
 #include <tesseract/common/profile_plugin_factory.h>
+#include <tesseract/common/joint_state.h>
 
 namespace tesseract::motion_planners
 {
@@ -193,7 +194,8 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
 
     contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkNames());
     tesseract::kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, start_mi.working_frame, start_mi.tcp_frame);
-    applyStartStates(*simple_setup, ik_input, *kin_group, *contact_checker);
+    const Eigen::VectorXd seed = cur_wp.hasSeed() ? cur_wp.getSeed().position : Eigen::VectorXd();
+    applyStartStates(*simple_setup, ik_input, *kin_group, *contact_checker, seed);
   }
   else
   {
@@ -222,7 +224,8 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
 
     contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkNames());
     tesseract::kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, end_mi.working_frame, end_mi.tcp_frame);
-    applyGoalStates(*simple_setup, ik_input, *kin_group, *contact_checker);
+    const Eigen::VectorXd seed = cur_wp.hasSeed() ? cur_wp.getSeed().position : Eigen::VectorXd();
+    applyGoalStates(*simple_setup, ik_input, *kin_group, *contact_checker, seed);
   }
   else
   {
@@ -235,7 +238,8 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
 void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                                                 const tesseract::kinematics::KinGroupIKInput& ik_input,
                                                 const tesseract::kinematics::KinematicGroup& manip,
-                                                tesseract::collision::DiscreteContactManager& contact_checker)
+                                                tesseract::collision::DiscreteContactManager& contact_checker,
+                                                const Eigen::VectorXd& seed)
 {
   /** @todo Need to add Descartes pose sample to ompl profile */
   const auto dof = manip.numJoints();
@@ -243,7 +247,14 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
 
   /** @brief Making this thread_local does not help because it is not called enough during planning */
   tesseract::kinematics::IKSolutions joint_solutions;
-  manip.calcInvKin(joint_solutions, { ik_input }, Eigen::VectorXd::Zero(dof));
+  // Use the seed attached to the Cartesian waypoint when one is provided, otherwise fall back to the
+  // zero seed. For seed-dependent solvers that return a single solution (e.g. KDL-LMA), a hardcoded
+  // zero seed can converge to an out-of-limits branch of the solution manifold; the limit filter then
+  // discards it and an otherwise-reachable goal ends up with an empty solution set.
+  Eigen::VectorXd ik_seed = Eigen::VectorXd::Zero(dof);
+  if (seed.size() == static_cast<Eigen::Index>(dof))
+    ik_seed = seed;
+  manip.calcInvKin(joint_solutions, { ik_input }, ik_seed);
   auto goal_states = std::make_shared<ompl::base::GoalStates>(simple_setup.getSpaceInformation());
   std::vector<tesseract::collision::ContactResultMap> contact_map_vec(static_cast<std::size_t>(joint_solutions.size()));
 
@@ -343,16 +354,23 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
 void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
                                                  const tesseract::kinematics::KinGroupIKInput& ik_input,
                                                  const tesseract::kinematics::KinematicGroup& manip,
-                                                 tesseract::collision::DiscreteContactManager& contact_checker)
+                                                 tesseract::collision::DiscreteContactManager& contact_checker,
+                                                 const Eigen::VectorXd& seed)
 {
   /** @todo Need to add Descartes pose sampler to ompl profile */
-  /** @todo Need to also provide the seed instruction to use here */
   const auto dof = manip.numJoints();
   tesseract::common::KinematicLimits limits = manip.getLimits();
 
   /** @brief Making this thread_local does not help because it is not called enough during planning */
   tesseract::kinematics::IKSolutions joint_solutions;
-  manip.calcInvKin(joint_solutions, { ik_input }, Eigen::VectorXd::Zero(dof));
+  // Use the seed attached to the Cartesian waypoint when one is provided, otherwise fall back to the
+  // zero seed. For seed-dependent solvers that return a single solution (e.g. KDL-LMA), a hardcoded
+  // zero seed can converge to an out-of-limits branch of the solution manifold; the limit filter then
+  // discards it and an otherwise-reachable start ends up with an empty solution set.
+  Eigen::VectorXd ik_seed = Eigen::VectorXd::Zero(dof);
+  if (seed.size() == static_cast<Eigen::Index>(dof))
+    ik_seed = seed;
+  manip.calcInvKin(joint_solutions, { ik_input }, ik_seed);
   bool found_start_state = false;
   std::vector<tesseract::collision::ContactResultMap> contact_map_vec(joint_solutions.size());
 
