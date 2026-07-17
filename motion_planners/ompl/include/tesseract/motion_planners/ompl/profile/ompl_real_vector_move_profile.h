@@ -98,12 +98,14 @@ protected:
   static void applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                               const tesseract::kinematics::KinGroupIKInput& ik_input,
                               const tesseract::kinematics::KinematicGroup& manip,
-                              tesseract::collision::DiscreteContactManager& contact_checker);
+                              tesseract::collision::DiscreteContactManager& contact_checker,
+                              const Eigen::VectorXd& seed = Eigen::VectorXd());
 
   static void applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
                                const tesseract::kinematics::KinGroupIKInput& ik_input,
                                const tesseract::kinematics::KinematicGroup& manip,
-                               tesseract::collision::DiscreteContactManager& contact_checker);
+                               tesseract::collision::DiscreteContactManager& contact_checker,
+                               const Eigen::VectorXd& seed = Eigen::VectorXd());
 
   static void applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                               const Eigen::VectorXd& joint_waypoint,
