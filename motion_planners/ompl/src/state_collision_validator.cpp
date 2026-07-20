@@ -77,7 +77,13 @@ bool StateCollisionValidator::isValid(const ompl::base::State* state) const
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state1;
   manip_->calcFwdKin(state1, finish_joints);
 
-  cm->setCollisionObjectsTransform(state1);
+  TESSERACT_THREAD_LOCAL tesseract::common::VectorIsometry3d poses;
+  poses.clear();
+  poses.reserve(link_ids_.size());
+  for (const auto& id : link_ids_)
+    poses.push_back(state1.at(id));
+
+  cm->setCollisionObjectsTransform(link_ids_, poses);
 
   tesseract::collision::ContactResultMap contact_map;
   cm->contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
