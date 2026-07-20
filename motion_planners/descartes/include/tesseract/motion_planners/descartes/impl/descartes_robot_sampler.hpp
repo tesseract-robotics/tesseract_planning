@@ -105,6 +105,8 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
 
     // These get cleared in the validate and distance calls
     TESSERACT_THREAD_LOCAL tesseract::collision::ContactResultMap coll_results;
+    // transforms is not cleared between solutions; every call overwrites the same link set (one joint_group),
+    // so stale keys cannot survive.
     TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap transforms;
 
     // Check each individual joint solution
