@@ -27,6 +27,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <cstdint>
+#include <stdexcept>
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -69,6 +70,7 @@ static const std::vector<std::string> RobotConfigString = { "NUT", "FUT", "NDT",
  * @param joint_values The joint group joint values and assumes the last six are for the robot.
  * @param sign_correction Correct the sign for Joint 3 and Joint 5 based on the robot manufacturer.
  * @return Robot Config
+ * @throws std::runtime_error if base_link or tcp_frame is not a link of joint_group.
  */
 template <typename FloatType>
 inline RobotConfig getRobotConfig(const tesseract::kinematics::JointGroup& joint_group,
@@ -77,6 +79,11 @@ inline RobotConfig getRobotConfig(const tesseract::kinematics::JointGroup& joint
                                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
+  // base_link and tcp_frame must be links of joint_group: the thread-local state is reused without clearing
+  // (see JointGroup::calcFwdKin), so an out-of-group id would read a stale pose instead of failing.
+  if (!joint_group.hasLinkId(base_link) || !joint_group.hasLinkId(tcp_frame))
+    throw std::runtime_error("getRobotConfig: base_link and tcp_frame must be links of joint_group");
+
   // Get state
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state;
   joint_group.calcFwdKin(state, joint_values.template cast<double>());
