@@ -592,12 +592,12 @@ TEST(ContinuousMotionValidatorTest, StateValidatorBreakAtFirstInvalidState)  // 
 
   auto joint_group = env->getJointGroup("manipulator");
   const auto dof = static_cast<unsigned>(joint_group->numJoints());
-  const std::vector<std::string> joint_names = joint_group->getJointNames();
+  const std::vector<tesseract::common::JointId> joint_ids = joint_group->getJointIds();
   const Eigen::MatrixX2d limits = joint_group->getLimits().joint_limits;
 
   auto rss = std::make_shared<ompl::base::RealVectorStateSpace>();
   for (unsigned i = 0; i < dof; ++i)
-    rss->addDimension(joint_names[i], limits(i, 0), limits(i, 1));
+    rss->addDimension(joint_ids[i].name(), limits(i, 0), limits(i, 1));
 
   auto si = std::make_shared<ompl::base::SpaceInformation>(rss);
   si->setup();

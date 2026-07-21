@@ -315,9 +315,8 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionByIdTests)  // NOLINT
   WaypointPoly wp2_poly{ wp2 };
   EXPECT_FALSE(formatJointPosition(format_joint_ids, wp2_poly));  // NOLINT
 
-  EXPECT_ANY_THROW(formatJointPosition(std::vector<JointId>{ "joint_1" }, wp0_poly));  // NOLINT
-  EXPECT_ANY_THROW(
-      formatJointPosition(std::vector<JointId>{ "joint_3", "joint_1" }, wp0_poly));  // NOLINT
+  EXPECT_ANY_THROW(formatJointPosition(std::vector<JointId>{ "joint_1" }, wp0_poly));             // NOLINT
+  EXPECT_ANY_THROW(formatJointPosition(std::vector<JointId>{ "joint_3", "joint_1" }, wp0_poly));  // NOLINT
 
   WaypointPoly error_poly;
   EXPECT_ANY_THROW(formatJointPosition(format_joint_ids, error_poly));  // NOLINT
