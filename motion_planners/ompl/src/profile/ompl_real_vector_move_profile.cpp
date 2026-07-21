@@ -245,22 +245,31 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   const auto dof = manip.numJoints();
   tesseract::common::KinematicLimits limits = manip.getLimits();
 
-  /** @brief Making this thread_local does not help because it is not called enough during planning */
-  tesseract::kinematics::IKSolutions joint_solutions;
+  auto goal_states = std::make_shared<ompl::base::GoalStates>(simple_setup.getSpaceInformation());
+  std::vector<tesseract::collision::ContactResultMap> contact_map_vec;
+
   // Use the seed attached to the Cartesian waypoint when one is provided, otherwise fall back to the
   // zero seed. For seed-dependent solvers that return a single solution (e.g. KDL-LMA), a hardcoded
   // zero seed can converge to an out-of-limits branch of the solution manifold; the limit filter then
   // discards it and an otherwise-reachable goal ends up with an empty solution set.
-  Eigen::VectorXd ik_seed = Eigen::VectorXd::Zero(dof);
-  if (seed.size() == static_cast<Eigen::Index>(dof))
-    ik_seed = seed;
-  manip.calcInvKin(joint_solutions, { ik_input }, ik_seed);
-  auto goal_states = std::make_shared<ompl::base::GoalStates>(simple_setup.getSpaceInformation());
-  std::vector<tesseract::collision::ContactResultMap> contact_map_vec(static_cast<std::size_t>(joint_solutions.size()));
+  //
+  // The waypoint seed is used PREFERENTIALLY, not exclusively: a seed produced upstream without
+  // collision awareness (e.g. the simple planner's interpolation states) can equally steer a
+  // single-solution solver onto a branch that is in collision. If the seeded pass contributes no
+  // valid goal state, a second pass with the legacy zero seed recovers the previous behavior so a
+  // reachable goal is never lost to an unlucky seed.
+  const bool has_wp_seed = (seed.size() == static_cast<Eigen::Index>(dof));
 
-  for (std::size_t i = 0; i < joint_solutions.size(); ++i)
-  {
-    Eigen::VectorXd& solution = joint_solutions[i];
+  auto addStatesForSeed = [&](const Eigen::VectorXd& ik_seed) {
+    /** @brief Making this thread_local does not help because it is not called enough during planning */
+    tesseract::kinematics::IKSolutions joint_solutions;
+    manip.calcInvKin(joint_solutions, { ik_input }, ik_seed);
+    contact_map_vec.reserve(contact_map_vec.size() + joint_solutions.size());
+
+    for (std::size_t i = 0; i < joint_solutions.size(); ++i)
+    {
+      Eigen::VectorXd& solution = joint_solutions[i];
+      contact_map_vec.emplace_back();
 
     // Check limits
     if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
@@ -275,7 +284,7 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
     // Get discrete contact manager for testing provided start and end position
     // This is required because collision checking happens in motion validators now
     // instead of the isValid function to avoid unnecessary collision checks.
-    if (!checkStateInCollision(contact_map_vec[i], contact_checker, manip, solution))
+    if (!checkStateInCollision(contact_map_vec.back(), contact_checker, manip, solution))
     {
       {
         ompl::base::ScopedState<> goal_state(simple_setup.getStateSpace());
@@ -296,7 +305,12 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
         goal_states->addState(goal_state);
       }
     }
-  }
+    }
+  };
+
+  addStatesForSeed(has_wp_seed ? seed : Eigen::VectorXd::Zero(dof));
+  if (has_wp_seed && !goal_states->hasStates() && !seed.isZero(0.0))
+    addStatesForSeed(Eigen::VectorXd::Zero(dof));
 
   if (!goal_states->hasStates())
   {
@@ -361,22 +375,24 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   const auto dof = manip.numJoints();
   tesseract::common::KinematicLimits limits = manip.getLimits();
 
-  /** @brief Making this thread_local does not help because it is not called enough during planning */
-  tesseract::kinematics::IKSolutions joint_solutions;
-  // Use the seed attached to the Cartesian waypoint when one is provided, otherwise fall back to the
-  // zero seed. For seed-dependent solvers that return a single solution (e.g. KDL-LMA), a hardcoded
-  // zero seed can converge to an out-of-limits branch of the solution manifold; the limit filter then
-  // discards it and an otherwise-reachable start ends up with an empty solution set.
-  Eigen::VectorXd ik_seed = Eigen::VectorXd::Zero(dof);
-  if (seed.size() == static_cast<Eigen::Index>(dof))
-    ik_seed = seed;
-  manip.calcInvKin(joint_solutions, { ik_input }, ik_seed);
   bool found_start_state = false;
-  std::vector<tesseract::collision::ContactResultMap> contact_map_vec(joint_solutions.size());
+  std::vector<tesseract::collision::ContactResultMap> contact_map_vec;
 
-  for (std::size_t i = 0; i < joint_solutions.size(); ++i)
-  {
-    Eigen::VectorXd& solution = joint_solutions[i];
+  // Seed handling mirrors applyGoalStates: waypoint seed preferentially, zero-seed second pass as
+  // the fallback when the seeded pass contributes no valid start state (see the goal-side comment
+  // for the full rationale).
+  const bool has_wp_seed = (seed.size() == static_cast<Eigen::Index>(dof));
+
+  auto addStatesForSeed = [&](const Eigen::VectorXd& ik_seed) {
+    /** @brief Making this thread_local does not help because it is not called enough during planning */
+    tesseract::kinematics::IKSolutions joint_solutions;
+    manip.calcInvKin(joint_solutions, { ik_input }, ik_seed);
+    contact_map_vec.reserve(contact_map_vec.size() + joint_solutions.size());
+
+    for (std::size_t i = 0; i < joint_solutions.size(); ++i)
+    {
+      Eigen::VectorXd& solution = joint_solutions[i];
+      contact_map_vec.emplace_back();
 
     // Check limits
     if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
@@ -391,7 +407,7 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
     // Get discrete contact manager for testing provided start and end position
     // This is required because collision checking happens in motion validators now
     // instead of the isValid function to avoid unnecessary collision checks.
-    if (!checkStateInCollision(contact_map_vec[i], contact_checker, manip, solution))
+    if (!checkStateInCollision(contact_map_vec.back(), contact_checker, manip, solution))
     {
       found_start_state = true;
       {
@@ -413,7 +429,12 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
         simple_setup.addStartState(start_state);
       }
     }
-  }
+    }
+  };
+
+  addStatesForSeed(has_wp_seed ? seed : Eigen::VectorXd::Zero(dof));
+  if (has_wp_seed && !found_start_state && !seed.isZero(0.0))
+    addStatesForSeed(Eigen::VectorXd::Zero(dof));
 
   if (!found_start_state)
   {
