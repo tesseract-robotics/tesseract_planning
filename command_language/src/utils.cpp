@@ -146,7 +146,7 @@ const Eigen::VectorXd& getJointPosition(const WaypointPoly& waypoint)
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint)
+const std::vector<tesseract::common::JointId>& getJointIds(const WaypointPoly& waypoint)
 {
   if (waypoint.isJointWaypoint())
     return waypoint.as<JointWaypointPoly>().getJointIds();

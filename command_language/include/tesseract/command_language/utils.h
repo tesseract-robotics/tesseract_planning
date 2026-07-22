@@ -83,7 +83,15 @@ const Eigen::VectorXd& getJointPosition(const T&) = delete;
  * @param waypoint The waypoint to try and extract the joint IDs from
  * @return The joint IDs
  */
-std::vector<tesseract::common::JointId> getJointIds(const WaypointPoly& waypoint);
+const std::vector<tesseract::common::JointId>& getJointIds(const WaypointPoly& waypoint);
+
+/**
+ * @brief This prevent implicit cast to WaypointPoly
+ * @details Since we are returning by reference if the type passed is converted
+ * to a WaypointPoly then the object return is referencing a temporary value.
+ */
+template <class T>
+const std::vector<tesseract::common::JointId>& getJointIds(const T&) = delete;
 
 /**
  * @brief Get the joint positions ordered by the provided joint ids
