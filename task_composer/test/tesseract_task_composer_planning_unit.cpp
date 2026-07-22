@@ -728,18 +728,17 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
 TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskReordersTolerances)  // NOLINT
 {
   // joint_1/joint_2 in pre-planning (formatted) order; post-planning reverses to joint_2/joint_1.
-  std::vector<tesseract::common::JointId> orig_names = { "joint_1", "joint_2" };
-  std::vector<tesseract::common::JointId> post_names = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> orig_ids = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> post_ids = { "joint_2", "joint_1" };
 
-  // Pre-planning program: one toleranced JointWaypoint in orig_names order.
-  JointWaypoint jwp_pre(
-      orig_names, Eigen::Vector2d(10.0, 20.0), Eigen::Vector2d(-0.1, -0.2), Eigen::Vector2d(0.3, 0.4));
+  // Pre-planning program: one toleranced JointWaypoint in orig_ids order.
+  JointWaypoint jwp_pre(orig_ids, Eigen::Vector2d(10.0, 20.0), Eigen::Vector2d(-0.1, -0.2), Eigen::Vector2d(0.3, 0.4));
   MoveInstruction mi_pre(JointWaypointPoly(jwp_pre), MoveInstructionType::FREESPACE, "freespace_profile");
   CompositeInstruction ci_pre;
   ci_pre.push_back(mi_pre);
 
-  // Post-planning program: same move but in post_names order with new positions.
-  JointWaypoint jwp_post(post_names, Eigen::Vector2d(99.0, 88.0));
+  // Post-planning program: same move but in post_ids order with new positions.
+  JointWaypoint jwp_post(post_ids, Eigen::Vector2d(99.0, 88.0));
   MoveInstruction mi_post(JointWaypointPoly(jwp_post), MoveInstructionType::FREESPACE, "freespace_profile");
   CompositeInstruction ci_post;
   ci_post.push_back(mi_post);
@@ -763,7 +762,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskReordersT
   ASSERT_EQ(moves.size(), 1U);
   const auto& jwp_out = moves[0].get().as<MoveInstructionPoly>().getWaypoint().as<JointWaypointPoly>();
 
-  EXPECT_EQ(jwp_out.getJointIds(), post_names);
+  EXPECT_EQ(jwp_out.getJointIds(), post_ids);
   EXPECT_TRUE(jwp_out.getPosition().isApprox(Eigen::Vector2d(99.0, 88.0)));
   // After reorder, joint_2's tolerance (index 1) should be first, joint_1's (index 0) second.
   EXPECT_TRUE(jwp_out.getLowerTolerance().isApprox(Eigen::Vector2d(-0.2, -0.1)));
