@@ -65,7 +65,7 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
   lhs.setAdaptiveRho(static_cast<bool>(settings.adaptive_rho));
   lhs.setAdaptiveRhoInterval(static_cast<int>(settings.adaptive_rho_interval));
   lhs.setAdaptiveRhoTolerance(settings.adaptive_rho_tolerance);
-  // lhs.setAdaptiveRhoFraction(settings.adaptive_rho_fraction);
+  lhs.setAdaptiveRhoFraction(settings.adaptive_rho_fraction);
   lhs.setMaxIteration(static_cast<int>(settings.max_iter));
   lhs.setAbsoluteTolerance(settings.eps_abs);
   lhs.setRelativeTolerance(settings.eps_rel);
@@ -80,7 +80,7 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
   lhs.setScaledTerimination(static_cast<bool>(settings.scaled_termination));
   lhs.setCheckTermination(static_cast<int>(settings.check_termination));
   lhs.setWarmStart(static_cast<bool>(settings.warm_starting));
-  // lhs.setTimeLimit(settings.time_limit);
+  lhs.setTimeLimit(settings.time_limit);
   lhs.setAllocateSolution(static_cast<bool>(settings.allocate_solution));
   lhs.setCgMaxIter(static_cast<int>(settings.cg_max_iter));
   lhs.setCgPrecond(settings.cg_precond);
