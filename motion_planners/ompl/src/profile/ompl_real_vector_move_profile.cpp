@@ -266,45 +266,44 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
     manip.calcInvKin(joint_solutions, { ik_input }, ik_seed);
     contact_map_vec.reserve(contact_map_vec.size() + joint_solutions.size());
 
-    for (std::size_t i = 0; i < joint_solutions.size(); ++i)
+    for (Eigen::VectorXd& solution : joint_solutions)
     {
-      Eigen::VectorXd& solution = joint_solutions[i];
       contact_map_vec.emplace_back();
 
-    // Check limits
-    if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
-    {
-      tesseract::common::enforceLimits<double>(solution, limits.joint_limits);
-    }
-    else
-    {
-      CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Goal state has invalid bounds");
-    }
-
-    // Get discrete contact manager for testing provided start and end position
-    // This is required because collision checking happens in motion validators now
-    // instead of the isValid function to avoid unnecessary collision checks.
-    if (!checkStateInCollision(contact_map_vec.back(), contact_checker, manip, solution))
-    {
+      // Check limits
+      if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
       {
-        ompl::base::ScopedState<> goal_state(simple_setup.getStateSpace());
-        for (unsigned j = 0; j < dof; ++j)
-          goal_state[j] = solution[static_cast<Eigen::Index>(j)];
-
-        goal_states->addState(goal_state);
+        tesseract::common::enforceLimits<double>(solution, limits.joint_limits);
+      }
+      else
+      {
+        CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Goal state has invalid bounds");
       }
 
-      auto redundant_solutions = tesseract::kinematics::getRedundantSolutions<double>(
-          solution, limits.joint_limits, manip.getRedundancyCapableJointIndices());
-      for (const auto& rs : redundant_solutions)
+      // Get discrete contact manager for testing provided start and end position
+      // This is required because collision checking happens in motion validators now
+      // instead of the isValid function to avoid unnecessary collision checks.
+      if (!checkStateInCollision(contact_map_vec.back(), contact_checker, manip, solution))
       {
-        ompl::base::ScopedState<> goal_state(simple_setup.getStateSpace());
-        for (unsigned j = 0; j < dof; ++j)
-          goal_state[j] = rs[static_cast<Eigen::Index>(j)];
+        {
+          ompl::base::ScopedState<> goal_state(simple_setup.getStateSpace());
+          for (unsigned j = 0; j < dof; ++j)
+            goal_state[j] = solution[static_cast<Eigen::Index>(j)];
 
-        goal_states->addState(goal_state);
+          goal_states->addState(goal_state);
+        }
+
+        auto redundant_solutions = tesseract::kinematics::getRedundantSolutions<double>(
+            solution, limits.joint_limits, manip.getRedundancyCapableJointIndices());
+        for (const auto& rs : redundant_solutions)
+        {
+          ompl::base::ScopedState<> goal_state(simple_setup.getStateSpace());
+          for (unsigned j = 0; j < dof; ++j)
+            goal_state[j] = rs[static_cast<Eigen::Index>(j)];
+
+          goal_states->addState(goal_state);
+        }
       }
-    }
     }
   };
 
@@ -389,46 +388,45 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
     manip.calcInvKin(joint_solutions, { ik_input }, ik_seed);
     contact_map_vec.reserve(contact_map_vec.size() + joint_solutions.size());
 
-    for (std::size_t i = 0; i < joint_solutions.size(); ++i)
+    for (Eigen::VectorXd& solution : joint_solutions)
     {
-      Eigen::VectorXd& solution = joint_solutions[i];
       contact_map_vec.emplace_back();
 
-    // Check limits
-    if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
-    {
-      tesseract::common::enforceLimits<double>(solution, limits.joint_limits);
-    }
-    else
-    {
-      CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Start state has invalid bounds");
-    }
-
-    // Get discrete contact manager for testing provided start and end position
-    // This is required because collision checking happens in motion validators now
-    // instead of the isValid function to avoid unnecessary collision checks.
-    if (!checkStateInCollision(contact_map_vec.back(), contact_checker, manip, solution))
-    {
-      found_start_state = true;
+      // Check limits
+      if (tesseract::common::satisfiesLimits<double>(solution, limits.joint_limits))
       {
-        ompl::base::ScopedState<> start_state(simple_setup.getStateSpace());
-        for (unsigned j = 0; j < dof; ++j)
-          start_state[j] = solution[static_cast<Eigen::Index>(j)];
-
-        simple_setup.addStartState(start_state);
+        tesseract::common::enforceLimits<double>(solution, limits.joint_limits);
+      }
+      else
+      {
+        CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Start state has invalid bounds");
       }
 
-      auto redundant_solutions = tesseract::kinematics::getRedundantSolutions<double>(
-          solution, limits.joint_limits, manip.getRedundancyCapableJointIndices());
-      for (const auto& rs : redundant_solutions)
+      // Get discrete contact manager for testing provided start and end position
+      // This is required because collision checking happens in motion validators now
+      // instead of the isValid function to avoid unnecessary collision checks.
+      if (!checkStateInCollision(contact_map_vec.back(), contact_checker, manip, solution))
       {
-        ompl::base::ScopedState<> start_state(simple_setup.getStateSpace());
-        for (unsigned j = 0; j < dof; ++j)
-          start_state[j] = rs[static_cast<Eigen::Index>(j)];
+        found_start_state = true;
+        {
+          ompl::base::ScopedState<> start_state(simple_setup.getStateSpace());
+          for (unsigned j = 0; j < dof; ++j)
+            start_state[j] = solution[static_cast<Eigen::Index>(j)];
 
-        simple_setup.addStartState(start_state);
+          simple_setup.addStartState(start_state);
+        }
+
+        auto redundant_solutions = tesseract::kinematics::getRedundantSolutions<double>(
+            solution, limits.joint_limits, manip.getRedundancyCapableJointIndices());
+        for (const auto& rs : redundant_solutions)
+        {
+          ompl::base::ScopedState<> start_state(simple_setup.getStateSpace());
+          for (unsigned j = 0; j < dof; ++j)
+            start_state[j] = rs[static_cast<Eigen::Index>(j)];
+
+          simple_setup.addStartState(start_state);
+        }
       }
-    }
     }
   };
 
