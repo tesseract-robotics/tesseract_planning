@@ -178,11 +178,6 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionTests)  // NOLINT
   };
   StateWaypoint wp0{ joint_ids, Eigen::VectorXd::Constant(6, 3) };
   JointWaypoint wp00{ joint_ids, Eigen::VectorXd::Constant(6, 5) };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
-  MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
-  start_instruction.setDescription("Start Instruction");
-  end_instruction.setDescription("End Instruction");
-
   tesseract::common::JointState seed_state;
   seed_state.joint_ids = joint_ids;
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
@@ -224,11 +219,6 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
   Eigen::VectorXd format_position00 = Eigen::Vector2d(4, 3);
   StateWaypoint wp0{ joint_ids, position0 };
   JointWaypoint wp00{ joint_ids, position00 };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
-  MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
-  start_instruction.setDescription("Start Instruction");
-  end_instruction.setDescription("End Instruction");
-
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
   tesseract::common::JointState seed_state;
@@ -269,11 +259,10 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
   EXPECT_ANY_THROW(getJointPosition(format_joint_ids, error_poly));  // NOLINT
 }
 
-TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionByIdTests)  // NOLINT
+TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionTests)  // NOLINT
 {
-  using tesseract::common::JointId;
-  std::vector<JointId> joint_ids = { "joint_1", "joint_2" };
-  std::vector<JointId> format_joint_ids = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> joint_ids = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> format_joint_ids = { "joint_2", "joint_1" };
   Eigen::VectorXd position0 = Eigen::Vector2d(1, 2);
   Eigen::VectorXd position00 = Eigen::Vector2d(3, 4);
   Eigen::VectorXd format_position0 = Eigen::Vector2d(2, 1);
@@ -315,8 +304,10 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionByIdTests)  // NOLINT
   WaypointPoly wp2_poly{ wp2 };
   EXPECT_FALSE(formatJointPosition(format_joint_ids, wp2_poly));  // NOLINT
 
-  EXPECT_ANY_THROW(formatJointPosition(std::vector<JointId>{ "joint_1" }, wp0_poly));             // NOLINT
-  EXPECT_ANY_THROW(formatJointPosition(std::vector<JointId>{ "joint_3", "joint_1" }, wp0_poly));  // NOLINT
+  // Format is not correct size or invalid joint name
+  EXPECT_ANY_THROW(formatJointPosition(std::vector<tesseract::common::JointId>{ "joint_1" }, wp0_poly));  // NOLINT
+  EXPECT_ANY_THROW(
+      formatJointPosition(std::vector<tesseract::common::JointId>{ "joint_3", "joint_1" }, wp0_poly));  // NOLINT
 
   WaypointPoly error_poly;
   EXPECT_ANY_THROW(formatJointPosition(format_joint_ids, error_poly));  // NOLINT
@@ -420,11 +411,6 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
   Eigen::VectorXd format_position00 = Eigen::Vector2d(4, 3);
   StateWaypoint wp0{ joint_ids, position0 };
   JointWaypoint wp00{ joint_ids, position00 };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
-  MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
-  start_instruction.setDescription("Start Instruction");
-  end_instruction.setDescription("End Instruction");
-
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
   tesseract::common::JointState seed_state;
@@ -472,11 +458,6 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointIdsTests)  // NOLINT
   };
   StateWaypoint wp0{ joint_ids, Eigen::VectorXd::Constant(6, 3) };
   JointWaypoint wp00{ joint_ids, Eigen::VectorXd::Constant(6, 5) };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
-  MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
-  start_instruction.setDescription("Start Instruction");
-  end_instruction.setDescription("End Instruction");
-
   tesseract::common::JointState seed_state;
   seed_state.joint_ids = joint_ids;
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
@@ -515,11 +496,6 @@ TEST(TesseractCommandLanguageUtilsUnit, setJointPositionTests)  // NOLINT
   };
   StateWaypoint wp0{ joint_ids, Eigen::VectorXd::Constant(6, 3) };
   JointWaypoint wp00{ joint_ids, Eigen::VectorXd::Constant(6, 5) };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
-  MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
-  start_instruction.setDescription("Start Instruction");
-  end_instruction.setDescription("End Instruction");
-
   Eigen::VectorXd set_position = Eigen::VectorXd::Constant(6, 1);
 
   tesseract::common::JointState seed_state;
