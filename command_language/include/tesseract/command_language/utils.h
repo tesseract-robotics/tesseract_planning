@@ -105,7 +105,8 @@ const std::vector<tesseract::common::JointId>& getJointIds(const T&) = delete;
  * @param waypoint The waypoint to
  * @return The joint values ordered by the provided joint_ids
  */
-Eigen::VectorXd getJointPosition(const std::vector<common::JointId>& joint_ids, const WaypointPoly& waypoint);
+Eigen::VectorXd getJointPosition(const std::vector<tesseract::common::JointId>& joint_ids,
+                                 const WaypointPoly& waypoint);
 
 /**
  * @brief Format the waypoints joint ordered by the provided joint ids
@@ -119,7 +120,7 @@ Eigen::VectorXd getJointPosition(const std::vector<common::JointId>& joint_ids, 
  * @param waypoint The waypoint to format
  * @return True if formatting was required, otherwise false.
  */
-bool formatJointPosition(const std::vector<common::JointId>& joint_ids, WaypointPoly& waypoint);
+bool formatJointPosition(const std::vector<tesseract::common::JointId>& joint_ids, WaypointPoly& waypoint);
 
 /**
  * @brief This prevent implicit cast to WaypointPoly
@@ -127,7 +128,7 @@ bool formatJointPosition(const std::vector<common::JointId>& joint_ids, Waypoint
  * to a WaypointPoly then the object return is referencing a temporary value.
  */
 template <class T>
-bool formatJointPosition(const std::vector<common::JointId>&, T&) = delete;
+bool formatJointPosition(const std::vector<tesseract::common::JointId>&, T&) = delete;
 
 /**
  * @brief Check the waypoints joint order against the provided joint ids
