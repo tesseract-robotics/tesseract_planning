@@ -76,7 +76,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
   {
     continuous_contact_manager_->setActiveCollisionObjects(active_link_names_);
     continuous_contact_manager_->applyContactManagerConfig(contact_manager_config);
-    contact_margin_data_ = discrete_contact_manager_->getCollisionMarginData();
+    contact_margin_data_ = continuous_contact_manager_->getCollisionMarginData();
   }
   else if (collision_check_config_.type == tesseract::collision::CollisionEvaluatorType::CONTINUOUS ||
            collision_check_config_.type == tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS)
