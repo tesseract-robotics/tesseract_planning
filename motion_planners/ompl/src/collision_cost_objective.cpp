@@ -74,10 +74,18 @@ ompl::base::Cost CollisionCostObjective::stateCost(const ompl::base::State* stat
   mutex_.unlock();
 
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
+  // Reused without clearing; calcFwdKin overwrites every link of this group, and only this group's links are read
+  // below.
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state1;
   manip_->calcFwdKin(state1, finish_joints);
 
-  cm->setCollisionObjectsTransform(state1);
+  TESSERACT_THREAD_LOCAL tesseract::common::VectorIsometry3d poses;
+  poses.clear();
+  poses.reserve(link_ids_.size());
+  for (const auto& id : link_ids_)
+    poses.push_back(state1.at(id));
+
+  cm->setCollisionObjectsTransform(link_ids_, poses);
 
   tesseract::collision::ContactResultMap contact_map;
   cm->contactTest(contact_map, tesseract::collision::ContactTestType::CLOSEST);
