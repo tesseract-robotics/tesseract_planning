@@ -368,7 +368,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   contacts.clear();
   contacts.reserve(mi.size());
 
-  const auto& active_link_ids = manager.getActiveCollisionObjectIds();
+  const auto& active_link_ids = manager.getActiveCollisionObjects();
 
   tesseract::common::LinkIdTransformMap link_transforms;
   tesseract::common::LinkIdTransformMap link_transforms1;
@@ -648,7 +648,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   contacts.clear();
   contacts.reserve(mi.size());
 
-  const auto& active_link_ids = manager.getActiveCollisionObjectIds();
+  const auto& active_link_ids = manager.getActiveCollisionObjects();
 
   tesseract::common::LinkIdTransformMap link_transforms;
 

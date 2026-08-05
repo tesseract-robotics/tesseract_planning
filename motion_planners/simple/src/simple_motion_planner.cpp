@@ -149,7 +149,7 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
         if (!request.format_result_as_input)
         {
           tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
-          swp.setJointIds(cwp.getSeed().getJointIds());
+          swp.setJointIds(cwp.getSeed().joint_ids);
           swp.setPosition(jp);
           mi.getWaypoint() = swp;
         }

@@ -56,7 +56,7 @@ TEST(TesseractMotionPlannersCoreUnit, AssignSolutionIdsSeedsCartesianWaypoint)  
   ASSERT_TRUE(mi.getWaypoint().isCartesianWaypoint());
   const auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
   ASSERT_TRUE(cwp.hasSeed());
-  EXPECT_EQ(cwp.getSeed().getJointIds(), joint_ids);
+  EXPECT_EQ(cwp.getSeed().joint_ids, joint_ids);
 }
 
 int main(int argc, char** argv)

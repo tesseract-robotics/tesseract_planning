@@ -479,7 +479,7 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointIdsTests)  // NOLINT
 
   WaypointPoly wp1_poly{ wp1 };
   const std::vector<tesseract::common::JointId> n1 = getJointIds(wp1_poly);
-  EXPECT_EQ(n1, wp1.getSeed().getJointIds());
+  EXPECT_EQ(n1, wp1.getSeed().joint_ids);
 
   WaypointPoly wp2_poly{ wp2 };
   EXPECT_ANY_THROW(getJointIds(wp2_poly));  // NOLINT

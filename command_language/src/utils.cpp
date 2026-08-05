@@ -158,7 +158,7 @@ const std::vector<tesseract::common::JointId>& getJointIds(const WaypointPoly& w
   {
     const auto& cwp = waypoint.as<CartesianWaypointPoly>();
     if (cwp.hasSeed())
-      return cwp.getSeed().getJointIds();
+      return cwp.getSeed().joint_ids;
 
     throw std::runtime_error("CartesianWaypoint does not have a seed.");
   }
@@ -189,7 +189,7 @@ Eigen::VectorXd getJointPosition(const std::vector<tesseract::common::JointId>& 
       throw std::runtime_error("Cartesian waypoint does not have a seed.");
 
     jv = cwp.getSeed().position;
-    current_ids = cwp.getSeed().getJointIds();
+    current_ids = cwp.getSeed().joint_ids;
   }
   else
   {
@@ -323,7 +323,7 @@ bool checkJointPositionFormat(const std::vector<tesseract::common::JointId>& joi
   {
     const auto& cwp = waypoint.as<CartesianWaypointPoly>();
     if (cwp.hasSeed())
-      return (joint_ids == waypoint.as<CartesianWaypointPoly>().getSeed().getJointIds());
+      return (joint_ids == waypoint.as<CartesianWaypointPoly>().getSeed().joint_ids);
   }
 
   throw std::runtime_error("Unsupported waypoint type.");
