@@ -26,6 +26,8 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <algorithm>
+#include <string>
 #include <gtest/gtest.h>
 #include <boost/uuid/random_generator.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -82,7 +84,13 @@ void runInstructionInterfaceTest(InstructionPoly inst, bool expect_uuid_null = t
  */
 inline void runInstructionSerializationTest(const InstructionPoly& inst)
 {
-  const std::string filepath = tesseract::common::getTempPath() + "instruction_poly_boost.xml";
+  // The file name must be unique per test: each one runs as its own process, so a name shared
+  // across tests has a parallel run reading a file another process is midway through writing.
+  const testing::TestInfo* info = testing::UnitTest::GetInstance()->current_test_info();
+  std::string test_id = (info == nullptr) ? "" : std::string("_") + info->test_suite_name() + "_" + info->name();
+  std::replace(test_id.begin(), test_id.end(), '/', '_');  // parameterized test names carry a '/'
+
+  const std::string filepath = tesseract::common::getTempPath() + "instruction_poly_boost" + test_id + ".xml";
   tesseract::common::Serialization::toArchiveFileXML<InstructionPoly>(inst, filepath);
   auto ninst = tesseract::common::Serialization::fromArchiveFileXML<InstructionPoly>(filepath);
   EXPECT_TRUE(inst == ninst);
