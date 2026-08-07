@@ -92,10 +92,10 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   {
     for (const auto& pair : contacts)
     {
+      const auto [link1, link2] = pair.first.orderedNameView();
       for (const auto& contact : pair.second)
-        CONSOLE_BRIDGE_logDebug(("Contact Results: Links: " + contact.link_ids[0].name() + ", " +
-                                 contact.link_ids[1].name() + " Dist: " + std::to_string(contact.distance))
-                                    .c_str());
+        CONSOLE_BRIDGE_logDebug(
+            ("Contact Results: Links: " + link1 + ", " + link2 + " Dist: " + std::to_string(contact.distance)).c_str());
     }
   }
 
@@ -345,8 +345,9 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
     for (const auto& collision : collisions)
     {
       std::stringstream ss;
-      ss << "Discrete collision detected between '" << collision.first.first() << "' and '" << collision.first.second()
-         << "' with distance " << collision.second.front().distance << "\n";
+      const auto [link1, link2] = collision.first.orderedNameView();
+      ss << "Discrete collision detected between '" << link1 << "' and '" << link2 << "' with distance "
+         << collision.second.front().distance << "\n";
 
       CONSOLE_BRIDGE_logError(ss.str().c_str());
     }
