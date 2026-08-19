@@ -95,7 +95,7 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
       const auto [link1, link2] = pair.first.orderedNameView();
       for (const auto& contact : pair.second)
         CONSOLE_BRIDGE_logDebug(
-            ("Contact Results: Links: " + link1 + ", " + link2 + " Dist: " + std::to_string(contact.distance)).c_str());
+            "Contact Results: Links: %s, %s Dist: %f", link1.c_str(), link2.c_str(), contact.distance);
     }
   }
 

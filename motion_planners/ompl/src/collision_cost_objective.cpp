@@ -47,10 +47,9 @@ CollisionCostObjective::CollisionCostObjective(const ompl::base::SpaceInformatio
   : StateCostIntegralObjective(space_info, optimize_by_motion)
   , manip_(std::move(manip))
   , contact_manager_(env.getDiscreteContactManager())
+  , link_ids_(manip_->getActiveLinkIds())
   , extractor_(std::move(extractor))
 {
-  link_ids_ = manip_->getActiveLinkIds();
-
   contact_manager_->setActiveCollisionObjects(link_ids_);
   contact_manager_->applyContactManagerConfig(contact_manager_config);
 }

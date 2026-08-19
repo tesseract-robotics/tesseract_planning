@@ -319,9 +319,8 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
       {
         const auto [link1, link2] = contact_vec.first.orderedNameView();
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + link1 + ", " + link2 +
-                                   "  Distance: " + std::to_string(contact.distance))
-                                      .c_str());
+          CONSOLE_BRIDGE_logError(
+              "Solution: %zu  Links: %s, %s  Distance: %f", i, link1.c_str(), link2.c_str(), contact.distance);
       }
     throw std::runtime_error("In OMPLRealVectorMoveProfile: All goal states are either in collision or outside limits");
   }
@@ -358,8 +357,7 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
     {
       const auto [link1, link2] = contact_vec.first.orderedNameView();
       for (const auto& contact : contact_vec.second)
-        CONSOLE_BRIDGE_logError(
-            ("Links: " + link1 + ", " + link2 + "  Distance: " + std::to_string(contact.distance)).c_str());
+        CONSOLE_BRIDGE_logError("Links: %s, %s  Distance: %f", link1.c_str(), link2.c_str(), contact.distance);
     }
   }
 
@@ -447,9 +445,8 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
       {
         const auto [link1, link2] = contact_vec.first.orderedNameView();
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + link1 + ", " + link2 +
-                                   "  Distance: " + std::to_string(contact.distance))
-                                      .c_str());
+          CONSOLE_BRIDGE_logError(
+              "Solution: %zu  Links: %s, %s  Distance: %f", i, link1.c_str(), link2.c_str(), contact.distance);
       }
     throw std::runtime_error("In OMPLPlannerFreespaceConfig: All start states are either in collision or outside "
                              "limits");
@@ -485,8 +482,7 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
     {
       const auto [link1, link2] = contact_vec.first.orderedNameView();
       for (const auto& contact : contact_vec.second)
-        CONSOLE_BRIDGE_logError(
-            ("Links: " + link1 + ", " + link2 + "  Distance: " + std::to_string(contact.distance)).c_str());
+        CONSOLE_BRIDGE_logError("Links: %s, %s  Distance: %f", link1.c_str(), link2.c_str(), contact.distance);
     }
   }
 
