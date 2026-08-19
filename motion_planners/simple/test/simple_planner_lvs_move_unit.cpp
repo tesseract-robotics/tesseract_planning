@@ -348,6 +348,93 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
 }
 
 /**
+ * @brief Test Joint-to-Cartesian freespace movement to a pose with no IK solution
+ *
+ * When the end Cartesian waypoint is unreachable and carries no seed, the profile cannot
+ * interpolate in joint space. It holds the start joint position for every intermediate
+ * waypoint and seeds the unchanged end waypoint with it.
+ */
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_JointCart_Freespace_NoIK)  // NOLINT
+{
+  // Distinct from the environment's current state, so holding the start position is distinguishable from
+  // holding the seed
+  const Eigen::VectorXd j1 = (Eigen::VectorXd(7) << 0.1, -0.2, 0.3, -0.4, 0.5, -0.6, 0.7).finished();
+  JointWaypoint wp1{ joint_ids_, j1 };
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
+
+  Eigen::Isometry3d unreachable{ Eigen::Isometry3d::Identity() };
+  unreachable.translation() = Eigen::Vector3d(5.0, 0.0, 0.0);
+  CartesianWaypoint wp2{ unreachable };
+  MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+
+  InstructionPoly instr3;
+
+  const int min_steps = 5;
+  SimplePlannerLVSMoveProfile profile(3.14, 0.5, 1.57, min_steps);
+  std::vector<MoveInstructionPoly> move_instructions =
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
+  ASSERT_GE(static_cast<int>(move_instructions.size()), min_steps);
+
+  for (std::size_t i = 0; i < move_instructions.size() - 1; ++i)
+  {
+    const MoveInstructionPoly& mi = move_instructions.at(i);
+    ASSERT_TRUE(mi.getWaypoint().isJointWaypoint());
+    EXPECT_FALSE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
+    EXPECT_TRUE(mi.getWaypoint().as<JointWaypointPoly>().getPosition().isApprox(j1, 1e-5));
+  }
+
+  const MoveInstructionPoly& mi = move_instructions.back();
+  ASSERT_TRUE(mi.getWaypoint().isCartesianWaypoint());
+  const auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
+  EXPECT_TRUE(cwp.getTransform().isApprox(unreachable, 1e-5));
+  ASSERT_TRUE(cwp.hasSeed());
+  EXPECT_TRUE(cwp.getSeed().position.isApprox(j1, 1e-5));
+}
+
+/**
+ * @brief Test Joint-to-Cartesian linear movement to a pose with no IK solution
+ *
+ * The Cartesian path is still interpolated, but every pose is seeded with the unchanged
+ * start joint position because the end waypoint is unreachable and carries no seed.
+ */
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_JointCart_Linear_NoIK)  // NOLINT
+{
+  // Distinct from the environment's current state, so holding the start position is distinguishable from
+  // holding the seed
+  const Eigen::VectorXd j1 = (Eigen::VectorXd(7) << 0.1, -0.2, 0.3, -0.4, 0.5, -0.6, 0.7).finished();
+  JointWaypoint wp1{ joint_ids_, j1 };
+  MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
+
+  Eigen::Isometry3d unreachable{ Eigen::Isometry3d::Identity() };
+  unreachable.translation() = Eigen::Vector3d(5.0, 0.0, 0.0);
+  CartesianWaypoint wp2{ unreachable };
+  MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
+
+  InstructionPoly instr3;
+
+  const int min_steps = 5;
+  SimplePlannerLVSMoveProfile profile(3.14, 0.5, 1.57, min_steps);
+  std::vector<MoveInstructionPoly> move_instructions =
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
+  ASSERT_GE(static_cast<int>(move_instructions.size()), min_steps);
+
+  for (const MoveInstructionPoly& mi : move_instructions)
+  {
+    ASSERT_TRUE(mi.getWaypoint().isCartesianWaypoint());
+    const auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
+    ASSERT_TRUE(cwp.hasSeed());
+    EXPECT_TRUE(cwp.getSeed().position.isApprox(j1, 1e-5));
+  }
+
+  const MoveInstructionPoly& mi = move_instructions.back();
+  EXPECT_TRUE(mi.getWaypoint().as<CartesianWaypointPoly>().getTransform().isApprox(unreachable, 1e-5));
+}
+
+/**
  * @brief Test Cartesian-to-Joint movement with freespace motion type and LVS interpolation
  *
  * This test verifies that when the start waypoint is a Cartesian waypoint and the end
@@ -479,6 +566,88 @@ TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoin
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   EXPECT_GT(static_cast<int>(crl.size()), min_steps);
   EXPECT_EQ(crl.size(), rot_steps);
+}
+
+/**
+ * @brief Test Cartesian-to-Joint freespace movement from a pose with no IK solution
+ *
+ * When the start Cartesian waypoint is unreachable and carries no seed, the profile cannot
+ * interpolate in joint space. It holds the end joint position for every intermediate waypoint.
+ */
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_CartJoint_Freespace_NoIK)  // NOLINT
+{
+  Eigen::Isometry3d unreachable{ Eigen::Isometry3d::Identity() };
+  unreachable.translation() = Eigen::Vector3d(5.0, 0.0, 0.0);
+  CartesianWaypoint wp1{ unreachable };
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
+
+  const Eigen::VectorXd j2 = Eigen::VectorXd::Ones(7);
+  JointWaypoint wp2{ joint_ids_, j2 };
+  MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+
+  InstructionPoly instr3;
+
+  const int min_steps = 5;
+  SimplePlannerLVSMoveProfile profile(3.14, 0.5, 1.57, min_steps);
+  std::vector<MoveInstructionPoly> move_instructions =
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
+  ASSERT_GE(static_cast<int>(move_instructions.size()), min_steps);
+
+  for (std::size_t i = 0; i < move_instructions.size() - 1; ++i)
+  {
+    const MoveInstructionPoly& mi = move_instructions.at(i);
+    ASSERT_TRUE(mi.getWaypoint().isJointWaypoint());
+    EXPECT_FALSE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
+    EXPECT_TRUE(mi.getWaypoint().as<JointWaypointPoly>().getPosition().isApprox(j2, 1e-5));
+  }
+
+  const MoveInstructionPoly& mi = move_instructions.back();
+  ASSERT_TRUE(mi.getWaypoint().isJointWaypoint());
+  EXPECT_TRUE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
+  EXPECT_TRUE(mi.getWaypoint().as<JointWaypointPoly>().getPosition().isApprox(j2, 1e-5));
+}
+
+/**
+ * @brief Test Cartesian-to-Joint linear movement from a pose with no IK solution
+ *
+ * The Cartesian path is still interpolated, but every intermediate pose is seeded with the
+ * unchanged end joint position because the start waypoint is unreachable and carries no seed.
+ */
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_CartJoint_Linear_NoIK)  // NOLINT
+{
+  Eigen::Isometry3d unreachable{ Eigen::Isometry3d::Identity() };
+  unreachable.translation() = Eigen::Vector3d(5.0, 0.0, 0.0);
+  CartesianWaypoint wp1{ unreachable };
+  MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.getWaypoint() = JointWaypoint(joint_ids_, env_->getCurrentJointValues(joint_ids_));
+
+  const Eigen::VectorXd j2 = Eigen::VectorXd::Ones(7);
+  JointWaypoint wp2{ joint_ids_, j2 };
+  MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
+
+  InstructionPoly instr3;
+
+  const int min_steps = 5;
+  SimplePlannerLVSMoveProfile profile(3.14, 0.5, 1.57, min_steps);
+  std::vector<MoveInstructionPoly> move_instructions =
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
+  ASSERT_GE(static_cast<int>(move_instructions.size()), min_steps);
+
+  for (std::size_t i = 0; i < move_instructions.size() - 1; ++i)
+  {
+    const MoveInstructionPoly& mi = move_instructions.at(i);
+    ASSERT_TRUE(mi.getWaypoint().isCartesianWaypoint());
+    const auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
+    ASSERT_TRUE(cwp.hasSeed());
+    EXPECT_TRUE(cwp.getSeed().position.isApprox(j2, 1e-5));
+  }
+
+  const MoveInstructionPoly& mi = move_instructions.back();
+  ASSERT_TRUE(mi.getWaypoint().isJointWaypoint());
+  EXPECT_TRUE(mi.getWaypoint().as<JointWaypointPoly>().getPosition().isApprox(j2, 1e-5));
 }
 
 /**

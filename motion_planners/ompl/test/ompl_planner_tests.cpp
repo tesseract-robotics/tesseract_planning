@@ -67,6 +67,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract/motion_planners/ompl/cereal_serialization.h>
 #include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
+#include <tesseract/motion_planners/ompl/collision_cost_objective.h>
 #include <tesseract/motion_planners/ompl/continuous_motion_validator.h>
 #include <tesseract/motion_planners/ompl/utils.h>
 
@@ -628,6 +629,47 @@ TEST(ContinuousMotionValidatorTest, StateValidatorBreakAtFirstInvalidState)  // 
   // With break, the loop stops at i=1 (first invalid segment): lastValid.second = 0/n_steps = 0.
   // Without break, subsequent invalid segments overwrite lastValid.second, ending at (n_steps-2)/n_steps.
   EXPECT_DOUBLE_EQ(last_valid.second, 0.0);
+}
+
+TEST(CollisionCostObjectiveTest, StateCostIsPenetrationDepth)  // NOLINT
+{
+  auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
+  auto env = std::make_shared<Environment>();
+  std::filesystem::path urdf_path(
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
+  std::filesystem::path srdf_path(
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
+  ASSERT_TRUE(env->init(urdf_path, srdf_path, locator));
+  addBox(*env);
+
+  auto joint_group = env->getJointGroup("manipulator");
+  const auto dof = static_cast<unsigned>(joint_group->numJoints());
+  const std::vector<tesseract::common::JointId> joint_ids = joint_group->getJointIds();
+  const Eigen::MatrixX2d limits = joint_group->getLimits().joint_limits;
+
+  auto rss = std::make_shared<ompl::base::RealVectorStateSpace>();
+  for (unsigned i = 0; i < dof; ++i)
+    rss->addDimension(joint_ids[i].name(), limits(i, 0), limits(i, 1));
+
+  auto si = std::make_shared<ompl::base::SpaceInformation>(rss);
+  si->setup();
+
+  OMPLStateExtractor extractor = [dof](const ompl::base::State* state) -> Eigen::Map<Eigen::VectorXd> {
+    return RealVectorStateSpaceExtractor(state, dof);
+  };
+
+  tesseract::collision::ContactManagerConfig contact_config;
+  const CollisionCostObjective objective(si, *env, joint_group, contact_config, extractor);
+
+  ompl::base::ScopedState<ompl::base::RealVectorStateSpace> state(rss);
+  for (unsigned i = 0; i < dof; ++i)
+    state->values[i] = start_state[i];
+
+  EXPECT_DOUBLE_EQ(objective.stateCost(state.get()).value(), 0.0);
+
+  // The box spans the plane the arm sweeps through, so squaring up to it penetrates
+  state->values[0] = 0.0;
+  EXPECT_GT(objective.stateCost(state.get()).value(), 0.0);
 }
 
 int main(int argc, char** argv)

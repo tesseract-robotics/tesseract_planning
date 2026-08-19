@@ -174,7 +174,7 @@ createDynamicCartesianWaypointTermInfo(int index,
   }
   else
   {
-    throw std::runtime_error("Invalid coeffs size for Cartesian waypoint term info. Expected 1 or 6, got " +
+    throw std::runtime_error("Invalid coeffs size for dynamic Cartesian waypoint term info. Expected 1 or 6, got " +
                              std::to_string(coeffs.size()));
   }
 
@@ -198,6 +198,9 @@ createNearJointStateTermInfo(const Eigen::VectorXd& target,
     jp->coeffs = std::vector<double>(joint_ids.size(), coeffs(0));  // Default value
   else if (static_cast<std::size_t>(coeffs.size()) == joint_ids.size())
     jp->coeffs = std::vector<double>(coeffs.data(), coeffs.data() + coeffs.rows() * coeffs.cols());
+  else
+    throw std::runtime_error("Invalid coeffs size for near joint state term info. Expected 1 or " +
+                             std::to_string(joint_ids.size()) + ", got " + std::to_string(coeffs.size()));
 
   jp->targets = std::vector<double>(target.data(), target.data() + target.size());
   jp->first_step = index;
@@ -255,7 +258,7 @@ std::shared_ptr<trajopt::TermInfo> createTolerancedJointWaypointTermInfo(const E
   }
   else
   {
-    throw std::runtime_error("Invalid coeffs size for joint waypoint term info. Expected 1 or " +
+    throw std::runtime_error("Invalid coeffs size for toleranced joint waypoint term info. Expected 1 or " +
                              std::to_string(j_wp.size()) + ", got " + std::to_string(coeffs.size()));
   }
 

@@ -4,6 +4,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 #include <memory>
 #include <boost/algorithm/string.hpp>
+#include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/planning/nodes/continuous_contact_check_task.h>
@@ -69,6 +70,50 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract::task_composer;
 using namespace tesseract::command_language;
 using namespace tesseract::motion_planners;
+
+/**
+ * @brief Collects console_bridge messages logged at debug level for the enclosing scope
+ *
+ * The log level and output handler are process global, so the scope must hold only synchronous single-threaded work.
+ */
+class ScopedDebugCapture : public console_bridge::OutputHandler
+{
+public:
+  ScopedDebugCapture() : previous_level_(console_bridge::getLogLevel())
+  {
+    console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_DEBUG);
+    console_bridge::useOutputHandler(this);
+  }
+  ~ScopedDebugCapture() override
+  {
+    console_bridge::restorePreviousOutputHandler();
+    console_bridge::setLogLevel(previous_level_);
+  }
+  ScopedDebugCapture(const ScopedDebugCapture&) = delete;
+  ScopedDebugCapture& operator=(const ScopedDebugCapture&) = delete;
+  ScopedDebugCapture(ScopedDebugCapture&&) = delete;
+  ScopedDebugCapture& operator=(ScopedDebugCapture&&) = delete;
+
+  void log(const std::string& text, console_bridge::LogLevel /*level*/, const char* /*filename*/, int /*line*/) override
+  {
+    messages_.push_back(text);
+  }
+
+  /** @brief Returns the first captured message containing the substring, or an empty string if there is none */
+  std::string find(const std::string& substring) const
+  {
+    for (const std::string& message : messages_)
+    {
+      if (message.find(substring) != std::string::npos)
+        return message;
+    }
+    return {};
+  }
+
+private:
+  console_bridge::LogLevel previous_level_;
+  std::vector<std::string> messages_;
+};
 
 class TesseractTaskComposerPlanningUnit : public ::testing::Test
 {
@@ -245,6 +290,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
   }
 
   {  // Failure collision
+    ScopedDebugCapture debug_log;
+
     auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
 
     auto profile = std::make_unique<ContactCheckProfile>();
@@ -278,6 +325,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
+
+    // The report identifies the joints by name, not by the numeric value behind the id
+    const std::string report = debug_log.find("Continuous collision detected at step");
+    ASSERT_FALSE(report.empty());
+    for (const tesseract::common::JointId& joint_id : env_->getGroupJointIds(manip_.manipulator))
+      EXPECT_NE(report.find(joint_id.name()), std::string::npos);
   }
 }
 
@@ -427,6 +480,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
   }
 
   {  // Failure collision
+    ScopedDebugCapture debug_log;
+
     auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
 
     auto profile = std::make_unique<ContactCheckProfile>();
@@ -459,6 +514,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
+
+    // The report identifies the joints by name, not by the numeric value behind the id
+    const std::string report = debug_log.find("Discrete collision detected at step");
+    ASSERT_FALSE(report.empty());
+    for (const tesseract::common::JointId& joint_id : env_->getGroupJointIds(manip_.manipulator))
+      EXPECT_NE(report.find(joint_id.name()), std::string::npos);
   }
 }
 
