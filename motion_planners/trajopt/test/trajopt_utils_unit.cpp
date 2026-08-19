@@ -119,7 +119,7 @@ TEST(TesseractMotionPlannersTrajoptUtilsUnit, TermInfoFactoriesRejectBadCoeffs) 
   EXPECT_THROW(createNearJointStateTermInfo(j_wp, joint_ids, 0, bad, trajopt::TermType::TT_COST), std::runtime_error);
 }
 
-TEST(TesseractMotionPlannersTrajoptUtilsUnit, CartesianWaypointTermInfoRejectsBadTolerances)  // NOLINT
+TEST(TesseractMotionPlannersTrajoptUtilsUnit, CartesianTermInfoFactoriesRejectBadTolerances)  // NOLINT
 {
   const LinkId working_frame{ "base_link" };
   const LinkId tcp_frame{ "tool0" };
@@ -136,6 +136,36 @@ TEST(TesseractMotionPlannersTrajoptUtilsUnit, CartesianWaypointTermInfoRejectsBa
   EXPECT_THROW(createCartesianWaypointTermInfo(
                    0, working_frame, pose, tcp_frame, pose, coeffs, trajopt::TermType::TT_COST, good, bad),
                std::runtime_error);
+  EXPECT_THROW(createDynamicCartesianWaypointTermInfo(
+                   0, working_frame, pose, tcp_frame, pose, coeffs, trajopt::TermType::TT_COST, bad),
+               std::runtime_error);
+  EXPECT_THROW(createDynamicCartesianWaypointTermInfo(
+                   0, working_frame, pose, tcp_frame, pose, coeffs, trajopt::TermType::TT_COST, good, bad),
+               std::runtime_error);
+}
+
+TEST(TesseractMotionPlannersTrajoptUtilsUnit, CartesianTermInfoFactoriesExpandScalarTolerance)  // NOLINT
+{
+  const LinkId working_frame{ "base_link" };
+  const LinkId tcp_frame{ "tool0" };
+  const Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
+  const Eigen::VectorXd coeffs = Eigen::VectorXd::Constant(1, 5.0);
+  const Eigen::VectorXd lower = Eigen::VectorXd::Constant(1, -0.01);
+  const Eigen::VectorXd upper = Eigen::VectorXd::Constant(1, 0.01);
+
+  // A single tolerance applies to all six degrees of freedom, so it reaches the term expanded to six
+  const auto static_term = std::dynamic_pointer_cast<trajopt::CartPoseTermInfo>(createCartesianWaypointTermInfo(
+      0, working_frame, pose, tcp_frame, pose, coeffs, trajopt::TermType::TT_COST, lower, upper));
+  ASSERT_NE(static_term, nullptr);
+  EXPECT_TRUE(static_term->lower_tolerance.isApprox(Eigen::VectorXd::Constant(6, -0.01)));
+  EXPECT_TRUE(static_term->upper_tolerance.isApprox(Eigen::VectorXd::Constant(6, 0.01)));
+
+  const auto dynamic_term =
+      std::dynamic_pointer_cast<trajopt::DynamicCartPoseTermInfo>(createDynamicCartesianWaypointTermInfo(
+          0, working_frame, pose, tcp_frame, pose, coeffs, trajopt::TermType::TT_COST, lower, upper));
+  ASSERT_NE(dynamic_term, nullptr);
+  EXPECT_TRUE(dynamic_term->lower_tolerance.isApprox(Eigen::VectorXd::Constant(6, -0.01)));
+  EXPECT_TRUE(dynamic_term->upper_tolerance.isApprox(Eigen::VectorXd::Constant(6, 0.01)));
 }
 
 int main(int argc, char** argv)
