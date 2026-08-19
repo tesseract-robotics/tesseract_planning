@@ -50,12 +50,12 @@ public:
   JointWaypoint() = default;
 
   JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
-                Eigen::VectorXd position,
+                const Eigen::VectorXd& position,
                 bool is_constrained = true);
   JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
-                Eigen::VectorXd position,
-                Eigen::VectorXd lower_tol,
-                Eigen::VectorXd upper_tol);
+                const Eigen::VectorXd& position,
+                const Eigen::VectorXd& lower_tol,
+                const Eigen::VectorXd& upper_tol);
   JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                 std::initializer_list<double> position,
                 bool is_constrained = true);

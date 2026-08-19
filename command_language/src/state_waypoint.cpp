@@ -42,15 +42,11 @@ StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
 }
 
 StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
-                             Eigen::VectorXd position,
-                             Eigen::VectorXd velocity,
-                             Eigen::VectorXd acceleration,
+                             const Eigen::VectorXd& position,      // NOLINT(modernize-pass-by-value)
+                             const Eigen::VectorXd& velocity,      // NOLINT(modernize-pass-by-value)
+                             const Eigen::VectorXd& acceleration,  // NOLINT(modernize-pass-by-value)
                              double time)
-  : joint_ids_(std::move(joint_ids))
-  , position_(std::move(position))
-  , velocity_(std::move(velocity))
-  , acceleration_(std::move(acceleration))
-  , time_(time)
+  : joint_ids_(std::move(joint_ids)), position_(position), velocity_(velocity), acceleration_(acceleration), time_(time)
 {
   if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() || position_.size() != velocity_.size() ||
       position_.size() != acceleration_.size())

@@ -51,9 +51,9 @@ public:
 
   StateWaypoint(std::vector<tesseract::common::JointId> joint_ids, const Eigen::Ref<const Eigen::VectorXd>& position);
   StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
-                Eigen::VectorXd position,
-                Eigen::VectorXd velocity,
-                Eigen::VectorXd acceleration,
+                const Eigen::VectorXd& position,
+                const Eigen::VectorXd& velocity,
+                const Eigen::VectorXd& acceleration,
                 double time);
 
   StateWaypoint(std::vector<tesseract::common::JointId> joint_ids, std::initializer_list<double> position);
