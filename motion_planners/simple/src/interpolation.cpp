@@ -106,9 +106,9 @@ Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::Vect
   manip->calcFwdKin(transforms, jp);
 
   if (in_world)
-    return transforms[tcp_frame] * tcp_offset;
+    return transforms.at(tcp_frame) * tcp_offset;
 
-  return working_frame_transform.inverse() * (transforms[tcp_frame] * tcp_offset);
+  return working_frame_transform.inverse() * (transforms.at(tcp_frame) * tcp_offset);
 }
 
 Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose(bool in_world) const
@@ -177,9 +177,9 @@ Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::
   manip->calcFwdKin(transforms, jp);
 
   if (in_world)
-    return transforms[tcp_frame] * tcp_offset;
+    return transforms.at(tcp_frame) * tcp_offset;
 
-  return working_frame_transform.inverse() * (transforms[tcp_frame] * tcp_offset);
+  return working_frame_transform.inverse() * (transforms.at(tcp_frame) * tcp_offset);
 }
 
 Eigen::Isometry3d KinematicGroupInstructionInfo::extractCartesianPose(bool in_world) const
