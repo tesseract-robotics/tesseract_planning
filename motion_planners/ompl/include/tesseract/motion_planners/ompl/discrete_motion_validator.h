@@ -39,7 +39,7 @@ using StateValidityCheckerPtr = std::shared_ptr<StateValidityChecker>;
 
 namespace tesseract::motion_planners
 {
-/** @brief Continuous collision check between two states */
+/** @brief Discrete collision check between two states */
 class DiscreteMotionValidator : public ompl::base::MotionValidator
 {
 public:
