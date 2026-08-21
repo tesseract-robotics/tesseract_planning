@@ -81,13 +81,13 @@ TrajOptWaypointInfo
 TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstructionPoly& move_instruction,
                                   const tesseract::common::ManipulatorInfo& composite_manip_info,
                                   const std::shared_ptr<const tesseract::environment::Environment>& env,
-                                  const std::vector<std::string>& active_links,
+                                  const std::vector<tesseract::common::LinkId>& active_links,
                                   int index) const
 {
   assert(!(composite_manip_info.empty() && move_instruction.getManipulatorInfo().empty()));
   tesseract::common::ManipulatorInfo mi = composite_manip_info.getCombined(move_instruction.getManipulatorInfo());
-  std::vector<std::string> joint_names = env->getGroupJointNames(mi.manipulator);
-  assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
+  std::vector<tesseract::common::JointId> joint_ids = env->getGroupJointIds(mi.manipulator);
+  assert(checkJointPositionFormat(joint_ids, move_instruction.getWaypoint()));
 
   TrajOptWaypointInfo info;
   if (move_instruction.getWaypoint().isCartesianWaypoint())
@@ -189,7 +189,7 @@ TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstruc
     if (cwp.hasSeed())
       info.seed = cwp.getSeed().position;
     else
-      info.seed = env->getCurrentJointValues(joint_names);
+      info.seed = env->getCurrentJointValues(joint_ids);
 
     /** @todo If fixed cartesian and not term_type cost add as fixed */
     info.fixed = false;
@@ -201,7 +201,7 @@ TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstruc
     {
       const auto& swp = move_instruction.getWaypoint().as<tesseract::command_language::StateWaypointPoly>();
       jwp = move_instruction.createJointWaypoint();
-      jwp.setNames(swp.getNames());
+      jwp.setJointIds(swp.getJointIds());
       jwp.setPosition(swp.getPosition());
       jwp.setIsConstrained(true);
       info.fixed = true;

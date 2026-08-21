@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/command_language/constants.h>
 #include <tesseract/kinematics/joint_group.h>
 #include <tesseract/common/kinematic_limits.h>
+#include <tesseract/common/types.h>
 #include <tesseract/motion_planners/robot_config.h>
 #include <tesseract/motion_planners/types.h>
 
@@ -76,8 +77,8 @@ bool isWithinJointLimits(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::
  */
 template <typename FloatType>
 bool isValidState(const tesseract::kinematics::JointGroup& joint_group,
-                  const std::string& base_link,
-                  const std::string& tcp_frame,
+                  const common::LinkId& base_link,
+                  const common::LinkId& tcp_frame,
                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                   const Eigen::Matrix<FloatType, Eigen::Dynamic, 2>& limits)
 {

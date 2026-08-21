@@ -99,12 +99,12 @@ template <typename T>
 void runMoveInstructionConstructorTest()
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
-  std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  std::vector<tesseract::common::JointId> joint_ids = { "j1", "j2", "j3", "j4", "j5", "j6" };
   Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
   pose.translation() = Eigen::Vector3d(1, 2, 3);
 
-  StateWaypointPoly swp{ StateWaypoint(jn, jv) };
-  JointWaypointPoly jwp{ JointWaypoint(jn, jv) };
+  StateWaypointPoly swp{ StateWaypoint(joint_ids, jv) };
+  JointWaypointPoly jwp{ JointWaypoint(joint_ids, jv) };
   CartesianWaypointPoly cwp{ CartesianWaypoint(pose) };
 
   // Minimum arguments
@@ -476,12 +476,12 @@ template <typename T>
 void runMoveInstructionSettersTest()
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
-  std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  std::vector<tesseract::common::JointId> joint_ids = { "j1", "j2", "j3", "j4", "j5", "j6" };
   Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
   pose.translation() = Eigen::Vector3d(1, 2, 3);
 
-  StateWaypointPoly swp{ StateWaypoint(jn, jv) };
-  JointWaypointPoly jwp{ JointWaypoint(jn, jv) };
+  StateWaypointPoly swp{ StateWaypoint(joint_ids, jv) };
+  JointWaypointPoly jwp{ JointWaypoint(joint_ids, jv) };
   CartesianWaypointPoly cwp{ CartesianWaypoint(pose) };
 
   MoveInstructionPoly instr{ T(swp, MoveInstructionType::FREESPACE) };
@@ -493,7 +493,7 @@ void runMoveInstructionSettersTest()
   EXPECT_FALSE(instr.getUUID().is_nil());
   EXPECT_TRUE(instr.getParentUUID().is_nil());
 
-  StateWaypoint test_swp(jn, 5 * jv);
+  StateWaypoint test_swp(joint_ids, 5 * jv);
   instr.getWaypoint() = StateWaypointPoly(test_swp);
   EXPECT_EQ(instr.getWaypoint().as<StateWaypointPoly>().as<StateWaypoint>(), test_swp);
 

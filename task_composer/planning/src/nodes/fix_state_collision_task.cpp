@@ -70,10 +70,10 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   auto joint_group = env.getJointGroup(manip_info.manipulator);
 
   DiscreteContactManager::Ptr manager = env.getDiscreteContactManager();
-  manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
+  manager->setActiveCollisionObjects(joint_group->getActiveLinkIds());
   manager->applyContactManagerConfig(profile.contact_manager_config);
 
-  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state;
+  TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state;
   state.clear();
   contacts.clear();
   joint_group->calcFwdKin(state, start_pos);
@@ -91,10 +91,10 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   {
     for (const auto& pair : contacts)
     {
+      const auto [link1, link2] = pair.first.orderedNameView();
       for (const auto& contact : pair.second)
-        CONSOLE_BRIDGE_logDebug(("Contact Results: Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
-                                 " Dist: " + std::to_string(contact.distance))
-                                    .c_str());
+        CONSOLE_BRIDGE_logDebug(
+            "Contact Results: Links: %s, %s Dist: %f", link1.c_str(), link2.c_str(), contact.distance);
     }
   }
 
@@ -334,12 +334,9 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
     TESSERACT_THREAD_LOCAL tesseract::collision::ContactResultMap collisions;
     collisions.clear();
 
-    TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state;
-    state.clear();
-
-    pci.kin->calcFwdKin(state, start_pos);
+    auto state = pci.kin->calcFwdKin(start_pos);
     tesseract::collision::DiscreteContactManager::Ptr manager = pci.env->getDiscreteContactManager();
-    manager->setActiveCollisionObjects(pci.kin->getActiveLinkNames());
+    manager->setActiveCollisionObjects(pci.kin->getActiveLinkIds());
     manager->applyContactManagerConfig(profile.contact_manager_config);
     manager->setCollisionObjectsTransform(state);
     manager->contactTest(collisions, profile.collision_check_config.contact_request);
@@ -347,8 +344,9 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
     for (const auto& collision : collisions)
     {
       std::stringstream ss;
-      ss << "Discrete collision detected between '" << collision.first.first << "' and '" << collision.first.second
-         << "' with distance " << collision.second.front().distance << "\n";
+      const auto [link1, link2] = collision.first.orderedNameView();
+      ss << "Discrete collision detected between '" << link1 << "' and '" << link2 << "' with distance "
+         << collision.second.front().distance << "\n";
 
       CONSOLE_BRIDGE_logError(ss.str().c_str());
     }

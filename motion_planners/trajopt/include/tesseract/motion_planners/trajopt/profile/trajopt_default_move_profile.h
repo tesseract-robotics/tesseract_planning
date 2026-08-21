@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract/common/types.h>
 #include <tesseract/motion_planners/trajopt/trajopt_waypoint_config.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_profile.h>
 
@@ -58,7 +59,7 @@ public:
   TrajOptWaypointInfo create(const tesseract::command_language::MoveInstructionPoly& move_instruction,
                              const tesseract::common::ManipulatorInfo& composite_manip_info,
                              const std::shared_ptr<const tesseract::environment::Environment>& env,
-                             const std::vector<std::string>& active_links,
+                             const std::vector<tesseract::common::LinkId>& active_links,
                              int index) const override;
 
   bool operator==(const TrajOptDefaultMoveProfile& rhs) const;

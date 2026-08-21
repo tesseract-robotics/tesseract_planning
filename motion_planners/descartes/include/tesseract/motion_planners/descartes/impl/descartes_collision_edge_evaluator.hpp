@@ -49,7 +49,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
     bool allow_collision,
     bool debug)
   : manip_(std::move(manip))
-  , active_link_names_(manip_->getActiveLinkNames())
+  , active_link_ids_(manip_->getActiveLinkIds())
   , discrete_contact_manager_(collision_env.getDiscreteContactManager())
   , continuous_contact_manager_(collision_env.getContinuousContactManager())
   , collision_check_config_(std::move(collision_check_config))
@@ -61,7 +61,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
 
   if (discrete_contact_manager_ != nullptr)
   {
-    discrete_contact_manager_->setActiveCollisionObjects(active_link_names_);
+    discrete_contact_manager_->setActiveCollisionObjects(active_link_ids_);
     discrete_contact_manager_->applyContactManagerConfig(contact_manager_config);
     contact_margin_data_ = discrete_contact_manager_->getCollisionMarginData();
   }
@@ -74,7 +74,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
 
   if (continuous_contact_manager_ != nullptr)
   {
-    continuous_contact_manager_->setActiveCollisionObjects(active_link_names_);
+    continuous_contact_manager_->setActiveCollisionObjects(active_link_ids_);
     continuous_contact_manager_->applyContactManagerConfig(contact_manager_config);
     contact_margin_data_ = continuous_contact_manager_->getCollisionMarginData();
   }
@@ -126,7 +126,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const descartes_light::Stat
   {
     for (const auto& pair : contact_result_map)
     {
-      const double margin = contact_margin_data_.getCollisionMargin(pair.first.first, pair.first.second);
+      const double margin = contact_margin_data_.getCollisionMargin(pair.first);
       for (const auto& contact_result : pair.second)
         cost = std::max(cost, margin - contact_result.distance);
     }

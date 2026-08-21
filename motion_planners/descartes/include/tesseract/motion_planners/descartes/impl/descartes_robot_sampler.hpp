@@ -42,12 +42,12 @@ namespace tesseract::motion_planners
 {
 template <typename FloatType>
 DescartesRobotSampler<FloatType>::DescartesRobotSampler(
-    std::string target_working_frame,
+    tesseract::common::LinkId target_working_frame,
     const Eigen::Isometry3d& target_pose,  // NOLINT(modernize-pass-by-value)
     PoseSamplerFn target_pose_sampler,
     std::shared_ptr<const tesseract::kinematics::KinematicGroup> manip,
     std::shared_ptr<DescartesCollision> collision,
-    std::string tcp_frame,
+    tesseract::common::LinkId tcp_frame,
     const Eigen::Isometry3d& tcp_offset,  // NOLINT(modernize-pass-by-value)
     bool allow_collision,
     std::shared_ptr<DescartesVertexEvaluator> is_valid,
@@ -98,14 +98,14 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
     if (ik_solutions.empty())
       continue;
 
-    tesseract::collision::ContactTrajectoryResults traj_contacts(manip_->getJointNames(),
+    tesseract::collision::ContactTrajectoryResults traj_contacts(manip_->getJointIds(),
                                                                  static_cast<int>(ik_solutions.size()));
 
     found_ik_sol = true;
 
     // These get cleared in the validate and distance calls
     TESSERACT_THREAD_LOCAL tesseract::collision::ContactResultMap coll_results;
-    TESSERACT_THREAD_LOCAL tesseract::common::TransformMap transforms;
+    TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap transforms;
 
     // Check each individual joint solution
     for (std::size_t j = 0; j < ik_solutions.size(); j++)

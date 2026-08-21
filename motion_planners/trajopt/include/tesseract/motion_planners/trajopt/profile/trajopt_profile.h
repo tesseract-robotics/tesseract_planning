@@ -30,11 +30,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sco/optimizers.hpp>
 #include <vector>
 #include <memory>
-#include <string>
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/fwd.h>
+#include <tesseract/common/types.h>
 #include <tesseract/environment/fwd.h>
 #include <tesseract/command_language/fwd.h>
 #include <tesseract/common/profile.h>
@@ -67,7 +67,7 @@ public:
   virtual TrajOptWaypointInfo create(const tesseract::command_language::MoveInstructionPoly& move_instruction,
                                      const tesseract::common::ManipulatorInfo& composite_manip_info,
                                      const std::shared_ptr<const tesseract::environment::Environment>& env,
-                                     const std::vector<std::string>& active_links,
+                                     const std::vector<tesseract::common::LinkId>& active_links,
                                      int index) const = 0;
 };
 

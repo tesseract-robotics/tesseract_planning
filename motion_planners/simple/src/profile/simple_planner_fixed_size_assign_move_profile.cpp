@@ -103,7 +103,7 @@ std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerFixed
         else
         {
           // Use current env_state as seed
-          j2 = getClosestJointSolution(base, env->getCurrentJointValues(base.manip->getJointNames()));
+          j2 = getClosestJointSolution(base, env->getCurrentJointValues(base.manip->getJointIds()));
         }
       }
       else
@@ -144,10 +144,10 @@ std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerFixed
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 bool SimplePlannerFixedSizeAssignMoveProfile::operator==(const SimplePlannerFixedSizeAssignMoveProfile& rhs) const

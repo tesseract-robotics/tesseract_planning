@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/examples/example.h>
+#include <tesseract/scene_graph/scene_state.h>
 
 namespace tesseract::examples
 {
@@ -53,7 +54,7 @@ public:
 private:
   bool ifopt_;
   bool debug_;
-  std::unordered_map<std::string, std::unordered_map<std::string, double>> saved_positions_;
+  std::unordered_map<std::string, tesseract::scene_graph::SceneState::JointValues> saved_positions_;
 };
 
 }  // namespace tesseract::examples

@@ -93,7 +93,7 @@ int main(int /*argc*/, char** /*argv*/)
     auto cur_state = env->getState();
 
     // Specify start location
-    JointWaypoint wp0{ kin_group->getJointNames(), Eigen::VectorXd::Zero(6) };
+    JointWaypoint wp0{ kin_group->getJointIds(), Eigen::VectorXd::Zero(6) };
 
     // Specify raster 1 start waypoint and end waypoint
     CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *

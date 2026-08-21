@@ -171,7 +171,7 @@ bool ConstantTCPSpeedParameterization::compute(tesseract::command_language::Comp
 
   // Construct the KDL chain
   tesseract::kinematics::KDLChainData data;
-  if (!tesseract::kinematics::parseSceneGraph(data, *env.getSceneGraph(), jg->getBaseLinkName(), manip_info.tcp_frame))
+  if (!tesseract::kinematics::parseSceneGraph(data, *env.getSceneGraph(), jg->getBaseLinkId(), manip_info.tcp_frame))
     throw std::runtime_error("Failed to construct KDL chain");
 
   // Create a Jacobian derivative solver
@@ -184,7 +184,7 @@ bool ConstantTCPSpeedParameterization::compute(tesseract::command_language::Comp
     // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
     KDL::Path_Composite path;
     /** @brief Making this thread_local does not help because it is not called enough during planning */
-    tesseract::common::TransformMap transforms;
+    tesseract::common::LinkIdTransformMap transforms;
     Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
     for (Eigen::Index i = 1; i < trajectory.size(); ++i)
     {

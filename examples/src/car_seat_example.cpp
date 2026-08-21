@@ -126,8 +126,8 @@ Commands addSeats(const tesseract::common::ResourceLocator::ConstPtr& locator)
     }
 
     Joint joint_seat("joint_seat_" + std::to_string(i + 1));
-    joint_seat.parent_link_name = "world";
-    joint_seat.child_link_name = link_seat.getName();
+    joint_seat.parent_link_id = "world";
+    joint_seat.child_link_id = link_seat.getId();
     joint_seat.type = JointType::FIXED;
     joint_seat.parent_to_joint_origin_transform = Eigen::AngleAxisd(0.0, Eigen::Vector3d::UnitX()) *
                                                   Eigen::AngleAxisd(0.0, Eigen::Vector3d::UnitY()) *
@@ -147,11 +147,11 @@ CarSeatExample::CarSeatExample(std::shared_ptr<tesseract::environment::Environme
 {
 }
 
-std::unordered_map<std::string, std::unordered_map<std::string, double>> getPredefinedPosition()
+std::unordered_map<std::string, SceneState::JointValues> getPredefinedPosition()
 {
-  std::unordered_map<std::string, std::unordered_map<std::string, double>> result;
+  std::unordered_map<std::string, SceneState::JointValues> result;
 
-  std::unordered_map<std::string, double> default_pos;
+  SceneState::JointValues default_pos;
   default_pos["carriage_rail"] = 1.0;
   default_pos["joint_b"] = 0.0;
   default_pos["joint_e"] = 0.0;
@@ -162,7 +162,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   default_pos["joint_u"] = -1.5707;
   result["Default"] = default_pos;
 
-  std::unordered_map<std::string, double> pick1;
+  SceneState::JointValues pick1;
   pick1["carriage_rail"] = 2.22;
   pick1["joint_b"] = 0.39;
   pick1["joint_e"] = 0.0;
@@ -173,7 +173,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   pick1["joint_u"] = -1.45;
   result["Pick1"] = pick1;
 
-  std::unordered_map<std::string, double> pick2;
+  SceneState::JointValues pick2;
   pick2["carriage_rail"] = 1.22;
   pick1["joint_b"] = 0.39;
   pick1["joint_e"] = 0.0;
@@ -184,7 +184,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   pick1["joint_u"] = -1.45;
   result["Pick2"] = pick2;
 
-  std::unordered_map<std::string, double> pick3;
+  SceneState::JointValues pick3;
   pick3["carriage_rail"] = 0.22;
   pick1["joint_b"] = 0.39;
   pick1["joint_e"] = 0.0;
@@ -195,7 +195,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   pick1["joint_u"] = -1.45;
   result["Pick3"] = pick3;
 
-  std::unordered_map<std::string, double> place1;
+  SceneState::JointValues place1;
   place1["carriage_rail"] = 4.15466;
   place1["joint_b"] = 0.537218;
   place1["joint_e"] = 0.0189056;
@@ -206,7 +206,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   place1["joint_u"] = -1.2813;
   result["Place1"] = place1;
 
-  std::unordered_map<std::string, double> home;
+  SceneState::JointValues home;
   home["carriage_rail"] = 0.0;
   home["joint_b"] = 0.0;
   home["joint_e"] = 0.0;
@@ -220,23 +220,23 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> getPred
   return result;
 }
 
-std::vector<double> getPositionVector(const JointGroup& joint_group, const std::unordered_map<std::string, double>& pos)
+std::vector<double> getPositionVector(const JointGroup& joint_group, const SceneState::JointValues& pos)
 {
   std::vector<double> result;
   result.reserve(static_cast<std::size_t>(joint_group.numJoints()));
-  for (const auto& joint_name : joint_group.getJointNames())
-    result.push_back(pos.at(joint_name));
+  for (const auto& joint_id : joint_group.getJointIds())
+    result.push_back(pos.at(joint_id));
 
   return result;
 }
 
-Eigen::VectorXd getPositionVectorXd(const JointGroup& joint_group, const std::unordered_map<std::string, double>& pos)
+Eigen::VectorXd getPositionVectorXd(const JointGroup& joint_group, const SceneState::JointValues& pos)
 {
   Eigen::VectorXd result;
   result.resize(joint_group.numJoints());
   int cnt = 0;
-  for (const auto& joint_name : joint_group.getJointNames())
-    result[cnt++] = pos.at(joint_name);
+  for (const auto& joint_id : joint_group.getJointIds())
+    result[cnt++] = pos.at(joint_id);
 
   return result;
 }
@@ -354,8 +354,8 @@ bool CarSeatExample::run()
     // Start and End Joint Position for the program
     Eigen::VectorXd start_pos = getPositionVectorXd(*joint_group, saved_positions_["Home"]);
     Eigen::VectorXd pick_pose = getPositionVectorXd(*joint_group, saved_positions_["Pick1"]);
-    StateWaypoint wp0{ joint_group->getJointNames(), start_pos };
-    StateWaypoint wp1{ joint_group->getJointNames(), pick_pose };
+    StateWaypoint wp0{ joint_group->getJointIds(), start_pos };
+    StateWaypoint wp1{ joint_group->getJointIds(), pick_pose };
 
     // Start Joint Position for the program
     MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "FREESPACE");
@@ -410,8 +410,8 @@ bool CarSeatExample::run()
 
   // Now we to detach seat_1 and attach it to the robot end_effector
   Joint joint_seat_1_robot("joint_seat_1_robot");
-  joint_seat_1_robot.parent_link_name = "end_effector";
-  joint_seat_1_robot.child_link_name = "seat_1";
+  joint_seat_1_robot.parent_link_id = "end_effector";
+  joint_seat_1_robot.child_link_id = "seat_1";
   joint_seat_1_robot.type = JointType::FIXED;
   joint_seat_1_robot.parent_to_joint_origin_transform =
       state.link_transforms.at("end_effector").inverse() * state.link_transforms.at("seat_1");
@@ -440,8 +440,8 @@ bool CarSeatExample::run()
     // Start and End Joint Position for the program
     Eigen::VectorXd start_pos = getPositionVectorXd(*joint_group, saved_positions_["Pick1"]);
     Eigen::VectorXd pick_pose = getPositionVectorXd(*joint_group, saved_positions_["Place1"]);
-    StateWaypoint wp0{ joint_group->getJointNames(), start_pos };
-    StateWaypoint wp1{ joint_group->getJointNames(), pick_pose };
+    StateWaypoint wp0{ joint_group->getJointIds(), start_pos };
+    StateWaypoint wp1{ joint_group->getJointIds(), pick_pose };
 
     // Start Joint Position for the program
     MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "FREESPACE");

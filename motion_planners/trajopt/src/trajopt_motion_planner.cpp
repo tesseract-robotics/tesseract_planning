@@ -22,6 +22,7 @@
  * limitations under the License.
  */
 #include <tesseract/common/macros.h>
+#include <tesseract/common/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <trajopt/plot_callback.hpp>
@@ -148,7 +149,7 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
     response.message = SOLUTION_FOUND;
   }
 
-  const std::vector<std::string> joint_names = problem->GetKin()->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = problem->GetKin()->getJointIds();
   const Eigen::MatrixX2d joint_limits = problem->GetKin()->getLimits().joint_limits;
 
   // Get the results
@@ -169,7 +170,7 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
   {
     auto& move_instruction = results_instructions.at(idx).get().as<tesseract::command_language::MoveInstructionPoly>();
     assignSolution(
-        move_instruction, joint_names, traj.row(static_cast<Eigen::Index>(idx)), request.format_result_as_input);
+        move_instruction, joint_ids, traj.row(static_cast<Eigen::Index>(idx)), request.format_result_as_input);
   }
 
   return response;
@@ -217,7 +218,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   pci->callbacks = solver_profile->createOptimizationCallbacks();
 
   // Get kinematics information
-  std::vector<std::string> active_links = pci->kin->getActiveLinkNames();
+  std::vector<common::LinkId> active_links = pci->kin->getActiveLinkIds();
 
   // Create a temp seed storage.
   std::vector<Eigen::VectorXd> seed_states;

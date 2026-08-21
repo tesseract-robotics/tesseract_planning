@@ -26,9 +26,11 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <cstdint>
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract/common/types.h>
 #include <tesseract/kinematics/joint_group.h>
 
 namespace tesseract::motion_planners
@@ -45,7 +47,7 @@ namespace tesseract::motion_planners
  * back
  *
  */
-enum class RobotConfig
+enum class RobotConfig : std::uint8_t
 {
   NUT = 0,
   FUT = 1,
@@ -70,13 +72,13 @@ static const std::vector<std::string> RobotConfigString = { "NUT", "FUT", "NDT",
  */
 template <typename FloatType>
 inline RobotConfig getRobotConfig(const tesseract::kinematics::JointGroup& joint_group,
-                                  const std::string& base_link,
-                                  const std::string& tcp_frame,
+                                  const common::LinkId& base_link,
+                                  const common::LinkId& tcp_frame,
                                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
   // Get state
-  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state;
+  TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state;
   state.clear();
   joint_group.calcFwdKin(state, joint_values.template cast<double>());
 

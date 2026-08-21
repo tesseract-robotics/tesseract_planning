@@ -94,7 +94,7 @@ int main(int /*argc*/, char** /*argv*/)
     CompositeInstruction program(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, manip);
 
     // Start Joint Position for the program
-    StateWaypoint wp0{ kin_group->getJointNames(), Eigen::VectorXd::Zero(6) };
+    StateWaypoint wp0{ kin_group->getJointIds(), Eigen::VectorXd::Zero(6) };
     MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE);
     start_instruction.setDescription("Start");
 

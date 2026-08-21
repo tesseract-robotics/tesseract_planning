@@ -79,7 +79,7 @@ public:
    * @return ContactResultMap containing any contacts for the given solution
    */
   bool validate(tesseract::collision::ContactResultMap& contact_results,
-                tesseract::common::TransformMap& transforms_cache,
+                tesseract::common::LinkIdTransformMap& transforms_cache,
                 const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
@@ -89,7 +89,7 @@ public:
    * @return The distance to the closest object
    */
   double distance(tesseract::collision::ContactResultMap& contact_results,
-                  tesseract::common::TransformMap& transforms_cache,
+                  tesseract::common::LinkIdTransformMap& transforms_cache,
                   const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
@@ -99,16 +99,8 @@ public:
   DescartesCollision::Ptr clone() const;
 
 private:
-  /**
-   * @brief Check if two links are allowed to be in collision
-   * @param a The name of the first link
-   * @param b The name of the second link
-   * @return True if allowed to be in collision, otherwise false
-   */
-  bool isContactAllowed(const std::string& a, const std::string& b) const;
-
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip_; /**< @brief The tesseract state solver */
-  std::vector<std::string> active_link_names_;                     /**< @brief A vector of active link names */
+  std::vector<tesseract::common::LinkId> active_link_ids_;         /**< @brief A vector of active link IDs */
   std::shared_ptr<tesseract::collision::DiscreteContactManager> contact_manager_; /**< @brief The discrete contact
                                                                                     manager */
   tesseract::collision::CollisionCheckConfig collision_check_config_;

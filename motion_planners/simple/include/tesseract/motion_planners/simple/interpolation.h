@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/fwd.h>
 
 #include <tesseract/common/eigen_types.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::motion_planners
 {
@@ -57,9 +58,9 @@ struct JointGroupInstructionInfo
   const tesseract::command_language::MoveInstructionPoly&
       instruction;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip;
-  std::string working_frame;
+  tesseract::common::LinkId working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
-  std::string tcp_frame;
+  tesseract::common::LinkId tcp_frame;
   Eigen::Isometry3d tcp_offset{ Eigen::Isometry3d::Identity() };
   bool has_cartesian_waypoint{ false };
 
@@ -109,9 +110,9 @@ struct KinematicGroupInstructionInfo
   const tesseract::command_language::MoveInstructionPoly&
       instruction;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
   std::shared_ptr<const tesseract::kinematics::KinematicGroup> manip;
-  std::string working_frame;
+  tesseract::common::LinkId working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
-  std::string tcp_frame;
+  tesseract::common::LinkId tcp_frame;
   Eigen::Isometry3d tcp_offset{ Eigen::Isometry3d::Identity() };
   bool has_cartesian_waypoint{ false };
 
@@ -478,27 +479,28 @@ interpolate_waypoint(const tesseract::command_language::WaypointPoly& start,
 /**
  * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
  * @details This skips the first state
- * @param joint_names The joint names associated with the states
+ * @param joint_ids The joint IDs associated with the states
  * @param states The joint states to populate the composite instruction with
  * @param base_instruction The base instruction used to extract profile and manipulator information from
  * @return A vector of move instruction
  */
 std::vector<tesseract::command_language::MoveInstructionPoly>
-getInterpolatedInstructions(const std::vector<std::string>& joint_names,
+getInterpolatedInstructions(const std::vector<tesseract::common::JointId>& joint_ids,
                             const Eigen::MatrixXd& states,
                             const tesseract::command_language::MoveInstructionPoly& base_instruction);
 
 /**
  * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
  * @details This skips the first state
- * @param joint_names The joint names associated with the states
+ * @param poses The cartesian poses associated with the states
+ * @param joint_ids The joint IDs associated with the states
  * @param states The joint states to populate the composite instruction with
  * @param base_instruction The base instruction used to extract profile and manipulator information from
  * @return A vector of move instruction
  */
 std::vector<tesseract::command_language::MoveInstructionPoly>
 getInterpolatedInstructions(const tesseract::common::VectorIsometry3d& poses,
-                            const std::vector<std::string>& joint_names,
+                            const std::vector<tesseract::common::JointId>& joint_ids,
                             const Eigen::MatrixXd& states,
                             const tesseract::command_language::MoveInstructionPoly& base_instruction);
 

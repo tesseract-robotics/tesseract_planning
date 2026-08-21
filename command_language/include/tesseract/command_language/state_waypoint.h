@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/poly/state_waypoint_poly.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::command_language
 {
@@ -47,15 +48,16 @@ public:
   // LCOV_EXCL_STOP
 
   StateWaypoint() = default;
-  StateWaypoint(std::vector<std::string> joint_names, const Eigen::Ref<const Eigen::VectorXd>& position);
-  StateWaypoint(const std::vector<std::string>& names,
+
+  StateWaypoint(std::vector<tesseract::common::JointId> joint_ids, const Eigen::Ref<const Eigen::VectorXd>& position);
+  StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                 const Eigen::VectorXd& position,
                 const Eigen::VectorXd& velocity,
                 const Eigen::VectorXd& acceleration,
                 double time);
 
-  StateWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position);
-  StateWaypoint(std::initializer_list<std::string> names,
+  StateWaypoint(std::vector<tesseract::common::JointId> joint_ids, std::initializer_list<double> position);
+  StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                 std::initializer_list<double> position,
                 std::initializer_list<double> velocity,
                 std::initializer_list<double> acceleration,
@@ -67,9 +69,9 @@ public:
   void print(const std::string& prefix = "") const override final;
 
   // State Waypoint
-  void setNames(const std::vector<std::string>& names) override final;
-  std::vector<std::string>& getNames() override final;
-  const std::vector<std::string>& getNames() const override final;
+  void setJointIds(const std::vector<tesseract::common::JointId>& ids) override final;
+  const std::vector<tesseract::common::JointId>& getJointIds() const override final;
+  std::vector<tesseract::common::JointId>& getJointIds() override final;
 
   void setPosition(const Eigen::VectorXd& position) override final;
   Eigen::VectorXd& getPosition() override final;
@@ -95,8 +97,8 @@ public:
 private:
   /** @brief The name of the waypoint */
   std::string name_;
-  /** @brief The joint corresponding to the position vector. */
-  std::vector<std::string> joint_names_;
+  /** @brief The joint IDs */
+  std::vector<tesseract::common::JointId> joint_ids_;
   /** @brief The joint position at the waypoint */
   Eigen::VectorXd position_;
   /** @brief The velocity at the waypoint (optional) */

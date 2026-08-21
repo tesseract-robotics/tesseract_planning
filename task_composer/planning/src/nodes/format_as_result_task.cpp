@@ -80,7 +80,7 @@ TaskComposerNodeInfo FormatAsResultTask::runImpl(TaskComposerContext& context,
       // Convert to StateWaypoint
       tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
       swp.setName(jwp.getName());
-      swp.setNames(jwp.getNames());
+      swp.setJointIds(jwp.getJointIds());
       swp.setPosition(jwp.getPosition());
       mi.getWaypoint() = swp;
     }

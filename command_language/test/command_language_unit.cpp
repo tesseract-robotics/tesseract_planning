@@ -200,6 +200,37 @@ TEST(TesseractCommandLanguageUnit, StateWaypointTests)  // NOLINT
   test_suite::runStateWaypointTest<StateWaypoint>();
 }
 
+TEST(TesseractCommandLanguageUnit, WaypointBraceInitTests)  // NOLINT
+{
+  const std::vector<tesseract::common::JointId> expected_ids{ "joint_1", "joint_2" };
+
+  JointWaypoint jw({ "joint_1", "joint_2" }, { 1.0, 2.0 });
+  EXPECT_EQ(jw.getJointIds(), expected_ids);
+  EXPECT_TRUE(jw.getPosition().isApprox(Eigen::Vector2d(1.0, 2.0)));
+
+  JointWaypoint jw_tol({ "joint_1", "joint_2" }, { 1.0, 2.0 }, { -0.1, -0.2 }, { 0.1, 0.2 });
+  EXPECT_EQ(jw_tol.getJointIds(), expected_ids);
+  EXPECT_TRUE(jw_tol.getLowerTolerance().isApprox(Eigen::Vector2d(-0.1, -0.2)));
+  EXPECT_TRUE(jw_tol.getUpperTolerance().isApprox(Eigen::Vector2d(0.1, 0.2)));
+
+  StateWaypoint sw({ "joint_1", "joint_2" }, { 1.0, 2.0 });
+  EXPECT_EQ(sw.getJointIds(), expected_ids);
+  EXPECT_TRUE(sw.getPosition().isApprox(Eigen::Vector2d(1.0, 2.0)));
+
+  StateWaypoint sw_full({ "joint_1", "joint_2" }, { 1.0, 2.0 }, { 3.0, 4.0 }, { 5.0, 6.0 }, 7.0);
+  EXPECT_EQ(sw_full.getJointIds(), expected_ids);
+  EXPECT_TRUE(sw_full.getVelocity().isApprox(Eigen::Vector2d(3.0, 4.0)));
+  EXPECT_TRUE(sw_full.getAcceleration().isApprox(Eigen::Vector2d(5.0, 6.0)));
+  EXPECT_DOUBLE_EQ(sw_full.getTime(), 7.0);
+
+  // The joint ids may also come from a vector while the values stay brace-initialized.
+  JointWaypoint jw_ids(expected_ids, { 1.0, 2.0 });
+  EXPECT_EQ(jw_ids.getJointIds(), expected_ids);
+
+  // A size mismatch is rejected rather than silently truncated.
+  EXPECT_ANY_THROW(JointWaypoint({ "joint_1", "joint_2" }, { 1.0 }));  // NOLINT
+}
+
 TEST(TesseractCommandLanguageUnit, MoveInstructionTests)  // NOLINT
 {
   test_suite::runMoveInstructionTest<MoveInstruction>();

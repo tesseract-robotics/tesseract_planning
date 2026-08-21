@@ -120,8 +120,8 @@ Command::Ptr addBox(double box_x, double box_y, double box_side)
   link_box.collision.push_back(collision);
 
   Joint joint_box("joint_box");
-  joint_box.parent_link_name = "workcell_base";
-  joint_box.child_link_name = LINK_BOX_NAME;
+  joint_box.parent_link_id = "workcell_base";
+  joint_box.child_link_id = LINK_BOX_NAME;
   joint_box.type = JointType::FIXED;
   joint_box.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   joint_box.parent_to_joint_origin_transform.translation() += Eigen::Vector3d(box_x, box_y, (box_side / 2.0) + OFFSET);
@@ -149,14 +149,14 @@ bool PickAndPlaceExample::run()
     plotter_->waitForConnection();
 
   // Set the robot initial state
-  std::vector<std::string> joint_names;
-  joint_names.emplace_back("iiwa_joint_a1");
-  joint_names.emplace_back("iiwa_joint_a2");
-  joint_names.emplace_back("iiwa_joint_a3");
-  joint_names.emplace_back("iiwa_joint_a4");
-  joint_names.emplace_back("iiwa_joint_a5");
-  joint_names.emplace_back("iiwa_joint_a6");
-  joint_names.emplace_back("iiwa_joint_a7");
+  std::vector<tesseract::common::JointId> joint_ids;
+  joint_ids.emplace_back("iiwa_joint_a1");
+  joint_ids.emplace_back("iiwa_joint_a2");
+  joint_ids.emplace_back("iiwa_joint_a3");
+  joint_ids.emplace_back("iiwa_joint_a4");
+  joint_ids.emplace_back("iiwa_joint_a5");
+  joint_ids.emplace_back("iiwa_joint_a6");
+  joint_ids.emplace_back("iiwa_joint_a7");
 
   Eigen::VectorXd joint_pos(7);
   joint_pos(0) = 0.0;
@@ -167,7 +167,7 @@ bool PickAndPlaceExample::run()
   joint_pos(5) = 0.0;
   joint_pos(6) = 0.0;
 
-  env_->setState(joint_names, joint_pos);
+  env_->setState(joint_ids, joint_pos);
 
   // Add simulated box to environment
   Command::Ptr cmd = addBox(box_position_[0], box_position_[1], box_size_);
@@ -190,7 +190,7 @@ bool PickAndPlaceExample::run()
   // Create Program
   CompositeInstruction pick_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
-  StateWaypoint pick_swp{ joint_names, joint_pos };
+  StateWaypoint pick_swp{ joint_ids, joint_pos };
   MoveInstruction start_instruction(pick_swp, MoveInstructionType::FREESPACE, "FREESPACE");
   start_instruction.setDescription("Start Instruction");
 
@@ -360,8 +360,8 @@ bool PickAndPlaceExample::run()
   // Detach the simulated box from the world and attach to the end effector
   tesseract::environment::Commands cmds;
   Joint joint_box2("joint_box2");
-  joint_box2.parent_link_name = LINK_END_EFFECTOR_NAME;
-  joint_box2.child_link_name = LINK_BOX_NAME;
+  joint_box2.parent_link_id = LINK_END_EFFECTOR_NAME;
+  joint_box2.child_link_id = LINK_BOX_NAME;
   joint_box2.type = JointType::FIXED;
   joint_box2.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   joint_box2.parent_to_joint_origin_transform.translation() += Eigen::Vector3d(0, 0, box_size_ / 2.0);

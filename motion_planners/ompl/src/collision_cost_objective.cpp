@@ -47,11 +47,10 @@ CollisionCostObjective::CollisionCostObjective(const ompl::base::SpaceInformatio
   : StateCostIntegralObjective(space_info, optimize_by_motion)
   , manip_(std::move(manip))
   , contact_manager_(env.getDiscreteContactManager())
+  , link_ids_(manip_->getActiveLinkIds())
   , extractor_(std::move(extractor))
 {
-  links_ = manip_->getActiveLinkNames();
-
-  contact_manager_->setActiveCollisionObjects(links_);
+  contact_manager_->setActiveCollisionObjects(link_ids_);
   contact_manager_->applyContactManagerConfig(contact_manager_config);
 }
 
@@ -74,12 +73,17 @@ ompl::base::Cost CollisionCostObjective::stateCost(const ompl::base::State* stat
   mutex_.unlock();
 
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
-  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state1;
+  TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state1;
   state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
-  for (const auto& link_name : links_)
-    cm->setCollisionObjectsTransform(link_name, state1[link_name]);
+  TESSERACT_THREAD_LOCAL tesseract::common::VectorIsometry3d poses;
+  poses.clear();
+  poses.reserve(link_ids_.size());
+  for (const auto& id : link_ids_)
+    poses.push_back(state1.at(id));
+
+  cm->setCollisionObjectsTransform(link_ids_, poses);
 
   tesseract::collision::ContactResultMap contact_map;
   cm->contactTest(contact_map, tesseract::collision::ContactTestType::CLOSEST);

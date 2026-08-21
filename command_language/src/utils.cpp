@@ -75,7 +75,7 @@ tesseract::common::JointTrajectory toJointTrajectory(const CompositeInstruction&
       {
         const auto& jwp = pi.getWaypoint().as<JointWaypointPoly>();
         tesseract::common::JointState joint_state;
-        joint_state.joint_names = jwp.getNames();
+        joint_state.joint_ids = jwp.getJointIds();
         joint_state.position = jwp.getPosition();
 
         double dt = 1;
@@ -90,7 +90,7 @@ tesseract::common::JointTrajectory toJointTrajectory(const CompositeInstruction&
         const auto& swp = pi.getWaypoint().as<StateWaypointPoly>();
 
         tesseract::common::JointState joint_state;
-        joint_state.joint_names = swp.getNames();
+        joint_state.joint_ids = swp.getJointIds();
         joint_state.position = swp.getPosition();
         joint_state.velocity = swp.getVelocity();
         joint_state.acceleration = swp.getAcceleration();
@@ -146,19 +146,19 @@ const Eigen::VectorXd& getJointPosition(const WaypointPoly& waypoint)
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint)
+const std::vector<tesseract::common::JointId>& getJointIds(const WaypointPoly& waypoint)
 {
   if (waypoint.isJointWaypoint())
-    return waypoint.as<JointWaypointPoly>().getNames();
+    return waypoint.as<JointWaypointPoly>().getJointIds();
 
   if (waypoint.isStateWaypoint())
-    return waypoint.as<StateWaypointPoly>().getNames();
+    return waypoint.as<StateWaypointPoly>().getJointIds();
 
   if (waypoint.isCartesianWaypoint())
   {
     const auto& cwp = waypoint.as<CartesianWaypointPoly>();
     if (cwp.hasSeed())
-      return cwp.getSeed().joint_names;
+      return cwp.getSeed().joint_ids;
 
     throw std::runtime_error("CartesianWaypoint does not have a seed.");
   }
@@ -166,21 +166,21 @@ const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint)
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)
+Eigen::VectorXd getJointPosition(const std::vector<tesseract::common::JointId>& joint_ids, const WaypointPoly& waypoint)
 {
   Eigen::VectorXd jv;
-  std::vector<std::string> jn;
+  std::vector<tesseract::common::JointId> current_ids;
   if (waypoint.isJointWaypoint())
   {
     const auto& jwp = waypoint.as<JointWaypointPoly>();
     jv = jwp.getPosition();
-    jn = jwp.getNames();
+    current_ids = jwp.getJointIds();
   }
   else if (waypoint.isStateWaypoint())
   {
     const auto& swp = waypoint.as<StateWaypointPoly>();
     jv = swp.getPosition();
-    jn = swp.getNames();
+    current_ids = swp.getJointIds();
   }
   else if (waypoint.isCartesianWaypoint())
   {
@@ -189,30 +189,30 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
       throw std::runtime_error("Cartesian waypoint does not have a seed.");
 
     jv = cwp.getSeed().position;
-    jn = cwp.getSeed().joint_names;
+    current_ids = cwp.getSeed().joint_ids;
   }
   else
   {
     throw std::runtime_error("Unsupported waypoint type.");
   }
 
-  if (jn.size() != joint_names.size())
-    throw std::runtime_error("Joint name sizes do not match!");
+  if (current_ids.size() != joint_ids.size())
+    throw std::runtime_error("Joint ID sizes do not match!");
 
-  if (joint_names == jn)
+  if (joint_ids == current_ids)
     return jv;
 
   Eigen::VectorXd output = jv;
-  for (std::size_t i = 0; i < joint_names.size(); ++i)
+  for (std::size_t i = 0; i < joint_ids.size(); ++i)
   {
-    if (joint_names[i] == jn[i])
+    if (joint_ids[i] == current_ids[i])
       continue;
 
-    auto it = std::find(jn.begin(), jn.end(), joint_names[i]);
-    if (it == jn.end())
-      throw std::runtime_error("Joint names do not match!");
+    auto it = std::find(current_ids.begin(), current_ids.end(), joint_ids[i]);
+    if (it == current_ids.end())
+      throw std::runtime_error("Joint IDs do not match!");
 
-    long idx = std::distance(jn.begin(), it);
+    long idx = std::distance(current_ids.begin(), it);
     output(static_cast<long>(i)) = jv(idx);
   }
 
@@ -221,21 +221,21 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
 
 namespace
 {
-/// @brief Build an index permutation such that out[i] = in[perm[i]] gives `in` reordered to `target_names`.
-/// Throws if sizes mismatch or a target name is absent from `current_names`.
-std::vector<std::size_t> buildJointPermutation(const std::vector<std::string>& target_names,
-                                               const std::vector<std::string>& current_names)
+/// @brief Build an index permutation such that out[i] = in[perm[i]] gives `in` reordered to `target_ids`.
+/// Throws if sizes mismatch or a target id is absent from `current_ids`.
+std::vector<std::size_t> buildJointPermutation(const std::vector<tesseract::common::JointId>& target_ids,
+                                               const std::vector<tesseract::common::JointId>& current_ids)
 {
-  if (current_names.size() != target_names.size())
-    throw std::runtime_error("Joint name sizes do not match!");
+  if (current_ids.size() != target_ids.size())
+    throw std::runtime_error("Joint ID sizes do not match!");
 
-  std::vector<std::size_t> perm(target_names.size());
-  for (std::size_t i = 0; i < target_names.size(); ++i)
+  std::vector<std::size_t> perm(target_ids.size());
+  for (std::size_t i = 0; i < target_ids.size(); ++i)
   {
-    auto it = std::find(current_names.begin(), current_names.end(), target_names[i]);
-    if (it == current_names.end())
-      throw std::runtime_error("Joint names do not match!");
-    perm[i] = static_cast<std::size_t>(std::distance(current_names.begin(), it));
+    auto it = std::find(current_ids.begin(), current_ids.end(), target_ids[i]);
+    if (it == current_ids.end())
+      throw std::runtime_error("Joint IDs do not match!");
+    perm[i] = static_cast<std::size_t>(std::distance(current_ids.begin(), it));
   }
   return perm;
 }
@@ -256,36 +256,36 @@ void applyJointPermutation(Eigen::VectorXd& vec, const std::vector<std::size_t>&
 }
 }  // namespace
 
-bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint)
+bool formatJointPosition(const std::vector<tesseract::common::JointId>& joint_ids, WaypointPoly& waypoint)
 {
   if (waypoint.isJointWaypoint())
   {
     auto& jwp = waypoint.as<JointWaypointPoly>();
-    const std::vector<std::string>& current = jwp.getNames();
-    if (current == joint_names)
+    const std::vector<tesseract::common::JointId>& current = jwp.getJointIds();
+    if (current == joint_ids)
       return false;
 
-    const std::vector<std::size_t> perm = buildJointPermutation(joint_names, current);
+    const std::vector<std::size_t> perm = buildJointPermutation(joint_ids, current);
     applyJointPermutation(jwp.getPosition(), perm);
     applyJointPermutation(jwp.getLowerTolerance(), perm);
     applyJointPermutation(jwp.getUpperTolerance(), perm);
-    jwp.setNames(joint_names);
+    jwp.setJointIds(joint_ids);
     return true;
   }
 
   if (waypoint.isStateWaypoint())
   {
     auto& swp = waypoint.as<StateWaypointPoly>();
-    const std::vector<std::string>& current = swp.getNames();
-    if (current == joint_names)
+    const std::vector<tesseract::common::JointId>& current = swp.getJointIds();
+    if (current == joint_ids)
       return false;
 
-    const std::vector<std::size_t> perm = buildJointPermutation(joint_names, current);
+    const std::vector<std::size_t> perm = buildJointPermutation(joint_ids, current);
     applyJointPermutation(swp.getPosition(), perm);
     applyJointPermutation(swp.getVelocity(), perm);
     applyJointPermutation(swp.getAcceleration(), perm);
     applyJointPermutation(swp.getEffort(), perm);
-    swp.setNames(joint_names);
+    swp.setJointIds(joint_ids);
     return true;
   }
 
@@ -296,34 +296,34 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
       return false;
 
     auto& seed = cwp.getSeed();
-    if (seed.joint_names == joint_names)
+    if (seed.joint_ids == joint_ids)
       return false;
 
-    const std::vector<std::size_t> perm = buildJointPermutation(joint_names, seed.joint_names);
+    const std::vector<std::size_t> perm = buildJointPermutation(joint_ids, seed.joint_ids);
     applyJointPermutation(seed.position, perm);
     applyJointPermutation(seed.velocity, perm);
     applyJointPermutation(seed.acceleration, perm);
     applyJointPermutation(seed.effort, perm);
-    seed.joint_names = joint_names;
+    seed.joint_ids = joint_ids;
     return true;
   }
 
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)
+bool checkJointPositionFormat(const std::vector<tesseract::common::JointId>& joint_ids, const WaypointPoly& waypoint)
 {
   if (waypoint.isJointWaypoint())
-    return (joint_names == waypoint.as<JointWaypointPoly>().getNames());
+    return (joint_ids == waypoint.as<JointWaypointPoly>().getJointIds());
 
   if (waypoint.isStateWaypoint())
-    return (joint_names == waypoint.as<StateWaypointPoly>().getNames());
+    return (joint_ids == waypoint.as<StateWaypointPoly>().getJointIds());
 
   if (waypoint.isCartesianWaypoint())
   {
     const auto& cwp = waypoint.as<CartesianWaypointPoly>();
     if (cwp.hasSeed())
-      return (joint_names == waypoint.as<CartesianWaypointPoly>().getSeed().joint_names);
+      return (joint_ids == waypoint.as<CartesianWaypointPoly>().getSeed().joint_ids);
   }
 
   throw std::runtime_error("Unsupported waypoint type.");
@@ -391,12 +391,13 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   std::vector<std::reference_wrapper<const InstructionPoly>> mi = composite_instructions.flatten(&moveFilter);
 
   // Write Joint names as header
-  std::vector<std::string> joint_names = getJointNames(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
+  const std::vector<tesseract::common::JointId> joint_ids =
+      getJointIds(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
 
-  for (std::size_t i = 0; i < joint_names.size() - 1; ++i)
-    myfile << joint_names[i] << separator;
+  for (std::size_t i = 0; i < joint_ids.size() - 1; ++i)
+    myfile << joint_ids[i].name() << separator;
 
-  myfile << joint_names.back() << "\n";
+  myfile << joint_ids.back().name() << "\n";
 
   // Write Positions
   for (const auto& i : mi)

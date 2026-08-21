@@ -38,7 +38,7 @@ class TesseractPlanningSimplePlannerUnit : public ::testing::Test
 protected:
   Environment::Ptr env_;
   tesseract::common::ManipulatorInfo manip_info_;
-  std::vector<std::string> joint_names_;
+  std::vector<tesseract::common::JointId> joint_ids_;
 
   void SetUp() override
   {
@@ -54,6 +54,6 @@ protected:
     manip_info_.manipulator = "manipulator";
     manip_info_.tcp_frame = "tool0";
     manip_info_.working_frame = "base_link";
-    joint_names_ = env_->getJointGroup("manipulator")->getJointNames();
+    joint_ids_ = env_->getJointGroup("manipulator")->getJointIds();
   }
 };

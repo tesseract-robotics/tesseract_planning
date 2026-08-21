@@ -35,7 +35,8 @@ target_link_libraries(
          cereal::cereal)
 target_compile_options(command_language PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(command_language PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(command_language PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(command_language PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(command_language PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_clang_tidy(command_language ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(command_language PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(

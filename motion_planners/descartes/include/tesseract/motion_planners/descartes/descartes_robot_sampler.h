@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract/common/types.h>
 #include <tesseract/kinematics/fwd.h>
 #include <tesseract/motion_planners/descartes/descartes_utils.h>
 
@@ -52,12 +53,12 @@ public:
    * @param allow_collision If true and no valid solution was found it will return the best of the worst
    * @param is_valid This is a user defined function to filter out solution
    */
-  DescartesRobotSampler(std::string target_working_frame,
+  DescartesRobotSampler(tesseract::common::LinkId target_working_frame,
                         const Eigen::Isometry3d& target_pose,  // NOLINT(modernize-pass-by-value)
                         PoseSamplerFn target_pose_sampler,
                         std::shared_ptr<const tesseract::kinematics::KinematicGroup> manip,
                         std::shared_ptr<DescartesCollision> collision,
-                        std::string tcp_frame,
+                        tesseract::common::LinkId tcp_frame,
                         const Eigen::Isometry3d& tcp_offset,  // NOLINT(modernize-pass-by-value)
                         bool allow_collision,
                         std::shared_ptr<DescartesVertexEvaluator> is_valid,
@@ -69,7 +70,7 @@ public:
 
 private:
   /** @brief The target pose working frame */
-  std::string target_working_frame_;
+  tesseract::common::LinkId target_working_frame_;
 
   /** @brief The target pose to sample */
   Eigen::Isometry3d target_pose_;
@@ -84,7 +85,7 @@ private:
   std::shared_ptr<DescartesCollision> collision_;
 
   /** @brief The robot tool center point frame */
-  std::string tcp_frame_;
+  tesseract::common::LinkId tcp_frame_;
 
   /** @brief The robot tool center point */
   Eigen::Isometry3d tcp_offset_;

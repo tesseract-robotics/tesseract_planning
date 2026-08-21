@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/poly/joint_waypoint_poly.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::command_language
 {
@@ -47,15 +48,18 @@ public:
   // LCOV_EXCL_STOP
 
   JointWaypoint() = default;
-  JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position, bool is_constrained = true);
-  JointWaypoint(std::vector<std::string> names,
+
+  JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
+                const Eigen::VectorXd& position,
+                bool is_constrained = true);
+  JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                 const Eigen::VectorXd& position,
                 const Eigen::VectorXd& lower_tol,
                 const Eigen::VectorXd& upper_tol);
-  JointWaypoint(std::initializer_list<std::string> names,
+  JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                 std::initializer_list<double> position,
                 bool is_constrained = true);
-  JointWaypoint(std::initializer_list<std::string> names,
+  JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                 std::initializer_list<double> position,
                 std::initializer_list<double> lower_tol,
                 std::initializer_list<double> upper_tol);
@@ -66,9 +70,9 @@ public:
   void print(const std::string& prefix = "") const override final;
 
   // Joint Waypoint
-  void setNames(const std::vector<std::string>& names) override final;
-  std::vector<std::string>& getNames() override final;
-  const std::vector<std::string>& getNames() const override final;
+  void setJointIds(const std::vector<tesseract::common::JointId>& ids) override final;
+  const std::vector<tesseract::common::JointId>& getJointIds() const override final;
+  std::vector<tesseract::common::JointId>& getJointIds() override final;
 
   void setPosition(const Eigen::VectorXd& position) override final;
   Eigen::VectorXd& getPosition() override final;
@@ -90,8 +94,8 @@ public:
 private:
   /** @brief The name of the waypoint */
   std::string name_;
-  /** @brief The names of the joints */
-  std::vector<std::string> names_;
+  /** @brief The joint IDs */
+  std::vector<tesseract::common::JointId> joint_ids_;
   /** @brief The position of the joints */
   Eigen::VectorXd position_;
   /** @brief Joint distance below position that is allowed. Each element should be <= 0 */

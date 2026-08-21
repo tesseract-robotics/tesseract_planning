@@ -121,14 +121,14 @@ bool objectIsType(Base unit)
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
-  std::vector<std::string> joint_names = joint_group->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = joint_group->getJointIds();
 
   // Specify a JointWaypoint as the start
-  JointWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp1{ joint_ids, Eigen::VectorXd::Zero(7) };
   wp1.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Specify a Joint Waypoint as the finish
-  JointWaypoint wp2{ joint_names, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp2{ joint_ids, Eigen::VectorXd::Zero(7) };
   wp2.getPosition() << 0, 0, 0, 1.57, 0, 0, 0;
 
   // Define Start Instruction
@@ -207,14 +207,14 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
-  std::vector<std::string> joint_names = joint_group->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = joint_group->getJointIds();
 
   // Specify a JointWaypoint as the start
-  JointWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp1{ joint_ids, Eigen::VectorXd::Zero(7) };
   wp1.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Specify a Joint Waypoint as the finish
-  JointWaypoint wp2{ joint_names, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp2{ joint_ids, Eigen::VectorXd::Zero(7) };
   wp2.getPosition() << 0, 0, 0, 1.57, 0, 0, 0;
 
   // Define Start Instruction
@@ -293,10 +293,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
-  std::vector<std::string> joint_names = joint_group->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = joint_group->getJointIds();
 
   // Specify a JointWaypoint as the start
-  JointWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp1{ joint_ids, Eigen::VectorXd::Zero(7) };
   wp1.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Specify a CartesianWaypoint as the finish
@@ -379,14 +379,14 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
-  std::vector<std::string> joint_names = joint_group->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = joint_group->getJointIds();
 
   // Specify a JointWaypoint as the start
   CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
                          Eigen::Quaterniond(0, 0, 1.0, 0) };
 
   // Specify a Joint Waypoint as the finish
-  JointWaypoint wp2{ joint_names, Eigen::VectorXd::Zero(7) };
+  JointWaypoint wp2{ joint_ids, Eigen::VectorXd::Zero(7) };
   wp2.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Define Start Instruction
@@ -639,7 +639,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
-  std::vector<std::string> joint_names = joint_group->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = joint_group->getJointIds();
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -649,7 +649,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   for (int ind = 0; ind < NUM_STEPS; ind++)
   {
     // Specify a Joint Waypoint as the finish
-    JointWaypoint wp{ joint_names, Eigen::VectorXd::Zero(7) };
+    JointWaypoint wp{ joint_ids, Eigen::VectorXd::Zero(7) };
     wp.getPosition() << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
     MoveInstruction plan_f(wp, MoveInstructionType::FREESPACE, "TEST_PROFILE");
     program.push_back(plan_f);
@@ -699,7 +699,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
-  const std::vector<std::string>& joint_names = joint_group->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = joint_group->getJointIds();
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -709,7 +709,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   for (int ind = 0; ind < NUM_STEPS; ind++)
   {
     // Specify a Joint Waypoint as the finish
-    JointWaypoint wp{ joint_names, Eigen::VectorXd::Zero(7) };
+    JointWaypoint wp{ joint_ids, Eigen::VectorXd::Zero(7) };
     wp.getPosition() << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
     MoveInstruction plan_f(wp, MoveInstructionType::FREESPACE, "TEST_PROFILE");
     program.push_back(plan_f);

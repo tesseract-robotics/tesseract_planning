@@ -74,10 +74,10 @@ public:
 
   /**
    * @brief Update the current state
-   * @param joint_names The joint names
+   * @param joint_ids The joint ids
    * @param joint_values The joint values
    */
-  void updateState(const std::vector<std::string>& joint_names, const std::vector<double>& joint_values);
+  void updateState(const std::vector<tesseract::common::JointId>& joint_ids, const std::vector<double>& joint_values);
 
   /**
    * @brief Toggle real-time mode
@@ -113,7 +113,7 @@ private:
 
   // We need to keep this around so we can update it
   std::shared_ptr<trajopt_ifopt::CartPosConstraint> target_pose_constraint_;
-  std::vector<std::string> joint_names_;
+  std::vector<tesseract::common::JointId> joint_ids_;
   std::shared_ptr<trajopt_sqp::QPProblem> nlp_;
 
   void updateAndPlotTrajectory(const Eigen::VectorXd& osqp_vals);

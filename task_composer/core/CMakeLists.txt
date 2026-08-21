@@ -37,8 +37,9 @@ target_link_libraries(
          yaml-cpp)
 target_compile_options(task_composer PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(task_composer PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_compile_definitions(task_composer PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
 target_compile_definitions(
-  task_composer PUBLIC ${TESSERACT_COMPILE_DEFINITIONS}
+  task_composer PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC}
                        TESSERACT_TASK_COMPOSER_DIR="${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME}/task_composer")
 target_compile_definitions(task_composer
                            PRIVATE TESSERACT_TASK_COMPOSER_PLUGIN_PATH="${TESSERACT_TASK_COMPOSER_PLUGIN_PATH}")
@@ -84,7 +85,8 @@ target_link_libraries(
          yaml-cpp)
 target_compile_options(task_composer_nodes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(task_composer_nodes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(task_composer_nodes PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(task_composer_nodes PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(task_composer_nodes PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_clang_tidy(task_composer_nodes ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(task_composer_nodes PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
@@ -103,7 +105,8 @@ set_target_properties(task_composer_factories PROPERTIES OUTPUT_NAME tesseract_t
 target_link_libraries(task_composer_factories PUBLIC tesseract::task_composer tesseract::task_composer_nodes)
 target_compile_options(task_composer_factories PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(task_composer_factories PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(task_composer_factories PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(task_composer_factories PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(task_composer_factories PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_cxx_version(task_composer_factories PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_clang_tidy(task_composer_factories ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_code_coverage(
@@ -124,7 +127,8 @@ set_target_properties(task_composer_validate_config PROPERTIES OUTPUT_NAME tesse
 target_link_libraries(task_composer_validate_config PRIVATE tesseract::task_composer Boost::program_options)
 target_compile_options(task_composer_validate_config PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(task_composer_validate_config PRIVATE ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(task_composer_validate_config PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(task_composer_validate_config PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(task_composer_validate_config PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_cxx_version(task_composer_validate_config PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_clang_tidy(task_composer_validate_config ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_include_directories(

@@ -33,37 +33,39 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract::command_language
 {
-StateWaypoint::StateWaypoint(std::vector<std::string> joint_names, const Eigen::Ref<const Eigen::VectorXd>& position)
-  : joint_names_(std::move(joint_names)), position_(position)
+StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
+                             const Eigen::Ref<const Eigen::VectorXd>& position)
+  : joint_ids_(std::move(joint_ids)), position_(position)
 {
-  if (static_cast<Eigen::Index>(joint_names_.size()) != position_.size())
+  if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
     throw std::runtime_error("StateWaypoint: parameters are not the same size!");
 }
-StateWaypoint::StateWaypoint(const std::vector<std::string>& names,
+
+StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                              const Eigen::VectorXd& position,      // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& velocity,      // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& acceleration,  // NOLINT(modernize-pass-by-value)
                              double time)
-  : joint_names_(names), position_(position), velocity_(velocity), acceleration_(acceleration), time_(time)
+  : joint_ids_(std::move(joint_ids)), position_(position), velocity_(velocity), acceleration_(acceleration), time_(time)
 {
-  if (static_cast<Eigen::Index>(joint_names_.size()) != position_.size() || position_.size() != velocity_.size() ||
+  if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() || position_.size() != velocity_.size() ||
       position_.size() != acceleration_.size())
     throw std::runtime_error("StateWaypoint: parameters are not the same size!");
 }
 
-StateWaypoint::StateWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position)
-  : StateWaypoint(names,
+StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids, std::initializer_list<double> position)
+  : StateWaypoint(std::move(joint_ids),
                   Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())))
 {
 }
 
-StateWaypoint::StateWaypoint(std::initializer_list<std::string> names,
+StateWaypoint::StateWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                              std::initializer_list<double> position,
                              std::initializer_list<double> velocity,
                              std::initializer_list<double> acceleration,
                              double time)
   : StateWaypoint(
-        names,
+        std::move(joint_ids),
         Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
         Eigen::Map<const Eigen::VectorXd>(velocity.begin(), static_cast<Eigen::Index>(velocity.size())),
         Eigen::Map<const Eigen::VectorXd>(acceleration.begin(), static_cast<Eigen::Index>(acceleration.size())),
@@ -82,9 +84,9 @@ void StateWaypoint::print(const std::string& prefix) const
 std::unique_ptr<StateWaypointInterface> StateWaypoint::clone() const { return std::make_unique<StateWaypoint>(*this); }
 
 // State Waypoint
-void StateWaypoint::setNames(const std::vector<std::string>& names) { joint_names_ = names; }
-std::vector<std::string>& StateWaypoint::getNames() { return joint_names_; }
-const std::vector<std::string>& StateWaypoint::getNames() const { return joint_names_; }
+void StateWaypoint::setJointIds(const std::vector<tesseract::common::JointId>& ids) { joint_ids_ = ids; }
+const std::vector<tesseract::common::JointId>& StateWaypoint::getJointIds() const { return joint_ids_; }
+std::vector<tesseract::common::JointId>& StateWaypoint::getJointIds() { return joint_ids_; }
 
 void StateWaypoint::setPosition(const Eigen::VectorXd& position) { this->position_ = position; }
 Eigen::VectorXd& StateWaypoint::getPosition() { return position_; }
@@ -115,8 +117,8 @@ bool StateWaypoint::equals(const StateWaypointInterface& other) const
 
   bool equal = true;
   equal &= (name_ == rhs->name_);
+  equal &= (joint_ids_ == rhs->joint_ids_);
   equal &= tesseract::common::almostEqualRelativeAndAbs(position_, rhs->position_, max_diff);
-  equal &= tesseract::common::isIdentical(joint_names_, rhs->joint_names_);
   return equal;
 }
 

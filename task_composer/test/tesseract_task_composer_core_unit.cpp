@@ -64,9 +64,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerKeysTests)  // NOLINT
 TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
 {
   std::string key{ "joint_state" };
-  std::vector<std::string> joint_names{ "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> joint_ids{ "joint_1", "joint_2" };
   Eigen::Vector2d joint_values(5, 10);
-  tesseract::common::JointState js(joint_names, joint_values);
+  tesseract::common::JointState js(joint_ids, joint_values);
   TaskComposerDataStorage data("test_name");
   EXPECT_EQ(data.getName(), "test_name");
   EXPECT_FALSE(data.hasKey(key));
@@ -1699,9 +1699,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
 
   std::string key = "joint_state";
   std::string remap_key = "remap_joint_state";
-  std::vector<std::string> joint_names{ "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> joint_ids{ "joint_1", "joint_2" };
   Eigen::Vector2d joint_values(5, 10);
-  tesseract::common::JointState js(joint_names, joint_values);
+  tesseract::common::JointState js(joint_ids, joint_values);
   {  // Test run method copy
     auto data_storage = std::make_unique<TaskComposerDataStorage>();
     data_storage->setData(key, js);

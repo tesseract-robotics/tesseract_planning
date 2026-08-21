@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/fwd.h>
 #include <tesseract/collision/types.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::motion_planners
 {
@@ -42,9 +43,9 @@ createKinematicGroup(const tesseract::common::ManipulatorInfo& manip_info,
 
 std::shared_ptr<trajopt::TermInfo>
 createCartesianWaypointTermInfo(int index,
-                                const std::string& working_frame,
+                                const tesseract::common::LinkId& working_frame,
                                 const Eigen::Isometry3d& c_wp,
-                                const std::string& tcp_frame,
+                                const tesseract::common::LinkId& tcp_frame,
                                 const Eigen::Isometry3d& tcp_offset,
                                 const Eigen::VectorXd& coeffs,
                                 trajopt::TermType type,
@@ -53,20 +54,21 @@ createCartesianWaypointTermInfo(int index,
 
 std::shared_ptr<trajopt::TermInfo>
 createDynamicCartesianWaypointTermInfo(int index,
-                                       const std::string& working_frame,
+                                       const tesseract::common::LinkId& working_frame,
                                        const Eigen::Isometry3d& c_wp,
-                                       const std::string& tcp_frame,
+                                       const tesseract::common::LinkId& tcp_frame,
                                        const Eigen::Isometry3d& tcp_offset,
                                        const Eigen::VectorXd& coeffs,
                                        trajopt::TermType type,
                                        const Eigen::VectorXd& lower_tolerance = Eigen::VectorXd(),
                                        const Eigen::VectorXd& upper_tolerance = Eigen::VectorXd());
 
-std::shared_ptr<trajopt::TermInfo> createNearJointStateTermInfo(const Eigen::VectorXd& target,
-                                                                const std::vector<std::string>& joint_names,
-                                                                int index,
-                                                                const Eigen::VectorXd& coeffs,
-                                                                trajopt::TermType type);
+std::shared_ptr<trajopt::TermInfo>
+createNearJointStateTermInfo(const Eigen::VectorXd& target,
+                             const std::vector<tesseract::common::JointId>& joint_ids,
+                             int index,
+                             const Eigen::VectorXd& coeffs,
+                             trajopt::TermType type);
 
 std::shared_ptr<trajopt::TermInfo> createJointWaypointTermInfo(const Eigen::VectorXd& j_wp,
                                                                int index,
@@ -129,7 +131,7 @@ std::shared_ptr<trajopt::TermInfo> createUserDefinedTermInfo(int start_index,
 
 std::shared_ptr<trajopt::TermInfo> createAvoidSingularityTermInfo(int start_index,
                                                                   int end_index,
-                                                                  const std::string& link,
+                                                                  const tesseract::common::LinkId& link,
                                                                   double coeff = 5.0,
                                                                   trajopt::TermType type = trajopt::TermType::TT_COST);
 }  // namespace tesseract::motion_planners

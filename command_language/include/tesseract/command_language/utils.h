@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/fwd.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::command_language
 {
@@ -75,14 +76,14 @@ template <class T>
 const Eigen::VectorXd& getJointPosition(const T&) = delete;
 
 /**
- * @brief Gets joint names from waypoints that contain that information.
+ * @brief Gets joint IDs from waypoints that contain that information.
  *
  * Throws if waypoint does not directly contain that information
  *
- * @param waypoint The waypoint to try and extract the joint position from
- * @return The joint names
+ * @param waypoint The waypoint to try and extract the joint IDs from
+ * @return The joint IDs
  */
-const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint);
+const std::vector<tesseract::common::JointId>& getJointIds(const WaypointPoly& waypoint);
 
 /**
  * @brief This prevent implicit cast to WaypointPoly
@@ -90,35 +91,36 @@ const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint);
  * to a WaypointPoly then the object return is referencing a temporary value.
  */
 template <class T>
-const std::vector<std::string>& getJointNames(const T&) = delete;
+const std::vector<tesseract::common::JointId>& getJointIds(const T&) = delete;
 
 /**
- * @brief Get the joint positions ordered by the provided joint names
+ * @brief Get the joint positions ordered by the provided joint ids
  *
  * Throws if waypoint does not directly contain that information
  *
  * Also this is an expensive call so the motion planners do not leverage this and they expect the order through out
  * the program all match.
  *
- * @param joint_names The joint names defining the order desired
+ * @param joint_ids The joint ids defining the order desired
  * @param waypoint The waypoint to
- * @return The joint values ordered by the provided joint_names
+ * @return The joint values ordered by the provided joint_ids
  */
-Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint);
+Eigen::VectorXd getJointPosition(const std::vector<tesseract::common::JointId>& joint_ids,
+                                 const WaypointPoly& waypoint);
 
 /**
- * @brief Format the waypoints joint ordered by the provided joint names
+ * @brief Format the waypoints joint ordered by the provided joint ids
  *
  * Throws if waypoint does not directly contain that information
  *
  * Also this is an expensive call so the motion planners do not leverage this and they expect the order through out
  * the program all match.
  *
- * @param joint_names The joint names defining the order desired
+ * @param joint_ids The joint ids defining the order desired
  * @param waypoint The waypoint to format
  * @return True if formatting was required, otherwise false.
  */
-bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint);
+bool formatJointPosition(const std::vector<tesseract::common::JointId>& joint_ids, WaypointPoly& waypoint);
 
 /**
  * @brief This prevent implicit cast to WaypointPoly
@@ -126,21 +128,21 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
  * to a WaypointPoly then the object return is referencing a temporary value.
  */
 template <class T>
-bool formatJointPosition(const std::vector<std::string>&, T&) = delete;
+bool formatJointPosition(const std::vector<tesseract::common::JointId>&, T&) = delete;
 
 /**
- * @brief Check the waypoints joint order against the provided joint names
+ * @brief Check the waypoints joint order against the provided joint ids
  *
  * Throws if waypoint does not directly contain that information
  *
  * Also this is an expensive call so the motion planners do not leverage this and they expect the order through out
  * the program all match.
  *
- * @param joint_names The joint names defining the order desired
+ * @param joint_ids The joint ids defining the order desired
  * @param waypoint The waypoint to check format
  * @return True if waypoint format is correct, otherwise false.
  */
-bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint);
+bool checkJointPositionFormat(const std::vector<tesseract::common::JointId>& joint_ids, const WaypointPoly& waypoint);
 
 /**
  * @brief Set the joint position for waypoints that contain that information

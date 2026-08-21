@@ -37,6 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/motion_planners/ompl/types.h>
 
+#include <tesseract/common/types.h>
 #include <tesseract/environment/fwd.h>
 #include <tesseract/kinematics/fwd.h>
 #include <tesseract/collision/fwd.h>
@@ -44,12 +45,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::motion_planners
 {
 /**
- * @class PenetrationDepthObjective
- * @brief Optimization objective for minimizing the obstacles within the contact threshold.
+ * @class CollisionCostObjective
+ * @brief Optimization objective for minimizing penetration into obstacles.
  *
- * This objective assigns zero cost to states outside contact threshold and a cost equal to the distance within the
- * contact threshold (positive) for states inside obstacles. When used with StateCostIntegralObjective
- * (optimize_by_motion=true), the planner minimizes the integral of penetration along the path.
+ * A state that is not penetrating costs zero, including one that is within the contact margin but still separated.
+ * A penetrating state costs the deepest penetration depth found at that state. When used with
+ * StateCostIntegralObjective (optimize_by_motion=true), the planner minimizes the integral of that depth along the
+ * path.
  */
 class CollisionCostObjective : public ompl::base::StateCostIntegralObjective
 {
@@ -64,7 +66,7 @@ public:
   /**
    * @brief State cost function.
    * @param state The state to evaluate.
-   * @return Cost equal to the distance within the contact threshold at state s (>=0).
+   * @return The deepest penetration depth at the state, or zero if nothing is penetrating (>=0).
    */
   ompl::base::Cost stateCost(const ompl::base::State* state) const override;
 
@@ -72,11 +74,11 @@ private:
   /** @brief The Tesseract Joint Group */
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip_;
 
-  /** @brief The continuous contact manager used for creating cached continuous contact managers. */
+  /** @brief The discrete contact manager used for creating cached discrete contact managers. */
   std::shared_ptr<tesseract::collision::DiscreteContactManager> contact_manager_;
 
-  /** @brief A list of active links */
-  std::vector<std::string> links_;
+  /** @brief A list of active link IDs */
+  std::vector<tesseract::common::LinkId> link_ids_;
 
   /** @brief This will extract an Eigen::VectorXd from the OMPL State */
   OMPLStateExtractor extractor_;
@@ -89,7 +91,7 @@ private:
   /** @brief Contact manager caching mutex */
   mutable std::mutex mutex_;
 
-  /** @brief The continuous contact manager cache */
+  /** @brief The discrete contact manager cache */
   mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::DiscreteContactManager>> contact_managers_;
 };
 

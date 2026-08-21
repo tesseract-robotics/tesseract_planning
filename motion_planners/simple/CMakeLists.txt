@@ -19,7 +19,8 @@ set_target_properties(motion_planners_simple PROPERTIES OUTPUT_NAME tesseract_mo
 target_link_libraries(motion_planners_simple PUBLIC tesseract::motion_planners Boost::boost cereal::cereal)
 target_compile_options(motion_planners_simple PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(motion_planners_simple PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(motion_planners_simple PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(motion_planners_simple PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(motion_planners_simple PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_clang_tidy(motion_planners_simple ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(motion_planners_simple PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(

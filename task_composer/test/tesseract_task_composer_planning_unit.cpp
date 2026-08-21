@@ -4,6 +4,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 #include <memory>
 #include <boost/algorithm/string.hpp>
+#include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/planning/nodes/continuous_contact_check_task.h>
@@ -69,6 +70,50 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract::task_composer;
 using namespace tesseract::command_language;
 using namespace tesseract::motion_planners;
+
+/**
+ * @brief Collects console_bridge messages logged at debug level for the enclosing scope
+ *
+ * The log level and output handler are process global, so the scope must hold only synchronous single-threaded work.
+ */
+class ScopedDebugCapture : public console_bridge::OutputHandler
+{
+public:
+  ScopedDebugCapture() : previous_level_(console_bridge::getLogLevel())
+  {
+    console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_DEBUG);
+    console_bridge::useOutputHandler(this);
+  }
+  ~ScopedDebugCapture() override
+  {
+    console_bridge::restorePreviousOutputHandler();
+    console_bridge::setLogLevel(previous_level_);
+  }
+  ScopedDebugCapture(const ScopedDebugCapture&) = delete;
+  ScopedDebugCapture& operator=(const ScopedDebugCapture&) = delete;
+  ScopedDebugCapture(ScopedDebugCapture&&) = delete;
+  ScopedDebugCapture& operator=(ScopedDebugCapture&&) = delete;
+
+  void log(const std::string& text, console_bridge::LogLevel /*level*/, const char* /*filename*/, int /*line*/) override
+  {
+    messages_.push_back(text);
+  }
+
+  /** @brief Returns the first captured message containing the substring, or an empty string if there is none */
+  std::string find(const std::string& substring) const
+  {
+    for (const std::string& message : messages_)
+    {
+      if (message.find(substring) != std::string::npos)
+        return message;
+    }
+    return {};
+  }
+
+private:
+  console_bridge::LogLevel previous_level_;
+  std::vector<std::string> messages_;
+};
 
 class TesseractTaskComposerPlanningUnit : public ::testing::Test
 {
@@ -245,6 +290,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
   }
 
   {  // Failure collision
+    ScopedDebugCapture debug_log;
+
     auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
 
     auto profile = std::make_unique<ContactCheckProfile>();
@@ -278,6 +325,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
+
+    // The report identifies the joints by name, not by the numeric value behind the id
+    const std::string report = debug_log.find("Continuous collision detected at step");
+    ASSERT_FALSE(report.empty());
+    for (const tesseract::common::JointId& joint_id : env_->getGroupJointIds(manip_.manipulator))
+      EXPECT_NE(report.find(joint_id.name()), std::string::npos);
   }
 }
 
@@ -427,6 +480,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
   }
 
   {  // Failure collision
+    ScopedDebugCapture debug_log;
+
     auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
 
     auto profile = std::make_unique<ContactCheckProfile>();
@@ -459,6 +514,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
+
+    // The report identifies the joints by name, not by the numeric value behind the id
+    const std::string report = debug_log.find("Discrete collision detected at step");
+    ASSERT_FALSE(report.empty());
+    for (const tesseract::common::JointId& joint_id : env_->getGroupJointIds(manip_.manipulator))
+      EXPECT_NE(report.find(joint_id.name()), std::string::npos);
   }
 }
 
@@ -580,7 +641,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     MoveInstructionPoly last = input_program.back().as<MoveInstructionPoly>();
     const auto& jwp = last.getWaypoint().as<JointWaypointPoly>();
     CartesianWaypoint cwp{ Eigen::Isometry3d::Identity() };
-    cwp.setSeed(tesseract::common::JointState(jwp.getNames(), jwp.getPosition()));
+    cwp.setSeed(tesseract::common::JointState(jwp.getJointIds(), jwp.getPosition()));
     last.getWaypoint() = CartesianWaypointPoly(cwp);
     input_program.back() = last;
     EXPECT_EQ(input_program.size(), 2);
@@ -728,18 +789,17 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
 TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskReordersTolerances)  // NOLINT
 {
   // joint_1/joint_2 in pre-planning (formatted) order; post-planning reverses to joint_2/joint_1.
-  std::vector<std::string> orig_names = { "joint_1", "joint_2" };
-  std::vector<std::string> post_names = { "joint_2", "joint_1" };
+  std::vector<tesseract::common::JointId> orig_ids = { "joint_1", "joint_2" };
+  std::vector<tesseract::common::JointId> post_ids = { "joint_2", "joint_1" };
 
-  // Pre-planning program: one toleranced JointWaypoint in orig_names order.
-  JointWaypoint jwp_pre(
-      orig_names, Eigen::Vector2d(10.0, 20.0), Eigen::Vector2d(-0.1, -0.2), Eigen::Vector2d(0.3, 0.4));
+  // Pre-planning program: one toleranced JointWaypoint in orig_ids order.
+  JointWaypoint jwp_pre(orig_ids, Eigen::Vector2d(10.0, 20.0), Eigen::Vector2d(-0.1, -0.2), Eigen::Vector2d(0.3, 0.4));
   MoveInstruction mi_pre(JointWaypointPoly(jwp_pre), MoveInstructionType::FREESPACE, "freespace_profile");
   CompositeInstruction ci_pre;
   ci_pre.push_back(mi_pre);
 
-  // Post-planning program: same move but in post_names order with new positions.
-  JointWaypoint jwp_post(post_names, Eigen::Vector2d(99.0, 88.0));
+  // Post-planning program: same move but in post_ids order with new positions.
+  JointWaypoint jwp_post(post_ids, Eigen::Vector2d(99.0, 88.0));
   MoveInstruction mi_post(JointWaypointPoly(jwp_post), MoveInstructionType::FREESPACE, "freespace_profile");
   CompositeInstruction ci_post;
   ci_post.push_back(mi_post);
@@ -763,7 +823,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskReordersT
   ASSERT_EQ(moves.size(), 1U);
   const auto& jwp_out = moves[0].get().as<MoveInstructionPoly>().getWaypoint().as<JointWaypointPoly>();
 
-  EXPECT_EQ(jwp_out.getNames(), post_names);
+  EXPECT_EQ(jwp_out.getJointIds(), post_ids);
   EXPECT_TRUE(jwp_out.getPosition().isApprox(Eigen::Vector2d(99.0, 88.0)));
   // After reorder, joint_2's tolerance (index 1) should be first, joint_1's (index 0) second.
   EXPECT_TRUE(jwp_out.getLowerTolerance().isApprox(Eigen::Vector2d(-0.2, -0.1)));

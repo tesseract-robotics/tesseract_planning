@@ -67,7 +67,7 @@ public:
     , tesseract_(std::move(tesseract))
     , fwd_kin_(std::move(fwd_kin))
     , manipulator_(std::move(manipulator))
-    , tcp_link_(std::move(tcp_link))
+    , tcp_link_(tcp_link)
     , plotter_(plotter)
   {
     trajopt_common::gLogLevel = trajopt_common::LevelError;
@@ -115,8 +115,8 @@ public:
     pci.cnt_infos.push_back(collision);
 
     auto fn = [this](const Eigen::VectorXd& jv) {
-      Eigen::Isometry3d pose;
-      fwd_kin_->calcFwdKin(pose, jv);
+      auto transforms = fwd_kin_->calcFwdKin(jv);
+      const Eigen::Isometry3d& pose = transforms.at(tcp_link_);
 
       Eigen::Vector3d z_axis = pose.matrix().col(2).template head<3>().normalized();
 
@@ -175,15 +175,20 @@ private:
   tesseract::Tesseract::Ptr tesseract_;
   tesseract::kinematics::ForwardKinematics::Ptr fwd_kin_;
   std::string manipulator_;
-  std::string tcp_link_;
+  tesseract::common::LinkId tcp_link_;
   tesseract_rosutils::ROSPlottingPtr plotter_;
 };
 
 class GlassUprightConstraint : public ompl::base::Constraint
 {
 public:
-  GlassUprightConstraint(const Eigen::Vector3d& normal, tesseract::kinematics::ForwardKinematics::Ptr fwd_kin)
-    : ompl::base::Constraint(fwd_kin->numJoints(), 1), normal_(normal.normalized()), fwd_kin_(std::move(fwd_kin))
+  GlassUprightConstraint(const Eigen::Vector3d& normal,
+                         tesseract::kinematics::ForwardKinematics::Ptr fwd_kin,
+                         std::string tcp_link)
+    : ompl::base::Constraint(fwd_kin->numJoints(), 1)
+    , normal_(normal.normalized())
+    , fwd_kin_(std::move(fwd_kin))
+    , tcp_link_(tcp_link)
   {
   }
 
@@ -191,8 +196,8 @@ public:
 
   void function(const Eigen::Ref<const Eigen::VectorXd>& x, Eigen::Ref<Eigen::VectorXd> out) const override
   {
-    Eigen::Isometry3d pose;
-    fwd_kin_->calcFwdKin(pose, x);
+    auto transforms = fwd_kin_->calcFwdKin(x);
+    const Eigen::Isometry3d& pose = transforms.at(tcp_link_);
 
     Eigen::Vector3d z_axis = pose.matrix().col(2).template head<3>().normalized();
 
@@ -202,6 +207,7 @@ public:
 private:
   Eigen::Vector3d normal_;
   tesseract::kinematics::ForwardKinematics::Ptr fwd_kin_;
+  tesseract::common::LinkId tcp_link_;
 };
 
 GlassUprightOMPLExample::GlassUprightOMPLExample(std::shared_ptr<tesseract::environment::Environment> env,
@@ -236,8 +242,8 @@ bool GlassUprightOMPLExample::run()
   link_sphere.collision.push_back(collision);
 
   Joint joint_sphere("joint_sphere_attached");
-  joint_sphere.parent_link_name = "base_link";
-  joint_sphere.child_link_name = link_sphere.getName();
+  joint_sphere.parent_link_id = "base_link";
+  joint_sphere.child_link_id = link_sphere.getId();
   joint_sphere.type = JointType::FIXED;
 
   tesseract_->getEnvironment()->addLink(link_sphere, joint_sphere);
@@ -291,7 +297,7 @@ bool GlassUprightOMPLExample::run()
   else
   {
     Eigen::Vector3d normal = -1.0 * Eigen::Vector3d::UnitZ();
-    ompl_config->constraint = std::make_shared<GlassUprightConstraint>(normal, kin);
+    ompl_config->constraint = std::make_shared<GlassUprightConstraint>(normal, kin, "tool0");
   }
 
   for (int i = 0; i < 4; ++i)
@@ -336,7 +342,7 @@ bool GlassUprightOMPLExample::run()
 
     manager->setActiveCollisionObjects(adjacency_map->getActiveLinkNames());
     manager->setContactDistanceThreshold(0);
-    bool found = checkTrajectory(collisions, *manager, *state_solver, kin->getJointNames(), traj);
+    bool found = checkTrajectory(collisions, *manager, *state_solver, kin->getJointIds(), traj);
 
     CONSOLE_BRIDGE_logInform((found) ? ("Final trajectory is in collision") : ("Final trajectory is collision free"));
 

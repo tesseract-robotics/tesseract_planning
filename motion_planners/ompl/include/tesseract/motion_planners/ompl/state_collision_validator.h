@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/motion_planners/ompl/types.h>
 
+#include <tesseract/common/types.h>
 #include <tesseract/environment/fwd.h>
 #include <tesseract/kinematics/fwd.h>
 #include <tesseract/collision/fwd.h>
@@ -46,7 +47,7 @@ using SpaceInformationPtr = std::shared_ptr<SpaceInformation>;
 
 namespace tesseract::motion_planners
 {
-/** @brief Continuous collision check between two states */
+/** @brief Discrete collision check of a single state */
 class StateCollisionValidator : public ompl::base::StateValidityChecker
 {
 public:
@@ -62,11 +63,11 @@ private:
   /** @brief The Tesseract Joint Group */
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip_;
 
-  /** @brief The continuous contact manager used for creating cached continuous contact managers. */
+  /** @brief The discrete contact manager used for creating cached discrete contact managers. */
   std::shared_ptr<tesseract::collision::DiscreteContactManager> contact_manager_;
 
-  /** @brief A list of active links */
-  std::vector<std::string> links_;
+  /** @brief A list of active link IDs */
+  std::vector<tesseract::common::LinkId> link_ids_;
 
   /** @brief This will extract an Eigen::VectorXd from the OMPL State */
   OMPLStateExtractor extractor_;
@@ -79,7 +80,7 @@ private:
   /** @brief Contact manager caching mutex */
   mutable std::mutex mutex_;
 
-  /** @brief The continuous contact manager cache */
+  /** @brief The discrete contact manager cache */
   mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::DiscreteContactManager>> contact_managers_;
 };
 

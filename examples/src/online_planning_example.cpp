@@ -96,19 +96,18 @@ OnlinePlanningExample::OnlinePlanningExample(std::shared_ptr<tesseract::environm
 
   // Initialize the trajectory
   current_trajectory_ = tesseract::common::TrajArray::Zero(steps_, 10);
-  joint_names_ = { "gantry_axis_1", "gantry_axis_2", "joint_1", "joint_2",       "joint_3",
-                   "joint_4",       "joint_5",       "joint_6", "human_x_joint", "human_y_joint" };
+  joint_ids_ = { "gantry_axis_1", "gantry_axis_2", "joint_1", "joint_2",       "joint_3",
+                 "joint_4",       "joint_5",       "joint_6", "human_x_joint", "human_y_joint" };
 
   target_pose_delta_ = Eigen::Isometry3d::Identity();
   target_pose_base_frame_ = Eigen::Isometry3d::Identity();
 }
 
-void OnlinePlanningExample::updateState(const std::vector<std::string>& joint_names,
+void OnlinePlanningExample::updateState(const std::vector<tesseract::common::JointId>& joint_ids,
                                         const std::vector<double>& joint_values)
 {
   // Set the environment state to update the collision model
-  // Set the environment state to update the collision model
-  env_->setState(joint_names,
+  env_->setState(joint_ids,
                  Eigen::Map<const Eigen::VectorXd>(joint_values.data(), static_cast<long>(joint_values.size())));
 
   // Update current_trajectory_ so the live trajectory will be visualized correctly
@@ -160,7 +159,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
 {
   // 1) Add Variables
   Eigen::MatrixX2d joint_limits_eigen = manip_->getLimits().joint_limits;
-  Eigen::VectorXd current_position = env_->getCurrentJointValues(manip_->getJointNames());
+  Eigen::VectorXd current_position = env_->getCurrentJointValues(manip_->getJointIds());
   const std::vector<trajopt_ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip_->getLimits().joint_limits);
   //  Eigen::VectorXd home_position = Eigen::VectorXd::Zero(manip_->numJoints());
   Eigen::VectorXd target_joint_position(manip_->numJoints());
@@ -174,10 +173,11 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   else
     initial_states = initial_trajectory;
 
+  const std::vector<std::string> joint_names = tesseract::common::toNames(manip_->getJointIds());
   for (std::size_t ind = 0; ind < static_cast<std::size_t>(steps_); ind++)
   {
     nodes.push_back(std::make_unique<trajopt_ifopt::Node>("Joint_Position_" + std::to_string(ind)));
-    vars.push_back(nodes.back()->addVar("position", manip_->getJointNames(), initial_states[ind], bounds));
+    vars.push_back(nodes.back()->addVar("position", joint_names, initial_states[ind], bounds));
   }
   auto variables = std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes));
 
@@ -267,7 +267,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
 
 // Convert to joint trajectory
 tesseract::common::JointTrajectory getJointTrajectory(boost::uuids::uuid uuid,
-                                                      const std::vector<std::string>& joint_names,
+                                                      const std::vector<tesseract::common::JointId>& joint_ids,
                                                       const tesseract::common::TrajArray& current_trajectory)
 {
   tesseract::common::JointTrajectory joint_traj;
@@ -276,7 +276,7 @@ tesseract::common::JointTrajectory getJointTrajectory(boost::uuids::uuid uuid,
   double total_time = 0;
   for (long i = 0; i < current_trajectory.rows(); ++i)
   {
-    tesseract::common::JointState js(joint_names, current_trajectory.row(i));
+    tesseract::common::JointState js(joint_ids, current_trajectory.row(i));
     js.time = total_time;
     joint_traj.push_back(js);
     total_time += 0.1;
@@ -292,7 +292,7 @@ void OnlinePlanningExample::updateAndPlotTrajectory(const Eigen::VectorXd& osqp_
 
   // Convert to joint trajectory
   tesseract::common::JointTrajectory joint_traj =
-      getJointTrajectory(current_trajectory_uuid_, joint_names_, current_trajectory_);
+      getJointTrajectory(current_trajectory_uuid_, joint_ids_, current_trajectory_);
   player_.setTrajectory(joint_traj);
 
   // Display Results
@@ -340,7 +340,7 @@ bool OnlinePlanningExample::onlinePlan()
         init_trajectory.emplace_back(state.position.head(manip_->numJoints()));
       }
 
-      env_->setState(state.joint_names, state.position);
+      env_->setState(state.joint_ids, state.position);
 
       // Setup problem again which should use a new start state
       setupProblem(init_trajectory);

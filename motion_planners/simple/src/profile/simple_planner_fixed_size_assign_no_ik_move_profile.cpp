@@ -107,7 +107,7 @@ std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerFixed
   }
   else
   {
-    Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointNames());
+    Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointIds());
     tesseract::common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
     if (base.instruction.isLinear())
@@ -138,10 +138,10 @@ std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerFixed
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointIds(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointIds(), states, base.instruction);
 }
 
 bool SimplePlannerFixedSizeAssignNoIKMoveProfile::operator==(

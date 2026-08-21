@@ -58,6 +58,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/kinematics/kinematic_group.h>
 #include <tesseract/collision/discrete_contact_manager.h>
 #include <tesseract/environment/environment.h>
+#include <tesseract/state_solver/state_solver.h>
 
 #include <tesseract/common/profile_plugin_factory.h>
 #include <tesseract/common/joint_state.h>
@@ -118,7 +119,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
   // Get kinematics
   tesseract::kinematics::JointGroup::ConstPtr manip = env->getJointGroup(end_mi.manipulator);
   const auto dof = static_cast<unsigned>(manip->numJoints());
-  const std::vector<std::string> joint_names = manip->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = manip->getJointIds();
   const Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
 
   // Construct the OMPL state space for this manipulator
@@ -126,7 +127,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
 
   auto rss = std::make_shared<ompl::base::RealVectorStateSpace>();
   for (unsigned i = 0; i < dof; ++i)
-    rss->addDimension(joint_names[i], limits(i, 0), limits(i, 1));
+    rss->addDimension(joint_ids[i].name(), limits(i, 0), limits(i, 1));
 
   rss->setStateSamplerAllocator(createStateSamplerAllocator(env, manip));
 
@@ -176,8 +177,8 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
   if (start_instruction.getWaypoint().isJointWaypoint() || start_instruction.getWaypoint().isStateWaypoint())
   {
     tesseract::kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(start_mi.manipulator);
-    assert(checkJointPositionFormat(joint_group->getJointNames(), start_instruction.getWaypoint()));
-    contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkNames());
+    assert(checkJointPositionFormat(joint_group->getJointIds(), start_instruction.getWaypoint()));
+    contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkIds());
     const Eigen::VectorXd& cur_position = getJointPosition(start_instruction.getWaypoint());
     applyStartStates(*simple_setup, cur_position, *joint_group, *contact_checker);
   }
@@ -192,7 +193,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
     else
       kin_group = env->getKinematicGroup(start_mi.manipulator, start_mi.manipulator_ik_solver);
 
-    contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkNames());
+    contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkIds());
     tesseract::kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, start_mi.working_frame, start_mi.tcp_frame);
     const Eigen::VectorXd seed = cur_wp.hasSeed() ? cur_wp.getSeed().position : Eigen::VectorXd();
     applyStartStates(*simple_setup, ik_input, *kin_group, *contact_checker, seed);
@@ -206,8 +207,8 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
   if (end_instruction.getWaypoint().isJointWaypoint() || end_instruction.getWaypoint().isStateWaypoint())
   {
     tesseract::kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(end_mi.manipulator);
-    assert(checkJointPositionFormat(joint_group->getJointNames(), end_instruction.getWaypoint()));
-    contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkNames());
+    assert(checkJointPositionFormat(joint_group->getJointIds(), end_instruction.getWaypoint()));
+    contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkIds());
     const Eigen::VectorXd& cur_position = getJointPosition(end_instruction.getWaypoint());
     applyGoalStates(*simple_setup, cur_position, *joint_group, *contact_checker);
   }
@@ -222,7 +223,7 @@ std::unique_ptr<ompl::geometric::SimpleSetup> OMPLRealVectorMoveProfile::createS
     else
       kin_group = env->getKinematicGroup(end_mi.manipulator, end_mi.manipulator_ik_solver);
 
-    contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkNames());
+    contact_checker->setActiveCollisionObjects(kin_group->getActiveLinkIds());
     tesseract::kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, end_mi.working_frame, end_mi.tcp_frame);
     const Eigen::VectorXd seed = cur_wp.hasSeed() ? cur_wp.getSeed().position : Eigen::VectorXd();
     applyGoalStates(*simple_setup, ik_input, *kin_group, *contact_checker, seed);
@@ -315,10 +316,12 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   {
     for (std::size_t i = 0; i < contact_map_vec.size(); i++)
       for (const auto& contact_vec : contact_map_vec[i])
+      {
+        const auto [link1, link2] = contact_vec.first.orderedNameView();
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_names[0] + ", " +
-                                   contact.link_names[1] + "  Distance: " + std::to_string(contact.distance))
-                                      .c_str());
+          CONSOLE_BRIDGE_logError(
+              "Solution: %zu  Links: %s, %s  Distance: %f", i, link1.c_str(), link2.c_str(), contact.distance);
+      }
     throw std::runtime_error("In OMPLRealVectorMoveProfile: All goal states are either in collision or outside limits");
   }
   simple_setup.setGoal(goal_states);
@@ -351,10 +354,11 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   {
     CONSOLE_BRIDGE_logError("In OMPLRealVectorMoveProfile: Goal state is in collision");
     for (const auto& contact_vec : contact_map)
+    {
+      const auto [link1, link2] = contact_vec.first.orderedNameView();
       for (const auto& contact : contact_vec.second)
-        CONSOLE_BRIDGE_logError(("Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
-                                 "  Distance: " + std::to_string(contact.distance))
-                                    .c_str());
+        CONSOLE_BRIDGE_logError("Links: %s, %s  Distance: %f", link1.c_str(), link2.c_str(), contact.distance);
+    }
   }
 
   ompl::base::ScopedState<> goal_state(simple_setup.getStateSpace());
@@ -438,10 +442,12 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   {
     for (std::size_t i = 0; i < contact_map_vec.size(); i++)
       for (const auto& contact_vec : contact_map_vec[i])
+      {
+        const auto [link1, link2] = contact_vec.first.orderedNameView();
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_names[0] + ", " +
-                                   contact.link_names[1] + "  Distance: " + std::to_string(contact.distance))
-                                      .c_str());
+          CONSOLE_BRIDGE_logError(
+              "Solution: %zu  Links: %s, %s  Distance: %f", i, link1.c_str(), link2.c_str(), contact.distance);
+      }
     throw std::runtime_error("In OMPLPlannerFreespaceConfig: All start states are either in collision or outside "
                              "limits");
   }
@@ -473,10 +479,11 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   {
     CONSOLE_BRIDGE_logError("In OMPLPlannerFreespaceConfig: Start state is in collision");
     for (const auto& contact_vec : contact_map)
+    {
+      const auto [link1, link2] = contact_vec.first.orderedNameView();
       for (const auto& contact : contact_vec.second)
-        CONSOLE_BRIDGE_logError(("Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
-                                 "  Distance: " + std::to_string(contact.distance))
-                                    .c_str());
+        CONSOLE_BRIDGE_logError("Links: %s, %s  Distance: %f", link1.c_str(), link2.c_str(), contact.distance);
+    }
   }
 
   ompl::base::ScopedState<> start_state(simple_setup.getStateSpace());

@@ -13,7 +13,8 @@ target_link_libraries(
          yaml-cpp)
 target_compile_options(task_composer_taskflow PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(task_composer_taskflow PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(task_composer_taskflow PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(task_composer_taskflow PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(task_composer_taskflow PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_clang_tidy(task_composer_taskflow ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(task_composer_taskflow PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
@@ -32,7 +33,8 @@ set_target_properties(task_composer_taskflow_factories PROPERTIES OUTPUT_NAME
 target_link_libraries(task_composer_taskflow_factories PUBLIC tesseract::task_composer_taskflow)
 target_compile_options(task_composer_taskflow_factories PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(task_composer_taskflow_factories PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(task_composer_taskflow_factories PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(task_composer_taskflow_factories PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PRIVATE})
+target_compile_definitions(task_composer_taskflow_factories PUBLIC ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_cxx_version(task_composer_taskflow_factories PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_clang_tidy(task_composer_taskflow_factories ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_code_coverage(

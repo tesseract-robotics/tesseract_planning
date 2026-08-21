@@ -125,8 +125,8 @@ Command::Ptr addPointCloud()
   link_octomap.collision.push_back(collision);
 
   Joint joint_octomap("joint_octomap_attached");
-  joint_octomap.parent_link_name = "base_link";
-  joint_octomap.child_link_name = link_octomap.getName();
+  joint_octomap.parent_link_id = "base_link";
+  joint_octomap.child_link_id = link_octomap.getId();
   joint_octomap.type = JointType::FIXED;
 
   return std::make_shared<tesseract::environment::AddLinkCommand>(link_octomap, joint_octomap);
@@ -152,14 +152,14 @@ bool BasicCartesianExample::run()
     plotter_->waitForConnection();
 
   // Set the robot initial state
-  std::vector<std::string> joint_names;
-  joint_names.emplace_back("joint_a1");
-  joint_names.emplace_back("joint_a2");
-  joint_names.emplace_back("joint_a3");
-  joint_names.emplace_back("joint_a4");
-  joint_names.emplace_back("joint_a5");
-  joint_names.emplace_back("joint_a6");
-  joint_names.emplace_back("joint_a7");
+  std::vector<tesseract::common::JointId> joint_ids;
+  joint_ids.emplace_back("joint_a1");
+  joint_ids.emplace_back("joint_a2");
+  joint_ids.emplace_back("joint_a3");
+  joint_ids.emplace_back("joint_a4");
+  joint_ids.emplace_back("joint_a5");
+  joint_ids.emplace_back("joint_a6");
+  joint_ids.emplace_back("joint_a7");
 
   Eigen::VectorXd joint_pos(7);
   joint_pos(0) = -0.4;
@@ -170,7 +170,7 @@ bool BasicCartesianExample::run()
   joint_pos(5) = 1.4959;
   joint_pos(6) = 0.0;
 
-  env_->setState(joint_names, joint_pos);
+  env_->setState(joint_ids, joint_pos);
 
   if (debug_)
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
@@ -188,7 +188,7 @@ bool BasicCartesianExample::run()
   CompositeInstruction program("cartesian_program", ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
-  StateWaypoint wp0{ joint_names, joint_pos };
+  StateWaypoint wp0{ joint_ids, joint_pos };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
 

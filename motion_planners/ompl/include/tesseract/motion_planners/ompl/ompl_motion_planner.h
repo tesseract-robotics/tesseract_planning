@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/common/fwd.h>
 #include <tesseract/kinematics/fwd.h>
 #include <tesseract/common/eigen_types.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::motion_planners
 {
@@ -81,7 +82,7 @@ protected:
    * @param start_uuid The start uuid of the provided trajectory
    * @param end_uuid The end uuid of the provided trajectory
    * @param start_index The start index to begin search for start uuid
-   * @param joint_names The joint names
+   * @param joint_ids The joint IDs
    * @param traj The provided trajectory
    * @param format_result_as_input Indicate if the result should be formated as input
    * @return The start index for the next segment
@@ -90,7 +91,7 @@ protected:
                                boost::uuids::uuid start_uuid,
                                boost::uuids::uuid end_uuid,
                                long start_index,
-                               const std::vector<std::string>& joint_names,
+                               const std::vector<tesseract::common::JointId>& joint_ids,
                                const tesseract::common::TrajArray& traj,
                                bool format_result_as_input);
 };

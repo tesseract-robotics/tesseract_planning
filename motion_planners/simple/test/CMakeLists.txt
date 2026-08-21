@@ -2,7 +2,7 @@ macro(add_gtest test_name test_file)
   add_executable(${test_name} ${test_file})
   target_link_libraries(${test_name} PRIVATE GTest::GTest GTest::Main motion_planners_simple)
   target_compile_options(${test_name} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-  target_compile_definitions(${test_name} PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+  target_compile_definitions(${test_name} PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
   target_clang_tidy(${test_name} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
   target_cxx_version(${test_name} PRIVATE VERSION ${TESSERACT_CXX_VERSION})
   target_code_coverage(
@@ -24,3 +24,4 @@ add_gtest(motion_planners_simple_planner_lvs_assign_no_ik_move_unit simple_plann
 add_gtest(motion_planners_simple_planner_lvs_move_unit simple_planner_lvs_move_unit.cpp)
 add_gtest(motion_planners_simple_planner_lvs_no_ik_move_unit simple_planner_lvs_no_ik_move_unit.cpp)
 add_gtest(motion_planners_simple_planner_yaml_conversions simple_planner_yaml_conversions_unit.cpp)
+add_gtest(motion_planners_simple_interpolation_unit interpolation_unit.cpp)

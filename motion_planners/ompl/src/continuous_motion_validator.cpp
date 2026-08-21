@@ -48,11 +48,10 @@ ContinuousMotionValidator::ContinuousMotionValidator(
   , state_validator_(std::move(state_validator))
   , manip_(std::move(manip))
   , continuous_contact_manager_(env.getContinuousContactManager())
+  , link_ids_(manip_->getActiveLinkIds())
   , extractor_(std::move(extractor))
 {
-  links_ = manip_->getActiveLinkNames();
-
-  continuous_contact_manager_->setActiveCollisionObjects(links_);
+  continuous_contact_manager_->setActiveCollisionObjects(link_ids_);
   continuous_contact_manager_->applyContactManagerConfig(contact_manager_config);
 }
 
@@ -143,16 +142,27 @@ bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State
   Eigen::Map<Eigen::VectorXd> start_joints = extractor_(s1);
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(s2);
 
-  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state0;
+  TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state0;
   state0.clear();
   manip_->calcFwdKin(state0, start_joints);
 
-  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state1;
+  TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state1;
   state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
-  for (const auto& link_name : links_)
-    cm->setCollisionObjectsTransform(link_name, state0[link_name], state1[link_name]);
+  TESSERACT_THREAD_LOCAL tesseract::common::VectorIsometry3d poses0;
+  TESSERACT_THREAD_LOCAL tesseract::common::VectorIsometry3d poses1;
+  poses0.clear();
+  poses1.clear();
+  poses0.reserve(link_ids_.size());
+  poses1.reserve(link_ids_.size());
+  for (const auto& id : link_ids_)
+  {
+    poses0.push_back(state0.at(id));
+    poses1.push_back(state1.at(id));
+  }
+
+  cm->setCollisionObjectsTransform(link_ids_, poses0, poses1);
 
   tesseract::collision::ContactResultMap contact_map;
   cm->contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);

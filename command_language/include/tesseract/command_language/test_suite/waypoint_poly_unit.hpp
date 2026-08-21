@@ -26,6 +26,8 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <algorithm>
+#include <string>
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -51,7 +53,13 @@ void runWaypointInterfaceTest(WaypointPoly waypoint)
  */
 inline void runWaypointSerializationTest(const WaypointPoly& waypoint)
 {
-  const std::string filepath = tesseract::common::getTempPath() + "waypoint_poly_boost.xml";
+  // The file name must be unique per test: each one runs as its own process, so a name shared
+  // across tests has a parallel run reading a file another process is midway through writing.
+  const testing::TestInfo* info = testing::UnitTest::GetInstance()->current_test_info();
+  std::string test_id = (info == nullptr) ? "" : std::string("_") + info->test_suite_name() + "_" + info->name();
+  std::replace(test_id.begin(), test_id.end(), '/', '_');  // parameterized test names carry a '/'
+
+  const std::string filepath = tesseract::common::getTempPath() + "waypoint_poly_boost" + test_id + ".xml";
   tesseract::common::Serialization::toArchiveFileXML<WaypointPoly>(waypoint, filepath);
   auto nwp = tesseract::common::Serialization::fromArchiveFileXML<WaypointPoly>(filepath);
   EXPECT_TRUE(waypoint == nwp);

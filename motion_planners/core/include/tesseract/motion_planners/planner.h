@@ -28,10 +28,12 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <memory>
+#include <string>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/fwd.h>
+#include <tesseract/common/types.h>
 
 namespace tesseract::motion_planners
 {
@@ -85,7 +87,7 @@ public:
 
   /** @brief Assign a solution to the move instruction */
   static void assignSolution(tesseract::command_language::MoveInstructionPoly& mi,
-                             const std::vector<std::string>& joint_names,
+                             const std::vector<tesseract::common::JointId>& joint_ids,
                              const Eigen::Ref<const Eigen::VectorXd>& joint_values,
                              bool format_result_as_input);
 

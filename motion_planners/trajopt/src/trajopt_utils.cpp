@@ -23,6 +23,7 @@
  */
 #include <tesseract/motion_planners/trajopt/trajopt_utils.h>
 #include <tesseract/common/manipulator_info.h>
+#include <tesseract/common/types.h>
 #include <tesseract/kinematics/kinematic_group.h>
 #include <tesseract/environment/environment.h>
 #include <trajopt/problem_description.hpp>
@@ -66,9 +67,9 @@ createKinematicGroup(const tesseract::common::ManipulatorInfo& manip_info,
 }
 
 std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
-                                                                   const std::string& working_frame,
+                                                                   const tesseract::common::LinkId& working_frame,
                                                                    const Eigen::Isometry3d& c_wp,
-                                                                   const std::string& tcp_frame,
+                                                                   const tesseract::common::LinkId& tcp_frame,
                                                                    const Eigen::Isometry3d& tcp_offset,
                                                                    const Eigen::VectorXd& coeffs,
                                                                    trajopt::TermType type,
@@ -139,15 +140,16 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
   return pose_info;
 }
 
-std::shared_ptr<trajopt::TermInfo> createDynamicCartesianWaypointTermInfo(int index,
-                                                                          const std::string& working_frame,
-                                                                          const Eigen::Isometry3d& c_wp,
-                                                                          const std::string& tcp_frame,
-                                                                          const Eigen::Isometry3d& tcp_offset,
-                                                                          const Eigen::VectorXd& coeffs,
-                                                                          trajopt::TermType type,
-                                                                          const Eigen::VectorXd& lower_tolerance,
-                                                                          const Eigen::VectorXd& upper_tolerance)
+std::shared_ptr<trajopt::TermInfo>
+createDynamicCartesianWaypointTermInfo(int index,
+                                       const tesseract::common::LinkId& working_frame,
+                                       const Eigen::Isometry3d& c_wp,
+                                       const tesseract::common::LinkId& tcp_frame,
+                                       const Eigen::Isometry3d& tcp_offset,
+                                       const Eigen::VectorXd& coeffs,
+                                       trajopt::TermType type,
+                                       const Eigen::VectorXd& lower_tolerance,
+                                       const Eigen::VectorXd& upper_tolerance)
 {
   std::shared_ptr<trajopt::DynamicCartPoseTermInfo> pose = std::make_shared<trajopt::DynamicCartPoseTermInfo>();
   pose->term_type = type;
@@ -172,29 +174,66 @@ std::shared_ptr<trajopt::TermInfo> createDynamicCartesianWaypointTermInfo(int in
   }
   else
   {
-    throw std::runtime_error("Invalid coeffs size for Cartesian waypoint term info. Expected 1 or 6, got " +
+    throw std::runtime_error("Invalid coeffs size for dynamic Cartesian waypoint term info. Expected 1 or 6, got " +
                              std::to_string(coeffs.size()));
   }
 
-  pose->lower_tolerance = lower_tolerance;
-  pose->upper_tolerance = upper_tolerance;
+  if (lower_tolerance.size() > 0)
+  {
+    if (lower_tolerance.size() == 1)
+    {
+      pose->lower_tolerance = Eigen::VectorXd::Constant(6, lower_tolerance(0));
+    }
+    else if (lower_tolerance.size() == 6)
+    {
+      pose->lower_tolerance = lower_tolerance;
+    }
+    else
+    {
+      throw std::runtime_error("Invalid lower tolerance size for dynamic Cartesian waypoint term info. Expected 1 or "
+                               "6, got " +
+                               std::to_string(lower_tolerance.size()));
+    }
+  }
+
+  if (upper_tolerance.size() > 0)
+  {
+    if (upper_tolerance.size() == 1)
+    {
+      pose->upper_tolerance = Eigen::VectorXd::Constant(6, upper_tolerance(0));
+    }
+    else if (upper_tolerance.size() == 6)
+    {
+      pose->upper_tolerance = upper_tolerance;
+    }
+    else
+    {
+      throw std::runtime_error("Invalid upper tolerance size for dynamic Cartesian waypoint term info. Expected 1 or "
+                               "6, got " +
+                               std::to_string(upper_tolerance.size()));
+    }
+  }
 
   return pose;
 }
 
-std::shared_ptr<trajopt::TermInfo> createNearJointStateTermInfo(const Eigen::VectorXd& target,
-                                                                const std::vector<std::string>& joint_names,
-                                                                int index,
-                                                                const Eigen::VectorXd& coeffs,
-                                                                trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo>
+createNearJointStateTermInfo(const Eigen::VectorXd& target,
+                             const std::vector<tesseract::common::JointId>& joint_ids,
+                             int index,
+                             const Eigen::VectorXd& coeffs,
+                             trajopt::TermType type)
 {
-  assert(static_cast<std::size_t>(target.size()) == joint_names.size());
+  assert(static_cast<std::size_t>(target.size()) == joint_ids.size());
 
   std::shared_ptr<trajopt::JointPosTermInfo> jp = std::make_shared<trajopt::JointPosTermInfo>();
   if (static_cast<std::size_t>(coeffs.size()) == 1)
-    jp->coeffs = std::vector<double>(joint_names.size(), coeffs(0));  // Default value
-  else if (static_cast<std::size_t>(coeffs.size()) == joint_names.size())
+    jp->coeffs = std::vector<double>(joint_ids.size(), coeffs(0));  // Default value
+  else if (static_cast<std::size_t>(coeffs.size()) == joint_ids.size())
     jp->coeffs = std::vector<double>(coeffs.data(), coeffs.data() + coeffs.rows() * coeffs.cols());
+  else
+    throw std::runtime_error("Invalid coeffs size for near joint state term info. Expected 1 or " +
+                             std::to_string(joint_ids.size()) + ", got " + std::to_string(coeffs.size()));
 
   jp->targets = std::vector<double>(target.data(), target.data() + target.size());
   jp->first_step = index;
@@ -252,7 +291,7 @@ std::shared_ptr<trajopt::TermInfo> createTolerancedJointWaypointTermInfo(const E
   }
   else
   {
-    throw std::runtime_error("Invalid coeffs size for joint waypoint term info. Expected 1 or " +
+    throw std::runtime_error("Invalid coeffs size for toleranced joint waypoint term info. Expected 1 or " +
                              std::to_string(j_wp.size()) + ", got " + std::to_string(coeffs.size()));
   }
 
@@ -417,13 +456,13 @@ std::shared_ptr<trajopt::TermInfo> createUserDefinedTermInfo(int start_index,
 
 std::shared_ptr<trajopt::TermInfo> createAvoidSingularityTermInfo(int start_index,
                                                                   int end_index,
-                                                                  const std::string& link,
+                                                                  const tesseract::common::LinkId& link,
                                                                   double coeff,
                                                                   trajopt::TermType type)
 {
   auto as = std::make_shared<trajopt::AvoidSingularityTermInfo>();
   as->term_type = type;
-  as->link = link;
+  as->link_id = link;
   as->first_step = start_index;
   as->last_step = end_index;
   as->coeffs = std::vector<double>(1, coeff);

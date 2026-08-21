@@ -4,47 +4,49 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/utils.h>
+#include <tesseract/common/types.h>
 #include <tesseract/command_language/joint_waypoint.h>
 
 namespace tesseract::command_language
 {
-// NOLINTNEXTLINE(modernize-pass-by-value)
-JointWaypoint::JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position, bool is_constrained)
-  : names_(std::move(names)), position_(position), is_constrained_(is_constrained)
+JointWaypoint::JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
+                             const Eigen::VectorXd& position,  // NOLINT(modernize-pass-by-value)
+                             bool is_constrained)
+  : joint_ids_(std::move(joint_ids)), position_(position), is_constrained_(is_constrained)
 {
-  if (static_cast<Eigen::Index>(names_.size()) != position_.size())
+  if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
 }
 
-JointWaypoint::JointWaypoint(std::vector<std::string> names,
+JointWaypoint::JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                              const Eigen::VectorXd& position,   // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& lower_tol,  // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& upper_tol)  // NOLINT(modernize-pass-by-value)
-  : names_(std::move(names))
+  : joint_ids_(std::move(joint_ids))
   , position_(position)
   , lower_tolerance_(lower_tol)
   , upper_tolerance_(upper_tol)
   , is_constrained_(true)
 {
-  if (static_cast<Eigen::Index>(names_.size()) != position_.size() || position_.size() != lower_tolerance_.size() ||
+  if (static_cast<Eigen::Index>(joint_ids_.size()) != position_.size() || position_.size() != lower_tolerance_.size() ||
       position_.size() != upper_tolerance_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
 }
 
-JointWaypoint::JointWaypoint(std::initializer_list<std::string> names,
+JointWaypoint::JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                              std::initializer_list<double> position,
                              bool is_constrained)
-  : JointWaypoint(names,
+  : JointWaypoint(std::move(joint_ids),
                   Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
                   is_constrained)
 {
 }
 
-JointWaypoint::JointWaypoint(std::initializer_list<std::string> names,
+JointWaypoint::JointWaypoint(std::vector<tesseract::common::JointId> joint_ids,
                              std::initializer_list<double> position,
                              std::initializer_list<double> lower_tol,
                              std::initializer_list<double> upper_tol)
-  : JointWaypoint(names,
+  : JointWaypoint(std::move(joint_ids),
                   Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
                   Eigen::Map<const Eigen::VectorXd>(lower_tol.begin(), static_cast<Eigen::Index>(lower_tol.size())),
                   Eigen::Map<const Eigen::VectorXd>(upper_tol.begin(), static_cast<Eigen::Index>(upper_tol.size())))
@@ -62,9 +64,9 @@ void JointWaypoint::print(const std::string& prefix) const
 std::unique_ptr<JointWaypointInterface> JointWaypoint::clone() const { return std::make_unique<JointWaypoint>(*this); }
 
 // Joint Waypoint
-void JointWaypoint::setNames(const std::vector<std::string>& names) { names_ = names; }
-std::vector<std::string>& JointWaypoint::getNames() { return names_; }
-const std::vector<std::string>& JointWaypoint::getNames() const { return names_; }
+void JointWaypoint::setJointIds(const std::vector<tesseract::common::JointId>& ids) { joint_ids_ = ids; }
+const std::vector<tesseract::common::JointId>& JointWaypoint::getJointIds() const { return joint_ids_; }
+std::vector<tesseract::common::JointId>& JointWaypoint::getJointIds() { return joint_ids_; }
 
 void JointWaypoint::setPosition(const Eigen::VectorXd& position) { position_ = position; }
 Eigen::VectorXd& JointWaypoint::getPosition() { return position_; }
@@ -91,7 +93,7 @@ bool JointWaypoint::equals(const JointWaypointInterface& other) const
 
   bool equal = true;
   equal &= (name_ == rhs->name_);
-  equal &= tesseract::common::isIdentical(names_, rhs->names_);
+  equal &= (joint_ids_ == rhs->joint_ids_);
   equal &= tesseract::common::almostEqualRelativeAndAbs(position_, rhs->position_, max_diff);
   equal &= tesseract::common::almostEqualRelativeAndAbs(lower_tolerance_, rhs->lower_tolerance_, max_diff);
   equal &= tesseract::common::almostEqualRelativeAndAbs(upper_tolerance_, rhs->upper_tolerance_, max_diff);

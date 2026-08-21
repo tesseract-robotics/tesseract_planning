@@ -42,6 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/joint_state.h>
 #include <tesseract/common/profile_dictionary.h>
+#include <tesseract/common/types.h>
 #include <tesseract/kinematics/joint_group.h>
 #include <tesseract/kinematics/kinematic_group.h>
 #include <tesseract/environment/environment.h>
@@ -196,7 +197,7 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   }
 
   auto manip = request.env->getJointGroup(composite_mi.manipulator);
-  const std::vector<std::string> joint_names = manip->getJointNames();
+  const std::vector<tesseract::common::JointId>& joint_ids = manip->getJointIds();
   const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
 
   // Get the results - This can likely be simplified if we get rid of the traj array
@@ -219,7 +220,7 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   {
     auto& move_instruction = results_instructions.at(idx).get().as<tesseract::command_language::MoveInstructionPoly>();
     assignSolution(
-        move_instruction, joint_names, traj.row(static_cast<Eigen::Index>(idx)), request.format_result_as_input);
+        move_instruction, joint_ids, traj.row(static_cast<Eigen::Index>(idx)), request.format_result_as_input);
   }
 
   return response;

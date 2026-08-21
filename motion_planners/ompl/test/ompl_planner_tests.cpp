@@ -67,6 +67,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract/motion_planners/ompl/cereal_serialization.h>
 #include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
+#include <tesseract/motion_planners/ompl/collision_cost_objective.h>
 #include <tesseract/motion_planners/ompl/continuous_motion_validator.h>
 #include <tesseract/motion_planners/ompl/utils.h>
 
@@ -112,8 +113,8 @@ static void addBox(tesseract::environment::Environment& env)
   link_1.collision.push_back(collision);
 
   Joint joint_1("joint_n1");
-  joint_1.parent_link_name = "base_link";
-  joint_1.child_link_name = link_1.getName();
+  joint_1.parent_link_id = "base_link";
+  joint_1.child_link_id = link_1.getId();
   joint_1.type = JointType::FIXED;
 
   env.applyCommand(std::make_shared<AddLinkCommand>(link_1, joint_1));
@@ -171,11 +172,11 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   auto joint_group = env->getJointGroup(manip.manipulator);
 
   // Specify a start waypoint
-  JointWaypoint wp1{ joint_group->getJointNames(),
+  JointWaypoint wp1{ joint_group->getJointIds(),
                      Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())) };
 
   // Specify a end waypoint
-  JointWaypoint wp2{ joint_group->getJointNames(),
+  JointWaypoint wp2{ joint_group->getJointIds(),
                      Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())) };
 
   // Define Start Instruction
@@ -249,7 +250,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Define New Start Instruction
   wp1.setPosition(Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size())));
-  wp1.setNames(joint_group->getJointNames());
+  wp1.setJointIds(joint_group->getJointIds());
 
   start_instruction = MoveInstruction(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
@@ -275,10 +276,10 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   std::vector<double> ewp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
 
   wp1.setPosition(Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size())));
-  wp1.setNames(joint_group->getJointNames());
+  wp1.setJointIds(joint_group->getJointIds());
 
   wp2.setPosition(Eigen::Map<const Eigen::VectorXd>(ewp.data(), static_cast<long>(ewp.size())));
-  wp2.setNames(joint_group->getJointNames());
+  wp2.setJointIds(joint_group->getJointIds());
 
   // Define Start Instruction
   start_instruction = MoveInstruction(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE");
@@ -331,7 +332,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   auto kin_group = env->getKinematicGroup(manip.manipulator);
 
   // Specify a start waypoint
-  JointWaypoint wp1{ kin_group->getJointNames(),
+  JointWaypoint wp1{ kin_group->getJointIds(),
                      Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())) };
 
   // Specify a end waypoint
@@ -426,7 +427,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   CartesianWaypoint wp1{ start };
 
   // Specify a end waypoint
-  JointWaypoint wp2{ kin_group->getJointNames(),
+  JointWaypoint wp2{ kin_group->getJointIds(),
                      Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())) };
 
   // Define Start Instruction
@@ -592,12 +593,12 @@ TEST(ContinuousMotionValidatorTest, StateValidatorBreakAtFirstInvalidState)  // 
 
   auto joint_group = env->getJointGroup("manipulator");
   const auto dof = static_cast<unsigned>(joint_group->numJoints());
-  const std::vector<std::string> joint_names = joint_group->getJointNames();
+  const std::vector<tesseract::common::JointId> joint_ids = joint_group->getJointIds();
   const Eigen::MatrixX2d limits = joint_group->getLimits().joint_limits;
 
   auto rss = std::make_shared<ompl::base::RealVectorStateSpace>();
   for (unsigned i = 0; i < dof; ++i)
-    rss->addDimension(joint_names[i], limits(i, 0), limits(i, 1));
+    rss->addDimension(joint_ids[i].name(), limits(i, 0), limits(i, 1));
 
   auto si = std::make_shared<ompl::base::SpaceInformation>(rss);
   si->setup();
@@ -628,6 +629,47 @@ TEST(ContinuousMotionValidatorTest, StateValidatorBreakAtFirstInvalidState)  // 
   // With break, the loop stops at i=1 (first invalid segment): lastValid.second = 0/n_steps = 0.
   // Without break, subsequent invalid segments overwrite lastValid.second, ending at (n_steps-2)/n_steps.
   EXPECT_DOUBLE_EQ(last_valid.second, 0.0);
+}
+
+TEST(CollisionCostObjectiveTest, StateCostIsPenetrationDepth)  // NOLINT
+{
+  auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
+  auto env = std::make_shared<Environment>();
+  std::filesystem::path urdf_path(
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
+  std::filesystem::path srdf_path(
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
+  ASSERT_TRUE(env->init(urdf_path, srdf_path, locator));
+  addBox(*env);
+
+  auto joint_group = env->getJointGroup("manipulator");
+  const auto dof = static_cast<unsigned>(joint_group->numJoints());
+  const std::vector<tesseract::common::JointId> joint_ids = joint_group->getJointIds();
+  const Eigen::MatrixX2d limits = joint_group->getLimits().joint_limits;
+
+  auto rss = std::make_shared<ompl::base::RealVectorStateSpace>();
+  for (unsigned i = 0; i < dof; ++i)
+    rss->addDimension(joint_ids[i].name(), limits(i, 0), limits(i, 1));
+
+  auto si = std::make_shared<ompl::base::SpaceInformation>(rss);
+  si->setup();
+
+  OMPLStateExtractor extractor = [dof](const ompl::base::State* state) -> Eigen::Map<Eigen::VectorXd> {
+    return RealVectorStateSpaceExtractor(state, dof);
+  };
+
+  tesseract::collision::ContactManagerConfig contact_config;
+  const CollisionCostObjective objective(si, *env, joint_group, contact_config, extractor);
+
+  ompl::base::ScopedState<ompl::base::RealVectorStateSpace> state(rss);
+  for (unsigned i = 0; i < dof; ++i)
+    state->values[i] = start_state[i];
+
+  EXPECT_DOUBLE_EQ(objective.stateCost(state.get()).value(), 0.0);
+
+  // The box spans the plane the arm sweeps through, so squaring up to it penetrates
+  state->values[0] = 0.0;
+  EXPECT_GT(objective.stateCost(state.get()).value(), 0.0);
 }
 
 int main(int argc, char** argv)

@@ -11,7 +11,7 @@ target_link_libraries(
           tesseract::command_language)
 target_compile_options(tesseract_task_composer_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(tesseract_task_composer_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(tesseract_task_composer_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_clang_tidy(tesseract_task_composer_example ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(tesseract_task_composer_example PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_include_directories(tesseract_task_composer_example PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
@@ -28,7 +28,7 @@ target_link_libraries(
           tesseract::visualization)
 target_compile_options(tesseract_task_composer_trajopt_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                        ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(tesseract_task_composer_trajopt_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(tesseract_task_composer_trajopt_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_clang_tidy(tesseract_task_composer_trajopt_example ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(tesseract_task_composer_trajopt_example PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_include_directories(tesseract_task_composer_trajopt_example
@@ -46,7 +46,7 @@ target_link_libraries(
           tesseract::visualization)
 target_compile_options(tesseract_task_composer_raster_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                       ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(tesseract_task_composer_raster_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(tesseract_task_composer_raster_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS_PUBLIC})
 target_clang_tidy(tesseract_task_composer_raster_example ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(tesseract_task_composer_raster_example PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_include_directories(tesseract_task_composer_raster_example
