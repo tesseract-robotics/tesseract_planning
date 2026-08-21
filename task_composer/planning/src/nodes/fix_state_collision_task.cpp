@@ -73,10 +73,9 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   manager->setActiveCollisionObjects(joint_group->getActiveLinkIds());
   manager->applyContactManagerConfig(profile.contact_manager_config);
 
-  contacts.clear();
-  // Reused without clearing; safe here — calcFwdKin overwrites this group's links (see its contract) and
-  // only those links are read below, so a stale key from a prior call is harmless.
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state;
+  state.clear();
+  contacts.clear();
   joint_group->calcFwdKin(state, start_pos);
   checkTrajectoryState(contacts, *manager, state, profile.collision_check_config.contact_request);
   if (contacts.empty())

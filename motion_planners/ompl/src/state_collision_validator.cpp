@@ -74,6 +74,7 @@ bool StateCollisionValidator::isValid(const ompl::base::State* state) const
 
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state1;
+  state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
   TESSERACT_THREAD_LOCAL tesseract::common::VectorIsometry3d poses;

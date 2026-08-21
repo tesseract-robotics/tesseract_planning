@@ -143,9 +143,11 @@ bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(s2);
 
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state0;
+  state0.clear();
   manip_->calcFwdKin(state0, start_joints);
 
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state1;
+  state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
   TESSERACT_THREAD_LOCAL tesseract::common::VectorIsometry3d poses0;

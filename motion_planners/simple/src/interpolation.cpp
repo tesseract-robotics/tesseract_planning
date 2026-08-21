@@ -101,8 +101,8 @@ JointGroupInstructionInfo::~JointGroupInstructionInfo() = default;
 
 Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
-  // Reused without clearing; calcFwdKin overwrites every link of this group, including the tcp_frame read below.
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap transforms;
+  transforms.clear();
   manip->calcFwdKin(transforms, jp);
 
   if (in_world)
@@ -172,8 +172,8 @@ KinematicGroupInstructionInfo::~KinematicGroupInstructionInfo() = default;
 
 Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
-  // Reused without clearing; calcFwdKin overwrites every link of this group, including the tcp_frame read below.
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap transforms;
+  transforms.clear();
   manip->calcFwdKin(transforms, jp);
 
   if (in_world)
