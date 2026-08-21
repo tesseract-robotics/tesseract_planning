@@ -12,7 +12,7 @@ on:
       - 'motion_planners/**'
       - 'time_parameterization/**'
       - 'task_composer/**'
-      - ".github/workflows/unstable.yml"
+      - ".github/workflows/windows.yml"
       - "**.repos"
   schedule:
     - cron: '0 5 * * *'
