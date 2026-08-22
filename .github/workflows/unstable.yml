@@ -6,14 +6,6 @@ on:
       - master
       - "dev**"
   pull_request:
-    paths:
-      - 'command_language/**'
-      - 'examples/**'
-      - 'motion_planners/**'
-      - 'time_parameterization/**'
-      - 'task_composer/**'
-      - ".github/workflows/unstable.yml"
-      - "**.repos"
   schedule:
     - cron: "0 5 * * *"
   release:
