@@ -30,6 +30,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/trajopt_qp_problem.h>
 #include <cassert>
+#include <cstdlib>
+#include <sstream>
+#include <string>
+#include <typeinfo>
+#include <tesseract/command_language/poly/waypoint_poly.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
@@ -106,10 +111,53 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
         move_instructions[static_cast<std::size_t>(i)].get().as<tesseract::command_language::MoveInstructionPoly>();
 
     // Get Plan Profile
+    // The default is a named local so a dictionary miss (fallback to the default profile) can be
+    // detected below by pointer identity; behaviour is unchanged.
+    auto default_move_profile = std::make_shared<TrajOptIfoptDefaultMoveProfile>();
     TrajOptIfoptMoveProfile::ConstPtr cur_move_profile = request.profiles->getProfile<TrajOptIfoptMoveProfile>(
-        name_, move_instruction.getProfile(name_), std::make_shared<TrajOptIfoptDefaultMoveProfile>());
+        name_, move_instruction.getProfile(name_), default_move_profile);
     if (!cur_move_profile)
       throw std::runtime_error("TrajOptIfoptMotionPlanner: Invalid profile");
+
+    // Optional per-move profile-resolution trace, for diagnosing profile-dictionary misses (a move
+    // instruction silently falling back to the default profile is otherwise invisible). Enabled by
+    // setting TESSERACT_TRAJOPT_IFOPT_PROFILE_TRACE in the environment; a positive integer value caps
+    // the number of lines logged per process (0 or non-numeric = unlimited). The gate is evaluated
+    // once; with the variable unset this block costs a single static bool check.
+    {
+      static const long trace_max_lines = []() -> long {
+        const char* v = std::getenv("TESSERACT_TRAJOPT_IFOPT_PROFILE_TRACE");
+        if (v == nullptr)
+          return -1;  // disabled
+        char* end = nullptr;
+        const long n = std::strtol(v, &end, 10);
+        return (end != v && n > 0) ? n : 0;  // 0 = enabled, unlimited
+      }();
+      static long trace_lines = 0;
+      if (trace_max_lines >= 0 && (trace_max_lines == 0 || trace_lines < trace_max_lines))
+      {
+        ++trace_lines;
+        const auto& wp = move_instruction.getWaypoint();
+        const char* wp_type = wp.isStateWaypoint() ? "state" :
+                              wp.isCartesianWaypoint() ? "cartesian" :
+                              wp.isJointWaypoint() ? "joint" :
+                                                      "other";
+        std::ostringstream coeff;
+        if (const auto* dmp = dynamic_cast<const TrajOptIfoptDefaultMoveProfile*>(cur_move_profile.get()))
+          coeff << dmp->cartesian_constraint_config.coeff.transpose();
+        else
+          coeff << "<" << typeid(*cur_move_profile).name() << ">";
+        const bool fallback = (cur_move_profile.get() == default_move_profile.get());
+        CONSOLE_BRIDGE_logInform("TrajOptIfoptMotionPlanner profile trace: move=%d ns='%s' key='%s' waypoint=%s "
+                                 "cartesian_coeff=[%s] default_fallback=%d",
+                                 i,
+                                 name_.c_str(),
+                                 move_instruction.getProfile(name_).c_str(),
+                                 wp_type,
+                                 coeff.str().c_str(),
+                                 fallback ? 1 : 0);
+      }
+    }
 
     // Create waypoint info
     TrajOptIfoptWaypointInfo wp_info = cur_move_profile->create(move_instruction, composite_mi, request.env, i);
