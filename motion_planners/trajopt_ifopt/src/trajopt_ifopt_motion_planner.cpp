@@ -138,10 +138,10 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
       {
         ++trace_lines;
         const auto& wp = move_instruction.getWaypoint();
-        const char* wp_type = wp.isStateWaypoint() ? "state" :
+        const char* wp_type = wp.isStateWaypoint()     ? "state" :
                               wp.isCartesianWaypoint() ? "cartesian" :
-                              wp.isJointWaypoint() ? "joint" :
-                                                      "other";
+                              wp.isJointWaypoint()     ? "joint" :
+                                                         "other";
         std::ostringstream coeff;
         if (const auto* dmp = dynamic_cast<const TrajOptIfoptDefaultMoveProfile*>(cur_move_profile.get()))
           coeff << dmp->cartesian_constraint_config.coeff.transpose();
