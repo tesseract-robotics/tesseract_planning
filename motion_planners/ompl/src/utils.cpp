@@ -115,8 +115,7 @@ bool checkStateInCollision(tesseract::collision::ContactResultMap& contact_map,
   tesseract::common::LinkIdTransformMap link_transforms;
   manip.calcFwdKin(link_transforms, state);
 
-  for (const auto& link_id : contact_checker.getActiveCollisionObjects())
-    contact_checker.setCollisionObjectsTransform(link_id, link_transforms.at(link_id));
+  contact_checker.setCollisionObjectsTransform(contact_checker.getActiveCollisionObjects(), link_transforms);
 
   contact_checker.contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
 

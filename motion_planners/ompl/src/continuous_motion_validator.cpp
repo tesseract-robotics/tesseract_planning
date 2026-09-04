@@ -150,19 +150,7 @@ bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State
   state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
-  TESSERACT_THREAD_LOCAL tesseract::common::VectorIsometry3d poses0;
-  TESSERACT_THREAD_LOCAL tesseract::common::VectorIsometry3d poses1;
-  poses0.clear();
-  poses1.clear();
-  poses0.reserve(link_ids_.size());
-  poses1.reserve(link_ids_.size());
-  for (const auto& id : link_ids_)
-  {
-    poses0.push_back(state0.at(id));
-    poses1.push_back(state1.at(id));
-  }
-
-  cm->setCollisionObjectsTransform(link_ids_, poses0, poses1);
+  cm->setCollisionObjectsTransform(link_ids_, state0, state1);
 
   tesseract::collision::ContactResultMap contact_map;
   cm->contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
