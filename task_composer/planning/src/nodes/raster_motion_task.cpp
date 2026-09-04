@@ -47,6 +47,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/composite_instruction.h>
 #include <tesseract/environment/environment.h>
+#include <tesseract/common/property_tree.h>
 
 namespace
 {
@@ -461,6 +462,20 @@ void RasterMotionTask::checkTaskInput(const tesseract::common::AnyPoly& input)
   // Check to_end
   if (!composite.back().isCompositeInstruction())
     throw std::runtime_error("RasterMotionTask, to_end should be a composite");
+}
+
+tesseract::common::PropertyTree RasterMotionTask::schema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .compose(TaskComposerTask::schema())
+      .customType("freespace", SUB_TASK_SCHEMA_KEY).required().validator(validateCustomType).done()
+      .customType("raster", SUB_TASK_SCHEMA_KEY).required().validator(validateCustomType).done()
+      .customType("transition", SUB_TASK_SCHEMA_KEY).required().validator(validateCustomType).done()
+      .build();
+  // clang-format on
 }
 
 }  // namespace tesseract::task_composer

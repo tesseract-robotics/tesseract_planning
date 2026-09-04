@@ -22,14 +22,16 @@
  * limitations under the License.
  */
 
-#include <tesseract/task_composer/yaml_extensions.h>
 #include <tesseract/task_composer/yaml_utils.h>
+#include <tesseract/task_composer/yaml_extensions.h>
 #include <tesseract/task_composer/task_composer_keys.h>
 #include <tesseract/task_composer/task_composer_node.h>
 #include <tesseract/task_composer/task_composer_graph.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
 
 #include <tesseract/common/yaml_utils.h>
+#include <tesseract/common/property_tree.h>
+#include <tesseract/common/schema_registration.h>
 
 #include <yaml-cpp/yaml.h>
 
@@ -133,4 +135,58 @@ void validateSubTask(const std::string& parent_name, const std::string& key, con
   if (!is_class && !is_task)
     throw std::runtime_error("Sub task for '" + parent_name + "' node '" + key + "' missing 'class' or 'task' entry");
 }
+
+tesseract::common::PropertyTree subTaskConfigSchema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .boolean("conditional").done()
+      .integer("abort_terminal").done()
+      .container("override")
+        .customType("inputs", "tesseract::task_composer::TaskComposerKeys")
+            .validator(validateCustomType).done()
+        .customType("outputs", "tesseract::task_composer::TaskComposerKeys")
+            .validator(validateCustomType).done()
+      .done()
+      .build();
+  // clang-format on
+}
+
+tesseract::common::PropertyTree subTaskSchema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .beginOneOf()
+        .customType("by_class", "tesseract::task_composer::TaskComposerNodeFactory")
+            .acceptsDerivedTypes().validator(validateCustomType).done()
+        .container("by_task")
+          .string("task").required().done()
+          .customType("config", SUB_TASK_CONFIG_SCHEMA_KEY)
+              .validator(validateCustomType).done()
+        .done()
+      .endOneOf()
+      .build();
+  // clang-format on
+}
+
+tesseract::common::PropertyTree graphEdgeSchema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .string("source").required().done()
+      .customType("destinations", property_type::createList(property_type::STRING)).required().done()
+      .build();
+  // clang-format on
+}
+
 }  // namespace tesseract::task_composer
+
+TESSERACT_SCHEMA_REGISTER(tesseract::task_composer::GraphEdge, tesseract::task_composer::graphEdgeSchema);
+TESSERACT_SCHEMA_REGISTER(tesseract::task_composer::SubTaskConfig, tesseract::task_composer::subTaskConfigSchema);
+TESSERACT_SCHEMA_REGISTER(tesseract::task_composer::SubTask, tesseract::task_composer::subTaskSchema);

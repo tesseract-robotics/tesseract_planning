@@ -76,6 +76,8 @@ public:
   TaskflowTaskComposerExecutor(TaskflowTaskComposerExecutor&&) = delete;
   TaskflowTaskComposerExecutor& operator=(TaskflowTaskComposerExecutor&&) = delete;
 
+  static tesseract::common::PropertyTree schema();
+
   long getWorkerCount() const override final;
 
   long getTaskCount() const override final;

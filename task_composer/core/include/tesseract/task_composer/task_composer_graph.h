@@ -57,6 +57,9 @@ public:
   TaskComposerGraph(TaskComposerGraph&&) = delete;
   TaskComposerGraph& operator=(TaskComposerGraph&&) = delete;
 
+  /** @brief Return the PropertyTree schema for a TaskComposerGraph. */
+  static tesseract::common::PropertyTree schema();
+
   /**
    * @brief Get the root node of the graph
    * @return The root node uuid

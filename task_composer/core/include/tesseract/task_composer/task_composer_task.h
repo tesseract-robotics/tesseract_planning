@@ -52,6 +52,9 @@ public:
   TaskComposerTask(TaskComposerTask&&) = delete;
   TaskComposerTask& operator=(TaskComposerTask&&) = delete;
 
+  /** @brief Return the PropertyTree schema for this task type. */
+  static tesseract::common::PropertyTree schema();
+
   /**
    * @brief If true this node should call context.abort(uuid_) after run method returns
    * @param enable True if task should call context.abort(uuid_) after run method returns

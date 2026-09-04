@@ -86,6 +86,8 @@ public:
   RasterOnlyMotionTask(RasterOnlyMotionTask&&) = delete;
   RasterOnlyMotionTask& operator=(RasterOnlyMotionTask&&) = delete;
 
+  static tesseract::common::PropertyTree schema();
+
 private:
   TaskFactory raster_task_factory_;
   TaskFactory transition_task_factory_;

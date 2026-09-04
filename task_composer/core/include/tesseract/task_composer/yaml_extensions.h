@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/yaml_extensions.h>
+#include <tesseract/common/fwd.h>
 #include <tesseract/task_composer/task_composer_keys.h>
 
 namespace YAML
@@ -69,6 +70,8 @@ struct convert<tesseract::task_composer::TaskComposerKeys>
 
     return true;
   }
+
+  static tesseract::common::PropertyTree schema();
 };
 
 }  // namespace YAML

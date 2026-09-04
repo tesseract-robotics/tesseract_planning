@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/test_suite/test_task.h>
 #include <tesseract/task_composer/task_composer_context.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer::test_suite
 {
@@ -113,6 +114,20 @@ TaskComposerNodeInfo TestTask::runImpl(TaskComposerContext& context, OptionalTas
   setData(context, INOUT_PORT2_PORT, data);
 
   return node_info;
+}
+
+tesseract::common::PropertyTree TestTask::schema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .compose(TaskComposerTask::schema())
+      .boolean("throw_exception").done()
+      .boolean("set_abort").done()
+      .integer("return_value").done()
+      .build();
+  // clang-format on
 }
 
 }  // namespace tesseract::task_composer::test_suite

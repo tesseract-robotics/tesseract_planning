@@ -19,6 +19,7 @@ add_library(
   src/task_composer_plugin_factory.cpp
   src/task_composer_server.cpp
   src/task_composer_task.cpp
+  src/yaml_extensions.cpp
   src/yaml_utils.cpp)
 add_library(tesseract::task_composer ALIAS task_composer)
 if(NOT WIN32 AND NOT APPLE)

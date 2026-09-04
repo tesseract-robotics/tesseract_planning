@@ -82,6 +82,9 @@ public:
 
   int run(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const;
 
+  /** @brief Return the PropertyTree schema for this node type. */
+  static tesseract::common::PropertyTree schema();
+
   /** @brief Set the name of the node */
   void setName(const std::string& name);
 
