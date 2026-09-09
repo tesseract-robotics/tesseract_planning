@@ -16,3 +16,4 @@ macro(add_gtest test_name test_file)
 endmacro()
 
 add_gtest(motion_planners_core_planner_unit planner_unit.cpp)
+add_gtest(motion_planners_core_contact_check_program_unit contact_check_program_unit.cpp)

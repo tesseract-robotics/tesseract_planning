@@ -389,8 +389,10 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
     {
       traj_contacts.addContact(
           0, 0, 1, joint_positions, joint_positions, joint_positions, joint_positions, sub_state_results);
-      // Always use addInterpolatedCollisionResults so cc_type is defined correctly
-      state_results.addInterpolatedCollisionResults(sub_state_results, 0, 0, active_link_ids, 0, false);
+      // Always use addInterpolatedCollisionResults so cc_type is defined correctly.
+      // The manager tests this one state as a zero length cast, so the contact is a point in time
+      // rather than a sweep, and the state is the program's start by definition of START_ONLY.
+      state_results.addInterpolatedCollisionResults(sub_state_results, 0, 0, active_link_ids, 0, true);
       if (debug_logging)
         printContinuousDebugInfo(joint_ids, joint_positions, joint_positions, 0, mi.size() - 1);
     }
@@ -416,8 +418,10 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
                                joint_positions,
                                joint_positions,
                                sub_state_results);
-      // Always use addInterpolatedCollisionResults so cc_type is defined correctly
-      state_results.addInterpolatedCollisionResults(sub_state_results, 0, 0, active_link_ids, 0, false);
+      // Always use addInterpolatedCollisionResults so cc_type is defined correctly.
+      // The manager tests this one state as a zero length cast, so the contact is a point in time
+      // rather than a sweep, and the state is the program's end by definition of END_ONLY.
+      state_results.addInterpolatedCollisionResults(sub_state_results, 1, 1, active_link_ids, 1.0, true);
       if (debug_logging)
         printContinuousDebugInfo(joint_ids, joint_positions, joint_positions, 0, mi.size() - 1);
     }
@@ -448,7 +452,12 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
         for (long iVar = 0; iVar < joint_positions0.size(); ++iVar)
           subtraj.col(iVar) = Eigen::VectorXd::LinSpaced(cnt, joint_positions0(iVar), joint_positions1(iVar));
 
-        auto sub_segment_last_index = static_cast<int>(subtraj.rows() - 1);
+        // n sub-states give n - 1 casts, so the cast marking the segment end is one below the
+        // count. The count keeps the time normalisation: cast i spans [i * dt, (i + 1) * dt].
+        // The index stays independent of end_idx: when a check_program_mode trims end_idx, the
+        // last cast visited is not the segment end and a contact there is genuinely between.
+        const auto sub_segment_count = static_cast<int>(subtraj.rows() - 1);
+        const int sub_segment_last_index = sub_segment_count - 1;
 
         // Update start and end index based on collision check program mode
         long start_idx{ 0 };
@@ -489,7 +498,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
               printContinuousDebugInfo(
                   joint_ids, subtraj.row(iSubStep), subtraj.row(iSubStep + 1), iStep, mi.size() - 1, iSubStep);
 
-            double segment_dt = (sub_segment_last_index > 0) ? 1.0 / static_cast<double>(sub_segment_last_index) : 0.0;
+            double segment_dt = (sub_segment_count > 0) ? 1.0 / static_cast<double>(sub_segment_count) : 0.0;
             state_results.addInterpolatedCollisionResults(
                 sub_state_results, iSubStep, sub_segment_last_index, active_link_ids, segment_dt, false);
             // If only one contact per step is requested, stop checking additional substates for this step
@@ -695,8 +704,9 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
                                joint_positions,
                                joint_positions,
                                sub_state_results);
-      // Always use addInterpolatedCollisionResults so cc_type is defined correctly
-      state_results.addInterpolatedCollisionResults(sub_state_results, 0, 0, active_link_ids, 0, true);
+      // Always use addInterpolatedCollisionResults so cc_type is defined correctly.
+      // This check is the trajectory's true final state by definition of END_ONLY: tag it Time1.
+      state_results.addInterpolatedCollisionResults(sub_state_results, 1, 1, active_link_ids, 1.0, true);
       if (debug_logging)
         printDiscreteDebugInfo(joint_ids, joint_positions, 0, mi.size() - 1);
     }
@@ -980,7 +990,11 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
       {
         found = true;
         traj_contacts.addContact(static_cast<int>(iStep), 0, 1, p0, p0, p0, p0, sub_state_results);
-        state_results.addInterpolatedCollisionResults(sub_state_results, 0, 0, active_link_ids, 0, true);
+        // Only the trajectory's true final state is tagged Time1; a state visited last because
+        // ALL_EXCEPT_END/INTERMEDIATE_ONLY stopped the walk early is not the trajectory's end.
+        const bool is_final_state = (iStep == mi.size() - 1);
+        state_results.addInterpolatedCollisionResults(
+            sub_state_results, is_final_state ? 1 : 0, 1, active_link_ids, is_final_state ? 1.0 : 0.0, true);
 
         if (debug_logging)
           printDiscreteDebugInfo(joint_ids, p0, iStep, mi.size() - 1);
