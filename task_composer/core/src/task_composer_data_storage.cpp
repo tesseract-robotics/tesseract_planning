@@ -49,6 +49,9 @@ TaskComposerDataStorage::TaskComposerDataStorage(const TaskComposerDataStorage& 
 // NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage& TaskComposerDataStorage::operator=(const TaskComposerDataStorage& other)
 {
+  if (this == &other)
+    return *this;
+
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
@@ -72,6 +75,9 @@ TaskComposerDataStorage::TaskComposerDataStorage(TaskComposerDataStorage&& other
 // NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage& TaskComposerDataStorage::operator=(TaskComposerDataStorage&& other) noexcept
 {
+  if (this == &other)
+    return *this;
+
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
@@ -267,6 +273,9 @@ void TaskComposerDataStorage::copyAsOutputData(const TaskComposerDataStorage& da
 
 bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) const
 {
+  if (this == &rhs)
+    return true;
+
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(rhs.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };

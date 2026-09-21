@@ -14,7 +14,6 @@
 #include <cereal/types/map.hpp>
 #include <cereal/types/memory.hpp>
 #include <cereal/types/vector.hpp>
-#include <cereal/types/unordered_map.hpp>
 #include <cereal/types/variant.hpp>
 #include <cereal/types/chrono.hpp>
 #include <cereal/types/atomic.hpp>
@@ -32,63 +31,15 @@ void serialize(Archive& ar, TaskComposerPortMap& obj)
 }
 
 template <class Archive>
+void serialize(Archive& ar, TaskComposerNodePorts::PortDefinition& obj)
+{
+  ar(cereal::make_nvp("cardinality", obj.cardinality), cereal::make_nvp("requirement", obj.requirement));
+}
+
+template <class Archive>
 void serialize(Archive& ar, TaskComposerNodePorts& obj)
 {
-  enum LegacyPortType : std::uint32_t  // NOLINT(performance-enum-size)
-  {
-    SINGLE = 0,
-    MULTIPLE = 1
-  };
-  using LegacyContainer = std::unordered_map<std::string, LegacyPortType>;
-  LegacyContainer input_required;
-  LegacyContainer input_optional;
-  LegacyContainer output_required;
-  LegacyContainer output_optional;
-
-  if constexpr (Archive::is_saving::value)
-  {
-    for (const auto& [name, definition] : obj.input_ports_)
-    {
-      auto& destination =
-          definition.requirement == TaskComposerNodePorts::Requirement::REQUIRED ? input_required : input_optional;
-      const auto cardinality = definition.cardinality == TaskComposerNodePorts::Cardinality::SINGLE ? SINGLE : MULTIPLE;
-      destination.emplace(name, cardinality);
-    }
-    for (const auto& [name, definition] : obj.output_ports_)
-    {
-      auto& destination =
-          definition.requirement == TaskComposerNodePorts::Requirement::REQUIRED ? output_required : output_optional;
-      const auto cardinality = definition.cardinality == TaskComposerNodePorts::Cardinality::SINGLE ? SINGLE : MULTIPLE;
-      destination.emplace(name, cardinality);
-    }
-  }
-
-  ar(cereal::make_nvp("input_required", input_required));
-  ar(cereal::make_nvp("input_optional", input_optional));
-  ar(cereal::make_nvp("output_required", output_required));
-  ar(cereal::make_nvp("output_optional", output_optional));
-
-  if constexpr (Archive::is_loading::value)
-  {
-    obj.input_ports_.clear();
-    obj.output_ports_.clear();
-    for (auto& [name, cardinality] : input_required)
-      obj.addRequiredInput(name,
-                           cardinality == SINGLE ? TaskComposerNodePorts::Cardinality::SINGLE :
-                                                   TaskComposerNodePorts::Cardinality::MULTIPLE);
-    for (auto& [name, cardinality] : input_optional)
-      obj.addOptionalInput(name,
-                           cardinality == SINGLE ? TaskComposerNodePorts::Cardinality::SINGLE :
-                                                   TaskComposerNodePorts::Cardinality::MULTIPLE);
-    for (auto& [name, cardinality] : output_required)
-      obj.addRequiredOutput(name,
-                            cardinality == SINGLE ? TaskComposerNodePorts::Cardinality::SINGLE :
-                                                    TaskComposerNodePorts::Cardinality::MULTIPLE);
-    for (auto& [name, cardinality] : output_optional)
-      obj.addOptionalOutput(name,
-                            cardinality == SINGLE ? TaskComposerNodePorts::Cardinality::SINGLE :
-                                                    TaskComposerNodePorts::Cardinality::MULTIPLE);
-  }
+  ar(cereal::make_nvp("input_ports", obj.input_ports_), cereal::make_nvp("output_ports", obj.output_ports_));
 }
 
 template <class Archive>

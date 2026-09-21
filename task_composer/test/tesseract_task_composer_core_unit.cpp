@@ -44,30 +44,6 @@ using namespace tesseract::task_composer;
 
 namespace
 {
-struct LegacyTaskComposerNodePortsArchiveFixture
-{
-  enum Type : std::uint32_t  // NOLINT(performance-enum-size)
-  {
-    SINGLE = 0,
-    MULTIPLE = 1
-  };
-
-  using ContainerType = std::unordered_map<std::string, Type>;
-  ContainerType input_required;
-  ContainerType input_optional;
-  ContainerType output_required;
-  ContainerType output_optional;
-
-  template <class Archive>
-  void serialize(Archive& ar)
-  {
-    ar(cereal::make_nvp("input_required", input_required));
-    ar(cereal::make_nvp("input_optional", input_optional));
-    ar(cereal::make_nvp("output_required", output_required));
-    ar(cereal::make_nvp("output_optional", output_optional));
-  }
-};
-
 std::string getRequiredStringAttribute(const tesseract::common::PropertyTree& schema, std::string_view name)
 {
   const auto attribute = schema.getAttribute(name);
@@ -229,38 +205,14 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPortSerializationTests)  // NOLI
       .addOptionalOutput("optional_output");
 
   const std::string ports_xml = tesseract::common::Serialization::toArchiveStringXML(ports);
-  EXPECT_NE(ports_xml.find("<input_required"), std::string::npos);
-  EXPECT_NE(ports_xml.find("<input_optional"), std::string::npos);
-  EXPECT_NE(ports_xml.find("<output_required"), std::string::npos);
-  EXPECT_NE(ports_xml.find("<output_optional"), std::string::npos);
+  EXPECT_NE(ports_xml.find("<input_ports"), std::string::npos);
+  EXPECT_NE(ports_xml.find("<output_ports"), std::string::npos);
+  EXPECT_NE(ports_xml.find("<cardinality"), std::string::npos);
+  EXPECT_NE(ports_xml.find("<requirement"), std::string::npos);
   EXPECT_EQ(tesseract::common::Serialization::fromArchiveStringXML<TaskComposerNodePorts>(ports_xml), ports);
-}
-
-TEST(TesseractTaskComposerCoreUnit, TaskComposerLegacyNodePortsSerializationTests)  // NOLINT
-{
-  LegacyTaskComposerNodePortsArchiveFixture legacy_ports;
-  legacy_ports.input_required["required_input"] = LegacyTaskComposerNodePortsArchiveFixture::SINGLE;
-  legacy_ports.input_optional["optional_input"] = LegacyTaskComposerNodePortsArchiveFixture::MULTIPLE;
-  legacy_ports.output_required["required_output"] = LegacyTaskComposerNodePortsArchiveFixture::MULTIPLE;
-  legacy_ports.output_optional["optional_output"] = LegacyTaskComposerNodePortsArchiveFixture::SINGLE;
-
-  TaskComposerNodePorts expected_ports;
-  expected_ports.addRequiredInput("required_input")
-      .addOptionalInput("optional_input", TaskComposerNodePorts::Cardinality::MULTIPLE)
-      .addRequiredOutput("required_output", TaskComposerNodePorts::Cardinality::MULTIPLE)
-      .addOptionalOutput("optional_output");
-
-  const std::string legacy_ports_xml = tesseract::common::Serialization::toArchiveStringXML(legacy_ports);
-  EXPECT_EQ(tesseract::common::Serialization::fromArchiveStringXML<TaskComposerNodePorts>(legacy_ports_xml),
-            expected_ports);
-  const std::vector<std::uint8_t> legacy_ports_binary =
-      tesseract::common::Serialization::toArchiveBinaryData(legacy_ports);
-  const auto loaded_ports =
-      tesseract::common::Serialization::fromArchiveBinaryData<TaskComposerNodePorts>(legacy_ports_binary);
-  EXPECT_EQ(loaded_ports, expected_ports);
   EXPECT_EQ(tesseract::common::Serialization::fromArchiveBinaryData<TaskComposerNodePorts>(
-                tesseract::common::Serialization::toArchiveBinaryData(loaded_ports)),
-            expected_ports);
+                tesseract::common::Serialization::toArchiveBinaryData(ports)),
+            ports);
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerPortMapSchemaTests)  // NOLINT
@@ -645,6 +597,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
   EXPECT_TRUE(assign.getData().size() == 1);
   EXPECT_TRUE(assign.getData(key).as<tesseract::common::JointState>() == js);
 
+  // Test Self Compare
+  EXPECT_EQ(assign, assign);
+  EXPECT_FALSE(assign != assign);
+  EXPECT_TRUE(assign.hasKey(key));
+  EXPECT_TRUE(assign.getData(key).as<tesseract::common::JointState>() == js);
+
   // Test Assign Move
   TaskComposerDataStorage move_assign;
   move_assign = std::move(data);
@@ -767,6 +725,11 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLI
   EXPECT_EQ(move_node_info_container->getInfoMap().size(), 1);
   EXPECT_TRUE(move_node_info_container->getInfo(node.getUUID()).has_value());
   EXPECT_TRUE(move_node_info_container->getAbortingNode() == aborted_uuid);
+
+  move_node_info_container->insertInfoMap(*move_node_info_container);
+  EXPECT_EQ(*move_node_info_container, *move_node_info_container);
+  EXPECT_FALSE(*move_node_info_container != *move_node_info_container);
+  EXPECT_EQ(move_node_info_container->getInfoMap().size(), 1);
 
   move_node_info_container->clear();
   EXPECT_TRUE(move_node_info_container->getInfoMap().empty());
