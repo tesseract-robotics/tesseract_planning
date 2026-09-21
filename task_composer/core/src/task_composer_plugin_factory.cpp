@@ -394,6 +394,9 @@ TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name,
     if (it != executor_factories.end())
       return it->second->create(name, plugin_info.config);
 
+    // Loading a factory may register schemas containing callbacks implemented by
+    // its library. Retain the library until the schema registry is destroyed.
+    tesseract::common::SchemaRegistry::instance()->loadAndRetainPluginLibraries(impl_->plugin_loader);
     auto plugin = impl_->plugin_loader.createInstance<TaskComposerExecutorFactory>(plugin_info.class_name);
     if (plugin == nullptr)
     {
@@ -436,6 +439,9 @@ TaskComposerPluginFactory::createTaskComposerNode(const std::string& name,
     if (it != node_factories.end())
       return it->second->create(name, plugin_info.config, *this);
 
+    // Loading a factory may register schemas containing callbacks implemented by
+    // its library. Retain the library until the schema registry is destroyed.
+    tesseract::common::SchemaRegistry::instance()->loadAndRetainPluginLibraries(impl_->plugin_loader);
     auto plugin = impl_->plugin_loader.createInstance<TaskComposerNodeFactory>(plugin_info.class_name);
     if (plugin == nullptr)
     {
@@ -475,11 +481,15 @@ YAML::Node TaskComposerPluginFactory::getConfig() const
 
 std::vector<std::string> TaskComposerPluginFactory::getAvailableTaskComposerNodePlugins() const
 {
+  // Plugin discovery loads libraries and runs their static schema registrations.
+  tesseract::common::SchemaRegistry::instance()->loadAndRetainPluginLibraries(impl_->plugin_loader);
   return impl_->plugin_loader.getAvailablePlugins(TaskComposerNodeFactory::getSection());
 }
 
 std::vector<std::string> TaskComposerPluginFactory::getAvailableTaskComposerExecutorPlugins() const
 {
+  // Plugin discovery loads libraries and runs their static schema registrations.
+  tesseract::common::SchemaRegistry::instance()->loadAndRetainPluginLibraries(impl_->plugin_loader);
   return impl_->plugin_loader.getAvailablePlugins(TaskComposerExecutorFactory::getSection());
 }
 
