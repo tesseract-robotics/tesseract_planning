@@ -3,7 +3,7 @@
 
 #include <tesseract/task_composer/task_composer_context.h>
 #include <tesseract/task_composer/task_composer_data_storage.h>
-#include <tesseract/task_composer/task_composer_keys.h>
+#include <tesseract/task_composer/task_composer_port_map.h>
 #include <tesseract/task_composer/task_composer_log.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
 #include <tesseract/task_composer/task_composer_node_ports.h>
@@ -11,31 +11,35 @@
 #include <tesseract/common/cereal_serialization.h>
 
 #include <cereal/cereal.hpp>
+#include <cereal/types/map.hpp>
 #include <cereal/types/memory.hpp>
 #include <cereal/types/vector.hpp>
-#include <cereal/types/unordered_map.hpp>
 #include <cereal/types/variant.hpp>
 #include <cereal/types/chrono.hpp>
 #include <cereal/types/atomic.hpp>
 #include <cereal/types/polymorphic.hpp>
 
 #include <mutex>
+#include <utility>
 
 namespace tesseract::task_composer
 {
 template <class Archive>
-void serialize(Archive& ar, TaskComposerKeys& obj)
+void serialize(Archive& ar, TaskComposerPortMap& obj)
 {
-  ar(cereal::make_nvp("keys", obj.keys_));
+  ar(cereal::make_nvp("port_mappings", obj.mappings_));
+}
+
+template <class Archive>
+void serialize(Archive& ar, TaskComposerNodePorts::PortDefinition& obj)
+{
+  ar(cereal::make_nvp("cardinality", obj.cardinality), cereal::make_nvp("requirement", obj.requirement));
 }
 
 template <class Archive>
 void serialize(Archive& ar, TaskComposerNodePorts& obj)
 {
-  ar(cereal::make_nvp("input_required", obj.input_required));
-  ar(cereal::make_nvp("input_optional", obj.input_optional));
-  ar(cereal::make_nvp("output_required", obj.output_required));
-  ar(cereal::make_nvp("output_optional", obj.output_optional));
+  ar(cereal::make_nvp("input_ports", obj.input_ports_), cereal::make_nvp("output_ports", obj.output_ports_));
 }
 
 template <class Archive>
@@ -59,8 +63,8 @@ void serialize(Archive& ar, TaskComposerNodeInfo& obj)
   ar(cereal::make_nvp("conditional", obj.conditional));
   ar(cereal::make_nvp("inbound_edges", obj.inbound_edges));
   ar(cereal::make_nvp("outbound_edges", obj.outbound_edges));
-  ar(cereal::make_nvp("input_keys", obj.input_keys));
-  ar(cereal::make_nvp("output_keys", obj.output_keys));
+  ar(cereal::make_nvp("input_port_mappings", obj.input_port_mappings));
+  ar(cereal::make_nvp("output_port_mappings", obj.output_port_mappings));
   ar(cereal::make_nvp("terminals", obj.terminals));
   ar(cereal::make_nvp("triggers_abort", obj.triggers_abort));
   ar(cereal::make_nvp("return_value", obj.return_value));

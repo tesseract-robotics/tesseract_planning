@@ -36,9 +36,6 @@
 namespace tesseract::task_composer
 {
 // Requried
-const std::string KinematicLimitsCheckTask::INPUT_PROGRAM_PORT = "program";
-const std::string KinematicLimitsCheckTask::INPUT_ENVIRONMENT_PORT = "environment";
-const std::string KinematicLimitsCheckTask::INPUT_PROFILES_PORT = "profiles";
 
 KinematicLimitsCheckTask::KinematicLimitsCheckTask()
   : TaskComposerTask("KinematicLimitsCheckTask", KinematicLimitsCheckTask::ports(), true)
@@ -52,10 +49,10 @@ KinematicLimitsCheckTask::KinematicLimitsCheckTask(std::string name,
                                                    bool is_conditional)
   : TaskComposerTask(std::move(name), KinematicLimitsCheckTask::ports(), is_conditional)
 {
-  input_keys_.add(INPUT_PROGRAM_PORT, std::move(input_program_key));
-  input_keys_.add(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
-  input_keys_.add(INPUT_PROFILES_PORT, std::move(input_profiles_key));
-  validatePorts();
+  input_port_mappings_.set(INPUT_PROGRAM_PORT, std::move(input_program_key));
+  input_port_mappings_.set(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
+  input_port_mappings_.set(INPUT_PROFILES_PORT, std::move(input_profiles_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
 KinematicLimitsCheckTask::KinematicLimitsCheckTask(std::string name,
@@ -63,15 +60,20 @@ KinematicLimitsCheckTask::KinematicLimitsCheckTask(std::string name,
                                                    const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), KinematicLimitsCheckTask::ports(), config)
 {
-  validatePorts();
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
-TaskComposerNodePorts KinematicLimitsCheckTask::ports()
+tesseract::common::PropertyTree KinematicLimitsCheckTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& KinematicLimitsCheckTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required["program"] = TaskComposerNodePorts::SINGLE;
-  ports.input_required["environment"] = TaskComposerNodePorts::SINGLE;
-  ports.input_required["profiles"] = TaskComposerNodePorts::SINGLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput("program");
+    ports.addRequiredInput("environment");
+    ports.addRequiredInput("profiles");
+    return ports;
+  }();
   return ports;
 }
 
@@ -95,7 +97,8 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     info.color = "red";
-    info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    info.status_message =
+        "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
     return info;
   }
 

@@ -46,6 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/task_composer_future.h>
 #include <tesseract/task_composer/task_composer_log.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
+#include <tesseract/task_composer/task_composer_plugin_factory_utils.h>
 #include <tesseract/task_composer/cereal_serialization.h>
 #include <tesseract/task_composer/test_suite/test_programs.hpp>
 
@@ -62,6 +63,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/common/joint_state.h>
 #include <tesseract/common/profile_dictionary.h>
 #include <tesseract/common/profile_plugin_factory.h>
+#include <tesseract/common/property_tree.h>
 #include <tesseract/common/unit_test_utils.h>
 #include <tesseract/common/serialization.h>
 
@@ -70,6 +72,54 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract::task_composer;
 using namespace tesseract::command_language;
 using namespace tesseract::motion_planners;
+
+TEST(TesseractTaskComposerPlanningSchemaUnit, ConstructionSchemaTests)  // NOLINT
+{
+  {
+    auto schema = MotionPlannerTask<TrajOptMotionPlanner>::schema();
+    EXPECT_TRUE(schema
+                    .applyConfig(YAML::Load("inputs: {program: input, environment: environment, profiles: "
+                                            "profiles}\noutputs: "
+                                            "{program: output}"))
+                    .empty());
+    EXPECT_TRUE(schema.at("format_result_as_input").as<bool>());
+  }
+
+  {
+    auto schema = MotionPlannerTask<TrajOptMotionPlanner>::schema();
+    EXPECT_TRUE(schema
+                    .applyConfig(YAML::Load("inputs: {program: input, environment: environment, profiles: profiles}\n"
+                                            "outputs: {program: output}\n"
+                                            "format_result_as_input: false"))
+                    .empty());
+    EXPECT_FALSE(schema.at("format_result_as_input").as<bool>());
+  }
+
+  {
+    auto schema = RasterMotionTask::schema();
+    const auto errors = schema.applyConfig(YAML::Load("{}"));
+    EXPECT_TRUE(std::any_of(errors.cbegin(), errors.cend(), [](const std::string& error) {
+      return error.find("freespace") != std::string::npos;
+    }));
+    EXPECT_TRUE(std::any_of(errors.cbegin(), errors.cend(), [](const std::string& error) {
+      return error.find("raster") != std::string::npos;
+    }));
+    EXPECT_TRUE(std::any_of(errors.cbegin(), errors.cend(), [](const std::string& error) {
+      return error.find("transition") != std::string::npos;
+    }));
+  }
+
+  {
+    auto schema = RasterOnlyMotionTask::schema();
+    const auto errors = schema.applyConfig(YAML::Load("{}"));
+    EXPECT_TRUE(std::any_of(errors.cbegin(), errors.cend(), [](const std::string& error) {
+      return error.find("raster") != std::string::npos;
+    }));
+    EXPECT_TRUE(std::any_of(errors.cbegin(), errors.cend(), [](const std::string& error) {
+      return error.find("transition") != std::string::npos;
+    }));
+  }
+}
 
 /**
  * @brief Collects console_bridge messages logged at debug level for the enclosing scope
@@ -160,11 +210,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     ContinuousContactCheckTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 0);
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(ContinuousContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(ContinuousContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(ContinuousContactCheckTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -354,11 +404,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     DiscreteContactCheckTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 0);
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(DiscreteContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(DiscreteContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(DiscreteContactCheckTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -544,11 +594,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     FormatAsInputTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
-    EXPECT_EQ(task.getInputKeys().get(FormatAsInputTask::INPUT_PRE_PLANNING_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(FormatAsInputTask::INPUT_POST_PLANNING_PROGRAM_PORT), "output_data");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(FormatAsInputTask::OUTPUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 2);
+    EXPECT_EQ(task.getInputPortMappings().single(FormatAsInputTask::INPUT_PRE_PLANNING_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(FormatAsInputTask::INPUT_POST_PLANNING_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(FormatAsInputTask::OUTPUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -850,11 +900,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
     FormatAsResultTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 1);
-    EXPECT_EQ(task.getInputKeys().get<std::vector<std::string>>(FormatAsResultTask::INOUT_PROGRAMS_PORT),
+    EXPECT_EQ(task.getInputPortMappings().size(), 1);
+    EXPECT_EQ(task.getInputPortMappings().multiple(FormatAsResultTask::INOUT_PROGRAMS_PORT),
               std::vector<std::string>{ "input_data" });
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get<std::vector<std::string>>(FormatAsResultTask::INOUT_PROGRAMS_PORT),
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().multiple(FormatAsResultTask::INOUT_PROGRAMS_PORT),
               std::vector<std::string>{ "output_data" });
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
@@ -949,9 +999,9 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
 
     data->setData("input_data", input_data);
     auto context = std::make_shared<TaskComposerContext>("abc", std::move(data));
-    std::vector<std::string> input_keys{ "input_data" };
-    std::vector<std::string> output_keys{ "output_data" };
-    FormatAsResultTask task("abc", input_keys, output_keys, true);
+    std::vector<std::string> input_storage_keys{ "input_data" };
+    std::vector<std::string> output_storage_keys{ "output_data" };
+    FormatAsResultTask task("abc", input_storage_keys, output_storage_keys, true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
@@ -972,9 +1022,9 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
   {  // Failure missing input data [0]
     auto data = std::make_unique<TaskComposerDataStorage>();
     auto context = std::make_shared<TaskComposerContext>("abc", std::move(data));
-    std::vector<std::string> input_keys{ "input_data" };
-    std::vector<std::string> output_keys{ "output_data" };
-    FormatAsResultTask task("abc", input_keys, output_keys, true);
+    std::vector<std::string> input_storage_keys{ "input_data" };
+    std::vector<std::string> output_storage_keys{ "output_data" };
+    FormatAsResultTask task("abc", input_storage_keys, output_storage_keys, true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
@@ -1014,12 +1064,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     MinLengthTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(MinLengthTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(MinLengthTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(MinLengthTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(MinLengthTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(MinLengthTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(MinLengthTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(MinLengthTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(MinLengthTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -1169,11 +1219,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     FormatPlanningInputTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
-    EXPECT_EQ(task.getInputKeys().get(FormatPlanningInputTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(FormatPlanningInputTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(MinLengthTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 2);
+    EXPECT_EQ(task.getInputPortMappings().single(FormatPlanningInputTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(FormatPlanningInputTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(MinLengthTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -1296,12 +1346,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     FixStateBoundsTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(FixStateBoundsTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(FixStateBoundsTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(FixStateBoundsTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(FixStateBoundsTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(FixStateBoundsTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -1479,12 +1529,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     FixStateCollisionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(FixStateCollisionTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(FixStateCollisionTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(FixStateCollisionTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(FixStateCollisionTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(FixStateCollisionTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -1636,11 +1686,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     KinematicLimitsCheckTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), false);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(KinematicLimitsCheckTask::INPUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(KinematicLimitsCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(KinematicLimitsCheckTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 0);
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(KinematicLimitsCheckTask::INPUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(KinematicLimitsCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(KinematicLimitsCheckTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -1798,10 +1848,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     ProfileSwitchTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
-    EXPECT_EQ(task.getInputKeys().get(ProfileSwitchTask::INPUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(ProfileSwitchTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 0);
+    EXPECT_EQ(task.getInputPortMappings().size(), 2);
+    EXPECT_EQ(task.getInputPortMappings().single(ProfileSwitchTask::INPUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(ProfileSwitchTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -1887,11 +1937,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     UpdateEndStateTask task("abc", "input_data", "next_data", "output_data", false);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), false);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
-    EXPECT_EQ(task.getInputKeys().get(UpdateEndStateTask::INPUT_CURRENT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(UpdateEndStateTask::INPUT_NEXT_PROGRAM_PORT), "next_data");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(UpdateEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 2);
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateEndStateTask::INPUT_CURRENT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateEndStateTask::INPUT_NEXT_PROGRAM_PORT), "next_data");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(UpdateEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -1900,11 +1950,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     UpdateEndStateTask task("abc", "next_data", "output_data", true);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
-    EXPECT_EQ(task.getInputKeys().get(UpdateEndStateTask::INPUT_CURRENT_PROGRAM_PORT), task.getUUIDString());
-    EXPECT_EQ(task.getInputKeys().get(UpdateEndStateTask::INPUT_NEXT_PROGRAM_PORT), "next_data");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(UpdateEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 2);
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateEndStateTask::INPUT_CURRENT_PROGRAM_PORT), task.getUUIDString());
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateEndStateTask::INPUT_NEXT_PROGRAM_PORT), "next_data");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(UpdateEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -1995,11 +2045,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     UpdateStartStateTask task("abc", "input_data", "prev_data", "output_data", false);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), false);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartStateTask::INPUT_CURRENT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartStateTask::INPUT_PREVIOUS_PROGRAM_PORT), "prev_data");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(UpdateStartStateTask::OUTPUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 2);
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartStateTask::INPUT_CURRENT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartStateTask::INPUT_PREVIOUS_PROGRAM_PORT), "prev_data");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(UpdateStartStateTask::OUTPUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -2008,11 +2058,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     UpdateStartStateTask task("abc", "prev_data", "output_data", true);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartStateTask::INPUT_CURRENT_PROGRAM_PORT), task.getUUIDString());
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartStateTask::INPUT_PREVIOUS_PROGRAM_PORT), "prev_data");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(UpdateStartStateTask::OUTPUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 2);
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartStateTask::INPUT_CURRENT_PROGRAM_PORT),
+              task.getUUIDString());
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartStateTask::INPUT_PREVIOUS_PROGRAM_PORT), "prev_data");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(UpdateStartStateTask::OUTPUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -2103,12 +2154,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     UpdateStartAndEndStateTask task("abc", "input_data", "prev_data", "next_data", "output_data", false);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), false);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartAndEndStateTask::INPUT_CURRENT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartAndEndStateTask::INPUT_PREVIOUS_PROGRAM_PORT), "prev_data");
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartAndEndStateTask::INPUT_NEXT_PROGRAM_PORT), "next_data");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(UpdateStartAndEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartAndEndStateTask::INPUT_CURRENT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartAndEndStateTask::INPUT_PREVIOUS_PROGRAM_PORT), "prev_data");
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartAndEndStateTask::INPUT_NEXT_PROGRAM_PORT), "next_data");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(UpdateStartAndEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -2117,12 +2168,13 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     UpdateStartAndEndStateTask task("abc", "prev_data", "next_data", "output_data", true);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartAndEndStateTask::INPUT_CURRENT_PROGRAM_PORT), task.getUUIDString());
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartAndEndStateTask::INPUT_PREVIOUS_PROGRAM_PORT), "prev_data");
-    EXPECT_EQ(task.getInputKeys().get(UpdateStartAndEndStateTask::INPUT_NEXT_PROGRAM_PORT), "next_data");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(UpdateStartAndEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartAndEndStateTask::INPUT_CURRENT_PROGRAM_PORT),
+              task.getUUIDString());
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartAndEndStateTask::INPUT_PREVIOUS_PROGRAM_PORT), "prev_data");
+    EXPECT_EQ(task.getInputPortMappings().single(UpdateStartAndEndStateTask::INPUT_NEXT_PROGRAM_PORT), "next_data");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(UpdateStartAndEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -2263,11 +2315,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     UpsampleTrajectoryTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
-    EXPECT_EQ(task.getInputKeys().get(UpsampleTrajectoryTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(UpsampleTrajectoryTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(UpsampleTrajectoryTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 2);
+    EXPECT_EQ(task.getInputPortMappings().single(UpsampleTrajectoryTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(UpsampleTrajectoryTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(UpsampleTrajectoryTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -2392,12 +2444,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     IterativeSplineParameterizationTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(IterativeSplineParameterizationTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(IterativeSplineParameterizationTask::INOUT_PROGRAM_PORT),
+              "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(IterativeSplineParameterizationTask::INPUT_ENVIRONMENT_PORT),
+              "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(IterativeSplineParameterizationTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(IterativeSplineParameterizationTask::INOUT_PROGRAM_PORT),
+              "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -2589,12 +2644,16 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     ConstantTCPSpeedParameterizationTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(ConstantTCPSpeedParameterizationTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(ConstantTCPSpeedParameterizationTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(ConstantTCPSpeedParameterizationTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(ConstantTCPSpeedParameterizationTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(ConstantTCPSpeedParameterizationTask::INOUT_PROGRAM_PORT),
+              "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(ConstantTCPSpeedParameterizationTask::INPUT_ENVIRONMENT_PORT),
+              "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(ConstantTCPSpeedParameterizationTask::INPUT_PROFILES_PORT),
+              "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(ConstantTCPSpeedParameterizationTask::INOUT_PROGRAM_PORT),
+              "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -2786,12 +2845,13 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     TimeOptimalParameterizationTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(TimeOptimalParameterizationTask::INPUT_ENVIRONMENT_PORT),
+              "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(TimeOptimalParameterizationTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -2986,12 +3046,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     RuckigTrajectorySmoothingTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(RuckigTrajectorySmoothingTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(RuckigTrajectorySmoothingTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(RuckigTrajectorySmoothingTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(RuckigTrajectorySmoothingTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(RuckigTrajectorySmoothingTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -3193,12 +3253,16 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     MotionPlannerTask<TrajOptMotionPlanner> task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(MotionPlannerTask<TrajOptMotionPlanner>::INOUT_PROGRAM_PORT),
+              "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_ENVIRONMENT_PORT),
+              "environment");
+    EXPECT_EQ(task.getInputPortMappings().single(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_PROFILES_PORT),
+              "profiles");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(MotionPlannerTask<TrajOptMotionPlanner>::INOUT_PROGRAM_PORT),
+              "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -3396,11 +3460,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     RasterMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(RasterMotionTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(RasterMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(RasterMotionTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(RasterMotionTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(RasterMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(RasterMotionTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -3424,11 +3488,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     RasterMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(RasterMotionTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(RasterMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(RasterMotionTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(RasterMotionTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(RasterMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(RasterMotionTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -3437,7 +3501,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     std::string str = R"(config:
                            conditional: true)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3448,7 +3512,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              environment: environment
                              profiles: profiles)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3457,7 +3521,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3473,7 +3537,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3488,7 +3552,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3505,7 +3569,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3522,7 +3586,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3539,7 +3603,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3559,7 +3623,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3578,7 +3642,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            raster:
                              task: CartesianPipeline)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3599,7 +3663,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3620,7 +3684,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3641,7 +3705,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3665,7 +3729,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(TaskComposerTaskFactory<RasterMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Test run method
@@ -3932,11 +3996,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     RasterOnlyMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(RasterOnlyMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(RasterOnlyMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -3958,11 +4022,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     RasterOnlyMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
-    EXPECT_EQ(task.getInputKeys().get(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(RasterOnlyMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getOutputKeys().size(), 1);
-    EXPECT_EQ(task.getOutputKeys().get(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getInputPortMappings().size(), 3);
+    EXPECT_EQ(task.getInputPortMappings().single(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputPortMappings().single(RasterOnlyMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getOutputPortMappings().size(), 1);
+    EXPECT_EQ(task.getOutputPortMappings().single(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
@@ -3971,7 +4035,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     std::string str = R"(config:
                            conditional: true)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(
+        TaskComposerTaskFactory<RasterOnlyMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3982,7 +4047,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                              environment: environment
                              profiles: profiles)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(
+        TaskComposerTaskFactory<RasterOnlyMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -3991,7 +4057,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(
+        TaskComposerTaskFactory<RasterOnlyMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -4007,7 +4074,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(
+        TaskComposerTaskFactory<RasterOnlyMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -4022,7 +4090,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(
+        TaskComposerTaskFactory<RasterOnlyMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -4039,7 +4108,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(
+        TaskComposerTaskFactory<RasterOnlyMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -4056,7 +4126,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(
+        TaskComposerTaskFactory<RasterOnlyMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -4073,7 +4144,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(
+        TaskComposerTaskFactory<RasterOnlyMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -4093,7 +4165,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                              config:
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+    EXPECT_ANY_THROW(
+        TaskComposerTaskFactory<RasterOnlyMotionTask>{}.create("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Test run method

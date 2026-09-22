@@ -42,8 +42,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::task_composer
 {
 // Requried
-const std::string ProfileSwitchTask::INPUT_PROGRAM_PORT = "program";
-const std::string ProfileSwitchTask::INPUT_PROFILES_PORT = "profiles";
 
 ProfileSwitchTask::ProfileSwitchTask() : TaskComposerTask("ProfileSwitchTask", ProfileSwitchTask::ports(), true) {}
 ProfileSwitchTask::ProfileSwitchTask(std::string name,
@@ -52,9 +50,9 @@ ProfileSwitchTask::ProfileSwitchTask(std::string name,
                                      bool is_conditional)
   : TaskComposerTask(std::move(name), ProfileSwitchTask::ports(), is_conditional)
 {
-  input_keys_.add(INPUT_PROGRAM_PORT, std::move(input_program_key));
-  input_keys_.add(INPUT_PROFILES_PORT, std::move(input_profiles_key));
-  validatePorts();
+  input_port_mappings_.set(INPUT_PROGRAM_PORT, std::move(input_program_key));
+  input_port_mappings_.set(INPUT_PROFILES_PORT, std::move(input_profiles_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
 ProfileSwitchTask::ProfileSwitchTask(std::string name,
@@ -64,11 +62,16 @@ ProfileSwitchTask::ProfileSwitchTask(std::string name,
 {
 }
 
-TaskComposerNodePorts ProfileSwitchTask::ports()
+tesseract::common::PropertyTree ProfileSwitchTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& ProfileSwitchTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INPUT_PROGRAM_PORT);
+    ports.addRequiredInput(INPUT_PROFILES_PORT);
+    return ports;
+  }();
   return ports;
 }
 

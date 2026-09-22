@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/task_composer_node.h>
 #include <tesseract/task_composer/task_composer_task.h>
 #include <tesseract/task_composer/task_composer_pipeline.h>
+#include <tesseract/common/property_tree.h>
 #include <tesseract/task_composer/task_composer_graph.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
 
@@ -49,109 +50,153 @@ tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
                            tf::Taskflow* taskflow,
                            tf::Subflow* parent_sbf)
 {
-  auto fn = [&task_graph, &task_context, &task_executor](tf::Subflow& subflow) {
-    tesseract::common::Stopwatch stopwatch;
-    stopwatch.start();
-
-    // Node Info
-    TaskComposerNodeInfo info(task_graph);
-    info.color = "green";
-    info.input_keys = task_graph.getInputKeys();
-    info.output_keys = task_graph.getOutputKeys();
-    info.start_time = std::chrono::system_clock::now();
-
-    if (task_context.isAborted())
+  auto fn = [&task_graph, &task_context, &task_executor](tf::Subflow& graph_scope) {
+    struct GraphState
     {
-      info.return_value = 0;
-      info.color = "grey";
-      info.status_code = 0;
-      info.status_message = "Aborted";
-      info.aborted = true;
-      task_context.task_infos->addInfo(info);
-      return;
-    }
+      explicit GraphState(const TaskComposerGraph& graph) : info(graph) {}
 
-    try
-    {
-      // Create local data storage for graph
-      TaskComposerDataStorage::Ptr parent_data_storage = task_graph.getDataStorage(task_context);
+      tesseract::common::Stopwatch stopwatch;
+      TaskComposerNodeInfo info;
+      TaskComposerDataStorage::Ptr parent_data_storage;
+      TaskComposerDataStorage::Ptr local_data_storage;
+      bool finalize{ false };
+      bool copy_outputs{ false };
+    };
 
-      // Create a new data storage and copy the input data relevant to this graph.
-      // Store the new data storage for access by child nodes of this graph
-      auto local_data_storage = std::make_shared<TaskComposerDataStorage>(task_graph.getUUIDString());
-      local_data_storage->copyAsInputData(
-          *parent_data_storage, task_graph.getInputKeys(), task_graph.getOverrideInputKeys());
-      task_context.data_storage->setData(task_graph.getUUIDString(), local_data_storage);
+    auto state = std::make_shared<GraphState>(task_graph);
+    auto graph_task =
+        graph_scope
+            .emplace([state, &task_graph, &task_context, &task_executor](tf::Subflow& subflow) {
+              state->stopwatch.start();
+              state->info.color = "green";
+              state->info.input_port_mappings = task_graph.getInputPortMappings();
+              state->info.output_port_mappings = task_graph.getOutputPortMappings();
+              state->info.start_time = std::chrono::system_clock::now();
 
-      // Generate process tasks for each node
-      std::map<boost::uuids::uuid, tf::Task> tasks;
-      const auto& nodes = task_graph.getNodes();
-      for (const auto& pair : nodes)
-      {
-        auto edges = pair.second->getOutboundEdges();
-        if (pair.second->getType() == TaskComposerNodeType::TASK)
-        {
-          auto task = std::static_pointer_cast<const TaskComposerTask>(pair.second);
-          if (edges.size() > 1 && task->isConditional())
-            tasks[pair.first] =
-                subflow
-                    .emplace([task, &task_context, &task_executor] { return task->run(task_context, task_executor); })
-                    .name(pair.second->getName());
-          else
-            tasks[pair.first] =
-                subflow.emplace([task, &task_context, &task_executor] { task->run(task_context, task_executor); })
-                    .name(pair.second->getName());
-        }
-        else if (pair.second->getType() == TaskComposerNodeType::PIPELINE)
-        {
-          auto pipeline = std::static_pointer_cast<const TaskComposerPipeline>(pair.second);
-          if (edges.size() > 1 && pipeline->isConditional())
-            tasks[pair.first] = subflow
-                                    .emplace([pipeline, &task_context, &task_executor] {
-                                      return pipeline->run(task_context, task_executor);
-                                    })
-                                    .name(pair.second->getName());
-          else
-            tasks[pair.first] =
-                subflow
-                    .emplace([pipeline, &task_context, &task_executor] { pipeline->run(task_context, task_executor); })
-                    .name(pair.second->getName());
-        }
-        else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
-        {
-          const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
-          tasks[pair.first] = convertToTaskflow(graph, task_context, task_executor, nullptr, &subflow);
-        }
-        else
-          throw std::runtime_error("convertToTaskflow, unsupported node type!");
-      }
+              if (task_context.isAborted())
+              {
+                state->info.return_value = 0;
+                state->info.color = "grey";
+                state->info.status_code = 0;
+                state->info.status_message = "Aborted";
+                state->info.aborted = true;
+                state->stopwatch.stop();
+                state->info.elapsed_time = state->stopwatch.elapsedSeconds();
+                task_context.task_infos->addInfo(state->info);
+                return;
+              }
 
-      for (const auto& pair : nodes)
-      {
-        // Ensure the current task precedes the tasks that it is connected to
-        auto edges = pair.second->getOutboundEdges();
-        for (const auto& e : edges)
-          tasks[pair.first].precede(tasks[e]);
-      }
-      subflow.join();
+              state->finalize = true;
+              try
+              {
+                // Create local data storage for graph
+                state->parent_data_storage = task_graph.getDataStorage(task_context);
 
-      // Copy output data to parent data storage
-      parent_data_storage->copyAsOutputData(
-          *local_data_storage, task_graph.getOutputKeys(), task_graph.getOverrideOutputKeys());
-    }
-    catch (const std::exception& e)
-    {
-      info.color = "red";
-      info.status_code = -1;
-      info.status_message = "Exception thrown: " + std::string(e.what());
-      info.return_value = 0;
+                // Create a new data storage and copy the input data relevant to this graph.
+                // Store the new data storage for access by child nodes of this graph.
+                state->local_data_storage = std::make_shared<TaskComposerDataStorage>(task_graph.getUUIDString());
+                state->local_data_storage->copyAsInputData(*state->parent_data_storage,
+                                                           task_graph.getInputPortMappings(),
+                                                           task_graph.getOverrideInputPortMappings());
+                task_context.data_storage->setData(task_graph.getUUIDString(), state->local_data_storage);
 
-      info.status_message += " (Abort Triggered)";
-      task_context.abort(task_graph.getUUID());
-    }
-    stopwatch.stop();
-    info.elapsed_time = stopwatch.elapsedSeconds();
-    task_context.task_infos->addInfo(info);
+                // Generate process tasks for each node
+                std::map<boost::uuids::uuid, tf::Task> tasks;
+                const auto& nodes = task_graph.getNodes();
+                for (const auto& pair : nodes)
+                {
+                  auto edges = pair.second->getOutboundEdges();
+                  if (pair.second->getType() == TaskComposerNodeType::TASK)
+                  {
+                    auto task = std::static_pointer_cast<const TaskComposerTask>(pair.second);
+                    if (edges.size() > 1 && task->isConditional())
+                      tasks[pair.first] = subflow
+                                              .emplace([task, &task_context, &task_executor] {
+                                                return task->run(task_context, task_executor);
+                                              })
+                                              .name(pair.second->getName());
+                    else
+                      tasks[pair.first] = subflow
+                                              .emplace([task, &task_context, &task_executor] {
+                                                task->run(task_context, task_executor);
+                                              })
+                                              .name(pair.second->getName());
+                  }
+                  else if (pair.second->getType() == TaskComposerNodeType::PIPELINE)
+                  {
+                    auto pipeline = std::static_pointer_cast<const TaskComposerPipeline>(pair.second);
+                    if (edges.size() > 1 && pipeline->isConditional())
+                      tasks[pair.first] = subflow
+                                              .emplace([pipeline, &task_context, &task_executor] {
+                                                return pipeline->run(task_context, task_executor);
+                                              })
+                                              .name(pair.second->getName());
+                    else
+                      tasks[pair.first] = subflow
+                                              .emplace([pipeline, &task_context, &task_executor] {
+                                                pipeline->run(task_context, task_executor);
+                                              })
+                                              .name(pair.second->getName());
+                  }
+                  else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
+                  {
+                    const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
+                    tasks[pair.first] = convertToTaskflow(graph, task_context, task_executor, nullptr, &subflow);
+                  }
+                  else
+                    throw std::runtime_error("convertToTaskflow, unsupported node type!");
+                }
+
+                for (const auto& pair : nodes)
+                {
+                  // Ensure the current task precedes the tasks that it is connected to
+                  auto edges = pair.second->getOutboundEdges();
+                  for (const auto& e : edges)
+                    tasks[pair.first].precede(tasks[e]);
+                }
+                state->copy_outputs = true;
+              }
+              catch (const std::exception& e)
+              {
+                state->info.color = "red";
+                state->info.status_code = -1;
+                state->info.status_message = "Exception thrown: " + std::string(e.what());
+                state->info.return_value = 0;
+                state->info.status_message += " (Abort Triggered)";
+                task_context.abort(task_graph.getUUID());
+              }
+            })
+            .name(task_graph.getName() + " [graph]");
+
+    auto finalize_task =
+        graph_scope
+            .emplace([state, &task_graph, &task_context] {
+              if (!state->finalize)
+                return;
+
+              try
+              {
+                if (state->copy_outputs)
+                  state->parent_data_storage->copyAsOutputData(*state->local_data_storage,
+                                                               task_graph.getOutputPortMappings(),
+                                                               task_graph.getOverrideOutputPortMappings());
+              }
+              catch (const std::exception& e)
+              {
+                state->info.color = "red";
+                state->info.status_code = -1;
+                state->info.status_message = "Exception thrown: " + std::string(e.what());
+                state->info.return_value = 0;
+                state->info.status_message += " (Abort Triggered)";
+                task_context.abort(task_graph.getUUID());
+              }
+
+              state->stopwatch.stop();
+              state->info.elapsed_time = state->stopwatch.elapsedSeconds();
+              task_context.task_infos->addInfo(state->info);
+            })
+            .name(task_graph.getName() + " [finalize]");
+    graph_task.precede(finalize_task);
   };
 
   if (parent_sbf != nullptr)
@@ -250,5 +295,16 @@ std::unique_ptr<TaskComposerFuture> TaskflowTaskComposerExecutor::runImpl(const 
 long TaskflowTaskComposerExecutor::getWorkerCount() const { return static_cast<long>(executor_->num_workers()); }
 
 long TaskflowTaskComposerExecutor::getTaskCount() const { return static_cast<long>(executor_->num_topologies()); }
+
+tesseract::common::PropertyTree TaskflowTaskComposerExecutor::schema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .int32("threads").minimum(1).done()
+      .build();
+  // clang-format on
+}
 
 }  // namespace tesseract::task_composer

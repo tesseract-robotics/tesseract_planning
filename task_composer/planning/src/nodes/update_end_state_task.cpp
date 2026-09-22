@@ -41,9 +41,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::task_composer
 {
 // Requried
-const std::string UpdateEndStateTask::INPUT_CURRENT_PROGRAM_PORT = "current_program";
-const std::string UpdateEndStateTask::INPUT_NEXT_PROGRAM_PORT = "next_program";
-const std::string UpdateEndStateTask::OUTPUT_PROGRAM_PORT = "program";
 
 UpdateEndStateTask::UpdateEndStateTask(std::string name,
                                        std::string input_next_key,
@@ -51,10 +48,10 @@ UpdateEndStateTask::UpdateEndStateTask(std::string name,
                                        bool conditional)
   : TaskComposerTask(std::move(name), UpdateEndStateTask::ports(), conditional)
 {
-  input_keys_.add(INPUT_CURRENT_PROGRAM_PORT, uuid_str_);
-  input_keys_.add(INPUT_NEXT_PROGRAM_PORT, std::move(input_next_key));
-  output_keys_.add(OUTPUT_PROGRAM_PORT, std::move(output_key));
-  validatePorts();
+  input_port_mappings_.set(INPUT_CURRENT_PROGRAM_PORT, uuid_str_);
+  input_port_mappings_.set(INPUT_NEXT_PROGRAM_PORT, std::move(input_next_key));
+  output_port_mappings_.set(OUTPUT_PROGRAM_PORT, std::move(output_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
 UpdateEndStateTask::UpdateEndStateTask(std::string name,
@@ -64,18 +61,23 @@ UpdateEndStateTask::UpdateEndStateTask(std::string name,
                                        bool conditional)
   : TaskComposerTask(std::move(name), UpdateEndStateTask::ports(), conditional)
 {
-  input_keys_.add(INPUT_CURRENT_PROGRAM_PORT, std::move(input_key));
-  input_keys_.add(INPUT_NEXT_PROGRAM_PORT, std::move(input_next_key));
-  output_keys_.add(OUTPUT_PROGRAM_PORT, std::move(output_key));
-  validatePorts();
+  input_port_mappings_.set(INPUT_CURRENT_PROGRAM_PORT, std::move(input_key));
+  input_port_mappings_.set(INPUT_NEXT_PROGRAM_PORT, std::move(input_next_key));
+  output_port_mappings_.set(OUTPUT_PROGRAM_PORT, std::move(output_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
-TaskComposerNodePorts UpdateEndStateTask::ports()
+tesseract::common::PropertyTree UpdateEndStateTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& UpdateEndStateTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INPUT_CURRENT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_required[INPUT_NEXT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.output_required[OUTPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INPUT_CURRENT_PROGRAM_PORT);
+    ports.addRequiredInput(INPUT_NEXT_PROGRAM_PORT);
+    ports.addRequiredOutput(OUTPUT_PROGRAM_PORT);
+    return ports;
+  }();
   return ports;
 }
 
@@ -94,16 +96,16 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   // --------------------
   if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
-    info.status_message = "UpdateEndStateTask: Input data for key '" + input_keys_.get(INPUT_CURRENT_PROGRAM_PORT) +
-                          "' must be a composite instruction";
+    info.status_message = "UpdateEndStateTask: Input data for key '" +
+                          input_port_mappings_.single(INPUT_CURRENT_PROGRAM_PORT) + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
   if (input_next_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
-    info.status_message = "UpdateEndStateTask: Input data for key '" + input_keys_.get(INPUT_NEXT_PROGRAM_PORT) +
-                          "' must be a composite instruction";
+    info.status_message = "UpdateEndStateTask: Input data for key '" +
+                          input_port_mappings_.single(INPUT_NEXT_PROGRAM_PORT) + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }

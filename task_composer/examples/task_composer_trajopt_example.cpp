@@ -59,8 +59,8 @@ int main()
 
   // Create trajopt pipeline
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("TrajOptPipeline");
-  const std::string input_key = task->getInputKeys().get("program");
-  const std::string output_key = task->getOutputKeys().get("program");
+  const std::string input_key = task->getInputPortMappings().single("program");
+  const std::string output_key = task->getOutputPortMappings().single("program");
 
   // Define profiles
   auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();

@@ -57,8 +57,8 @@ int main()
 
   // Create raster task
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("RasterFtPipeline");
-  const std::string input_key = task->getInputKeys().get("planning_input");
-  const std::string output_key = task->getOutputKeys().get("program");
+  const std::string input_key = task->getInputPortMappings().single("planning_input");
+  const std::string output_key = task->getOutputPortMappings().single("program");
 
   // Define profiles
   auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();

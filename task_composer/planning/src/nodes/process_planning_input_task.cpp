@@ -38,8 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::task_composer
 {
 // Requried
-const std::string ProcessPlanningInputTask::INPUT_PLANNING_INPUT_PORT = "planning_input";
-const std::string ProcessPlanningInputTask::OUTPUT_PROGRAM_PORT = "program";
 
 ProcessPlanningInputTask::ProcessPlanningInputTask()
   : TaskComposerTask("ProcessPlanningInputInstructionTask", ProcessPlanningInputTask::ports(), false)
@@ -52,9 +50,9 @@ ProcessPlanningInputTask::ProcessPlanningInputTask(std::string name,
                                                    bool is_conditional)
   : TaskComposerTask(std::move(name), ProcessPlanningInputTask::ports(), is_conditional)
 {
-  input_keys_.add(INPUT_PLANNING_INPUT_PORT, std::move(input_key));
-  output_keys_.add(OUTPUT_PROGRAM_PORT, std::move(output_key));
-  validatePorts();
+  input_port_mappings_.set(INPUT_PLANNING_INPUT_PORT, std::move(input_key));
+  output_port_mappings_.set(OUTPUT_PROGRAM_PORT, std::move(output_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
 ProcessPlanningInputTask::ProcessPlanningInputTask(std::string name,
@@ -64,11 +62,16 @@ ProcessPlanningInputTask::ProcessPlanningInputTask(std::string name,
 {
 }
 
-TaskComposerNodePorts ProcessPlanningInputTask::ports()
+tesseract::common::PropertyTree ProcessPlanningInputTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& ProcessPlanningInputTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INPUT_PLANNING_INPUT_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.output_required[OUTPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INPUT_PLANNING_INPUT_PORT);
+    ports.addRequiredOutput(OUTPUT_PROGRAM_PORT);
+    return ports;
+  }();
   return ports;
 }
 

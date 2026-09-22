@@ -43,7 +43,7 @@ public:
   using ConstUPtr = std::unique_ptr<const RemapTask>;
 
   // Requried
-  static const std::string INOUT_KEYS_PORT;
+  inline static constexpr char INOUT_STORAGE_KEYS_PORT[] = "storage_keys";
 
   RemapTask();
   explicit RemapTask(std::string name,
@@ -53,10 +53,12 @@ public:
   explicit RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~RemapTask() override = default;
 
+  static tesseract::common::PropertyTree schema();
+
+  static const TaskComposerNodePorts& ports();
+
 private:
   bool copy_{ false };
-
-  static TaskComposerNodePorts ports();
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;

@@ -45,16 +45,16 @@ class TaskComposerPluginFactory;
  * This will take the results stored in input_unformated_key and store it in the input_formatted_key program and
  * save the results in the output key.
  *
- * input_keys[0]: The original input to motion planning
- * input_keys[1]: The output of the first motion plan which failed collision checking
+ * The pre-planning input storage key identifies the original motion-planning input. The post-planning input storage
+ * key identifies the first motion plan that failed collision checking.
  */
 class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT FormatAsInputTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INPUT_PRE_PLANNING_PROGRAM_PORT;
-  static const std::string INPUT_POST_PLANNING_PROGRAM_PORT;
-  static const std::string OUTPUT_PROGRAM_PORT;
+  inline static constexpr char INPUT_PRE_PLANNING_PROGRAM_PORT[] = "pre_planning_program";
+  inline static constexpr char INPUT_POST_PLANNING_PROGRAM_PORT[] = "post_planning_program";
+  inline static constexpr char OUTPUT_PROGRAM_PORT[] = "program";
 
   using Ptr = std::shared_ptr<FormatAsInputTask>;
   using ConstPtr = std::shared_ptr<const FormatAsInputTask>;
@@ -76,9 +76,10 @@ public:
   FormatAsInputTask(FormatAsInputTask&&) = delete;
   FormatAsInputTask& operator=(FormatAsInputTask&&) = delete;
 
-private:
-  static TaskComposerNodePorts ports();
+  static tesseract::common::PropertyTree schema();
+  static const TaskComposerNodePorts& ports();
 
+private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };

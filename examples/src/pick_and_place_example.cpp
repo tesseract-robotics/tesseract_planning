@@ -322,7 +322,7 @@ bool PickAndPlaceExample::run()
   // Create task
   const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
   TaskComposerNode::UPtr pick_task = factory.createTaskComposerNode(task_name);
-  const std::string pick_output_key = pick_task->getOutputKeys().get("program");
+  const std::string pick_output_key = pick_task->getOutputPortMappings().single("program");
 
   // Create Task Composer Data Storage
   auto pick_data = std::make_unique<TaskComposerDataStorage>();
@@ -441,7 +441,7 @@ bool PickAndPlaceExample::run()
 
   // Create task
   TaskComposerNode::UPtr place_task = factory.createTaskComposerNode(task_name);
-  const std::string place_output_key = pick_task->getOutputKeys().get("program");
+  const std::string place_output_key = pick_task->getOutputPortMappings().single("program");
 
   // Create Task Composer Data Storage
   auto place_data = std::make_unique<TaskComposerDataStorage>();

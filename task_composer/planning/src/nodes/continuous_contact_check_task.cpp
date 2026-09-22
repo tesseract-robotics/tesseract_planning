@@ -47,12 +47,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::task_composer
 {
 // Requried
-const std::string ContinuousContactCheckTask::INPUT_PROGRAM_PORT = "program";
-const std::string ContinuousContactCheckTask::INPUT_ENVIRONMENT_PORT = "environment";
-const std::string ContinuousContactCheckTask::INPUT_PROFILES_PORT = "profiles";
 
 // Optional
-const std::string ContinuousContactCheckTask::OUTPUT_CONTACT_RESULTS_PORT = "contact_results";
 
 ContinuousContactCheckTask::ContinuousContactCheckTask()
   : TaskComposerTask("ContinuousContactCheckTask", ContinuousContactCheckTask::ports(), true)
@@ -66,10 +62,10 @@ ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
                                                        bool is_conditional)
   : TaskComposerTask(std::move(name), ContinuousContactCheckTask::ports(), is_conditional)
 {
-  input_keys_.add(INPUT_PROGRAM_PORT, std::move(input_program_key));
-  input_keys_.add(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
-  input_keys_.add(INPUT_PROFILES_PORT, std::move(input_profiles_key));
-  validatePorts();
+  input_port_mappings_.set(INPUT_PROGRAM_PORT, std::move(input_program_key));
+  input_port_mappings_.set(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
+  input_port_mappings_.set(INPUT_PROFILES_PORT, std::move(input_profiles_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
 ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
@@ -79,15 +75,19 @@ ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
 {
 }
 
-TaskComposerNodePorts ContinuousContactCheckTask::ports()
+tesseract::common::PropertyTree ContinuousContactCheckTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& ContinuousContactCheckTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INPUT_PROGRAM_PORT);
+    ports.addRequiredInput(INPUT_ENVIRONMENT_PORT);
+    ports.addRequiredInput(INPUT_PROFILES_PORT);
 
-  ports.output_optional[OUTPUT_CONTACT_RESULTS_PORT] = TaskComposerNodePorts::SINGLE;
-
+    ports.addOptionalOutput(OUTPUT_CONTACT_RESULTS_PORT);
+    return ports;
+  }();
   return ports;
 }
 
@@ -105,7 +105,8 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     info.status_code = 0;
-    info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    info.status_message =
+        "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     info.return_value = 0;
     return info;

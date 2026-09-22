@@ -24,7 +24,10 @@
 #ifndef TESSERACT_TASK_COMPOSER_CORE_YAML_UTILS_H
 #define TESSERACT_TASK_COMPOSER_CORE_YAML_UTILS_H
 
+#include <tesseract/common/fwd.h>
+
 #include <memory>
+#include <string>
 
 namespace YAML
 {
@@ -56,14 +59,37 @@ std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
  */
 void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config);
 
+/** @brief Registry key for the graph edge schema. */
+inline constexpr const char* GRAPH_EDGE_SCHEMA_KEY = "tesseract::task_composer::GraphEdge";
+
+/** @brief Registry key for the sub-task schema. */
+inline constexpr const char* SUB_TASK_SCHEMA_KEY = "tesseract::task_composer::SubTask";
+
+/** @brief Registry key for the sub-task config schema. */
+inline constexpr const char* SUB_TASK_CONFIG_SCHEMA_KEY = "tesseract::task_composer::SubTaskConfig";
+
 /**
- * @brief Validate that yaml node is a sub task, must have either 'class' or 'task'
- * @details If both class and task are missing an exception is thrown.
- * @param paren_name The parent task name
- * @param key The yaml key
- * @param node The yaml node to validate
+ * @brief Return the schema for a sub-task entry.
+ *
+ * A sub-task is a oneOf: either a plugin info structure (class + config)
+ * or a named task reference (task + config with conditional/abort_terminal/override).
  */
-void validateSubTask(const std::string& parent_name, const std::string& key, const YAML::Node& node);
+tesseract::common::PropertyTree subTaskSchema();
+
+/**
+ * @brief Return the schema for a sub-task config (the 'task' branch config).
+ *
+ * Contains optional fields: conditional (bool), abort_terminal (int),
+ * and override (container with inputs/outputs maps).
+ */
+tesseract::common::PropertyTree subTaskConfigSchema();
+
+/**
+ * @brief Return the schema for a graph edge entry.
+ *
+ * Contains a required source (string) and required destinations (a string or list of strings).
+ */
+tesseract::common::PropertyTree graphEdgeSchema();
 
 }  // namespace tesseract::task_composer
 

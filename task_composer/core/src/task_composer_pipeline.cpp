@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/task_composer_task.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
@@ -54,6 +55,8 @@ TaskComposerPipeline::TaskComposerPipeline(std::string name,
 {
 }
 
+tesseract::common::PropertyTree TaskComposerPipeline::schema() { return TaskComposerGraph::graphSchema(true); }
+
 TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
                                                    OptionalTaskComposerExecutor executor) const
 {
@@ -73,14 +76,14 @@ TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
   // Create a new data storage and copy the input data relevant to this graph.
   // Store the new data storage for access by child nodes of this graph
   auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  local_data_storage->copyAsInputData(*parent_data_storage, input_keys_, override_input_keys_);
+  local_data_storage->copyAsInputData(*parent_data_storage, input_port_mappings_, override_input_port_mappings_);
   context.data_storage->setData(uuid_str_, local_data_storage);
 
   // Run
   runRecursive(*(nodes_.at(root_node)), context, executor);
 
   // Copy output data to parent data storage
-  parent_data_storage->copyAsOutputData(*local_data_storage, output_keys_, override_output_keys_);
+  parent_data_storage->copyAsOutputData(*local_data_storage, output_port_mappings_, override_output_port_mappings_);
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {

@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/test_suite/test_task.h>
 #include <tesseract/task_composer/task_composer_context.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer::test_suite
 {
@@ -39,23 +40,20 @@ TaskComposerNodeInfo DummyTaskComposerNode::runImpl(TaskComposerContext& /*conte
   return { *this };
 }
 
-const std::string TestTask::INOUT_PORT1_PORT = "port1";
-const std::string TestTask::INOUT_PORT2_PORT = "port2";
-
 TestTask::TestTask() : TaskComposerTask("TestTask", TestTask::ports(), true)
 {
-  input_keys_.add(INOUT_PORT1_PORT, "input_data");
-  input_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "input_data2" });
-  output_keys_.add(INOUT_PORT1_PORT, "output_data");
-  output_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "output_data2" });
+  input_port_mappings_.set(INOUT_PORT1_PORT, "input_data");
+  input_port_mappings_.set(INOUT_PORT2_PORT, std::vector<std::string>{ "input_data2" });
+  output_port_mappings_.set(INOUT_PORT1_PORT, "output_data");
+  output_port_mappings_.set(INOUT_PORT2_PORT, std::vector<std::string>{ "output_data2" });
 }
 TestTask::TestTask(std::string name, bool is_conditional)
   : TaskComposerTask(std::move(name), TestTask::ports(), is_conditional)
 {
-  input_keys_.add(INOUT_PORT1_PORT, "input_data");
-  input_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "input_data2" });
-  output_keys_.add(INOUT_PORT1_PORT, "output_data");
-  output_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "output_data2" });
+  input_port_mappings_.set(INOUT_PORT1_PORT, "input_data");
+  input_port_mappings_.set(INOUT_PORT2_PORT, std::vector<std::string>{ "input_data2" });
+  output_port_mappings_.set(INOUT_PORT1_PORT, "output_data");
+  output_port_mappings_.set(INOUT_PORT2_PORT, std::vector<std::string>{ "output_data2" });
 }
 TestTask::TestTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), TestTask::ports(), config)
@@ -79,13 +77,16 @@ TestTask::TestTask(std::string name, const YAML::Node& config, const TaskCompose
   // LCOV_EXCL_STOP
 }
 
-TaskComposerNodePorts TestTask::ports()
+const TaskComposerNodePorts& TestTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INOUT_PORT1_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_required[INOUT_PORT2_PORT] = TaskComposerNodePorts::MULTIPLE;
-  ports.output_required[INOUT_PORT1_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.output_required[INOUT_PORT2_PORT] = TaskComposerNodePorts::MULTIPLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INOUT_PORT1_PORT);
+    ports.addRequiredInput(INOUT_PORT2_PORT, TaskComposerNodePorts::Cardinality::MULTIPLE);
+    ports.addRequiredOutput(INOUT_PORT1_PORT);
+    ports.addRequiredOutput(INOUT_PORT2_PORT, TaskComposerNodePorts::Cardinality::MULTIPLE);
+    return ports;
+  }();
   return ports;
 }
 
@@ -113,6 +114,20 @@ TaskComposerNodeInfo TestTask::runImpl(TaskComposerContext& context, OptionalTas
   setData(context, INOUT_PORT2_PORT, data);
 
   return node_info;
+}
+
+tesseract::common::PropertyTree TestTask::schema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .compose(TaskComposerTask::schema(TestTask::ports()))
+      .boolean("throw_exception").defaultVal(false).done()
+      .boolean("set_abort").defaultVal(false).done()
+      .int32("return_value").defaultVal(0).done()
+      .build();
+  // clang-format on
 }
 
 }  // namespace tesseract::task_composer::test_suite

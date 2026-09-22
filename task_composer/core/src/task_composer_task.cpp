@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/task_composer_task.h>
 #include <tesseract/task_composer/task_composer_context.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
@@ -41,18 +42,27 @@ TaskComposerTask::TaskComposerTask(std::string name, TaskComposerNodePorts ports
 TaskComposerTask::TaskComposerTask(std::string name, TaskComposerNodePorts ports, const YAML::Node& config)
   : TaskComposerNode(std::move(name), TaskComposerNodeType::TASK, std::move(ports), config)
 {
-  try
-  {
-    if (YAML::Node n = config["trigger_abort"])
-      trigger_abort_ = n.as<bool>();
-  }
-  catch (const std::exception& e)
-  {
-    throw std::runtime_error("TaskComposerTask: Failed to parse yaml config entry 'trigger_abort'! Details: " +
-                             std::string(e.what()));
-  }
+  if (YAML::Node n = config["trigger_abort"])
+    trigger_abort_ = n.as<bool>();
 }
 
 void TaskComposerTask::setTriggerAbort(bool enable) { trigger_abort_ = enable; }
+
+tesseract::common::PropertyTree TaskComposerTask::schema(const TaskComposerNodePorts& ports)
+{
+  using namespace tesseract::common;
+  // clang-format off
+  auto schema = PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .compose(TaskComposerNode::commonSchema())
+      .boolean("trigger_abort").defaultVal(false).done()
+      .build();
+  // clang-format on
+  if (!ports.inputs().empty())
+    schema["inputs"] = ports.inputSchema();
+  if (!ports.outputs().empty())
+    schema["outputs"] = ports.outputSchema();
+  return schema;
+}
 
 }  // namespace tesseract::task_composer

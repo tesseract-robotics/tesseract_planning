@@ -19,23 +19,22 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::task_composer
 {
 // Requried
-const std::string FormatAsResultTask::INOUT_PROGRAMS_PORT = "programs";
 
 FormatAsResultTask::FormatAsResultTask() : TaskComposerTask("FormatAsResultTask", FormatAsResultTask::ports(), true) {}
 
 FormatAsResultTask::FormatAsResultTask(std::string name,
-                                       const std::vector<std::string>& input_keys,
-                                       const std::vector<std::string>& output_keys,
+                                       const std::vector<std::string>& input_storage_keys,
+                                       const std::vector<std::string>& output_storage_keys,
                                        bool is_conditional)
   : TaskComposerTask(std::move(name), FormatAsResultTask::ports(), is_conditional)
 {
-  input_keys_.add(INOUT_PROGRAMS_PORT, input_keys);
-  output_keys_.add(INOUT_PROGRAMS_PORT, output_keys);
+  input_port_mappings_.set(INOUT_PROGRAMS_PORT, input_storage_keys);
+  output_port_mappings_.set(INOUT_PROGRAMS_PORT, output_storage_keys);
 
-  validatePorts();
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 
-  if (input_keys_.size() != output_keys_.size())
-    throw std::runtime_error("FormatAsResultTask, input_keys and output_keys be the same size!");
+  if (input_port_mappings_.size() != output_port_mappings_.size())
+    throw std::runtime_error("FormatAsResultTask input and output storage-key mappings must have the same size");
 }
 
 FormatAsResultTask::FormatAsResultTask(std::string name,
@@ -43,15 +42,20 @@ FormatAsResultTask::FormatAsResultTask(std::string name,
                                        const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), FormatAsResultTask::ports(), config)
 {
-  if (input_keys_.size() != output_keys_.size())
-    throw std::runtime_error("FormatAsResultTask, input_keys and output_keys be the same size!");
+  if (input_port_mappings_.size() != output_port_mappings_.size())
+    throw std::runtime_error("FormatAsResultTask input and output storage-key mappings must have the same size");
 }
 
-TaskComposerNodePorts FormatAsResultTask::ports()
+tesseract::common::PropertyTree FormatAsResultTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& FormatAsResultTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INOUT_PROGRAMS_PORT] = TaskComposerNodePorts::MULTIPLE;
-  ports.output_required[INOUT_PROGRAMS_PORT] = TaskComposerNodePorts::MULTIPLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INOUT_PROGRAMS_PORT, TaskComposerNodePorts::Cardinality::MULTIPLE);
+    ports.addRequiredOutput(INOUT_PROGRAMS_PORT, TaskComposerNodePorts::Cardinality::MULTIPLE);
+    return ports;
+  }();
   return ports;
 }
 

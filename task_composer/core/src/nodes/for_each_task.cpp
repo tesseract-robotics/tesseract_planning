@@ -30,6 +30,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract/common/yaml_utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract/common/property_tree.h>
+
 #include <tesseract/task_composer/nodes/for_each_task.h>
 #include <tesseract/task_composer/nodes/start_task.h>
 #include <tesseract/task_composer/task_composer_context.h>
@@ -43,8 +45,44 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract::task_composer
 {
+namespace
+{
+void validateOperationSubTask(const tesseract::common::PropertyTree& node,
+                              const std::string& path,
+                              std::vector<std::string>& errors)
+{
+  YAML::Node config = node.toYAML();
+  if (!config || !config.IsMap())
+    return;
+
+  config.remove("input_port");
+  config.remove("output_port");
+
+  auto schema = subTaskSchema();
+  try
+  {
+    for (std::string error : schema.applyConfig(config))
+    {
+      const std::size_t separator = error.find(':');
+      if (separator != std::string::npos)
+        error.erase(0, separator + 1);
+      std::string full_error = path;
+      full_error += ":";
+      full_error += error;
+      errors.push_back(std::move(full_error));
+    }
+  }
+  catch (const std::exception& e)
+  {
+    std::string error = path;
+    error += ": ";
+    error += e.what();
+    errors.push_back(std::move(error));
+  }
+}
+}  // namespace
+
 // Requried
-const std::string ForEachTask::INOUT_PORT = "container";
 
 ForEachTask::ForEachTask() : TaskComposerTask("ForEachTask", ForEachTask::ports(), true) {}
 
@@ -52,65 +90,49 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
   : TaskComposerTask(std::move(name), ForEachTask::ports(), config)
 {
   static const std::string operation_key{ "operation" };
-  if (YAML::Node operation_config = config[operation_key])
-  {
-    static const std::set<std::string> tasks_expected_keys{ "input_port", "output_port", "task",
-                                                            "class",      "config",      "override" };
-    tesseract::common::checkForUnknownKeys(operation_config, tasks_expected_keys);
-    validateSubTask(name_, operation_key, operation_config);
+  const YAML::Node operation_config = config[operation_key];
+  task_input_port_ = operation_config["input_port"].as<std::string>();
+  task_output_port_ = operation_config["output_port"].as<std::string>();
 
-    if (YAML::Node n = operation_config["input_port"])
-      task_input_port_ = n.as<std::string>();
+  task_factory_ = [operation_config, input_port = task_input_port_, output_port = task_output_port_, &plugin_factory](
+                      const std::string& parent_name, const std::string& name, std::size_t index) {
+    ForEachTask::TaskFactoryResults tr;
+    tr.node = loadSubTask(parent_name, name, operation_config, plugin_factory);
+    tr.node->setConditional(false);
+    tr.input_key = tr.node->getInputPortMappings().single(input_port) + std::to_string(index);
+    tr.output_key = tr.node->getOutputPortMappings().single(output_port) + std::to_string(index);
+
+    if (tr.node->getType() == TaskComposerNodeType::TASK)
+    {
+      TaskComposerPortMap input_port_mappings = tr.node->getInputPortMappings();
+      TaskComposerPortMap output_port_mappings = tr.node->getOutputPortMappings();
+      input_port_mappings.set(input_port, tr.input_key);
+      output_port_mappings.set(output_port, tr.output_key);
+      tr.node->setPortMappings(std::move(input_port_mappings), std::move(output_port_mappings));
+    }
     else
-      throw std::runtime_error("ForEachTask, missing 'input_port' entry");
+    {
+      auto& graph_node = static_cast<TaskComposerGraph&>(*tr.node);
+      TaskComposerPortMap override_input_port_mappings;
+      TaskComposerPortMap override_output_port_mappings;
+      override_input_port_mappings.set(input_port, tr.input_key);
+      override_output_port_mappings.set(output_port, tr.output_key);
+      graph_node.setOverrideInputPortMappings(override_input_port_mappings);
+      graph_node.setOverrideOutputPortMappings(override_output_port_mappings);
+    }
 
-    if (YAML::Node n = operation_config["output_port"])
-      task_output_port_ = n.as<std::string>();
-    else
-      throw std::runtime_error("ForEachTask, missing 'output_port' entry");
-
-    task_factory_ = [operation_config, input_port = task_input_port_, output_port = task_output_port_, &plugin_factory](
-                        const std::string& parent_name, const std::string& name, std::size_t index) {
-      ForEachTask::TaskFactoryResults tr;
-      tr.node = loadSubTask(parent_name, name, operation_config, plugin_factory);
-      tr.node->setConditional(false);
-      tr.input_key = tr.node->getInputKeys().get(input_port) + std::to_string(index);
-      tr.output_key = tr.node->getOutputKeys().get(output_port) + std::to_string(index);
-
-      if (tr.node->getType() == TaskComposerNodeType::TASK)
-      {
-        TaskComposerKeys input_keys = tr.node->getInputKeys();
-        TaskComposerKeys output_keys = tr.node->getOutputKeys();
-        input_keys.add(input_port, tr.input_key);
-        output_keys.add(output_port, tr.output_key);
-        tr.node->setInputKeys(input_keys);
-        tr.node->setOutputKeys(output_keys);
-      }
-      else
-      {
-        auto& graph_node = static_cast<TaskComposerGraph&>(*tr.node);
-        TaskComposerKeys override_input_keys;
-        TaskComposerKeys override_output_keys;
-        override_input_keys.add(input_port, tr.input_key);
-        override_output_keys.add(output_port, tr.output_key);
-        graph_node.setOverrideInputKeys(override_input_keys);
-        graph_node.setOverrideOutputKeys(override_output_keys);
-      }
-
-      return tr;
-    };
-  }
-  else
-  {
-    throw std::runtime_error("ForEachTask: missing 'sub_task' entry");
-  }
+    return tr;
+  };
 }
 
-TaskComposerNodePorts ForEachTask::ports()
+const TaskComposerNodePorts& ForEachTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INOUT_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.output_required[INOUT_PORT] = TaskComposerNodePorts::SINGLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INOUT_PORT);
+    ports.addRequiredOutput(INOUT_PORT);
+    return ports;
+  }();
   return ports;
 }
 
@@ -140,23 +162,23 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   // Task and Task Data Storage
   TaskComposerGraph task_graph(name_ + " (Subgraph)", uuid_);
 
-  // Create Sub Graph Task Input and Output Keys
-  // Must copy the existing parent input/output keys, but remove program port key which will get assigned later.
-  TaskComposerKeys task_input_keys{ input_keys_ };
-  TaskComposerKeys task_output_keys{ output_keys_ };
-  task_input_keys.remove(INOUT_PORT);
-  task_output_keys.remove(INOUT_PORT);
+  // Create subgraph task input and output port mappings.
+  // Copy the parent mappings, then remove the program port mapping that will be assigned later.
+  TaskComposerPortMap task_input_port_mappings{ input_port_mappings_ };
+  TaskComposerPortMap task_output_port_mappings{ output_port_mappings_ };
+  task_input_port_mappings.erase(INOUT_PORT);
+  task_output_port_mappings.erase(INOUT_PORT);
 
   // Create a sub graph data storage and copy the input data relevant to this graph.
   const TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
   auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  task_graph_data_storage->copyAsInputData(*parent_data_storage, task_input_keys, {});
+  task_graph_data_storage->copyAsInputData(*parent_data_storage, task_input_port_mappings, {});
 
   // Create container to store the sub graph program port keys
-  std::vector<std::string> input_keys;
-  std::vector<std::string> output_keys;
-  input_keys.reserve(inputs.size());
-  output_keys.reserve(inputs.size());
+  std::vector<std::string> input_storage_keys;
+  std::vector<std::string> output_storage_keys;
+  input_storage_keys.reserve(inputs.size());
+  output_storage_keys.reserve(inputs.size());
 
   // Start Task
   auto start_task = std::make_unique<StartTask>();
@@ -173,8 +195,8 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
 
     auto task_uuid = task_graph.addNode(std::move(task_results.node));
     tasks.emplace_back(task_uuid, std::make_pair(task_results.input_key, task_results.output_key));
-    input_keys.push_back(task_results.input_key);
-    output_keys.push_back(task_results.output_key);
+    input_storage_keys.push_back(task_results.input_key);
+    output_storage_keys.push_back(task_results.output_key);
     task_graph_data_storage->setData(task_results.input_key, inputs[idx]);
     task_graph.addEdges(start_uuid, { task_uuid });
   }
@@ -182,11 +204,10 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   if (!executor.has_value())
     throw std::runtime_error("ForEachTask, executor is null!");
 
-  // Set sub graph input and output keys
-  task_input_keys.add(task_input_port_, input_keys);
-  task_output_keys.add(task_output_port_, output_keys);
-  task_graph.setInputKeys(task_input_keys);
-  task_graph.setOutputKeys(task_output_keys);
+  // Set subgraph input and output port mappings.
+  task_input_port_mappings.set(task_input_port_, input_storage_keys);
+  task_output_port_mappings.set(task_output_port_, output_storage_keys);
+  task_graph.setPortMappings(std::move(task_input_port_mappings), std::move(task_output_port_mappings));
 
   // Store sub data storage in parent data storage
   context.data_storage->setData(uuid_str_, task_graph_data_storage);
@@ -232,6 +253,30 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   info.status_message = "Successful";
   info.return_value = 1;
   return info;
+}
+
+tesseract::common::PropertyTree ForEachTask::schema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  auto schema = PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .compose(TaskComposerTask::schema(ForEachTask::ports()))
+      .container("operation").required()
+        // Validates class/config using the registered TaskComposerNodeFactory
+        // derived schema, or validates a named task's SubTaskConfig.
+        .validator(validateOperationSubTask)
+        .string("input_port").required().minimumLength(1).done()
+        .string("output_port").required().minimumLength(1).done()
+        .string("class").minimumLength(1).done()
+        .string("task").minimumLength(1).done()
+      .done()
+      .build();
+  // clang-format on
+
+  // The concrete plugin or named-task schema owns the shape of this field.
+  schema.at("operation")["config"];
+  return schema;
 }
 
 void ForEachTask::checkTaskInput(const tesseract::common::AnyPoly& input)

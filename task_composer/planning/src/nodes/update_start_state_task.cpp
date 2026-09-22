@@ -41,9 +41,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::task_composer
 {
 // Requried
-const std::string UpdateStartStateTask::INPUT_PREVIOUS_PROGRAM_PORT = "previous_program";
-const std::string UpdateStartStateTask::INPUT_CURRENT_PROGRAM_PORT = "current_program";
-const std::string UpdateStartStateTask::OUTPUT_PROGRAM_PORT = "program";
 
 UpdateStartStateTask::UpdateStartStateTask(std::string name,
                                            std::string input_prev_key,
@@ -51,10 +48,10 @@ UpdateStartStateTask::UpdateStartStateTask(std::string name,
                                            bool conditional)
   : TaskComposerTask(std::move(name), UpdateStartStateTask::ports(), conditional)
 {
-  input_keys_.add(INPUT_CURRENT_PROGRAM_PORT, uuid_str_);
-  input_keys_.add(INPUT_PREVIOUS_PROGRAM_PORT, std::move(input_prev_key));
-  output_keys_.add(OUTPUT_PROGRAM_PORT, std::move(output_key));
-  validatePorts();
+  input_port_mappings_.set(INPUT_CURRENT_PROGRAM_PORT, uuid_str_);
+  input_port_mappings_.set(INPUT_PREVIOUS_PROGRAM_PORT, std::move(input_prev_key));
+  output_port_mappings_.set(OUTPUT_PROGRAM_PORT, std::move(output_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
 UpdateStartStateTask::UpdateStartStateTask(std::string name,
@@ -64,18 +61,23 @@ UpdateStartStateTask::UpdateStartStateTask(std::string name,
                                            bool conditional)
   : TaskComposerTask(std::move(name), UpdateStartStateTask::ports(), conditional)
 {
-  input_keys_.add(INPUT_CURRENT_PROGRAM_PORT, std::move(input_key));
-  input_keys_.add(INPUT_PREVIOUS_PROGRAM_PORT, std::move(input_prev_key));
-  output_keys_.add(OUTPUT_PROGRAM_PORT, std::move(output_key));
-  validatePorts();
+  input_port_mappings_.set(INPUT_CURRENT_PROGRAM_PORT, std::move(input_key));
+  input_port_mappings_.set(INPUT_PREVIOUS_PROGRAM_PORT, std::move(input_prev_key));
+  output_port_mappings_.set(OUTPUT_PROGRAM_PORT, std::move(output_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
-TaskComposerNodePorts UpdateStartStateTask::ports()
+tesseract::common::PropertyTree UpdateStartStateTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& UpdateStartStateTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INPUT_CURRENT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_required[INPUT_PREVIOUS_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.output_required[OUTPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INPUT_CURRENT_PROGRAM_PORT);
+    ports.addRequiredInput(INPUT_PREVIOUS_PROGRAM_PORT);
+    ports.addRequiredOutput(OUTPUT_PROGRAM_PORT);
+    return ports;
+  }();
   return ports;
 }
 
@@ -94,15 +96,16 @@ TaskComposerNodeInfo UpdateStartStateTask::runImpl(TaskComposerContext& context,
   // --------------------
   if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
-    info.status_message = "UpdateStartStateTask: Input data for key '" + input_keys_.get(INPUT_CURRENT_PROGRAM_PORT) +
-                          "' must be a composite instruction";
+    info.status_message = "UpdateStartStateTask: Input data for key '" +
+                          input_port_mappings_.single(INPUT_CURRENT_PROGRAM_PORT) + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
   if (input_prev_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
-    info.status_message = "UpdateStartStateTask: Input data for key '" + input_keys_.get(INPUT_PREVIOUS_PROGRAM_PORT) +
+    info.status_message = "UpdateStartStateTask: Input data for key '" +
+                          input_port_mappings_.single(INPUT_PREVIOUS_PROGRAM_PORT) +
                           "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;

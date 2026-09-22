@@ -25,15 +25,17 @@
 #include <tesseract/task_composer/planning/planning_task_composer_plugin_factories.h>
 #include <tesseract/task_composer/task_composer_plugin_factory_utils.h>
 
+#include <tesseract/common/schema_registration.h>
+
 #include <tesseract/task_composer/planning/nodes/motion_planner_task.hpp>
 #include <tesseract/motion_planners/descartes/descartes_motion_planner.h>
 
 namespace tesseract::task_composer
 {
-using DescartesFMotionPlannerTaskFactory =
-    TaskComposerTaskFactory<MotionPlannerTask<tesseract::motion_planners::DescartesMotionPlannerF>>;
-using DescartesDMotionPlannerTaskFactory =
-    TaskComposerTaskFactory<MotionPlannerTask<tesseract::motion_planners::DescartesMotionPlannerD>>;
+using DescartesFMotionPlannerTask = MotionPlannerTask<tesseract::motion_planners::DescartesMotionPlannerF>;
+using DescartesFMotionPlannerTaskFactory = TaskComposerTaskFactory<DescartesFMotionPlannerTask>;
+using DescartesDMotionPlannerTask = MotionPlannerTask<tesseract::motion_planners::DescartesMotionPlannerD>;
+using DescartesDMotionPlannerTaskFactory = TaskComposerTaskFactory<DescartesDMotionPlannerTask>;
 
 }  // namespace tesseract::task_composer
 
@@ -43,3 +45,13 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::DescartesFMoti
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::DescartesDMotionPlannerTaskFactory, DescartesDMotionPlannerTaskFactory)
 // clang-format on
+
+TESSERACT_SCHEMA_REGISTER(DescartesFMotionPlannerTaskFactory,
+                          tesseract::task_composer::DescartesFMotionPlannerTask::schema);
+TESSERACT_SCHEMA_REGISTER(DescartesDMotionPlannerTaskFactory,
+                          tesseract::task_composer::DescartesDMotionPlannerTask::schema);
+
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       DescartesFMotionPlannerTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       DescartesDMotionPlannerTaskFactory);

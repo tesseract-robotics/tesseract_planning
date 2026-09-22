@@ -30,20 +30,31 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/yaml_extensions.h>
-#include <tesseract/task_composer/task_composer_keys.h>
+#include <tesseract/common/fwd.h>
+#include <tesseract/task_composer/task_composer_port_map.h>
+
+namespace tesseract::task_composer
+{
+/** @brief Registry key for a YAML value that may be a string or a list of strings. */
+inline constexpr const char* STRING_OR_STRING_LIST_SCHEMA_KEY = "tesseract::task_composer::StringOrStringList";
+
+/** @brief Registry key for a required task-composer port mapped to a string or list of strings. */
+inline constexpr const char* REQUIRED_STRING_OR_STRING_LIST_SCHEMA_KEY = "tesseract::task_composer::"
+                                                                         "RequiredStringOrStringList";
+}  // namespace tesseract::task_composer
 
 namespace YAML
 {
-//=========================== Task Composer Keys ===========================
+//=========================== Task Composer Port Map ===========================
 template <>
-struct convert<tesseract::task_composer::TaskComposerKeys>
+struct convert<tesseract::task_composer::TaskComposerPortMap>
 {
-  static Node encode(const tesseract::task_composer::TaskComposerKeys& rhs)
+  static Node encode(const tesseract::task_composer::TaskComposerPortMap& rhs)
   {
     Node node;
     for (const auto& entry : rhs.data())
     {
-      if (entry.second.index() == 0)
+      if (std::holds_alternative<std::string>(entry.second))
         node[entry.first] = std::get<std::string>(entry.second);
       else
         node[entry.first] = std::get<std::vector<std::string>>(entry.second);
@@ -52,23 +63,25 @@ struct convert<tesseract::task_composer::TaskComposerKeys>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract::task_composer::TaskComposerKeys& rhs)
+  static bool decode(const Node& node, tesseract::task_composer::TaskComposerPortMap& rhs)
   {
     if (!node.IsMap())
-      throw std::runtime_error("TaskComposerKeys, must be a yaml map");
+      throw std::runtime_error("TaskComposerPortMap must be a YAML map");
 
     for (const auto& dict : node)
     {
       if (dict.second.IsSequence())
-        rhs.add(dict.first.as<std::string>(), dict.second.as<std::vector<std::string>>());
+        rhs.set(dict.first.as<std::string>(), dict.second.as<std::vector<std::string>>());
       else if (dict.second.IsScalar())
-        rhs.add(dict.first.as<std::string>(), dict.second.as<std::string>());
+        rhs.set(dict.first.as<std::string>(), dict.second.as<std::string>());
       else
-        throw std::runtime_error("TaskComposerKeys, allowed port type is std::string or std::vector<std::string>");
+        throw std::runtime_error("TaskComposerPortMap values must be a string or list of strings");
     }
 
     return true;
   }
+
+  static tesseract::common::PropertyTree schema();
 };
 
 }  // namespace YAML

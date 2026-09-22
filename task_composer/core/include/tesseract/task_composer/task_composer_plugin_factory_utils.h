@@ -25,6 +25,7 @@
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PLUGIN_FACTORY_UTILS_H
 
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
@@ -32,11 +33,14 @@ template <typename TaskType>
 class TaskComposerTaskFactory : public TaskComposerNodeFactory
 {
 public:
-  std::unique_ptr<TaskComposerNode> create(const std::string& name,
-                                           const YAML::Node& config,
-                                           const TaskComposerPluginFactory& plugin_factory) const override
+  tesseract::common::PropertyTree schema() const override { return TaskType::schema(); }
+
+protected:
+  std::unique_ptr<TaskComposerNode> createImpl(const std::string& name,
+                                               const tesseract::common::PropertyTree& config,
+                                               const TaskComposerPluginFactory& plugin_factory) const override
   {
-    return std::make_unique<TaskType>(name, config, plugin_factory);
+    return std::make_unique<TaskType>(name, config.toYAML(), plugin_factory);
   }
 };
 
@@ -44,11 +48,16 @@ template <typename ExecutorType>
 class TaskComposerExecutorFactoryImpl : public TaskComposerExecutorFactory
 {
 public:
-  std::unique_ptr<TaskComposerExecutor> create(const std::string& name, const YAML::Node& config) const override
+  tesseract::common::PropertyTree schema() const override { return ExecutorType::schema(); }
+
+protected:
+  std::unique_ptr<TaskComposerExecutor> createImpl(const std::string& name,
+                                                   const tesseract::common::PropertyTree& config) const override
   {
-    return std::make_unique<ExecutorType>(name, config);
+    return std::make_unique<ExecutorType>(name, config.toYAML());
   }
 };
+
 }  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PLUGIN_FACTORY_UTILS_H

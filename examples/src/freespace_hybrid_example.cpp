@@ -222,7 +222,7 @@ bool FreespaceHybridExample::run()
   // Create task
   const std::string task_name = (ifopt_) ? "FreespaceIfoptPipeline" : "FreespacePipeline";
   TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);
-  const std::string output_key = task->getOutputKeys().get("program");
+  const std::string output_key = task->getOutputPortMappings().single("program");
 
   // Create Task Composer Data Storage
   auto data = std::make_unique<TaskComposerDataStorage>();

@@ -48,9 +48,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::task_composer
 {
 // Requried
-const std::string FormatAsInputTask::INPUT_PRE_PLANNING_PROGRAM_PORT = "pre_planning_program";
-const std::string FormatAsInputTask::INPUT_POST_PLANNING_PROGRAM_PORT = "post_planning_program";
-const std::string FormatAsInputTask::OUTPUT_PROGRAM_PORT = "program";
 
 FormatAsInputTask::FormatAsInputTask() : TaskComposerTask("FormatAsInputTask", FormatAsInputTask::ports(), true) {}
 FormatAsInputTask::FormatAsInputTask(std::string name,
@@ -60,10 +57,10 @@ FormatAsInputTask::FormatAsInputTask(std::string name,
                                      bool is_conditional)
   : TaskComposerTask(std::move(name), FormatAsInputTask::ports(), is_conditional)
 {
-  input_keys_.add(INPUT_PRE_PLANNING_PROGRAM_PORT, std::move(input_pre_planning_program_key));
-  input_keys_.add(INPUT_POST_PLANNING_PROGRAM_PORT, std::move(input_post_planning_program_key));
-  output_keys_.add(OUTPUT_PROGRAM_PORT, std::move(output_program_key));
-  validatePorts();
+  input_port_mappings_.set(INPUT_PRE_PLANNING_PROGRAM_PORT, std::move(input_pre_planning_program_key));
+  input_port_mappings_.set(INPUT_POST_PLANNING_PROGRAM_PORT, std::move(input_post_planning_program_key));
+  output_port_mappings_.set(OUTPUT_PROGRAM_PORT, std::move(output_program_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
 FormatAsInputTask::FormatAsInputTask(std::string name,
@@ -73,14 +70,18 @@ FormatAsInputTask::FormatAsInputTask(std::string name,
 {
 }
 
-TaskComposerNodePorts FormatAsInputTask::ports()
+tesseract::common::PropertyTree FormatAsInputTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& FormatAsInputTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INPUT_PRE_PLANNING_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_required[INPUT_POST_PLANNING_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INPUT_PRE_PLANNING_PROGRAM_PORT);
+    ports.addRequiredInput(INPUT_POST_PLANNING_PROGRAM_PORT);
 
-  ports.output_required[OUTPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-
+    ports.addRequiredOutput(OUTPUT_PROGRAM_PORT);
+    return ports;
+  }();
   return ports;
 }
 
@@ -97,7 +98,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   auto input_formatted_data_poly = getData(context, INPUT_PRE_PLANNING_PROGRAM_PORT);
   if (input_formatted_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
-    info.status_message = "Input '" + input_keys_.get(INPUT_PRE_PLANNING_PROGRAM_PORT) +
+    info.status_message = "Input '" + input_port_mappings_.single(INPUT_PRE_PLANNING_PROGRAM_PORT) +
                           "' instruction to FormatAsInputTask must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
@@ -107,7 +108,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   if (input_unformatted_data_poly.getType() !=
       std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
-    info.status_message = "Input '" + input_keys_.get(INPUT_POST_PLANNING_PROGRAM_PORT) +
+    info.status_message = "Input '" + input_port_mappings_.single(INPUT_POST_PLANNING_PROGRAM_PORT) +
                           "' instruction to FormatAsInputTask must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;

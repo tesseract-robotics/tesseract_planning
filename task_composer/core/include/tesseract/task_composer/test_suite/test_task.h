@@ -49,8 +49,8 @@ class TestTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INOUT_PORT1_PORT;
-  static const std::string INOUT_PORT2_PORT;
+  inline static constexpr char INOUT_PORT1_PORT[] = "port1";
+  inline static constexpr char INOUT_PORT2_PORT[] = "port2";
 
   TestTask();
   explicit TestTask(std::string name, bool conditional);
@@ -64,9 +64,11 @@ public:
   bool operator==(const TestTask& rhs) const;
   bool operator!=(const TestTask& rhs) const;
 
-private:
-  static TaskComposerNodePorts ports();
+  static tesseract::common::PropertyTree schema();
 
+  static const TaskComposerNodePorts& ports();
+
+private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override final;
 };

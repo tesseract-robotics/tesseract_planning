@@ -51,9 +51,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract::task_composer
 {
 // Requried
-const std::string TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT = "program";
-const std::string TimeOptimalParameterizationTask::INPUT_ENVIRONMENT_PORT = "environment";
-const std::string TimeOptimalParameterizationTask::INPUT_PROFILES_PORT = "profiles";
 
 TimeOptimalParameterizationTask::TimeOptimalParameterizationTask()
   : TaskComposerTask("TimeOptimalParameterizationTask", TimeOptimalParameterizationTask::ports(), true)
@@ -67,11 +64,11 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string nam
                                                                  bool is_conditional)
   : TaskComposerTask(std::move(name), TimeOptimalParameterizationTask::ports(), is_conditional)
 {
-  input_keys_.add(INOUT_PROGRAM_PORT, std::move(input_program_key));
-  input_keys_.add(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
-  input_keys_.add(INPUT_PROFILES_PORT, std::move(input_profiles_key));
-  output_keys_.add(INOUT_PROGRAM_PORT, std::move(output_program_key));
-  validatePorts();
+  input_port_mappings_.set(INOUT_PROGRAM_PORT, std::move(input_program_key));
+  input_port_mappings_.set(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
+  input_port_mappings_.set(INPUT_PROFILES_PORT, std::move(input_profiles_key));
+  output_port_mappings_.set(INOUT_PROGRAM_PORT, std::move(output_program_key));
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 
 TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string name,
@@ -81,15 +78,19 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string nam
 {
 }
 
-TaskComposerNodePorts TimeOptimalParameterizationTask::ports()
+tesseract::common::PropertyTree TimeOptimalParameterizationTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& TimeOptimalParameterizationTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INOUT_PROGRAM_PORT);
+    ports.addRequiredInput(INPUT_ENVIRONMENT_PORT);
+    ports.addRequiredInput(INPUT_PROFILES_PORT);
 
-  ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
-
+    ports.addRequiredOutput(INOUT_PROGRAM_PORT);
+    return ports;
+  }();
   return ports;
 }
 
@@ -107,7 +108,8 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     info.status_code = 0;
-    info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    info.status_message =
+        "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     info.return_value = 0;
     return info;
@@ -133,7 +135,7 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
-    if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
+    if (output_port_mappings_.single(INOUT_PROGRAM_PORT) != input_port_mappings_.single(INOUT_PROGRAM_PORT))
       setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
     info.color = "green";
@@ -153,7 +155,7 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
-    if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
+    if (output_port_mappings_.single(INOUT_PROGRAM_PORT) != input_port_mappings_.single(INOUT_PROGRAM_PORT))
       setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
     info.status_message = "Failed to perform TOTG for process input: " + ci.getDescription();

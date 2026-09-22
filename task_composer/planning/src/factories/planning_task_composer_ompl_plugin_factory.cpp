@@ -25,16 +25,22 @@
 #include <tesseract/task_composer/planning/planning_task_composer_plugin_factories.h>
 #include <tesseract/task_composer/task_composer_plugin_factory_utils.h>
 
+#include <tesseract/common/schema_registration.h>
+
 #include <tesseract/task_composer/planning/nodes/motion_planner_task.hpp>
 #include <tesseract/motion_planners/ompl/ompl_motion_planner.h>
 
 namespace tesseract::task_composer
 {
-using OMPLMotionPlannerTaskFactory =
-    TaskComposerTaskFactory<MotionPlannerTask<tesseract::motion_planners::OMPLMotionPlanner>>;
+using OMPLMotionPlannerTask = MotionPlannerTask<tesseract::motion_planners::OMPLMotionPlanner>;
+using OMPLMotionPlannerTaskFactory = TaskComposerTaskFactory<OMPLMotionPlannerTask>;
 
 }  // namespace tesseract::task_composer
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::OMPLMotionPlannerTaskFactory,
                                         OMPLMotionPlannerTaskFactory)
+
+TESSERACT_SCHEMA_REGISTER(OMPLMotionPlannerTaskFactory, tesseract::task_composer::OMPLMotionPlannerTask::schema);
+
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, OMPLMotionPlannerTaskFactory);

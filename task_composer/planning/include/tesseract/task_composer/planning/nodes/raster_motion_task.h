@@ -57,9 +57,9 @@ class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT RasterMotionTask : public Ta
 {
 public:
   // Requried
-  static const std::string INOUT_PROGRAM_PORT;
-  static const std::string INPUT_ENVIRONMENT_PORT;
-  static const std::string INPUT_PROFILES_PORT;
+  inline static constexpr char INOUT_PROGRAM_PORT[] = "program";
+  inline static constexpr char INPUT_ENVIRONMENT_PORT[] = "environment";
+  inline static constexpr char INPUT_PROFILES_PORT[] = "profiles";
 
   struct TaskFactoryResults
   {
@@ -91,14 +91,16 @@ public:
   RasterMotionTask(RasterMotionTask&&) = delete;
   RasterMotionTask& operator=(RasterMotionTask&&) = delete;
 
+  static tesseract::common::PropertyTree schema();
+
+  static const TaskComposerNodePorts& ports();
+
 private:
   TaskFactory freespace_task_factory_;
   TaskFactory raster_task_factory_;
   TaskFactory transition_task_factory_;
 
   static void checkTaskInput(const tesseract::common::AnyPoly& input);
-
-  static TaskComposerNodePorts ports();
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor) const override final;

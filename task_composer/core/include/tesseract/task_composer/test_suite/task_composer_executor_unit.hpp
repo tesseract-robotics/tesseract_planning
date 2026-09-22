@@ -88,6 +88,9 @@ void runTaskComposerExecutorTest()
                                class: PipelineTaskFactory
                                config:
                                  conditional: true
+                                 inputs:
+                                   port1: input_data
+                                   port2: [input_data]
                                  nodes:
                                    StartTask:
                                      class: StartTaskFactory
@@ -122,6 +125,9 @@ void runTaskComposerExecutorTest()
                                class: GraphTaskFactory
                                config:
                                  conditional: false
+                                 inputs:
+                                   port1: input_data
+                                   port2: [input_data]
                                  nodes:
                                    StartTask:
                                      class: StartTaskFactory
@@ -154,10 +160,18 @@ void runTaskComposerExecutorTest()
                                  terminals: [AbortTask, DoneTask])";
 
   TaskComposerPluginFactory factory(str, locator);
+  const auto create_context = [](const std::string& name) {
+    auto data_storage = std::make_shared<TaskComposerDataStorage>();
+    data_storage->setData("input_data", true);
+    return std::make_shared<TaskComposerContext>(name, std::move(data_storage));
+  };
 
   {  // Pipeline
     std::string str2 = R"(config:
                             conditional: true
+                            inputs:
+                              port1: input_data
+                              port2: [input_data]
                             nodes:
                               StartTask:
                                 task: TestPipeline
@@ -178,7 +192,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto future = executor->run(*pipeline, std::make_shared<TaskComposerContext>(pipeline->getName()));
+    auto future = executor->run(*pipeline, create_context(pipeline->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -213,6 +227,9 @@ void runTaskComposerExecutorTest()
   {  // Graph with child pipeline task not conditional
     std::string str2 = R"(config:
                             conditional: false
+                            inputs:
+                              port1: input_data
+                              port2: [input_data]
                             nodes:
                               StartTask:
                                 task: TestPipeline
@@ -233,7 +250,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto future = executor->run(*graph, std::make_shared<TaskComposerContext>(graph->getName()));
+    auto future = executor->run(*graph, create_context(graph->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -268,6 +285,9 @@ void runTaskComposerExecutorTest()
   {  // Graph with child pipeline task conditional
     std::string str2 = R"(config:
                             conditional: false
+                            inputs:
+                              port1: input_data
+                              port2: [input_data]
                             nodes:
                               StartTask:
                                 task: TestPipeline
@@ -292,7 +312,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto future = executor->run(*graph, std::make_shared<TaskComposerContext>(graph->getName()));
+    auto future = executor->run(*graph, create_context(graph->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -332,6 +352,9 @@ void runTaskComposerExecutorTest()
   {  // Graph with child graph task
     std::string str2 = R"(config:
                             conditional: false
+                            inputs:
+                              port1: input_data
+                              port2: [input_data]
                             nodes:
                               StartTask:
                                 task: TestGraph
@@ -352,7 +375,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto future = executor->run(*graph, std::make_shared<TaskComposerContext>(graph->getName()));
+    auto future = executor->run(*graph, create_context(graph->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());

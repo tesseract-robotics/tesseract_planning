@@ -2,6 +2,19 @@
 
 This guide helps downstream users migrate from the old multi-package `tesseract_planning` layout to the new unified single-package layout.
 
+## Task Composer Factory Validation
+
+Task Composer node and executor factories now validate YAML configurations against their `PropertyTree` schemas before
+constructing an object. Custom factories must override the protected `createImpl()` method rather than the public
+`create()` method. `createImpl()` receives a validated `PropertyTree`; the public `create()` signatures used by callers
+are unchanged.
+
+Invalid configurations now throw `tesseract::common::PropertyTreeValidationError`. Its `errors()` member contains all
+schema diagnostics instead of only the first failure. Structural requirements belong in `schema()`; implementation
+code should retain only runtime-dependent checks such as plugin lookup, graph topology, UUID resolution, and data flow.
+Code that previously constructed configurable nodes directly from YAML should use the corresponding factory so schema
+validation is not bypassed.
+
 ## Summary of Changes
 
 - All `tesseract_*` subdirectories renamed (dropping the prefix)

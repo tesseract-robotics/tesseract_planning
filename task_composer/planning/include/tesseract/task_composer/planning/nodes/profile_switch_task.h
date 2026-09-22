@@ -40,8 +40,8 @@ class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT ProfileSwitchTask : public T
 {
 public:
   // Requried
-  static const std::string INPUT_PROGRAM_PORT;
-  static const std::string INPUT_PROFILES_PORT;
+  inline static constexpr char INPUT_PROGRAM_PORT[] = "program";
+  inline static constexpr char INPUT_PROFILES_PORT[] = "profiles";
 
   using Ptr = std::shared_ptr<ProfileSwitchTask>;
   using ConstPtr = std::shared_ptr<const ProfileSwitchTask>;
@@ -62,9 +62,10 @@ public:
   ProfileSwitchTask(ProfileSwitchTask&&) = delete;
   ProfileSwitchTask& operator=(ProfileSwitchTask&&) = delete;
 
-private:
-  static TaskComposerNodePorts ports();
+  static tesseract::common::PropertyTree schema();
+  static const TaskComposerNodePorts& ports();
 
+private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };

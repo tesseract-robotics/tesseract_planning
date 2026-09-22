@@ -40,9 +40,9 @@ class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT IterativeSplineParameterizat
 {
 public:
   // Requried
-  static const std::string INOUT_PROGRAM_PORT;
-  static const std::string INPUT_ENVIRONMENT_PORT;
-  static const std::string INPUT_PROFILES_PORT;
+  inline static constexpr char INOUT_PROGRAM_PORT[] = "program";
+  inline static constexpr char INPUT_ENVIRONMENT_PORT[] = "environment";
+  inline static constexpr char INPUT_PROFILES_PORT[] = "profiles";
 
   using Ptr = std::shared_ptr<IterativeSplineParameterizationTask>;
   using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationTask>;
@@ -65,10 +65,11 @@ public:
   IterativeSplineParameterizationTask(IterativeSplineParameterizationTask&&) = delete;
   IterativeSplineParameterizationTask& operator=(IterativeSplineParameterizationTask&&) = delete;
 
+  static tesseract::common::PropertyTree schema();
+  static const TaskComposerNodePorts& ports();
+
 private:
   tesseract::time_parameterization::IterativeSplineParameterization solver_;
-
-  static TaskComposerNodePorts ports();
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;

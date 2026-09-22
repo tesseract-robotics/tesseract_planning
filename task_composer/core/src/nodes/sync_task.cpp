@@ -32,6 +32,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract::task_composer
 {
+tesseract::common::PropertyTree SyncTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& SyncTask::ports()
+{
+  static const TaskComposerNodePorts ports;
+  return ports;
+}
+
 SyncTask::SyncTask(std::string name) : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, false) {}
 SyncTask::SyncTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, config)

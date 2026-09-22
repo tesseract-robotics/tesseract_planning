@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract::task_composer
 {
-class TaskComposerKeys;
+class TaskComposerPortMap;
 class TaskComposerDataStorage;
 
 template <class Archive>
@@ -114,24 +114,24 @@ public:
   bool remapData(const std::map<std::string, std::string>& remapping, bool copy = false);
 
   /**
-   * @brief Copy data as input data from the specified keys from another data storage
+   * @brief Copy data as input data using the specified port mappings from another data storage
    * @param data_storage The input data storage from which to copy data
-   * @param keys The keys from which to copy data from the input data storage
-   * @param override_keys The override keys if any when looking up data
+   * @param port_mappings The port mappings identifying data to copy
+   * @param override_port_mappings The override port mappings, if any, used when looking up data
    */
   void copyAsInputData(const TaskComposerDataStorage& data_storage,
-                       const TaskComposerKeys& keys,
-                       const TaskComposerKeys& override_keys);
+                       const TaskComposerPortMap& port_mappings,
+                       const TaskComposerPortMap& override_port_mappings);
 
   /**
-   * @brief Copy data as output data from the specified keys from another data storage
+   * @brief Copy data as output data using the specified port mappings from another data storage
    * @param data_storage The input data storage from which to copy data
-   * @param keys The keys from which to copy data from the input data storage
-   * @param override_keys The override keys to use if any when storing data
+   * @param port_mappings The port mappings identifying data to copy
+   * @param override_port_mappings The override port mappings, if any, used when storing data
    */
   void copyAsOutputData(const TaskComposerDataStorage& data_storage,
-                        const TaskComposerKeys& keys,
-                        const TaskComposerKeys& override_keys);
+                        const TaskComposerPortMap& port_mappings,
+                        const TaskComposerPortMap& override_port_mappings);
 
   bool operator==(const TaskComposerDataStorage& rhs) const;
   bool operator!=(const TaskComposerDataStorage& rhs) const;

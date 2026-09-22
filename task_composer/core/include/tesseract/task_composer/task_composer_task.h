@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/task_composer_node.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
@@ -51,6 +52,9 @@ public:
   TaskComposerTask& operator=(const TaskComposerTask&) = delete;
   TaskComposerTask(TaskComposerTask&&) = delete;
   TaskComposerTask& operator=(TaskComposerTask&&) = delete;
+
+  /** @brief Return the PropertyTree schema for a task with the specified ports. */
+  static tesseract::common::PropertyTree schema(const TaskComposerNodePorts& ports);
 
   /**
    * @brief If true this node should call context.abort(uuid_) after run method returns

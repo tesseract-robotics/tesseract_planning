@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/common/any_poly.h>
 
 #include <tesseract/task_composer/task_composer_node_types.h>
-#include <tesseract/task_composer/task_composer_keys.h>
+#include <tesseract/task_composer/task_composer_port_map.h>
 #include <tesseract/task_composer/task_composer_data_storage.h>
 
 namespace tesseract::task_composer
@@ -90,11 +90,11 @@ public:
   /** @brief The nodes outbound edges */
   std::vector<boost::uuids::uuid> outbound_edges;
 
-  /** @brief The input keys */
-  TaskComposerKeys input_keys;
+  /** @brief The input port mappings */
+  TaskComposerPortMap input_port_mappings;
 
-  /** @brief The output keys */
-  TaskComposerKeys output_keys;
+  /** @brief The output port mappings */
+  TaskComposerPortMap output_port_mappings;
 
   /** @brief The graph of pipeline terminals */
   std::vector<boost::uuids::uuid> terminals;

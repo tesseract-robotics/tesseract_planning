@@ -242,7 +242,7 @@ Changelog for package tesseract_task_composer
 * Update to use forward declarations (`#449 <https://github.com/tesseract-robotics/tesseract_planning/issues/449>`_)
 * Feat/more verbose planning failures (`#440 <https://github.com/tesseract-robotics/tesseract_planning/issues/440>`_)
 * Adding Trajopt_Ifopt option to all examples (`#389 <https://github.com/tesseract-robotics/tesseract_planning/issues/389>`_)
-* Fix error message for missing output keys
+* Fix error message for missing output port mappings
 * Contributors: Levi Armstrong, Roelof, Roelof Oomen, Tyler Marr
 
 0.21.7 (2024-02-03)
@@ -310,7 +310,7 @@ Changelog for package tesseract_task_composer
 * Fix Raster and RasterOnly Tasks
 * Add elapsed time for pipelines and include in dot graph
 * Add conditional to subgraph in dot graph output
-* Add input and output keys to dot graph
+* Add input and output port mappings to dot graph
 * Add Remap Task (`#351 <https://github.com/tesseract-robotics/tesseract_planning/issues/351>`_)
 * Contributors: Levi Armstrong
 
@@ -451,7 +451,7 @@ Changelog for package tesseract_task_composer
 * Add remaining raster tasks
 * Fix rebase conflicts
 * Fix clang-tidy errors
-* Store input and output keys in TaskComposerNode
+* Store input and output port mappings in TaskComposerNode
 * Add clone method to TaskComposerNode
 * Add TaskComposerPluginFactory
 * Cleanup TaskComposerFuture

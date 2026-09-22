@@ -11,19 +11,18 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract::task_composer
 {
-const std::string HasDataStorageEntryTask::INPUT_KEYS_PORT = "keys";
 
 HasDataStorageEntryTask::HasDataStorageEntryTask()
   : TaskComposerTask("HasDataStorageEntryTask", HasDataStorageEntryTask::ports(), true)
 {
 }
 HasDataStorageEntryTask::HasDataStorageEntryTask(std::string name,
-                                                 const std::vector<std::string>& input_keys,
+                                                 const std::vector<std::string>& input_storage_keys,
                                                  bool is_conditional)
   : TaskComposerTask(std::move(name), HasDataStorageEntryTask::ports(), is_conditional)
 {
-  input_keys_.add(INPUT_KEYS_PORT, input_keys);
-  validatePorts();
+  input_port_mappings_.set(INPUT_STORAGE_KEYS_PORT, input_storage_keys);
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 HasDataStorageEntryTask::HasDataStorageEntryTask(std::string name,
                                                  const YAML::Node& config,
@@ -32,10 +31,15 @@ HasDataStorageEntryTask::HasDataStorageEntryTask(std::string name,
 {
 }
 
-TaskComposerNodePorts HasDataStorageEntryTask::ports()
+tesseract::common::PropertyTree HasDataStorageEntryTask::schema() { return TaskComposerTask::schema(ports()); }
+
+const TaskComposerNodePorts& HasDataStorageEntryTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INPUT_KEYS_PORT] = TaskComposerNodePorts::MULTIPLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INPUT_STORAGE_KEYS_PORT, TaskComposerNodePorts::Cardinality::MULTIPLE);
+    return ports;
+  }();
   return ports;
 }
 
@@ -47,15 +51,15 @@ TaskComposerNodeInfo HasDataStorageEntryTask::runImpl(TaskComposerContext& conte
   // Get local data storage
   TaskComposerDataStorage::Ptr data_storage = getDataStorage(context);
 
-  const auto& keys = input_keys_.get<std::vector<std::string>>(INPUT_KEYS_PORT);
-  for (const auto& key : keys)
+  const auto& storage_keys = input_port_mappings_.multiple(INPUT_STORAGE_KEYS_PORT);
+  for (const auto& storage_key : storage_keys)
   {
-    if (!data_storage->hasKey(key))
+    if (!data_storage->hasKey(storage_key))
     {
       info.color = "red";
       info.return_value = 0;
       info.status_code = 0;
-      info.status_message = "Missing input key: " + key;
+      info.status_message = "Missing input storage key: " + storage_key;
       return info;
     }
   }

@@ -22,14 +22,16 @@
  * limitations under the License.
  */
 
-#include <tesseract/task_composer/yaml_extensions.h>
 #include <tesseract/task_composer/yaml_utils.h>
-#include <tesseract/task_composer/task_composer_keys.h>
+#include <tesseract/task_composer/yaml_extensions.h>
+#include <tesseract/task_composer/task_composer_port_map.h>
 #include <tesseract/task_composer/task_composer_node.h>
 #include <tesseract/task_composer/task_composer_graph.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
 
 #include <tesseract/common/yaml_utils.h>
+#include <tesseract/common/property_tree.h>
+#include <tesseract/common/schema_registration.h>
 
 #include <yaml-cpp/yaml.h>
 
@@ -48,23 +50,13 @@ void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config)
   if (YAML::Node n = config["abort_terminal"])
     graph_node.setTerminalTriggerAbortByIndex(n.as<int>());
 
-  if (YAML::Node override_keys = config["override"])
+  if (YAML::Node override_config = config["override"])
   {
-    if (YAML::Node n = override_keys["inputs"])
-    {
-      if (!n.IsMap())
-        throw std::runtime_error("YAML entry 'override' inputs must be a map type");
+    if (YAML::Node n = override_config["inputs"])
+      graph_node.setOverrideInputPortMappings(n.as<TaskComposerPortMap>());
 
-      graph_node.setOverrideInputKeys(n.as<TaskComposerKeys>());
-    }
-
-    if (YAML::Node n = override_keys["outputs"])
-    {
-      if (!n.IsMap())
-        throw std::runtime_error("YAML entry 'override' outputs must be a map type");
-
-      graph_node.setOverrideOutputKeys(n.as<TaskComposerKeys>());
-    }
+    if (YAML::Node n = override_config["outputs"])
+      graph_node.setOverrideOutputPortMappings(n.as<TaskComposerPortMap>());
   }
 }
 
@@ -98,39 +90,64 @@ std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
     task_node->setName(name);
 
     if (YAML::Node tc = entry["config"])
-    {
-      static const std::set<std::string> tasks_expected_keys{ "conditional", "abort_terminal", "override" };
-      tesseract::common::checkForUnknownKeys(tc, tasks_expected_keys);
-
       loadSubTaskConfig(*task_node, tc);
-    }
 
     return task_node;
   }
 
-  throw std::runtime_error("Sub task for '" + parent_name + "' node '" + name + "' missing 'class' or 'task' entry");
+  return plugin_factory.createTaskComposerNode(entry["task"].as<std::string>());
 }
 
-void validateSubTask(const std::string& parent_name, const std::string& key, const YAML::Node& node)
+tesseract::common::PropertyTree subTaskConfigSchema()
 {
-  if (!node.IsMap())
-    throw std::runtime_error("Sub task for '" + parent_name + "' node '" + key + "' should be a map");
-
-  bool is_class{ false };
-  bool is_task{ false };
-  for (YAML::const_iterator it = node.begin(); it != node.end(); ++it)
-  {
-    auto key = it->first.as<std::string>();
-    if (key == "class")
-      is_class = true;
-    else if (key == "task")
-      is_task = true;
-  }
-
-  if (is_class && is_task)
-    throw std::runtime_error("Sub task for '" + parent_name + "' node '" + key + "' has both 'class' and 'task' entry");
-
-  if (!is_class && !is_task)
-    throw std::runtime_error("Sub task for '" + parent_name + "' node '" + key + "' missing 'class' or 'task' entry");
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .boolean("conditional").done()
+      .int32("abort_terminal").done()
+      .container("override")
+        .customType("inputs", "tesseract::task_composer::TaskComposerPortMap")
+            .validator(validateCustomType).done()
+        .customType("outputs", "tesseract::task_composer::TaskComposerPortMap")
+            .validator(validateCustomType).done()
+      .done()
+      .build();
+  // clang-format on
 }
+
+tesseract::common::PropertyTree subTaskSchema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .oneOf()
+        .customType("by_class", "tesseract::task_composer::TaskComposerNodeFactory")
+          .acceptsDerivedTypes().done()
+        .container("by_task")
+          .string("task").required().done()
+          .customType("config", SUB_TASK_CONFIG_SCHEMA_KEY)
+              .validator(validateCustomType).done()
+        .done()
+      .build();
+  // clang-format on
+}
+
+tesseract::common::PropertyTree graphEdgeSchema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .string("source").required().done()
+      .customType("destinations", STRING_OR_STRING_LIST_SCHEMA_KEY).required()
+        .validator(validateCustomType).done()
+      .build();
+  // clang-format on
+}
+
 }  // namespace tesseract::task_composer
+
+TESSERACT_SCHEMA_REGISTER(tesseract::task_composer::GraphEdge, tesseract::task_composer::graphEdgeSchema);
+TESSERACT_SCHEMA_REGISTER(tesseract::task_composer::SubTaskConfig, tesseract::task_composer::subTaskConfigSchema);
+TESSERACT_SCHEMA_REGISTER(tesseract::task_composer::SubTask, tesseract::task_composer::subTaskSchema);

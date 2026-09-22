@@ -18,25 +18,28 @@ class AddTaskComposerNode : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INPUT_LEFT_PORT;
-  static const std::string INPUT_RIGHT_PORT;
-  static const std::string OUTPUT_RESULT_PORT;
+  static constexpr const char* INPUT_LEFT_PORT = "left";
+  static constexpr const char* INPUT_RIGHT_PORT = "right";
+  static constexpr const char* OUTPUT_RESULT_PORT = "result";
 
   AddTaskComposerNode(std::string left_key, std::string right_key, std::string output_key)
     : TaskComposerTask("AddTwoNumbers", AddTaskComposerNode::ports(), false)
   {
-    input_keys_.add(INPUT_LEFT_PORT, std::move(left_key));
-    input_keys_.add(INPUT_RIGHT_PORT, std::move(right_key));
-    output_keys_.add(OUTPUT_RESULT_PORT, std::move(output_key));
-    validatePorts();
+    input_port_mappings_.set(INPUT_LEFT_PORT, std::move(left_key));
+    input_port_mappings_.set(INPUT_RIGHT_PORT, std::move(right_key));
+    output_port_mappings_.set(OUTPUT_RESULT_PORT, std::move(output_key));
+    setPortMappings(input_port_mappings_, output_port_mappings_);
   }
 
-  static TaskComposerNodePorts ports()
+  static const TaskComposerNodePorts& ports()
   {
-    TaskComposerNodePorts ports;
-    ports.input_required[INPUT_LEFT_PORT] = TaskComposerNodePorts::SINGLE;
-    ports.input_required[INPUT_RIGHT_PORT] = TaskComposerNodePorts::SINGLE;
-    ports.output_required[OUTPUT_RESULT_PORT] = TaskComposerNodePorts::SINGLE;
+    static const TaskComposerNodePorts ports = []() {
+      TaskComposerNodePorts ports;
+      ports.addRequiredInput(INPUT_LEFT_PORT);
+      ports.addRequiredInput(INPUT_RIGHT_PORT);
+      ports.addRequiredOutput(OUTPUT_RESULT_PORT);
+      return ports;
+    }();
     return ports;
   }
 
@@ -52,33 +55,32 @@ public:
   }
 };
 
-const std::string AddTaskComposerNode::INPUT_LEFT_PORT = "left";
-const std::string AddTaskComposerNode::INPUT_RIGHT_PORT = "right";
-const std::string AddTaskComposerNode::OUTPUT_RESULT_PORT = "result";
-
 class MultiplyTaskComposerNode : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INPUT_LEFT_PORT;
-  static const std::string INPUT_RIGHT_PORT;
-  static const std::string OUTPUT_RESULT_PORT;
+  static constexpr const char* INPUT_LEFT_PORT = "left";
+  static constexpr const char* INPUT_RIGHT_PORT = "right";
+  static constexpr const char* OUTPUT_RESULT_PORT = "result";
 
   MultiplyTaskComposerNode(std::string left_key, std::string right_key, std::string output_key)
     : TaskComposerTask("MultiplyTwoNumbers", MultiplyTaskComposerNode::ports(), false)
   {
-    input_keys_.add(INPUT_LEFT_PORT, std::move(left_key));
-    input_keys_.add(INPUT_RIGHT_PORT, std::move(right_key));
-    output_keys_.add(OUTPUT_RESULT_PORT, std::move(output_key));
-    validatePorts();
+    input_port_mappings_.set(INPUT_LEFT_PORT, std::move(left_key));
+    input_port_mappings_.set(INPUT_RIGHT_PORT, std::move(right_key));
+    output_port_mappings_.set(OUTPUT_RESULT_PORT, std::move(output_key));
+    setPortMappings(input_port_mappings_, output_port_mappings_);
   }
 
-  static TaskComposerNodePorts ports()
+  static const TaskComposerNodePorts& ports()
   {
-    TaskComposerNodePorts ports;
-    ports.input_required[INPUT_LEFT_PORT] = TaskComposerNodePorts::SINGLE;
-    ports.input_required[INPUT_RIGHT_PORT] = TaskComposerNodePorts::SINGLE;
-    ports.output_required[OUTPUT_RESULT_PORT] = TaskComposerNodePorts::SINGLE;
+    static const TaskComposerNodePorts ports = []() {
+      TaskComposerNodePorts ports;
+      ports.addRequiredInput(INPUT_LEFT_PORT);
+      ports.addRequiredInput(INPUT_RIGHT_PORT);
+      ports.addRequiredOutput(OUTPUT_RESULT_PORT);
+      return ports;
+    }();
     return ports;
   }
 
@@ -93,10 +95,6 @@ public:
     return info;
   }
 };
-
-const std::string MultiplyTaskComposerNode::INPUT_LEFT_PORT = "left";
-const std::string MultiplyTaskComposerNode::INPUT_RIGHT_PORT = "right";
-const std::string MultiplyTaskComposerNode::OUTPUT_RESULT_PORT = "result";
 
 int main()
 {

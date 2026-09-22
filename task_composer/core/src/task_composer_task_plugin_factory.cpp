@@ -29,11 +29,15 @@
 
 #include <tesseract/task_composer/nodes/done_task.h>
 #include <tesseract/task_composer/nodes/error_task.h>
+#include <tesseract/task_composer/nodes/for_each_task.h>
 #include <tesseract/task_composer/nodes/has_data_storage_entry_task.h>
 #include <tesseract/task_composer/nodes/remap_task.h>
 #include <tesseract/task_composer/nodes/start_task.h>
 #include <tesseract/task_composer/nodes/sync_task.h>
 #include <tesseract/task_composer/test_suite/test_task.h>
+
+#include <tesseract/common/schema_registration.h>
+#include <tesseract/common/property_tree.h>
 
 #include <boost_plugin_loader/macros.h>
 
@@ -41,6 +45,7 @@ namespace tesseract::task_composer
 {
 using DoneTaskFactory = TaskComposerTaskFactory<DoneTask>;
 using ErrorTaskFactory = TaskComposerTaskFactory<ErrorTask>;
+using ForEachTaskFactory = TaskComposerTaskFactory<ForEachTask>;
 using HasDataStorageEntryTaskFactory = TaskComposerTaskFactory<HasDataStorageEntryTask>;
 using RemapTaskFactory = TaskComposerTaskFactory<RemapTask>;
 using StartTaskFactory = TaskComposerTaskFactory<StartTask>;
@@ -65,6 +70,8 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::DoneTaskFacto
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::ErrorTaskFactory, ErrorTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::ForEachTaskFactory, ForEachTaskFactory)
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::HasDataStorageEntryTaskFactory, HasDataStorageEntryTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::RemapTaskFactory, RemapTaskFactory)
@@ -79,3 +86,26 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::PipelineTaskF
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::test_suite::TestTaskFactory, TestTaskFactory)
 // clang-format on
+
+TESSERACT_SCHEMA_REGISTER(DoneTaskFactory, tesseract::task_composer::DoneTask::schema);
+TESSERACT_SCHEMA_REGISTER(ErrorTaskFactory, tesseract::task_composer::ErrorTask::schema);
+TESSERACT_SCHEMA_REGISTER(ForEachTaskFactory, tesseract::task_composer::ForEachTask::schema);
+TESSERACT_SCHEMA_REGISTER(HasDataStorageEntryTaskFactory, tesseract::task_composer::HasDataStorageEntryTask::schema);
+TESSERACT_SCHEMA_REGISTER(RemapTaskFactory, tesseract::task_composer::RemapTask::schema);
+TESSERACT_SCHEMA_REGISTER(StartTaskFactory, tesseract::task_composer::StartTask::schema);
+TESSERACT_SCHEMA_REGISTER(SyncTaskFactory, tesseract::task_composer::SyncTask::schema);
+TESSERACT_SCHEMA_REGISTER(GraphTaskFactory, tesseract::task_composer::TaskComposerGraph::schema);
+TESSERACT_SCHEMA_REGISTER(PipelineTaskFactory, tesseract::task_composer::TaskComposerPipeline::schema);
+TESSERACT_SCHEMA_REGISTER(TestTaskFactory, tesseract::task_composer::test_suite::TestTask::schema);
+
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, DoneTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, ErrorTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, ForEachTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory,
+                                       HasDataStorageEntryTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, RemapTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, StartTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, SyncTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, GraphTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, PipelineTaskFactory);
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerNodeFactory, TestTaskFactory);

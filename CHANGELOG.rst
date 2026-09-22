@@ -2,10 +2,6 @@
 Changelog for package tesseract_planning
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Unreleased
-----------
-* Add ``simplify_time`` to ``OMPLSolverConfig`` to time-bound OMPL path simplification (``simplifySolution(double)``); defaults to 0.0 which preserves the existing unbounded ``simplifyMax`` behavior
-
 0.35.0 (2026-05-28)
 -------------------
 * Update descartes tag
@@ -556,7 +552,7 @@ Unreleased
 * Update matching https://github.com/tesseract-robotics/tesseract/pull/989
 * Feat/more verbose planning failures (`#440 <https://github.com/tesseract-robotics/tesseract_planning/issues/440>`_)
 * Adding Trajopt_Ifopt option to all examples (`#389 <https://github.com/tesseract-robotics/tesseract_planning/issues/389>`_)
-* Fix error message for missing output keys
+* Fix error message for missing output port mappings
 * Contributors: John Wason, Levi Armstrong, Roelof, Roelof Oomen, Tyler Marr
 
 0.21.7 (2024-02-03)
@@ -682,7 +678,7 @@ Unreleased
   Co-authored-by: Levi Armstrong <levi.armstrong@gmail.com>
 * Add elapsed time for pipelines and include in dot graph
 * Add conditional to subgraph in dot graph output
-* Add input and output keys to dot graph
+* Add input and output port mappings to dot graph
 * Add Remap Task (`#351 <https://github.com/tesseract-robotics/tesseract_planning/issues/351>`_)
 * Merge pull request `#300 <https://github.com/tesseract-robotics/tesseract_planning/issues/300>`_ from marip8/update/docs-build
   Fixed documentation build job
@@ -894,7 +890,7 @@ Unreleased
 * Add remaining raster tasks
 * Fix rebase conflicts
 * Fix clang-tidy errors
-* Store input and output keys in TaskComposerNode
+* Store input and output port mappings in TaskComposerNode
 * Add clone method to TaskComposerNode
 * Add TaskComposerPluginFactory
 * Cleanup TaskComposerFuture

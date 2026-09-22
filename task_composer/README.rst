@@ -16,6 +16,43 @@ Task Composer Plugin Config
 
 This file allows you define Excutors and Tasks (aka Nodes). 
 
+Plugin configuration is schema-validated before it is committed. Both ``executors`` and ``tasks`` containers require
+a ``plugins`` map; use ``plugins: {}`` when a container is intentionally empty. Each factory class referenced by
+``class`` must register a concrete ``PropertyTree`` schema and a derived-type relationship to
+``TaskComposerExecutorFactory`` or ``TaskComposerNodeFactory``. The library providing those registrations must appear
+in ``search_libraries`` (or the task-composer plugin environment settings), because libraries are loaded before strict
+validation. Unknown properties, invalid values, missing schemas, and unregistered relationships cause construction of
+``TaskComposerPluginFactory`` to throw a path-qualified validation error.
+
+The runtime ``PropertyTree`` registry is the authoritative schema source. Validation occurs in two stages: discovery
+metadata is validated first, then the requested libraries are loaded and the complete configuration is validated
+strictly against their registered executor and node factory schemas. There is no separately maintained static schema
+file.
+
+When adding a task-composer plugin:
+
+* Make its schema match every YAML field accepted by its constructor, including required fields, fixed defaults, and
+  value constraints.
+* Build each task schema from ``TaskComposerTask::schema(ports())`` so required and optional port names and their
+  cardinality are part of the task's schema. Tasks without additional configuration fields may return that schema
+  directly.
+* Define ``ports()`` as a const-reference accessor to one function-local immutable ``TaskComposerNodePorts`` contract.
+  Use ``addRequiredInput()``, ``addOptionalInput()``, ``addRequiredOutput()``, and ``addOptionalOutput()`` to define it.
+  The same contract drives both schema generation and runtime mapping validation.
+* Configure a task's complete mapping atomically with ``setPortMappings()``. ``TaskComposerPortMap`` uses explicit
+  ``set()``, ``contains()``, ``single()``, ``multiple()``, and ``erase()`` operations for logical-port to data-key
+  mappings.
+* Treat fixed tasks and dynamic containers differently: fixed tasks publish a contract, including an empty contract for
+  portless tasks, while Graph and Pipeline mappings remain configuration-defined and are validated after their child
+  nodes and named subtasks are resolved.
+* Register both the concrete factory schema and its derived-type relationship to ``TaskComposerNodeFactory`` or
+  ``TaskComposerExecutorFactory``.
+* Register schemas for custom nested configuration types referenced by the plugin schema.
+* Extend the registry-completeness and focused construction-schema tests.
+
+This contract covers plugin construction configuration, including strict task-specific port names, required ports, and
+single-versus-multiple mapping cardinality. Runtime profile payloads remain a separate concern.
+
 .. note:: 
     
    Not all nodes are intendend to be standalone task but be comsumed by a task.

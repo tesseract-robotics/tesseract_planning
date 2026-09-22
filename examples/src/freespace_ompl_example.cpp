@@ -203,7 +203,7 @@ bool FreespaceOMPLExample::run()
 
   // Create task
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("OMPLPipeline");
-  const std::string output_key = task->getOutputKeys().get("program");
+  const std::string output_key = task->getOutputPortMappings().single("program");
 
   // Solve task
   TaskComposerFuture::UPtr future;

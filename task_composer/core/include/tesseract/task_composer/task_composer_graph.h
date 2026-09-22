@@ -57,6 +57,9 @@ public:
   TaskComposerGraph(TaskComposerGraph&&) = delete;
   TaskComposerGraph& operator=(TaskComposerGraph&&) = delete;
 
+  /** @brief Return the PropertyTree schema for a TaskComposerGraph. */
+  static tesseract::common::PropertyTree schema();
+
   /**
    * @brief Get the root node of the graph
    * @return The root node uuid
@@ -128,29 +131,32 @@ public:
   /** Get the abort terminal index if set */
   int getAbortTerminalIndex() const;
 
-  /**
-   * @brief Set the override input keys
-   * @param override_input_keys The overrides
-   */
-  void setOverrideInputKeys(TaskComposerKeys override_input_keys);
+  /** @brief Atomically replace and validate this graph's dynamic boundary mappings. */
+  void setPortMappings(TaskComposerPortMap input_port_mappings, TaskComposerPortMap output_port_mappings) override;
 
   /**
-   * @brief Set the override output keys
-   * @param override_output_keys The overrides
+   * @brief Set the override input port mappings
+   * @param override_input_port_mappings The overrides
    */
-  void setOverrideOutputKeys(TaskComposerKeys override_output_keys);
+  void setOverrideInputPortMappings(TaskComposerPortMap override_input_port_mappings);
 
   /**
-   * @brief Get the override input keys
+   * @brief Set the override output port mappings
+   * @param override_output_port_mappings The overrides
+   */
+  void setOverrideOutputPortMappings(TaskComposerPortMap override_output_port_mappings);
+
+  /**
+   * @brief Get the override input port mappings
    * @return The overrides
    */
-  const TaskComposerKeys& getOverrideInputKeys() const;
+  const TaskComposerPortMap& getOverrideInputPortMappings() const;
 
   /**
-   * @brief Get the override output keys
+   * @brief Get the override output port mappings
    * @return The overrides
    */
-  const TaskComposerKeys& getOverrideOutputKeys() const;
+  const TaskComposerPortMap& getOverrideOutputPortMappings() const;
 
   /**
    * @brief Check if the current state of the graph is valid
@@ -171,8 +177,14 @@ protected:
                     const YAML::Node& config,
                     const TaskComposerPluginFactory& plugin_factory);
 
+  /** @brief Return the shared graph schema, optionally permitting conditional execution. */
+  static tesseract::common::PropertyTree graphSchema(bool allow_conditional);
+
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override;
+
+  /** @brief Validate resolved child-node mappings and graph data flow. */
+  std::pair<bool, std::string> validateDataFlow() const;
 
   /** @brief The graph nodes */
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
@@ -180,10 +192,10 @@ protected:
   std::vector<boost::uuids::uuid> terminals_;
   /** @brief The abort terminal if assigned */
   int abort_terminal_{ -1 };
-  /** @brief The overrride input keys */
-  TaskComposerKeys override_input_keys_;
-  /** @brief The overrride output keys */
-  TaskComposerKeys override_output_keys_;
+  /** @brief The override input port mappings */
+  TaskComposerPortMap override_input_port_mappings_;
+  /** @brief The override output port mappings */
+  TaskComposerPortMap override_output_port_mappings_;
 };
 
 }  // namespace tesseract::task_composer

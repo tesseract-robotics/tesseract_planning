@@ -22,37 +22,91 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <unordered_map>
+#include <cstdint>
+#include <map>
 #include <string>
+#include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/fwd.h>
 
 namespace tesseract::task_composer
 {
-/**
- * @brief A data structure for holding the nodes required and option input and output ports
- * @details This is leveraged primarily by the validation method.
- * The bool indicates if the port container a container of keys
- */
-struct TaskComposerNodePorts
+class TaskComposerPortMap;
+
+/** @brief Defines the complete input and output port contract for a fixed task. */
+class TaskComposerNodePorts
 {
-  enum Type
+public:
+  enum class Cardinality : std::uint8_t
   {
-    SINGLE = 0,
-    MULTIPLE = 1
+    SINGLE,
+    MULTIPLE
   };
 
-  std::unordered_map<std::string, Type> input_required;
-  std::unordered_map<std::string, Type> input_optional;
+  enum class Requirement : std::uint8_t
+  {
+    REQUIRED,
+    OPTIONAL
+  };
 
-  std::unordered_map<std::string, Type> output_required;
-  std::unordered_map<std::string, Type> output_optional;
+  enum class Direction : std::uint8_t
+  {
+    INPUT,
+    OUTPUT
+  };
+
+  struct PortDefinition
+  {
+    Cardinality cardinality{ Cardinality::SINGLE };
+    Requirement requirement{ Requirement::REQUIRED };
+
+    bool operator==(const PortDefinition& rhs) const;
+    bool operator!=(const PortDefinition& rhs) const;
+  };
+
+  struct ValidationError
+  {
+    Direction direction{ Direction::INPUT };
+    std::string port;
+    std::string message;
+
+    std::string path() const;
+    std::string toString() const;
+  };
+
+  using ContainerType = std::map<std::string, PortDefinition>;
+  using ValidationErrors = std::vector<ValidationError>;
+
+  TaskComposerNodePorts& addRequiredInput(std::string name, Cardinality cardinality = Cardinality::SINGLE);
+  TaskComposerNodePorts& addOptionalInput(std::string name, Cardinality cardinality = Cardinality::SINGLE);
+  TaskComposerNodePorts& addRequiredOutput(std::string name, Cardinality cardinality = Cardinality::SINGLE);
+  TaskComposerNodePorts& addOptionalOutput(std::string name, Cardinality cardinality = Cardinality::SINGLE);
+
+  const ContainerType& inputs() const;
+  const ContainerType& outputs() const;
+
+  tesseract::common::PropertyTree inputSchema() const;
+  tesseract::common::PropertyTree outputSchema() const;
+
+  ValidationErrors validate(const TaskComposerPortMap& inputs, const TaskComposerPortMap& outputs) const;
+  void validateOrThrow(const TaskComposerPortMap& inputs,
+                       const TaskComposerPortMap& outputs,
+                       const std::string& node_name = {}) const;
 
   std::string toString() const;
 
   bool operator==(const TaskComposerNodePorts& rhs) const;
   bool operator!=(const TaskComposerNodePorts& rhs) const;
+
+private:
+  template <class Archive>
+  friend void serialize(Archive& ar, TaskComposerNodePorts& obj);
+
+  TaskComposerNodePorts& add(Direction direction, Requirement requirement, std::string name, Cardinality cardinality);
+
+  ContainerType input_ports_;
+  ContainerType output_ports_;
 };
 
 }  // namespace tesseract::task_composer

@@ -44,8 +44,8 @@ class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT UpsampleTrajectoryTask : pub
 {
 public:
   // Requried
-  static const std::string INOUT_PROGRAM_PORT;
-  static const std::string INPUT_PROFILES_PORT;
+  inline static constexpr char INOUT_PROGRAM_PORT[] = "program";
+  inline static constexpr char INPUT_PROFILES_PORT[] = "profiles";
 
   using Ptr = std::shared_ptr<UpsampleTrajectoryTask>;
   using ConstPtr = std::shared_ptr<const UpsampleTrajectoryTask>;
@@ -67,13 +67,14 @@ public:
   UpsampleTrajectoryTask(UpsampleTrajectoryTask&&) = delete;
   UpsampleTrajectoryTask& operator=(UpsampleTrajectoryTask&&) = delete;
 
+  static tesseract::common::PropertyTree schema();
+  static const TaskComposerNodePorts& ports();
+
 private:
   void upsample(tesseract::command_language::CompositeInstruction& composite,
                 const tesseract::command_language::CompositeInstruction& current_composite,
                 tesseract::command_language::InstructionPoly& start_instruction,
                 double longest_valid_segment_length) const;
-
-  static TaskComposerNodePorts ports();
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;

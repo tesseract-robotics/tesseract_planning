@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/fwd.h>
 
-#include <tesseract/task_composer/task_composer_keys.h>
+#include <tesseract/task_composer/task_composer_port_map.h>
 #include <tesseract/task_composer/task_composer_node_types.h>
 #include <tesseract/task_composer/task_composer_node_ports.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
@@ -55,6 +55,11 @@ class TaskComposerExecutor;
 class TaskComposerNode
 {
 public:
+  /** @brief Selects configuration-defined mappings instead of a fixed port contract. */
+  struct DynamicPortsTag
+  {
+  };
+
   using Ptr = std::shared_ptr<TaskComposerNode>;
   using ConstPtr = std::shared_ptr<const TaskComposerNode>;
   using UPtr = std::unique_ptr<TaskComposerNode>;
@@ -66,14 +71,16 @@ public:
   /** @brief Most task will not require a executor so making it optional */
   using OptionalTaskComposerExecutor = std::optional<std::reference_wrapper<TaskComposerExecutor>>;
 
-  TaskComposerNode(std::string name = "TaskComposerNode",
-                   TaskComposerNodeType type = TaskComposerNodeType::NODE,
-                   TaskComposerNodePorts ports = TaskComposerNodePorts(),
-                   bool conditional = false);
+  TaskComposerNode(std::string name, TaskComposerNodeType type, TaskComposerNodePorts ports, bool conditional = false);
   explicit TaskComposerNode(std::string name,
                             TaskComposerNodeType type,
                             TaskComposerNodePorts ports,
                             const YAML::Node& config);
+  TaskComposerNode(std::string name = "TaskComposerNode",
+                   TaskComposerNodeType type = TaskComposerNodeType::NODE,
+                   DynamicPortsTag = {},
+                   bool conditional = false);
+  TaskComposerNode(std::string name, TaskComposerNodeType type, DynamicPortsTag, const YAML::Node& config);
   virtual ~TaskComposerNode() = default;
   TaskComposerNode(const TaskComposerNode&) = delete;
   TaskComposerNode& operator=(const TaskComposerNode&) = delete;
@@ -118,29 +125,26 @@ public:
    */
   bool isConditional() const;
 
-  /** @brief This will validate that all required ports exist and that no extra ports exist */
-  void validatePorts() const;
-
   /** @brief IDs of nodes (i.e. node) that should run after this node */
   const std::vector<boost::uuids::uuid>& getOutboundEdges() const;
 
   /** @brief IDs of nodes (i.e. node) that should run before this node */
   const std::vector<boost::uuids::uuid>& getInboundEdges() const;
 
-  /** @brief Set the nodes input keys */
-  void setInputKeys(const TaskComposerKeys& input_keys);
+  /**
+   * @brief Atomically replace the node's input and output mappings.
+   * @throws std::runtime_error if either mapping violates a fixed task contract.
+   */
+  virtual void setPortMappings(TaskComposerPortMap input_port_mappings, TaskComposerPortMap output_port_mappings);
 
-  /** @brief The nodes input keys */
-  const TaskComposerKeys& getInputKeys() const;
+  /** @brief The node's input port mappings */
+  const TaskComposerPortMap& getInputPortMappings() const;
 
-  /** @brief Set the nodes input keys */
-  void setOutputKeys(const TaskComposerKeys& output_keys);
+  /** @brief The node's output port mappings */
+  const TaskComposerPortMap& getOutputPortMappings() const;
 
-  /** @brief The nodes output keys */
-  const TaskComposerKeys& getOutputKeys() const;
-
-  /** @brief Get the ports associated with the node */
-  TaskComposerNodePorts getPorts() const;
+  /** @brief Return the fixed contract, or nullptr for a dynamic Graph/Pipeline node. */
+  const TaskComposerNodePorts* getPortContract() const;
 
   /** @brief Generate the Dotgraph as a string */
   std::string getDotgraph(const ResultsMap& results_map = ResultsMap()) const;
@@ -173,6 +177,12 @@ protected:
   virtual TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                        OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
 
+  /** @brief Return the schema fields common to all task-composer nodes. */
+  static tesseract::common::PropertyTree commonSchema();
+
+  /** @brief Parse common YAML fields and atomically configure port mappings. */
+  void configure(const YAML::Node& config);
+
   /** @brief The name of the task */
   std::string name_;
 
@@ -203,17 +213,17 @@ protected:
   /** @brief IDs of nodes (i.e. tasks) that should run before this node */
   std::vector<boost::uuids::uuid> inbound_edges_;
 
-  /** @brief The nodes input keys */
-  TaskComposerKeys input_keys_;
+  /** @brief The node's input port mappings */
+  TaskComposerPortMap input_port_mappings_;
 
-  /** @brief The nodes output keys */
-  TaskComposerKeys output_keys_;
+  /** @brief The node's output port mappings */
+  TaskComposerPortMap output_port_mappings_;
 
   /** @brief Indicate if node is conditional */
   bool conditional_{ false };
 
-  /** @brief The nodes ports definition */
-  TaskComposerNodePorts ports_;
+  /** @brief The fixed contract; dynamic Graph/Pipeline nodes have no contract. */
+  std::optional<TaskComposerNodePorts> ports_;
 
   /** @brief Indicate if task triggers abort */
   bool trigger_abort_{ false };

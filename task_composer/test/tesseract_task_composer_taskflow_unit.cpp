@@ -7,8 +7,28 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract/task_composer/test_suite/task_composer_executor_unit.hpp>
+#include <tesseract/common/property_tree.h>
 
 using namespace tesseract::task_composer;
+
+TEST(TesseractTaskComposerTaskflowUnit, TaskComposerExecutorSchemaTests)  // NOLINT
+{
+  {
+    auto schema = TaskflowTaskComposerExecutor::schema();
+    EXPECT_TRUE(schema.applyConfig(YAML::Load("{}")).empty());
+    EXPECT_TRUE(schema.at("threads").isNull());
+  }
+
+  {
+    auto schema = TaskflowTaskComposerExecutor::schema();
+    EXPECT_TRUE(schema.applyConfig(YAML::Load("threads: 1")).empty());
+  }
+
+  {
+    auto schema = TaskflowTaskComposerExecutor::schema();
+    EXPECT_FALSE(schema.applyConfig(YAML::Load("threads: 0")).empty());
+  }
+}
 
 TEST(TesseractTaskComposerTaskflowUnit, TaskComposerExecutorTests)  // NOLINT
 {

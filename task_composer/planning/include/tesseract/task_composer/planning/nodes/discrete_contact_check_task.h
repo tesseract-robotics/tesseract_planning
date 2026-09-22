@@ -41,12 +41,12 @@ class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT DiscreteContactCheckTask : p
 {
 public:
   // Requried
-  static const std::string INPUT_PROGRAM_PORT;
-  static const std::string INPUT_ENVIRONMENT_PORT;
-  static const std::string INPUT_PROFILES_PORT;
+  inline static constexpr char INPUT_PROGRAM_PORT[] = "program";
+  inline static constexpr char INPUT_ENVIRONMENT_PORT[] = "environment";
+  inline static constexpr char INPUT_PROFILES_PORT[] = "profiles";
 
   // Optional
-  static const std::string OUTPUT_CONTACT_RESULTS_PORT;
+  inline static constexpr char OUTPUT_CONTACT_RESULTS_PORT[] = "contact_results";
 
   using Ptr = std::shared_ptr<DiscreteContactCheckTask>;
   using ConstPtr = std::shared_ptr<const DiscreteContactCheckTask>;
@@ -69,9 +69,10 @@ public:
   DiscreteContactCheckTask(DiscreteContactCheckTask&&) = delete;
   DiscreteContactCheckTask& operator=(DiscreteContactCheckTask&&) = delete;
 
-private:
-  static TaskComposerNodePorts ports();
+  static tesseract::common::PropertyTree schema();
+  static const TaskComposerNodePorts& ports();
 
+private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };

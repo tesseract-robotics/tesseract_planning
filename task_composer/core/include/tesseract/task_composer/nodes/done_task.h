@@ -46,6 +46,9 @@ public:
   explicit DoneTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~DoneTask() override = default;
 
+  static tesseract::common::PropertyTree schema();
+  static const TaskComposerNodePorts& ports();
+
 private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;

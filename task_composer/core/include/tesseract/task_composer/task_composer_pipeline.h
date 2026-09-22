@@ -60,6 +60,9 @@ public:
   TaskComposerPipeline(TaskComposerPipeline&&) = delete;
   TaskComposerPipeline& operator=(TaskComposerPipeline&&) = delete;
 
+  /** @brief Return the PropertyTree schema for a TaskComposerPipeline. */
+  static tesseract::common::PropertyTree schema();
+
 private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;

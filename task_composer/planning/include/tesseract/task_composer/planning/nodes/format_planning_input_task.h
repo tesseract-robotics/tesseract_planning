@@ -39,8 +39,8 @@ class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT FormatPlanningInputTask : pu
 {
 public:
   // Requried
-  static const std::string INOUT_PROGRAM_PORT;
-  static const std::string INPUT_ENVIRONMENT_PORT;
+  inline static constexpr char INOUT_PROGRAM_PORT[] = "program";
+  inline static constexpr char INPUT_ENVIRONMENT_PORT[] = "environment";
 
   using Ptr = std::shared_ptr<FormatPlanningInputTask>;
   using ConstPtr = std::shared_ptr<const FormatPlanningInputTask>;
@@ -62,9 +62,10 @@ public:
   FormatPlanningInputTask(FormatPlanningInputTask&&) = delete;
   FormatPlanningInputTask& operator=(FormatPlanningInputTask&&) = delete;
 
-private:
-  static TaskComposerNodePorts ports();
+  static tesseract::common::PropertyTree schema();
+  static const TaskComposerNodePorts& ports();
 
+private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };

@@ -26,6 +26,9 @@
 #include <tesseract/task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract/task_composer/task_composer_plugin_factory_utils.h>
 
+#include <tesseract/common/schema_registration.h>
+#include <tesseract/common/property_tree.h>
+
 #include <boost_plugin_loader/macros.h>
 
 namespace tesseract::task_composer
@@ -40,3 +43,9 @@ PLUGIN_ANCHOR_IMPL(TaskComposerTaskflowFactoriesAnchor)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_EXECUTOR_PLUGIN(tesseract::task_composer::TaskflowTaskComposerExecutorFactory, TaskflowTaskComposerExecutorFactory)
 // clang-format on
+
+TESSERACT_SCHEMA_REGISTER(TaskflowTaskComposerExecutorFactory,
+                          tesseract::task_composer::TaskflowTaskComposerExecutor::schema);
+
+TESSERACT_SCHEMA_REGISTER_DERIVED_TYPE(tesseract::task_composer::TaskComposerExecutorFactory,
+                                       TaskflowTaskComposerExecutorFactory);

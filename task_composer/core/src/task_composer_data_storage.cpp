@@ -29,7 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/task_composer_data_storage.h>
-#include <tesseract/task_composer/task_composer_keys.h>
+#include <tesseract/task_composer/task_composer_port_map.h>
 
 namespace tesseract::task_composer
 {
@@ -49,6 +49,9 @@ TaskComposerDataStorage::TaskComposerDataStorage(const TaskComposerDataStorage& 
 // NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage& TaskComposerDataStorage::operator=(const TaskComposerDataStorage& other)
 {
+  if (this == &other)
+    return *this;
+
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
@@ -72,6 +75,9 @@ TaskComposerDataStorage::TaskComposerDataStorage(TaskComposerDataStorage&& other
 // NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage& TaskComposerDataStorage::operator=(TaskComposerDataStorage&& other) noexcept
 {
+  if (this == &other)
+    return *this;
+
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
@@ -177,24 +183,38 @@ void copyDataHelper(TaskComposerDataStorage& ods,
   tesseract::common::AnyPoly entry = ids.getData(lookup_key);
 
   if (entry.isNull())
-    throw std::runtime_error("TaskComposerDataStorage, unable to copy data for '" + lookup_key + "'");
+  {
+    std::string available_keys;
+    for (const auto& [key, value] : ids.getData())
+    {
+      if (!available_keys.empty())
+        available_keys += ", ";
+      available_keys += key;
+      if (value.isNull())
+        available_keys += " (null)";
+    }
+
+    throw std::runtime_error("TaskComposerDataStorage, unable to copy data for '" + lookup_key + "' from storage '" +
+                             ids.getName() + "'; available storage keys: [" + available_keys + "]");
+  }
 
   ods.setData(storage_key, entry);
 }
 
 void TaskComposerDataStorage::copyAsInputData(const TaskComposerDataStorage& data_storage,
-                                              const TaskComposerKeys& keys,
-                                              const TaskComposerKeys& override_keys)
+                                              const TaskComposerPortMap& port_mappings,
+                                              const TaskComposerPortMap& override_port_mappings)
 {
-  for (const auto& pair : keys.data())
+  for (const auto& pair : port_mappings.data())
   {
-    if (pair.second.index() == 0)
+    if (std::holds_alternative<std::string>(pair.second))
     {
       const auto& key = std::get<std::string>(pair.second);
 
       // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
       // Otherwise use the original key for retrieving the data
-      const std::string& lookup_key = override_keys.has(pair.first) ? override_keys.get<std::string>(pair.first) : key;
+      const std::string& lookup_key =
+          override_port_mappings.contains(pair.first) ? override_port_mappings.single(pair.first) : key;
       copyDataHelper(*this, data_storage, lookup_key, key);
     }
     else
@@ -204,7 +224,7 @@ void TaskComposerDataStorage::copyAsInputData(const TaskComposerDataStorage& dat
       // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
       // Otherwise use the original key for retrieving the data
       const std::vector<std::string>& lookup_keys =
-          override_keys.has(pair.first) ? override_keys.get<std::vector<std::string>>(pair.first) : keys;
+          override_port_mappings.contains(pair.first) ? override_port_mappings.multiple(pair.first) : keys;
 
       if (keys.size() != lookup_keys.size())
         throw std::runtime_error("TaskComposerDataStorage, unable to copy data for port '" + pair.first +
@@ -217,18 +237,19 @@ void TaskComposerDataStorage::copyAsInputData(const TaskComposerDataStorage& dat
 }
 
 void TaskComposerDataStorage::copyAsOutputData(const TaskComposerDataStorage& data_storage,
-                                               const TaskComposerKeys& keys,
-                                               const TaskComposerKeys& override_keys)
+                                               const TaskComposerPortMap& port_mappings,
+                                               const TaskComposerPortMap& override_port_mappings)
 {
-  for (const auto& pair : keys.data())
+  for (const auto& pair : port_mappings.data())
   {
-    if (pair.second.index() == 0)
+    if (std::holds_alternative<std::string>(pair.second))
     {
       const auto& key = std::get<std::string>(pair.second);
 
       // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
       // Otherwise use the original key for retrieving the data
-      const std::string& storage_key = override_keys.has(pair.first) ? override_keys.get<std::string>(pair.first) : key;
+      const std::string& storage_key =
+          override_port_mappings.contains(pair.first) ? override_port_mappings.single(pair.first) : key;
       copyDataHelper(*this, data_storage, key, storage_key);
     }
     else
@@ -238,7 +259,7 @@ void TaskComposerDataStorage::copyAsOutputData(const TaskComposerDataStorage& da
       // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
       // Otherwise use the original key for retrieving the data
       const std::vector<std::string>& storage_keys =
-          override_keys.has(pair.first) ? override_keys.get<std::vector<std::string>>(pair.first) : keys;
+          override_port_mappings.contains(pair.first) ? override_port_mappings.multiple(pair.first) : keys;
 
       if (keys.size() != storage_keys.size())
         throw std::runtime_error("TaskComposerDataStorage, unable to copy data for port '" + pair.first +
@@ -252,6 +273,9 @@ void TaskComposerDataStorage::copyAsOutputData(const TaskComposerDataStorage& da
 
 bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) const
 {
+  if (this == &rhs)
+    return true;
+
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(rhs.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };

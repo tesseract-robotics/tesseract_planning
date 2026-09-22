@@ -262,7 +262,7 @@ bool GlassUprightExample::run()
   // Create task
   const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
   TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);
-  const std::string output_key = task->getOutputKeys().get("program");
+  const std::string output_key = task->getOutputPortMappings().single("program");
 
   if (plotter_ != nullptr && plotter_->isConnected())
     plotter_->waitForInput("Hit Enter to solve for trajectory.");

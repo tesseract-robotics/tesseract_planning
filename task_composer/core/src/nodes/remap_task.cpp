@@ -31,10 +31,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/task_composer_context.h>
 #include <tesseract/task_composer/task_composer_data_storage.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
+#include <tesseract/common/property_tree.h>
 
 namespace tesseract::task_composer
 {
-const std::string RemapTask::INOUT_KEYS_PORT = "keys";
 
 RemapTask::RemapTask() : TaskComposerTask("RemapTask", RemapTask::ports(), false) {}
 RemapTask::RemapTask(std::string name, const std::map<std::string, std::string>& remap, bool copy, bool is_conditional)
@@ -43,47 +43,50 @@ RemapTask::RemapTask(std::string name, const std::map<std::string, std::string>&
   if (remap.empty())
     throw std::runtime_error("RemapTask, remap should not be empty!");
 
-  std::vector<std::string> ikeys;
-  std::vector<std::string> okeys;
-  ikeys.reserve(remap.size());
-  okeys.reserve(remap.size());
+  std::vector<std::string> input_storage_keys;
+  std::vector<std::string> output_storage_keys;
+  input_storage_keys.reserve(remap.size());
+  output_storage_keys.reserve(remap.size());
   for (const auto& pair : remap)
   {
-    ikeys.push_back(pair.first);
-    okeys.push_back(pair.second);
+    input_storage_keys.push_back(pair.first);
+    output_storage_keys.push_back(pair.second);
   }
 
-  input_keys_.add(INOUT_KEYS_PORT, ikeys);
-  output_keys_.add(INOUT_KEYS_PORT, okeys);
-  validatePorts();
+  input_port_mappings_.set(INOUT_STORAGE_KEYS_PORT, input_storage_keys);
+  output_port_mappings_.set(INOUT_STORAGE_KEYS_PORT, output_storage_keys);
+  setPortMappings(input_port_mappings_, output_port_mappings_);
 }
 RemapTask::RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), RemapTask::ports(), config)
 {
-  if (input_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT).size() !=
-      output_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT).size())
-    throw std::runtime_error("RemapTask, input and ouput port 'keys' must be same size");
+  if (input_port_mappings_.multiple(INOUT_STORAGE_KEYS_PORT).size() !=
+      output_port_mappings_.multiple(INOUT_STORAGE_KEYS_PORT).size())
+    throw std::runtime_error("RemapTask input and output storage-key mappings must have the same size");
 
   if (YAML::Node n = config["copy"])
     copy_ = n.as<bool>();
 }
 
-TaskComposerNodePorts RemapTask::ports()
+const TaskComposerNodePorts& RemapTask::ports()
 {
-  TaskComposerNodePorts ports;
-  ports.input_required[INOUT_KEYS_PORT] = TaskComposerNodePorts::MULTIPLE;
-  ports.output_required[INOUT_KEYS_PORT] = TaskComposerNodePorts::MULTIPLE;
+  static const TaskComposerNodePorts ports = []() {
+    TaskComposerNodePorts ports;
+    ports.addRequiredInput(INOUT_STORAGE_KEYS_PORT, TaskComposerNodePorts::Cardinality::MULTIPLE);
+    ports.addRequiredOutput(INOUT_STORAGE_KEYS_PORT, TaskComposerNodePorts::Cardinality::MULTIPLE);
+    return ports;
+  }();
   return ports;
 }
 
 TaskComposerNodeInfo RemapTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
   TaskComposerNodeInfo info(*this);
-  const auto& ikeys = input_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT);
-  const auto& okeys = output_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT);
+  const auto& input_storage_keys = input_port_mappings_.multiple(INOUT_STORAGE_KEYS_PORT);
+  const auto& output_storage_keys = output_port_mappings_.multiple(INOUT_STORAGE_KEYS_PORT);
   std::map<std::string, std::string> remapping;
-  for (std::size_t i = 0; i < ikeys.size(); ++i)
-    remapping[ikeys[i]] = okeys[i];
+  for (std::size_t i = 0; i < input_storage_keys.size(); ++i)
+    remapping[input_storage_keys[i]] = output_storage_keys[i];
 
   // Get local data storage
   TaskComposerDataStorage::Ptr data_storage = getDataStorage(context);
@@ -103,5 +106,17 @@ TaskComposerNodeInfo RemapTask::runImpl(TaskComposerContext& context, OptionalTa
     info.status_message = "Failed to remap data.";
   }
   return info;
+}
+
+tesseract::common::PropertyTree RemapTask::schema()
+{
+  using namespace tesseract::common;
+  // clang-format off
+  return PropertyTreeBuilder()
+      .attribute(property_attribute::TYPE, property_type::CONTAINER)
+      .compose(TaskComposerTask::schema(RemapTask::ports()))
+      .boolean("copy").defaultVal(false).done()
+      .build();
+  // clang-format on
 }
 }  // namespace tesseract::task_composer

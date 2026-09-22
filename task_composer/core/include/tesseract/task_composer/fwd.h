@@ -18,8 +18,8 @@ class TaskComposerFuture;
 // task_composer_graph.h
 class TaskComposerGraph;
 
-// task_composer_keys.h
-class TaskComposerKeys;
+// task_composer_port_map.h
+class TaskComposerPortMap;
 
 // task_composer_log.h
 class TaskComposerLog;

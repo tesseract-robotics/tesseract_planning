@@ -44,8 +44,8 @@ TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
   , conditional(node.conditional_)
   , inbound_edges(node.inbound_edges_)
   , outbound_edges(node.outbound_edges_)
-  , input_keys(node.input_keys_)
-  , output_keys(node.output_keys_)
+  , input_port_mappings(node.input_port_mappings_)
+  , output_port_mappings(node.output_port_mappings_)
   , triggers_abort(node.trigger_abort_)
 {
   if (type == TaskComposerNodeType::GRAPH || type == TaskComposerNodeType::PIPELINE)
@@ -79,8 +79,8 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= tesseract::common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
   equal &= tesseract::common::isIdentical(inbound_edges, rhs.inbound_edges, false);
   equal &= tesseract::common::isIdentical(outbound_edges, rhs.outbound_edges, true);
-  equal &= input_keys == rhs.input_keys;
-  equal &= output_keys == rhs.output_keys;
+  equal &= input_port_mappings == rhs.input_port_mappings;
+  equal &= output_port_mappings == rhs.output_port_mappings;
   equal &= terminals == rhs.terminals;
   equal &= triggers_abort == rhs.triggers_abort;
   equal &= color == rhs.color;
@@ -103,6 +103,9 @@ TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerN
 }
 TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const TaskComposerNodeInfoContainer& other)
 {
+  if (this == &other)
+    return *this;
+
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
@@ -124,6 +127,9 @@ TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(TaskComposerNodeInf
 }
 TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(TaskComposerNodeInfoContainer&& other) noexcept
 {
+  if (this == &other)
+    return *this;
+
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
@@ -217,6 +223,9 @@ std::map<boost::uuids::uuid, TaskComposerNodeInfo> TaskComposerNodeInfoContainer
 
 void TaskComposerNodeInfoContainer::insertInfoMap(const TaskComposerNodeInfoContainer& container)
 {
+  if (this == &container)
+    return;
+
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(container.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
@@ -227,6 +236,9 @@ void TaskComposerNodeInfoContainer::insertInfoMap(const TaskComposerNodeInfoCont
 // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
 void TaskComposerNodeInfoContainer::mergeInfoMap(TaskComposerNodeInfoContainer&& container)
 {
+  if (this == &container)
+    return;
+
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::unique_lock rhs_lock(container.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
@@ -257,6 +269,9 @@ void TaskComposerNodeInfoContainer::updateParents(std::map<boost::uuids::uuid, T
 
 bool TaskComposerNodeInfoContainer::operator==(const TaskComposerNodeInfoContainer& rhs) const
 {
+  if (this == &rhs)
+    return true;
+
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(rhs.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
@@ -271,10 +286,6 @@ bool TaskComposerNodeInfoContainer::operator==(const TaskComposerNodeInfoContain
 
 bool TaskComposerNodeInfoContainer::operator!=(const TaskComposerNodeInfoContainer& rhs) const
 {
-  std::shared_lock lhs_lock(mutex_, std::defer_lock);
-  std::shared_lock rhs_lock(rhs.mutex_, std::defer_lock);
-  std::scoped_lock lock{ lhs_lock, rhs_lock };
-
   return !operator==(rhs);
 }
 
