@@ -34,6 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <trajopt_common/yaml_extensions.h>
 #include <trajopt_sco/optimizers.hpp>
 #include <trajopt_sco/osqp_interface.hpp>
+#ifdef TRAJOPT_SCO_HAS_PIQP
+#include <tesseract/motion_planners/piqp/yaml_extensions.h>
+#endif
 
 namespace YAML
 {
