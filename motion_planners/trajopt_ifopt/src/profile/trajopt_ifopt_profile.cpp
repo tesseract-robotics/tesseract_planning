@@ -21,6 +21,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <tesseract/common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <utility>
+#include <trajopt_sqp/qp_solver.h>
+#include <trajopt_sqp/sqp_callback.h>
+#include <trajopt_sqp/trust_region_sqp_solver.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
 
 namespace tesseract::motion_planners
@@ -34,6 +42,19 @@ TrajOptIfoptSolverProfile::TrajOptIfoptSolverProfile() : Profile(createKey<TrajO
 std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> TrajOptIfoptSolverProfile::createOptimizationCallbacks() const
 {
   return callbacks;
+}
+
+std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver>
+TrajOptIfoptSolverProfile::createSolver(std::shared_ptr<trajopt_sqp::QPSolver> qp_solver, bool verbose) const
+{
+  auto solver = std::make_unique<trajopt_sqp::TrustRegionSQPSolver>(std::move(qp_solver));
+  solver->params = opt_params;
+  solver->verbose = verbose;
+
+  for (const trajopt_sqp::SQPCallback::Ptr& callback : createOptimizationCallbacks())
+    solver->registerCallback(callback);
+
+  return solver;
 }
 
 }  // namespace tesseract::motion_planners
