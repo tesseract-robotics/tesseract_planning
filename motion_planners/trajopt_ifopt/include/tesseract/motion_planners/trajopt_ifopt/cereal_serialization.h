@@ -12,6 +12,10 @@
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
+#ifdef TRAJOPT_SQP_HAS_PIQP
+#include <tesseract/motion_planners/piqp/cereal_serialization.h>
+#include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_piqp_solver_profile.h>
+#endif
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
@@ -153,6 +157,15 @@ void serialize(Archive& ar, TrajOptIfoptOSQPSolverProfile& obj)
   ar(cereal::base_class<TrajOptIfoptSolverProfile>(&obj));
   ar(cereal::make_nvp("qp_settings", obj.qp_settings));
 }
+
+#ifdef TRAJOPT_SQP_HAS_PIQP
+template <class Archive>
+void serialize(Archive& ar, TrajOptIfoptPIQPSolverProfile& obj)
+{
+  ar(cereal::base_class<TrajOptIfoptSolverProfile>(&obj));
+  ar(cereal::make_nvp("qp_settings", obj.qp_settings));
+}
+#endif
 
 }  // namespace tesseract::motion_planners
 

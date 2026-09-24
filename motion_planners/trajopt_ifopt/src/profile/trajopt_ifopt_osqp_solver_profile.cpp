@@ -27,7 +27,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <OsqpEigen/OsqpEigen.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/osqp_eigen_solver.h>
-#include <trajopt_sqp/sqp_callback.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -123,16 +122,7 @@ std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> TrajOptIfoptOSQPSolverProfile
   copyOSQPEigenSettings(*qp_solver->solver_->settings(), *qp_settings);
   qp_solver->solver_->settings()->setVerbosity((qp_settings->getSettings()->verbose != 0) || verbose);
 
-  auto solver = std::make_unique<trajopt_sqp::TrustRegionSQPSolver>(qp_solver);
-  solver->params = opt_params;
-  solver->verbose = verbose;
-
-  // Add all callbacks
-  std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> callbacks = createOptimizationCallbacks();
-  for (const trajopt_sqp::SQPCallback::Ptr& callback : callbacks)
-    solver->registerCallback(callback);
-
-  return solver;
+  return createSolver(std::move(qp_solver), verbose);
 }
 
 bool TrajOptIfoptOSQPSolverProfile::operator==(const TrajOptIfoptOSQPSolverProfile& rhs) const
