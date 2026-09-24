@@ -27,8 +27,8 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <trajopt_sqp/fwd.h>
 #include <piqp/settings.hpp>
+#include <trajopt_sqp/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
@@ -40,9 +40,6 @@ class Node;
 
 namespace tesseract::motion_planners
 {
-/** @brief Compare every field, with a relative tolerance on floating-point fields */
-bool operator==(const piqp::Settings<double>& lhs, const piqp::Settings<double>& rhs);
-
 /** @brief Solver parameters for TrajOpt Ifopt with the PIQP interior-point QP solver */
 class TrajOptIfoptPIQPSolverProfile : public TrajOptIfoptSolverProfile
 {
@@ -52,17 +49,18 @@ public:
 
   TrajOptIfoptPIQPSolverProfile();
 
-  /** @throws std::runtime_error if the config fails to decode or names a KKT solver the sparse backend lacks */
+  /** @throws std::runtime_error if the config fails to decode or holds settings the sparse backend rejects */
   TrajOptIfoptPIQPSolverProfile(const YAML::Node& config,
                                 const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief The PIQP settings to use
-   * @details kkt_solver must be one of the sparse_ldlt variants: PIQP's sparse backend rejects the others at setup.
+   * @details Must pass checkPIQPSettings(): kkt_solver a KKT solver of PIQP's sparse backend, every other field
+   * accepted by piqp::Settings::verify_settings().
    */
   piqp::Settings<double> qp_settings;
 
-  /** @throws std::runtime_error if qp_settings.kkt_solver is not a sparse_ldlt variant */
+  /** @throws std::runtime_error if qp_settings fails checkPIQPSettings() */
   std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const override;
 
   bool operator==(const TrajOptIfoptPIQPSolverProfile& rhs) const;

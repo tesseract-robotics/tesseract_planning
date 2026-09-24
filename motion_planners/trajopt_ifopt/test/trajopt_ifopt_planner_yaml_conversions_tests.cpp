@@ -41,6 +41,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 #ifdef TRAJOPT_SQP_HAS_PIQP
+#include <tesseract/motion_planners/piqp/settings_utils.h>
+#include "piqp_settings_test_utils.h"
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_piqp_solver_profile.h>
 #include <trajopt_sqp/piqp_solver.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
@@ -404,77 +406,16 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptPIQPSolverPro
   }
 
   {  // Every setting
-    const std::string yaml_string = R"(config:
-                                        settings:
-                                          rho_init: 2e-6
-                                          delta_init: 3e-4
-                                          eps_abs: 5e-5
-                                          eps_rel: 7e-7
-                                          check_duality_gap: false
-                                          eps_duality_gap_abs: 2e-7
-                                          eps_duality_gap_rel: 3e-8
-                                          infeasibility_threshold: 0.8
-                                          reg_lower_limit: 2e-10
-                                          reg_finetune_lower_limit: 3e-13
-                                          reg_finetune_primal_update_threshold: 5
-                                          reg_finetune_dual_update_threshold: 6
-                                          max_iter: 123
-                                          max_factor_retires: 4
-                                          preconditioner_scale_cost: true
-                                          preconditioner_reuse_on_update: true
-                                          preconditioner_iter: 3
-                                          tau: 0.95
-                                          kkt_solver: sparse_ldlt_ineq_cond
-                                          iterative_refinement_always_enabled: true
-                                          iterative_refinement_eps_abs: 2e-12
-                                          iterative_refinement_eps_rel: 3e-12
-                                          iterative_refinement_max_iter: 8
-                                          iterative_refinement_min_improvement_rate: 4.5
-                                          iterative_refinement_static_regularization_eps: 2e-8
-                                          iterative_refinement_static_regularization_rel: 1e-30
-                                          verbose: true
-                                          compute_timings: true
-                                        opt_params:
-                                          max_iter: 20
-                                          cnt_tolerance: 3
-                                    )";
-    YAML::Node n = YAML::Load(yaml_string);
+    YAML::Node n = YAML::Load("config:\n  opt_params:\n    max_iter: 20\n    cnt_tolerance: 3\n");
+    n["config"]["settings"] = YAML::Load(test_suite::PIQP_ALL_SETTINGS_YAML);
     TrajOptIfoptPIQPSolverProfile profile(n["config"], plugin_factory);
 
     TrajOptIfoptPIQPSolverProfile expected;
-    piqp::Settings<double>& settings = expected.qp_settings;
-    settings.rho_init = 2e-6;
-    settings.delta_init = 3e-4;
-    settings.eps_abs = 5e-5;
-    settings.eps_rel = 7e-7;
-    settings.check_duality_gap = false;
-    settings.eps_duality_gap_abs = 2e-7;
-    settings.eps_duality_gap_rel = 3e-8;
-    settings.infeasibility_threshold = 0.8;
-    settings.reg_lower_limit = 2e-10;
-    settings.reg_finetune_lower_limit = 3e-13;
-    settings.reg_finetune_primal_update_threshold = 5;
-    settings.reg_finetune_dual_update_threshold = 6;
-    settings.max_iter = 123;
-    settings.max_factor_retires = 4;
-    settings.preconditioner_scale_cost = true;
-    settings.preconditioner_reuse_on_update = true;
-    settings.preconditioner_iter = 3;
-    settings.tau = 0.95;
-    settings.kkt_solver = piqp::KKTSolver::sparse_ldlt_ineq_cond;
-    settings.iterative_refinement_always_enabled = true;
-    settings.iterative_refinement_eps_abs = 2e-12;
-    settings.iterative_refinement_eps_rel = 3e-12;
-    settings.iterative_refinement_max_iter = 8;
-    settings.iterative_refinement_min_improvement_rate = 4.5;
-    settings.iterative_refinement_static_regularization_eps = 2e-8;
-    settings.iterative_refinement_static_regularization_rel = 1e-30;
-    settings.verbose = true;
-    settings.compute_timings = true;
+    expected.qp_settings = test_suite::piqpAllSettings();
     expected.opt_params.max_iter = 20;
     expected.opt_params.cnt_tolerance = 3;
 
-    // Every value above differs from its default, so an undecoded field fails the comparison
+    // Every setting differs from its default, so an undecoded field fails the comparison
     EXPECT_TRUE(profile == expected);
   }
 
@@ -485,6 +426,20 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptPIQPSolverPro
 
   {  // KKT solver of the dense backend
     YAML::Node n = YAML::Load("config:\n  settings:\n    kkt_solver: dense_cholesky\n");
+    EXPECT_ANY_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+  }
+
+  {  // KKT solver that needs PIQP built with BLASFEO
+    YAML::Node n = YAML::Load("config:\n  settings:\n    kkt_solver: sparse_multistage\n");
+#ifdef PIQP_HAS_BLASFEO
+    EXPECT_NO_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+#else
+    EXPECT_ANY_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+#endif
+  }
+
+  {  // Setting outside its valid range
+    YAML::Node n = YAML::Load("config:\n  settings:\n    max_iter: 0\n");
     EXPECT_ANY_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
   }
 }
@@ -507,6 +462,10 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptPIQPSolverPro
   EXPECT_TRUE(qp_solver->settings == expected);
 
   profile.qp_settings.kkt_solver = piqp::KKTSolver::dense_cholesky;
+  EXPECT_ANY_THROW(profile.create());  // NOLINT
+
+  profile.qp_settings.kkt_solver = piqp::KKTSolver::sparse_ldlt;
+  profile.qp_settings.tau = 1.5;
   EXPECT_ANY_THROW(profile.create());  // NOLINT
 }
 #endif
