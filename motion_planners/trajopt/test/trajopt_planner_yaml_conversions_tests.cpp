@@ -39,6 +39,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
+#ifdef TRAJOPT_SCO_HAS_PIQP
+#include <tesseract/common/unit_test_utils.h>
+#include <tesseract/motion_planners/trajopt/cereal_serialization.h>
+#include <tesseract/motion_planners/piqp/settings_utils.h>
+#include "piqp_settings_test_utils.h"
+#include <tesseract/motion_planners/trajopt/profile/trajopt_piqp_solver_profile.h>
+#include <trajopt_sco/piqp_interface.hpp>
+#endif
 
 using namespace tesseract::motion_planners;
 using namespace tesseract::command_language;
@@ -351,6 +359,93 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptOSQPSolverProfile)  // 
     EXPECT_TRUE(profile.opt_params == def_constructor.opt_params);
   }
 }
+
+#ifdef TRAJOPT_SCO_HAS_PIQP
+TEST(TesseractPlanningTrajoptYAMLConversionsUnit, PIQPSolverProfileSerialization)  // NOLINT
+{
+  auto profile = std::make_shared<TrajOptPIQPSolverProfile>();
+  profile->settings.kkt_solver = piqp::KKTSolver::sparse_ldlt_cond;
+  profile->settings.eps_abs = 3e-7;
+  profile->settings.max_iter = 42;
+  profile->settings.preconditioner_scale_cost = true;
+  profile->opt_params.max_iter = 17;
+
+  const std::string file_name = "trajopt_piqp_solver_profile";
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, TrajOptPIQPSolverProfile>(profile,
+                                                                                                         file_name);
+}
+
+TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptPIQPSolverProfile)  // NOLINT
+{
+  tesseract::common::ProfilePluginFactory plugin_factory;
+
+  {  // Empty config
+    YAML::Node n = YAML::Load("config:\n");
+    TrajOptPIQPSolverProfile profile(n["config"], plugin_factory);
+    TrajOptPIQPSolverProfile def_constructor;
+    EXPECT_TRUE(profile == def_constructor);
+    EXPECT_EQ(profile.settings.kkt_solver, piqp::KKTSolver::sparse_ldlt);
+    EXPECT_EQ(profile.getSolverType(), sco::ModelType::PIQP);
+  }
+
+  {  // Every setting
+    YAML::Node n = YAML::Load("config:\n  opt_params:\n    max_iter: 20\n    cnt_tolerance: 3\n");
+    n["config"]["settings"] = YAML::Load(test_suite::PIQP_ALL_SETTINGS_YAML);
+    TrajOptPIQPSolverProfile profile(n["config"], plugin_factory);
+
+    TrajOptPIQPSolverProfile expected;
+    expected.settings = test_suite::piqpAllSettings();
+    expected.opt_params.max_iter = 20;
+    expected.opt_params.cnt_tolerance = 3;
+
+    // Every setting differs from its default, so an undecoded field fails the comparison
+    EXPECT_TRUE(profile == expected);
+  }
+
+  {  // Unknown KKT solver name
+    YAML::Node n = YAML::Load("config:\n  settings:\n    kkt_solver: sparse_qr\n");
+    EXPECT_ANY_THROW(TrajOptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+  }
+
+  {  // KKT solver of the dense backend
+    YAML::Node n = YAML::Load("config:\n  settings:\n    kkt_solver: dense_cholesky\n");
+    EXPECT_ANY_THROW(TrajOptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+  }
+
+  {  // KKT solver that needs PIQP built with BLASFEO
+    YAML::Node n = YAML::Load("config:\n  settings:\n    kkt_solver: sparse_multistage\n");
+#ifdef PIQP_HAS_BLASFEO
+    EXPECT_NO_THROW(TrajOptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+#else
+    EXPECT_ANY_THROW(TrajOptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+#endif
+  }
+
+  {  // Setting outside its valid range
+    YAML::Node n = YAML::Load("config:\n  settings:\n    max_iter: 0\n");
+    EXPECT_ANY_THROW(TrajOptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+  }
+}
+
+TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptPIQPSolverProfileCreateSolverConfig)  // NOLINT
+{
+  TrajOptPIQPSolverProfile profile;
+  profile.settings.eps_abs = 3e-7;
+  profile.settings.max_iter = 42;
+
+  const std::unique_ptr<sco::ModelConfig> config = profile.createSolverConfig();
+  const auto* piqp_config = dynamic_cast<const sco::PIQPModelConfig*>(config.get());
+  ASSERT_NE(piqp_config, nullptr);
+  EXPECT_TRUE(piqp_config->settings == profile.settings);
+
+  profile.settings.kkt_solver = piqp::KKTSolver::dense_cholesky;
+  EXPECT_ANY_THROW(profile.createSolverConfig());  // NOLINT
+
+  profile.settings.kkt_solver = piqp::KKTSolver::sparse_ldlt;
+  profile.settings.tau = 1.5;
+  EXPECT_ANY_THROW(profile.createSolverConfig());  // NOLINT
+}
+#endif
 
 int main(int argc, char** argv)
 {

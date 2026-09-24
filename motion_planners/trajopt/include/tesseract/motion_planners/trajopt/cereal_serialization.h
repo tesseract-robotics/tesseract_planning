@@ -10,6 +10,10 @@
 #include <tesseract/motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
+#ifdef TRAJOPT_SCO_HAS_PIQP
+#include <tesseract/motion_planners/piqp/cereal_serialization.h>
+#include <tesseract/motion_planners/trajopt/profile/trajopt_piqp_solver_profile.h>
+#endif
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
@@ -154,6 +158,15 @@ void serialize(Archive& ar, TrajOptOSQPSolverProfile& obj)
   ar(cereal::make_nvp("settings", obj.settings));
   ar(cereal::make_nvp("update_workspace", obj.update_workspace));
 }
+
+#ifdef TRAJOPT_SCO_HAS_PIQP
+template <class Archive>
+void serialize(Archive& ar, TrajOptPIQPSolverProfile& obj)
+{
+  ar(cereal::base_class<TrajOptSolverProfile>(&obj));
+  ar(cereal::make_nvp("settings", obj.settings));
+}
+#endif
 
 }  // namespace tesseract::motion_planners
 
