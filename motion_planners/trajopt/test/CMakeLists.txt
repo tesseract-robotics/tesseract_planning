@@ -16,6 +16,7 @@ add_gtest_discover_tests(motion_planners_trajopt_unit)
 add_dependencies(motion_planners_trajopt_unit motion_planners_trajopt)
 
 add_executable(motion_planners_trajopt_yaml_unit trajopt_planner_yaml_conversions_tests.cpp)
+target_include_directories(motion_planners_trajopt_yaml_unit PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../core/test")
 target_link_libraries(motion_planners_trajopt_yaml_unit PRIVATE GTest::GTest GTest::Main motion_planners_trajopt)
 target_compile_options(motion_planners_trajopt_yaml_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                  ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

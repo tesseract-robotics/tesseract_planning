@@ -18,6 +18,7 @@ class TrajOptCompositeProfile;
 class TrajOptSolverProfile;
 
 class TrajOptOSQPSolverProfile;
+class TrajOptPIQPSolverProfile;
 class TrajOptDefaultMoveProfile;
 class TrajOptDefaultCompositeProfile;
 }  // namespace tesseract::motion_planners
