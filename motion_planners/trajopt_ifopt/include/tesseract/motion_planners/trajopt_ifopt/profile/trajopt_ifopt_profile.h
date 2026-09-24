@@ -107,6 +107,11 @@ public:
 
   /** @brief Optimization callbacks */
   virtual std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> createOptimizationCallbacks() const;
+
+protected:
+  /** @brief Create an SQP solver around qp_solver with opt_params and the optimization callbacks */
+  std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> createSolver(std::shared_ptr<trajopt_sqp::QPSolver> qp_solver,
+                                                                  bool verbose) const;
 };
 
 }  // namespace tesseract::motion_planners

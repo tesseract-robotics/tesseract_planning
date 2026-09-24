@@ -1,6 +1,15 @@
 find_package(trajopt_ifopt REQUIRED)
 find_package(trajopt_sqp REQUIRED)
 
+# trajopt_sqp exports TRAJOPT_SQP_HAS_PIQP when it was built with PIQPSolver
+get_target_property(TRAJOPT_SQP_DEFINITIONS trajopt::trajopt_sqp INTERFACE_COMPILE_DEFINITIONS)
+if("TRAJOPT_SQP_HAS_PIQP" IN_LIST TRAJOPT_SQP_DEFINITIONS)
+  set(TRAJOPT_SQP_HAS_PIQP ON)
+else()
+  set(TRAJOPT_SQP_HAS_PIQP OFF)
+endif()
+message(STATUS "TrajOpt Ifopt PIQP solver profile: ${TRAJOPT_SQP_HAS_PIQP}")
+
 # Trajopt IFOPT Planner
 add_library(
   motion_planners_trajopt_ifopt
@@ -15,6 +24,9 @@ add_library(tesseract::motion_planners_trajopt_ifopt ALIAS motion_planners_trajo
 if(NOT WIN32 AND NOT APPLE)
   # Compile the cereal polymorphic-type registration. On Windows and macOS it is registered in the header instead.
   target_sources(motion_planners_trajopt_ifopt PRIVATE src/cereal_serialization.cpp)
+endif()
+if(TRAJOPT_SQP_HAS_PIQP)
+  target_sources(motion_planners_trajopt_ifopt PRIVATE src/profile/trajopt_ifopt_piqp_solver_profile.cpp)
 endif()
 set_target_properties(motion_planners_trajopt_ifopt PROPERTIES OUTPUT_NAME tesseract_motion_planners_trajopt_ifopt)
 target_link_libraries(
@@ -42,7 +54,14 @@ target_include_directories(motion_planners_trajopt_ifopt PUBLIC "$<BUILD_INTERFA
                                                                 "$<INSTALL_INTERFACE:include>")
 
 # Mark cpp header files for installation
-install(DIRECTORY include/tesseract DESTINATION include COMPONENT motion_planners_trajopt_ifopt)
+if(NOT TRAJOPT_SQP_HAS_PIQP)
+  set(PIQP_HEADER_EXCLUDE PATTERN "trajopt_ifopt_piqp_solver_profile.h" EXCLUDE)
+endif()
+install(
+  DIRECTORY include/tesseract
+  DESTINATION include
+  COMPONENT motion_planners_trajopt_ifopt
+  ${PIQP_HEADER_EXCLUDE})
 
 # Testing
 if(TESSERACT_ENABLE_TESTING)

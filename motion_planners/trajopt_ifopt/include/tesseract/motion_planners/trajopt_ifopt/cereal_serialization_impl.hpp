@@ -30,4 +30,12 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::TrajOptIfoptCom
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::TrajOptIfoptSolverProfile,
                                      tesseract::motion_planners::TrajOptIfoptOSQPSolverProfile)
 
+#ifdef TRAJOPT_SQP_HAS_PIQP
+CEREAL_REGISTER_TYPE(tesseract::motion_planners::TrajOptIfoptPIQPSolverProfile)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::Profile,
+                                     tesseract::motion_planners::TrajOptIfoptPIQPSolverProfile)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::motion_planners::TrajOptIfoptSolverProfile,
+                                     tesseract::motion_planners::TrajOptIfoptPIQPSolverProfile)
+#endif
+
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_CEREAL_SERIALIZATION_IMPL_HPP
