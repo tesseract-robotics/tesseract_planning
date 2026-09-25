@@ -23,7 +23,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -58,7 +58,7 @@ TaskComposerNodeInfo ErrorTask::runImpl(TaskComposerContext& /*context*/,
   info.return_value = 0;
   info.status_code = 0;
   info.status_message = "Error";
-  CONSOLE_BRIDGE_logDebug("%s", info.status_message.c_str());
+  TESSERACT_LOG_DEBUG("{}", info.status_message.c_str());
   return info;
 }
 

@@ -25,7 +25,6 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
-#include <console_bridge/console.h>
 #include <boost/uuid/uuid_generators.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 

@@ -27,7 +27,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 #include <tesseract/common/joint_state.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -100,7 +100,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   {
     info.status_message = "Input '" + input_port_mappings_.single(INPUT_PRE_PLANNING_PROGRAM_PORT) +
                           "' instruction to FormatAsInputTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -110,7 +110,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   {
     info.status_message = "Input '" + input_port_mappings_.single(INPUT_POST_PLANNING_PROGRAM_PORT) +
                           "' instruction to FormatAsInputTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -125,7 +125,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   if (mi_formatted_data.size() != mi_unformatted_data.size())
   {
     info.status_message = "FormatAsInputTask, input programs are not same size";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 

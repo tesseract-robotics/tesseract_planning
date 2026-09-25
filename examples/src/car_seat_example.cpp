@@ -23,7 +23,7 @@
  */
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <trajopt_common/collision_types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -244,9 +244,9 @@ Eigen::VectorXd getPositionVectorXd(const JointGroup& joint_group, const SceneSt
 bool CarSeatExample::run()
 {
   if (debug_)
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+    tesseract::common::getLogger()->set_level(spdlog::level::debug);
   else
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+    tesseract::common::getLogger()->set_level(spdlog::level::info);
 
   // Create Task Composer Plugin Factory
   std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
@@ -345,7 +345,7 @@ bool CarSeatExample::run()
   }
 
   // Solve Trajectory
-  CONSOLE_BRIDGE_logInform("Car Seat Demo Started");
+  TESSERACT_LOG_INFO("Car Seat Demo Started");
 
   {  // Create Program to pick up first seat
     CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "world", "end_effector"));
@@ -459,7 +459,7 @@ bool CarSeatExample::run()
     if (debug_)
       program.print("Program: ");
 
-    CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
+    TESSERACT_LOG_INFO("Freespace plan to pick seat 1 example");
 
     // Create task
     const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";

@@ -42,7 +42,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 
 #include <cmath>
 #include <gtest/gtest.h>
-#include <console_bridge/console.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 

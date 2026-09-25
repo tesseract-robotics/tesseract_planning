@@ -27,7 +27,7 @@
 #include <tesseract/kinematics/kinematic_group.h>
 #include <tesseract/environment/environment.h>
 #include <trajopt/problem_description.hpp>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 namespace tesseract::motion_planners
 {
@@ -54,7 +54,7 @@ createKinematicGroup(const tesseract::common::ManipulatorInfo& manip_info,
 
     if (kin_group == nullptr)
     {
-      CONSOLE_BRIDGE_logError("%s", error_msg.c_str());
+      TESSERACT_LOG_ERROR("{}", error_msg.c_str());
       throw std::runtime_error(error_msg);
     }
 

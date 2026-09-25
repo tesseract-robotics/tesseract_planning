@@ -36,7 +36,6 @@ set(LIB_SOURCE_FILES
 set(LIB_SOURCE_LINK_LIBRARIES
     tesseract::task_composer
     tesseract::task_composer_nodes
-    console_bridge::console_bridge
     trajopt::trajopt
     tesseract::common
     tesseract::command_language
@@ -54,7 +53,7 @@ set(FACTORIES_SOURCE_LINK_LIBRARIES tesseract::task_composer task_composer_plann
                                     tesseract::motion_planners_simple)
 
 set(LINUX_DEPENDS
-    "libconsole-bridge-dev"
+    "libspdlog-dev"
     "cereal"
     "${TESSERACT_PACKAGE_PREFIX}trajopt"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
@@ -64,7 +63,7 @@ set(LINUX_DEPENDS
     "${TESSERACT_PACKAGE_PREFIX}tesseract-planning-time-parameterization-core")
 
 set(WINDOWS_DEPENDS
-    "console-bridge"
+    "spdlog"
     "cereal"
     "${TESSERACT_PACKAGE_PREFIX}trajopt"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-common"

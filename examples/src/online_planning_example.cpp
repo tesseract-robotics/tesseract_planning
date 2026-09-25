@@ -30,7 +30,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <boost/uuid/random_generator.hpp>
 
 #include <trajopt_common/collision_types.h>
@@ -317,7 +317,7 @@ bool OnlinePlanningExample::onlinePlan()
   solver.params.initial_trust_box_size = box_size_;
   solver.init(nlp_);
 
-  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+  tesseract::common::getLogger()->set_level(spdlog::level::info);
 
   using namespace std::chrono;
   auto user_input_start = steady_clock::now();

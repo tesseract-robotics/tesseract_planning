@@ -29,7 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/random_generator.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <yaml-cpp/yaml.h>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/common/stopwatch.h>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -233,7 +233,7 @@ std::string TaskComposerNode::getDotgraph(const ResultsMap& results_map) const
   }
   catch (const std::exception& e)
   {
-    CONSOLE_BRIDGE_logError("Failed to generated DOT Graph: '%s'!", e.what());
+    TESSERACT_LOG_ERROR("Failed to generated DOT Graph: '{}'!", e.what());
   }
 
   return {};
@@ -252,7 +252,7 @@ bool TaskComposerNode::saveDotgraph(const std::string& filepath, const ResultsMa
   }
   catch (const std::exception& e)
   {
-    CONSOLE_BRIDGE_logError("Failed to save DOT Graph: '%s'!", e.what());
+    TESSERACT_LOG_ERROR("Failed to save DOT Graph: '{}'!", e.what());
   }
 
   return false;

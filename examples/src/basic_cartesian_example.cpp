@@ -25,7 +25,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <trajopt_common/collision_types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -173,9 +173,9 @@ bool BasicCartesianExample::run()
   env_->setState(joint_ids, joint_pos);
 
   if (debug_)
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+    tesseract::common::getLogger()->set_level(spdlog::level::debug);
   else
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+    tesseract::common::getLogger()->set_level(spdlog::level::info);
 
   // Create Task Composer Plugin Factory
   std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
@@ -305,7 +305,7 @@ bool BasicCartesianExample::run()
     future = executor->run(*task, std::move(context));
     future->wait();
     stopwatch.stop();
-    CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
+    TESSERACT_LOG_INFO("Planning took {} seconds.", stopwatch.elapsedSeconds());
   }
   else
   {
@@ -343,19 +343,19 @@ bool BasicCartesianExample::run()
       }
       if (ifopt_)
       {
-        CONSOLE_BRIDGE_logInform("BasicCartesianExample(Ifopt), %s, %f, %f, %d",
-                                 contact_manager.c_str(),
-                                 initial_planning_time,
-                                 accumulated_time / (cnt - 1),
-                                 (cnt - 1));
+        TESSERACT_LOG_INFO("BasicCartesianExample(Ifopt), {}, {}, {}, {}",
+                           contact_manager.c_str(),
+                           initial_planning_time,
+                           accumulated_time / (cnt - 1),
+                           (cnt - 1));
       }
       else
       {
-        CONSOLE_BRIDGE_logInform("BasicCartesianExample, %s, %f, %f, %d",
-                                 contact_manager.c_str(),
-                                 initial_planning_time,
-                                 accumulated_time / (cnt - 1),
-                                 (cnt - 1));
+        TESSERACT_LOG_INFO("BasicCartesianExample, {}, {}, {}, {}",
+                           contact_manager.c_str(),
+                           initial_planning_time,
+                           accumulated_time / (cnt - 1),
+                           (cnt - 1));
       }
     }
   }

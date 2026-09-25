@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <ompl/base/goals/GoalState.h>
 #include <ompl/base/goals/GoalStates.h>
 #include <ompl/geometric/SimpleSetup.h>
@@ -97,7 +97,7 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
   }
   else
   {
-    CONSOLE_BRIDGE_logWarn("checkGoalStates: Unsupported Goal Type!");
+    TESSERACT_LOG_WARN("checkGoalStates: Unsupported Goal Type!");
     return true;
   }
   return false;
@@ -108,7 +108,7 @@ OMPLMotionPlanner::OMPLMotionPlanner(std::string name) : MotionPlanner(std::move
 
 bool OMPLMotionPlanner::terminate()
 {
-  CONSOLE_BRIDGE_logWarn("Termination of ongoing optimization is not implemented yet");
+  TESSERACT_LOG_WARN("Termination of ongoing optimization is not implemented yet");
   return false;
 }
 
@@ -154,17 +154,17 @@ std::pair<bool, std::string> parallelPlan(ompl::geometric::SimpleSetup& simple_s
         if (!pdef->hasOptimizationObjective())
         {
           reason = "Terminating early since there is no optimization objective specified";
-          CONSOLE_BRIDGE_logDebug(reason.c_str());
+          TESSERACT_LOG_DEBUG("{}", reason.c_str());
           break;
         }
 
         ompl::base::Cost obj_cost = pdef->getSolutionPath()->cost(pdef->getOptimizationObjective());
-        CONSOLE_BRIDGE_logDebug("Motion Objective Cost: %f", obj_cost.value());
+        TESSERACT_LOG_DEBUG("Motion Objective Cost: {}", obj_cost.value());
 
         if (pdef->getOptimizationObjective()->isSatisfied(obj_cost))
         {
           reason = "Terminating early since solution path satisfies the optimization objective";
-          CONSOLE_BRIDGE_logDebug(reason.c_str());
+          TESSERACT_LOG_DEBUG("{}", reason.c_str());
           break;
         }
 
@@ -172,7 +172,7 @@ std::pair<bool, std::string> parallelPlan(ompl::geometric::SimpleSetup& simple_s
         {
           reason =
               "Terminating early since " + std::to_string(solver_config.max_solutions) + " solutions were generated";
-          CONSOLE_BRIDGE_logDebug(reason.c_str());
+          TESSERACT_LOG_DEBUG("{}", reason.c_str());
           break;
         }
       }

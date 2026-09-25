@@ -24,7 +24,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <json/json.h>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <trajopt_common/collision_types.h>
 #include <trajopt/problem_description.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -159,9 +159,9 @@ bool GlassUprightExample::run()
   env_->setState(joint_ids, joint_start_pos);
 
   if (debug_)
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+    tesseract::common::getLogger()->set_level(spdlog::level::debug);
   else
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+    tesseract::common::getLogger()->set_level(spdlog::level::info);
 
   // Create Task Composer Plugin Factory
   std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
@@ -286,7 +286,7 @@ bool GlassUprightExample::run()
     future = executor->run(*task, std::move(context));
     future->wait();
     stopwatch.stop();
-    CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
+    TESSERACT_LOG_INFO("Planning took {} seconds.", stopwatch.elapsedSeconds());
   }
   else
   {
@@ -324,19 +324,19 @@ bool GlassUprightExample::run()
       }
       if (ifopt_)
       {
-        CONSOLE_BRIDGE_logInform("GlassUprightExample(Ifopt), %s, %f, %f, %d",
-                                 contact_manager.c_str(),
-                                 initial_planning_time,
-                                 accumulated_time / (cnt - 1),
-                                 (cnt - 1));
+        TESSERACT_LOG_INFO("GlassUprightExample(Ifopt), {}, {}, {}, {}",
+                           contact_manager.c_str(),
+                           initial_planning_time,
+                           accumulated_time / (cnt - 1),
+                           (cnt - 1));
       }
       else
       {
-        CONSOLE_BRIDGE_logInform("GlassUprightExample, %s, %f, %f, %d",
-                                 contact_manager.c_str(),
-                                 initial_planning_time,
-                                 accumulated_time / (cnt - 1),
-                                 (cnt - 1));
+        TESSERACT_LOG_INFO("GlassUprightExample, {}, {}, {}, {}",
+                           contact_manager.c_str(),
+                           initial_planning_time,
+                           accumulated_time / (cnt - 1),
+                           (cnt - 1));
       }
     }
   }

@@ -22,7 +22,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 #include <tesseract/common/profile_dictionary.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -90,7 +90,7 @@ TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
       input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input instruction to ProfileSwitch must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -101,7 +101,7 @@ TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
       profiles->getProfile<ProfileSwitchProfile>(ns_, ci.getProfile(ns_), std::make_shared<ProfileSwitchProfile>());
 
   // Return the value specified in the profile
-  CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);
+  TESSERACT_LOG_DEBUG("ProfileSwitchProfile returning {}", cur_composite_profile->return_value);
 
   info.color = "green";
   info.status_code = 1;

@@ -24,7 +24,7 @@
 
 #include <tesseract/examples/glass_upright_example.h>
 #include <filesystem>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/resource_locator.h>
 
@@ -43,14 +43,14 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  CONSOLE_BRIDGE_logInform("glass upright plan example");
+  TESSERACT_LOG_INFO("glass upright plan example");
 
   GlassUprightExample example(env, nullptr);
   if (!example.run())
   {
-    CONSOLE_BRIDGE_logError("GlassUprightExample failed");
+    TESSERACT_LOG_ERROR("GlassUprightExample failed");
     exit(1);
   }
 
-  CONSOLE_BRIDGE_logInform("GlassUprightExample successful");
+  TESSERACT_LOG_INFO("GlassUprightExample successful");
 }

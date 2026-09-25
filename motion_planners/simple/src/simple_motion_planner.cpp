@@ -25,7 +25,7 @@
  */
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -60,7 +60,7 @@ SimpleMotionPlanner::SimpleMotionPlanner(std::string name) : MotionPlanner(std::
 
 bool SimpleMotionPlanner::terminate()
 {
-  CONSOLE_BRIDGE_logWarn("Termination of ongoing planning is not implemented yet");
+  TESSERACT_LOG_WARN("Termination of ongoing planning is not implemented yet");
   return false;
 }
 
@@ -107,7 +107,7 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   }
   catch (std::exception& e)
   {
-    CONSOLE_BRIDGE_logError("SimplePlanner failed to generate problem: %s.", e.what());
+    TESSERACT_LOG_ERROR("SimplePlanner failed to generate problem: {}.", e.what());
     response.successful = false;
     response.message = std::string(FAILED_TO_FIND_VALID_SOLUTION) + e.what();
     return response;

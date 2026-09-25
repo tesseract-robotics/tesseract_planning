@@ -23,7 +23,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 #include <tesseract/common/profile_dictionary.h>
 #include <cassert>
@@ -98,7 +98,7 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 

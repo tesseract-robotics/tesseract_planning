@@ -23,6 +23,7 @@
 #include <tesseract/time_parameterization/instructions_trajectory.h>
 
 // Tesseract SDK
+#include <tesseract/common/logging.h>
 #include <tesseract/common/manipulator_info.h>
 #include <tesseract/common/profile_dictionary.h>
 #include <tesseract/kinematics/joint_group.h>
@@ -268,12 +269,12 @@ bool ConstantTCPSpeedParameterization::compute(tesseract::command_language::Comp
   {
     std::stringstream ss;
     ss << "KDL Error #" << e.GetType() << ": " << e.Description();
-    CONSOLE_BRIDGE_logError(ss.str().c_str());
+    TESSERACT_LOG_ERROR("{}", ss.str().c_str());
     return false;
   }
   catch (const std::exception& ex)
   {
-    CONSOLE_BRIDGE_logError(ex.what());
+    TESSERACT_LOG_ERROR("{}", ex.what());
     return false;
   }
 

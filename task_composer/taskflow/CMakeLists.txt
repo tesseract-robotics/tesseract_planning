@@ -6,7 +6,6 @@ set_target_properties(task_composer_taskflow PROPERTIES OUTPUT_NAME tesseract_ta
 target_link_libraries(
   task_composer_taskflow
   PUBLIC tesseract::task_composer
-         console_bridge::console_bridge
          tesseract::common
          Boost::boost
          Taskflow::Taskflow

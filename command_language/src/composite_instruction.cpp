@@ -27,7 +27,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <stdexcept>
 #include <iostream>
 #include <boost/uuid/uuid_generators.hpp>
-#include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/command_language/poly/move_instruction_poly.h>

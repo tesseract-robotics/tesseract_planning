@@ -29,7 +29,7 @@
 
 #include <tesseract/examples/online_planning_example.h>
 #include <filesystem>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/resource_locator.h>
 
@@ -51,9 +51,9 @@ int main(int /*argc*/, char** /*argv*/)
   OnlinePlanningExample example(env, nullptr);
   if (!example.run())
   {
-    CONSOLE_BRIDGE_logError("OnlinePlanningExample failed");
+    TESSERACT_LOG_ERROR("OnlinePlanningExample failed");
     exit(1);
   }
 
-  CONSOLE_BRIDGE_logInform("OnlinePlanningExample successful");
+  TESSERACT_LOG_INFO("OnlinePlanningExample successful");
 }

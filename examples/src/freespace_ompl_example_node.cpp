@@ -24,7 +24,7 @@
 
 #include <tesseract/examples/freespace_ompl_example.h>
 #include <filesystem>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/resource_locator.h>
 
@@ -43,14 +43,14 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  CONSOLE_BRIDGE_logInform("freespace OMPL plan example");
+  TESSERACT_LOG_INFO("freespace OMPL plan example");
 
   FreespaceOMPLExample example(env, nullptr);
   if (!example.run())
   {
-    CONSOLE_BRIDGE_logError("FreespaceOMPLExample failed");
+    TESSERACT_LOG_ERROR("FreespaceOMPLExample failed");
     exit(1);
   }
 
-  CONSOLE_BRIDGE_logInform("FreespaceOMPLExample successful");
+  TESSERACT_LOG_INFO("FreespaceOMPLExample successful");
 }

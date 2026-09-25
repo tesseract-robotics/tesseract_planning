@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -1080,7 +1080,7 @@ interpolate_waypoint(const tesseract::command_language::WaypointPoly& start,
     return result;
   }
 
-  CONSOLE_BRIDGE_logError("Interpolator for Waypoint type %d is currently not support!", start.getType().hash_code());
+  TESSERACT_LOG_ERROR("Interpolator for Waypoint type {} is currently not support!", start.getType().hash_code());
   return {};
 }
 

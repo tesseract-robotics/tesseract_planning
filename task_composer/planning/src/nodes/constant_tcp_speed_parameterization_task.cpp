@@ -21,7 +21,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <yaml-cpp/yaml.h>
 
 #include <tesseract/common/profile_dictionary.h>
@@ -106,7 +106,7 @@ TaskComposerNodeInfo ConstantTCPSpeedParameterizationTask::runImpl(TaskComposerC
     info.status_code = 0;
     info.status_message =
         "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     info.return_value = 0;
     return info;
   }
@@ -117,7 +117,7 @@ TaskComposerNodeInfo ConstantTCPSpeedParameterizationTask::runImpl(TaskComposerC
   if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input results to Constant TCP speed time parameterization must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
   tesseract::common::AnyPoly original_input_data_poly{ input_data_poly };
@@ -137,7 +137,7 @@ TaskComposerNodeInfo ConstantTCPSpeedParameterizationTask::runImpl(TaskComposerC
     info.status_code = 1;
     info.status_message = "Constant TCP speed time parameterization found no MoveInstructions to process";
     info.return_value = 1;
-    CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
+    TESSERACT_LOG_WARN("{}", info.status_message.c_str());
     return info;
   }
 
@@ -151,7 +151,7 @@ TaskComposerNodeInfo ConstantTCPSpeedParameterizationTask::runImpl(TaskComposerC
 
     info.status_message =
         "Failed to perform Constant TCP speed time parameterization for process input: " + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());
+    TESSERACT_LOG_INFO("{}", info.status_message.c_str());
     return info;
   }
 
@@ -160,7 +160,7 @@ TaskComposerNodeInfo ConstantTCPSpeedParameterizationTask::runImpl(TaskComposerC
   info.status_message = "Successful";
   setData(context, INOUT_PROGRAM_PORT, input_data_poly);
   info.return_value = 1;
-  CONSOLE_BRIDGE_logDebug("Constant TCP speed time parameterization succeeded");
+  TESSERACT_LOG_DEBUG("Constant TCP speed time parameterization succeeded");
   return info;
 }
 

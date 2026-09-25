@@ -24,12 +24,12 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <algorithm>
-#include <console_bridge/console.h>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/kinematic_limits.h>
 #include <tesseract/common/joint_state.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/command_language/poly/move_instruction_poly.h>
 #include <tesseract/command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract/command_language/poly/joint_waypoint_poly.h>
@@ -373,7 +373,7 @@ bool clampToJointLimits(WaypointPoly& wp,
     if (!tesseract::common::satisfiesLimits<double>(cmd_pos, limits, max_deviation, max_rel_diff))
       return false;
 
-    CONSOLE_BRIDGE_logDebug("Clamping Waypoint to joint limits");
+    TESSERACT_LOG_DEBUG("Clamping Waypoint to joint limits");
     tesseract::common::enforceLimits<double>(cmd_pos, limits);
     return setJointPosition(wp, cmd_pos);
   }

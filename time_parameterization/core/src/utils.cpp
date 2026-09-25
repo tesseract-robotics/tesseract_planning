@@ -22,7 +22,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -57,7 +57,7 @@ void rescaleTimings(CompositeInstruction& program, std::vector<double> scalings)
           double scaling_factor = scalings[sub_composite_idx];
           if (scaling_factor < 1e-6)
           {
-            CONSOLE_BRIDGE_logWarn("Scaling factor is close to 0 (%f), defaulting to 1", scaling_factor);
+            TESSERACT_LOG_WARN("Scaling factor is close to 0 ({}), defaulting to 1", scaling_factor);
             scaling_factor = 1.0;
           }
 

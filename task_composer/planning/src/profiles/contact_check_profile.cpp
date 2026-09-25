@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -46,7 +46,7 @@ ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, do
 
   if (collision_check_config.longest_valid_segment_length <= 0)
   {
-    CONSOLE_BRIDGE_logWarn("ContactCheckProfile: Invalid longest valid segment. Defaulting to 0.05");
+    TESSERACT_LOG_WARN("ContactCheckProfile: Invalid longest valid segment. Defaulting to 0.05");
     collision_check_config.longest_valid_segment_length = 0.05;
   }
 }

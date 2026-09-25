@@ -23,7 +23,7 @@
  */
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -93,7 +93,7 @@ TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& conte
     info.status_code = 0;
     info.status_message =
         "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -106,7 +106,7 @@ TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& conte
     info.return_value = 0;
     info.status_code = 0;
     info.status_message = "Input to FormatPlanningInputTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 

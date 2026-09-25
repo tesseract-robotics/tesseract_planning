@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <algorithm>
 #include <cmath>
 #include <vector>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -105,7 +105,7 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   // Validate limits
   if (velocity_limits.rows() != acceleration_limits.rows())
   {
-    CONSOLE_BRIDGE_logError("Invalid velocity or acceleration specified. They should be the same length");
+    TESSERACT_LOG_ERROR("Invalid velocity or acceleration specified. They should be the same length");
   }
 
   InstructionsTrajectory trajectory(flattened);
@@ -144,8 +144,8 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   // Return trajectory with only the first waypoint if there are not multiple diverse points
   if (points.size() == 1)
   {
-    CONSOLE_BRIDGE_logDebug("Trajectory is parameterized with 0.0 dynamics since it only contains a single distinct "
-                            "waypoint.");
+    TESSERACT_LOG_DEBUG("Trajectory is parameterized with 0.0 dynamics since it only contains a single distinct "
+                        "waypoint.");
 
     // Set velocity, acceleration and time to zero for all points in the trajectory.
     for (long i = 0; i < trajectory.size(); ++i)
@@ -177,7 +177,7 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   totg::Trajectory parameterized(path, max_velocity_dummy_appended, max_acceleration_dummy_appended, 0.001);
   if (!parameterized.isValid())
   {
-    CONSOLE_BRIDGE_logError("Unable to parameterize trajectory.");
+    TESSERACT_LOG_ERROR("Unable to parameterize trajectory.");
     return false;
   }
 
@@ -693,7 +693,7 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
     if (path_vel < 0.0)
     {
       valid_ = false;
-      CONSOLE_BRIDGE_logError("Error while integrating forward: Negative path velocity");
+      TESSERACT_LOG_ERROR("Error while integrating forward: Negative path velocity");
       return true;
     }
 
@@ -794,7 +794,7 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
       if (path_vel < 0.0)
       {
         valid_ = false;
-        CONSOLE_BRIDGE_logError("Error while integrating backward: Negative path velocity");
+        TESSERACT_LOG_ERROR("Error while integrating backward: Negative path velocity");
         end_trajectory_ = trajectory;
         return;
       }
@@ -839,7 +839,7 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
   }
 
   valid_ = false;
-  CONSOLE_BRIDGE_logError("Error while integrating backward: Did not hit start trajectory");
+  TESSERACT_LOG_ERROR("Error while integrating backward: Did not hit start trajectory");
   end_trajectory_ = trajectory;
 }
 

@@ -24,7 +24,7 @@
 
 #include <tesseract/examples/scene_graph_example.h>
 #include <filesystem>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/resource_locator.h>
 
@@ -46,9 +46,9 @@ int main(int /*argc*/, char** /*argv*/)
   SceneGraphExample example(env, nullptr);
   if (!example.run())
   {
-    CONSOLE_BRIDGE_logError("SceneGraphExample failed");
+    TESSERACT_LOG_ERROR("SceneGraphExample failed");
     exit(1);
   }
 
-  CONSOLE_BRIDGE_logInform("SceneGraphExample successful");
+  TESSERACT_LOG_INFO("SceneGraphExample successful");
 }

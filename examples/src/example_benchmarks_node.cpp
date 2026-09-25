@@ -29,7 +29,7 @@
 #include <tesseract/examples/puzzle_piece_auxillary_axes_example.h>
 
 #include <filesystem>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/resource_locator.h>
 
@@ -41,8 +41,8 @@ int main(int /*argc*/, char** /*argv*/)
 {
   auto locator = std::make_shared<GeneralResourceLocator>();
 
-  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
-  CONSOLE_BRIDGE_logInform("Example, Contact Manager, First Solve (s), Remaining Solve Avg. (s), Count");
+  tesseract::common::getLogger()->set_level(spdlog::level::info);
+  TESSERACT_LOG_INFO("Example, Contact Manager, First Solve (s), Remaining Solve Avg. (s), Count");
 
   {
     std::filesystem::path urdf_path =
@@ -56,7 +56,7 @@ int main(int /*argc*/, char** /*argv*/)
     FreespaceOMPLExample example(env, nullptr, 0.01, 60.0, false, true);
     if (!example.run())
     {
-      CONSOLE_BRIDGE_logError("FreespaceOMPLExample failed");
+      TESSERACT_LOG_ERROR("FreespaceOMPLExample failed");
     }
   }
 
@@ -72,7 +72,7 @@ int main(int /*argc*/, char** /*argv*/)
     BasicCartesianExample example(env, nullptr, false, false, true);
     if (!example.run())
     {
-      CONSOLE_BRIDGE_logError("BasicCartesianExample failed");
+      TESSERACT_LOG_ERROR("BasicCartesianExample failed");
     }
   }
 
@@ -88,7 +88,7 @@ int main(int /*argc*/, char** /*argv*/)
     BasicCartesianExample example(env, nullptr, true, false, true);
     if (!example.run())
     {
-      CONSOLE_BRIDGE_logError("BasicCartesianExample(Ifopt) failed");
+      TESSERACT_LOG_ERROR("BasicCartesianExample(Ifopt) failed");
     }
   }
 
@@ -104,7 +104,7 @@ int main(int /*argc*/, char** /*argv*/)
     GlassUprightExample example(env, nullptr, false, false, true);
     if (!example.run())
     {
-      CONSOLE_BRIDGE_logError("GlassUprightExample failed");
+      TESSERACT_LOG_ERROR("GlassUprightExample failed");
     }
   }
 
@@ -120,7 +120,7 @@ int main(int /*argc*/, char** /*argv*/)
     GlassUprightExample example(env, nullptr, true, false, true);
     if (!example.run())
     {
-      CONSOLE_BRIDGE_logError("GlassUprightExample(Ifopt) failed");
+      TESSERACT_LOG_ERROR("GlassUprightExample(Ifopt) failed");
     }
   }
 
@@ -136,7 +136,7 @@ int main(int /*argc*/, char** /*argv*/)
     PuzzlePieceExample example(env, nullptr, false, false, true);
     if (!example.run())
     {
-      CONSOLE_BRIDGE_logError("PuzzlePieceExample failed");
+      TESSERACT_LOG_ERROR("PuzzlePieceExample failed");
     }
   }
 
@@ -152,7 +152,7 @@ int main(int /*argc*/, char** /*argv*/)
     PuzzlePieceExample example(env, nullptr, true, false, true);
     if (!example.run())
     {
-      CONSOLE_BRIDGE_logError("PuzzlePieceExample(Ifopt) failed");
+      TESSERACT_LOG_ERROR("PuzzlePieceExample(Ifopt) failed");
     }
   }
 
@@ -168,7 +168,7 @@ int main(int /*argc*/, char** /*argv*/)
     PuzzlePieceAuxillaryAxesExample example(env, nullptr, false, false, true);
     if (!example.run())
     {
-      CONSOLE_BRIDGE_logError("PuzzlePieceAuxillaryAxesExample failed");
+      TESSERACT_LOG_ERROR("PuzzlePieceAuxillaryAxesExample failed");
     }
   }
 
@@ -184,7 +184,7 @@ int main(int /*argc*/, char** /*argv*/)
     PuzzlePieceAuxillaryAxesExample example(env, nullptr, true, false, true);
     if (!example.run())
     {
-      CONSOLE_BRIDGE_logError("PuzzlePieceAuxillaryAxesExample(Ifopt) failed");
+      TESSERACT_LOG_ERROR("PuzzlePieceAuxillaryAxesExample(Ifopt) failed");
     }
   }
 }

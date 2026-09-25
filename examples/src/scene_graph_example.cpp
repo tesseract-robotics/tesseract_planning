@@ -23,7 +23,7 @@
  */
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/examples/scene_graph_example.h>
@@ -55,7 +55,7 @@ bool SceneGraphExample::run()
   if (plotter_ != nullptr)
   {
     plotter_->waitForConnection();
-    CONSOLE_BRIDGE_logInform("Reconfiguring using moveLink");
+    TESSERACT_LOG_INFO("Reconfiguring using moveLink");
   }
 
   env_->getSceneGraph()->saveDOT("scene_graph_example.dot");
@@ -74,7 +74,7 @@ bool SceneGraphExample::run()
   if (plotter_ != nullptr)
   {
     plotter_->waitForInput();
-    CONSOLE_BRIDGE_logInform("Reconfiguring using moveLink");
+    TESSERACT_LOG_INFO("Reconfiguring using moveLink");
   }
 
   // Attach the iiwa to the end of the ABB using moveLink.
@@ -95,7 +95,7 @@ bool SceneGraphExample::run()
   if (plotter_ != nullptr)
   {
     plotter_->waitForInput();
-    CONSOLE_BRIDGE_logInform("Open .dot files  in ~/.ros to see scene graph");
+    TESSERACT_LOG_INFO("Open .dot files  in ~/.ros to see scene graph");
   }
   return true;
 }

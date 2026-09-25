@@ -18,8 +18,7 @@
   <build_export_depend>eigen</build_export_depend>
 
   <!-- Core dependencies -->
-  <build_depend>libconsole-bridge-dev</build_depend>
-  <exec_depend>libconsole-bridge-dev</exec_depend>
+  <depend>spdlog</depend>
   <depend>tesseract</depend>
   <build_depend>cereal</build_depend>
   <build_export_depend>cereal</build_export_depend>

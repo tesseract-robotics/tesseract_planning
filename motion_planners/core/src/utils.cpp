@@ -26,7 +26,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <iostream>
 #include <memory>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -314,7 +314,7 @@ void printContinuousDebugInfo(const std::vector<tesseract::common::JointId>& joi
 
   ss << "\n    State0: " << swp0 << "\n    State1: " << swp1 << "\n";
 
-  CONSOLE_BRIDGE_logDebug(ss.str().c_str());
+  TESSERACT_LOG_DEBUG("{}", ss.str().c_str());
 }
 
 void printDiscreteDebugInfo(const std::vector<tesseract::common::JointId>& joint_ids,
@@ -335,7 +335,7 @@ void printDiscreteDebugInfo(const std::vector<tesseract::common::JointId>& joint
 
   ss << "\n    State: " << swp << "\n";
 
-  CONSOLE_BRIDGE_logDebug(ss.str().c_str());
+  TESSERACT_LOG_DEBUG("{}", ss.str().c_str());
 }
 
 tesseract::collision::ContactTrajectoryResults
@@ -358,7 +358,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
     throw std::runtime_error("contactCheckProgram was given continuous contact manager with a trajectory that only has "
                              "one state.");
 
-  bool debug_logging = console_bridge::getLogLevel() < console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO;
+  bool debug_logging = tesseract::common::getLogger()->should_log(spdlog::level::debug);
 
   // Grab the first waypoint to get the joint ids
   const auto& wp0 = mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint();
@@ -647,7 +647,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   if (mi.empty())
     throw std::runtime_error("contactCheckProgram was given continuous contact manager with empty trajectory.");
 
-  bool debug_logging = console_bridge::getLogLevel() < console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO;
+  bool debug_logging = tesseract::common::getLogger()->should_log(spdlog::level::debug);
 
   // Grab the first waypoint to get the joint ids
   const auto& dwp0 = mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint();

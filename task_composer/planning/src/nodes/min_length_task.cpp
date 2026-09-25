@@ -25,7 +25,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 #include <tesseract/common/profile_dictionary.h>
 #include <tesseract/environment/environment.h>
@@ -105,7 +105,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
     info.status_code = 0;
     info.status_message =
         "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     info.return_value = 0;
     return info;
   }
@@ -116,7 +116,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input seed to MinLengthTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -161,7 +161,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
     if (!response.successful)
     {
       info.status_message = "MinLengthTask, failed to subdivid!";
-      CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+      TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
       return info;
     }
 
@@ -176,7 +176,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   info.status_code = 1;
   info.status_message = "Successful";
   info.return_value = 1;
-  CONSOLE_BRIDGE_logDebug("Seed Min Length Task Succeeded!");
+  TESSERACT_LOG_DEBUG("Seed Min Length Task Succeeded!");
   return info;
 }
 

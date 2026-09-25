@@ -23,7 +23,7 @@
  */
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/types.h>
@@ -162,7 +162,7 @@ int main(int /*argc*/, char** /*argv*/)
   }
   catch (const std::exception& e)
   {
-    CONSOLE_BRIDGE_logError("Example failed with message: %s", e.what());
+    TESSERACT_LOG_ERROR("Example failed with message: {}", e.what());
     return -1;
   }
 }

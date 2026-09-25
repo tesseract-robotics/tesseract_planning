@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/common/plugin_info.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -92,7 +92,7 @@ std::vector<std::string> TaskComposerServer::getAvailableExecutors() const
 void TaskComposerServer::addTask(std::unique_ptr<TaskComposerNode> task)
 {
   if (tasks_.find(task->getName()) != tasks_.end())
-    CONSOLE_BRIDGE_logDebug("Task %s already exist so replacing with new task.", task->getName().c_str());
+    TESSERACT_LOG_DEBUG("Task {} already exist so replacing with new task.", task->getName().c_str());
 
   tasks_[task->getName()] = std::move(task);
 }
@@ -100,7 +100,7 @@ void TaskComposerServer::addTask(std::unique_ptr<TaskComposerNode> task)
 void TaskComposerServer::addTaskPython(std::shared_ptr<TaskComposerNode> task)
 {
   if (tasks_.find(task->getName()) != tasks_.end())
-    CONSOLE_BRIDGE_logDebug("Task %s already exist so replacing with new task.", task->getName().c_str());
+    TESSERACT_LOG_DEBUG("Task {} already exist so replacing with new task.", task->getName().c_str());
 
   tasks_[task->getName()] = std::move(task);
 }
@@ -185,7 +185,7 @@ void TaskComposerServer::loadPlugins()
     if (e != nullptr)
       addExecutor(std::move(e));
     else
-      CONSOLE_BRIDGE_logError("TaskComposerServer, failed to create executor '%s'", executor_plugin.first.c_str());
+      TESSERACT_LOG_ERROR("TaskComposerServer, failed to create executor '{}'", executor_plugin.first.c_str());
   }
 
   auto task_plugins = plugin_factory_->getTaskComposerNodePlugins();
@@ -195,7 +195,7 @@ void TaskComposerServer::loadPlugins()
     if (t != nullptr)
       addTask(std::move(t));
     else
-      CONSOLE_BRIDGE_logError("TaskComposerServer, failed to create task '%s'", task_plugin.first.c_str());
+      TESSERACT_LOG_ERROR("TaskComposerServer, failed to create task '{}'", task_plugin.first.c_str());
   }
 }
 }  // namespace tesseract::task_composer
