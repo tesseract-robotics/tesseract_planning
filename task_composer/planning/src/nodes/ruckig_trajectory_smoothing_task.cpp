@@ -22,7 +22,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 #include <tesseract/common/profile_dictionary.h>
 #include <tesseract/environment/environment.h>
@@ -104,7 +104,7 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
     info.status_code = 0;
     info.status_message =
         "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     info.return_value = 0;
     return info;
   }
@@ -115,7 +115,7 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
   if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input results to ruckig trajectory smoothing must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -136,7 +136,7 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
     info.status_code = 1;
     info.status_message = "Ruckig trajectory smoothing found no MoveInstructions to process";
     info.return_value = 1;
-    CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
+    TESSERACT_LOG_WARN("{}", info.status_message.c_str());
     return info;
   }
 
@@ -150,7 +150,7 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
       setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
     info.status_message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());
+    TESSERACT_LOG_INFO("{}", info.status_message.c_str());
     return info;
   }
 
@@ -160,7 +160,7 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
   info.status_code = 1;
   info.status_message = "Successful";
   info.return_value = 1;
-  CONSOLE_BRIDGE_logDebug("Ruckig trajectory smoothing succeeded");
+  TESSERACT_LOG_DEBUG("Ruckig trajectory smoothing succeeded");
   return info;
 }
 

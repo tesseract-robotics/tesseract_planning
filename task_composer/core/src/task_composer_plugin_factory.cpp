@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/task_composer/task_composer_executor.h>
 #include <boost_plugin_loader/plugin_loader.hpp>
 #include <boost/algorithm/string.hpp>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 static const std::string TESSERACT_TASK_COMPOSER_PLUGIN_DIRECTORIES_ENV = "TESSERACT_TASK_COMPOSER_PLUGIN_"
                                                                           "DIRECTORIES";
@@ -374,9 +374,9 @@ TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name) c
   auto cm_it = executor_plugin_info.plugins.find(name);
   if (cm_it == executor_plugin_info.plugins.end())
   {
-    CONSOLE_BRIDGE_logWarn("TaskComposerPluginFactory, tried to get task composer executor '%s' that does not "
-                           "exist!",
-                           name.c_str());
+    TESSERACT_LOG_WARN("TaskComposerPluginFactory, tried to get task composer executor '{}' that does not "
+                       "exist!",
+                       name.c_str());
     return nullptr;
   }
 
@@ -400,7 +400,7 @@ TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name,
     auto plugin = impl_->plugin_loader.createInstance<TaskComposerExecutorFactory>(plugin_info.class_name);
     if (plugin == nullptr)
     {
-      CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s'", plugin_info.class_name.c_str());
+      TESSERACT_LOG_WARN("Failed to load symbol '{}'", plugin_info.class_name.c_str());
       return nullptr;
     }
     executor_factories[plugin_info.class_name] = plugin;
@@ -408,7 +408,7 @@ TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name,
   }
   catch (const std::exception& e)
   {
-    CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s', Details: %s", plugin_info.class_name.c_str(), e.what());
+    TESSERACT_LOG_WARN("Failed to load symbol '{}', Details: {}", plugin_info.class_name.c_str(), e.what());
     return nullptr;
   }
 }
@@ -419,9 +419,9 @@ std::unique_ptr<TaskComposerNode> TaskComposerPluginFactory::createTaskComposerN
   auto cm_it = task_plugin_info.plugins.find(name);
   if (cm_it == task_plugin_info.plugins.end())
   {
-    CONSOLE_BRIDGE_logWarn("TaskComposerPluginFactory, tried to get task composer node '%s' that does not "
-                           "exist!",
-                           name.c_str());
+    TESSERACT_LOG_WARN("TaskComposerPluginFactory, tried to get task composer node '{}' that does not "
+                       "exist!",
+                       name.c_str());
     return nullptr;
   }
 
@@ -445,7 +445,7 @@ TaskComposerPluginFactory::createTaskComposerNode(const std::string& name,
     auto plugin = impl_->plugin_loader.createInstance<TaskComposerNodeFactory>(plugin_info.class_name);
     if (plugin == nullptr)
     {
-      CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s'", plugin_info.class_name.c_str());
+      TESSERACT_LOG_WARN("Failed to load symbol '{}'", plugin_info.class_name.c_str());
       return nullptr;
     }
     node_factories[plugin_info.class_name] = plugin;
@@ -453,7 +453,7 @@ TaskComposerPluginFactory::createTaskComposerNode(const std::string& name,
   }
   catch (const std::exception& e)
   {
-    CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s', Details: %s", plugin_info.class_name.c_str(), e.what());
+    TESSERACT_LOG_WARN("Failed to load symbol '{}', Details: {}", plugin_info.class_name.c_str(), e.what());
     return nullptr;
   }
 }

@@ -46,13 +46,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/tesseract.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/common/types.h>
 #include <tesseract/environment/core/utils.h>
 #include <tesseract/motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract/motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract/motion_planners/ompl/config/ompl_planner_constrained_config.h>
 #include <trajopt/problem_description.hpp>
-#include <trajopt_common/logging.hpp>
 
 using namespace tesseract;
 using namespace tesseract::scene_graph;
@@ -168,10 +168,10 @@ TEST(OMPLConstraintPlanner, OMPLConstraintPlannerUnit)  // NOLINT
 
   if (!status)
   {
-    CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
+    TESSERACT_LOG_ERROR("CI Error: {}", status.message().c_str());
   }
   EXPECT_TRUE(status);
-  CONSOLE_BRIDGE_logInform("Number of states: %d", ompl_planning_response.joint_trajectory.trajectory.rows());
+  TESSERACT_LOG_INFO("Number of states: {}", ompl_planning_response.joint_trajectory.trajectory.rows());
 
   EXPECT_TRUE(ompl_planning_response.joint_trajectory.trajectory.rows() > 2);
 
@@ -193,13 +193,13 @@ TEST(OMPLConstraintPlanner, OMPLConstraintPlannerUnit)  // NOLINT
       ++cnt;
   }
 
-  CONSOLE_BRIDGE_logWarn("CI Warn: Max error found: %f radians", max_angle);
+  TESSERACT_LOG_WARN("CI Warn: Max error found: {} radians", max_angle);
 
   if (cnt != 0)
   {
-    CONSOLE_BRIDGE_logError("CI Error: %d out of %d did not satisfy constraint",
-                            cnt,
-                            ompl_planning_response.joint_trajectory.trajectory.rows());
+    TESSERACT_LOG_ERROR("CI Error: {} out of {} did not satisfy constraint",
+                        cnt,
+                        ompl_planning_response.joint_trajectory.trajectory.rows());
   }
 
   EXPECT_TRUE(cnt == 0);

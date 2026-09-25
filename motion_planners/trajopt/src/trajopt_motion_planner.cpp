@@ -24,12 +24,11 @@
 #include <tesseract/common/macros.h>
 #include <tesseract/common/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <trajopt/plot_callback.hpp>
 #include <trajopt/problem_description.hpp>
 #include <trajopt/utils.hpp>
 #include <trajopt_common/config.hpp>
-#include <trajopt_common/logging.hpp>
 #include <trajopt_sco/optimizers.hpp>
 #include <trajopt_sco/sco_common.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -66,7 +65,7 @@ TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name) : MotionPlanner(std
 
 bool TrajOptMotionPlanner::terminate()
 {
-  CONSOLE_BRIDGE_logWarn("Termination of ongoing optimization is not implemented yet");
+  TESSERACT_LOG_WARN("Termination of ongoing optimization is not implemented yet");
   return false;
 }
 
@@ -101,7 +100,7 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
     }
     catch (std::exception& e)
     {
-      CONSOLE_BRIDGE_logError("TrajOptPlanner failed to generate problem: %s.", e.what());
+      TESSERACT_LOG_ERROR("TrajOptPlanner failed to generate problem: {}.", e.what());
       response.successful = false;
       response.message = std::string(ERROR_INVALID_INPUT) + e.what();
       return response;
@@ -115,9 +114,9 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
 
   // Set Log Level
   if (request.verbose)
-    trajopt_common::gLogLevel = trajopt_common::LevelInfo;
+    tesseract::common::getLogger()->set_level(spdlog::level::info);
   else
-    trajopt_common::gLogLevel = trajopt_common::LevelWarn;
+    tesseract::common::getLogger()->set_level(spdlog::level::warn);
 
   // Create optimizer
   sco::BasicTrustRegionSQP::Ptr opt;
@@ -197,7 +196,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   if (pci->kin == nullptr)
   {
     std::string error_msg = "In TrajOpt problem generator, manipulator does not exist!";
-    CONSOLE_BRIDGE_logError(error_msg.c_str());
+    TESSERACT_LOG_ERROR("{}", error_msg.c_str());
     throw std::runtime_error(error_msg);
   }
 

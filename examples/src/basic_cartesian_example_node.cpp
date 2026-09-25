@@ -24,7 +24,7 @@
 
 #include <tesseract/examples/basic_cartesian_example.h>
 #include <filesystem>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/resource_locator.h>
 
@@ -43,14 +43,14 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  CONSOLE_BRIDGE_logInform("basic cartesian plan example");
+  TESSERACT_LOG_INFO("basic cartesian plan example");
 
   BasicCartesianExample example(env, nullptr, false, false);
   if (!example.run())
   {
-    CONSOLE_BRIDGE_logError("BasicCartesianExample failed");
+    TESSERACT_LOG_ERROR("BasicCartesianExample failed");
     exit(1);
   }
 
-  CONSOLE_BRIDGE_logInform("BasicCartesianExample successful");
+  TESSERACT_LOG_INFO("BasicCartesianExample successful");
 }

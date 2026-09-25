@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 #include <trajopt/problem_description.hpp>
 #include <trajopt/utils.hpp>
@@ -76,21 +76,20 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   checkTrajectoryState(contacts, *manager, state, profile.collision_check_config.contact_request);
   if (contacts.empty())
   {
-    CONSOLE_BRIDGE_logDebug("No collisions found");
+    TESSERACT_LOG_DEBUG("No collisions found");
     if (profile.collision_check_config.type == tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE)
-      CONSOLE_BRIDGE_logDebug("StateInCollision does not support longest valid segment logic");
+      TESSERACT_LOG_DEBUG("StateInCollision does not support longest valid segment logic");
     return false;
   }
 
-  CONSOLE_BRIDGE_logDebug("Waypoint is not contact free!");
-  if (console_bridge::getLogLevel() < console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
+  TESSERACT_LOG_DEBUG("Waypoint is not contact free!");
+  if (tesseract::common::getLogger()->should_log(spdlog::level::debug))
   {
     for (const auto& pair : contacts)
     {
       const auto [link1, link2] = pair.first.orderedNameView();
       for (const auto& contact : pair.second)
-        CONSOLE_BRIDGE_logDebug(
-            "Contact Results: Links: %s, %s Dist: %f", link1.c_str(), link2.c_str(), contact.distance);
+        TESSERACT_LOG_DEBUG("Contact Results: Links: {}, {} Dist: {}", link1.c_str(), link2.c_str(), contact.distance);
     }
   }
 
@@ -105,7 +104,7 @@ bool waypointInCollision(const tesseract::command_language::WaypointPoly& waypoi
 {
   if (waypoint.isCartesianWaypoint())
   {
-    CONSOLE_BRIDGE_logDebug("WaypointInCollision, skipping cartesian waypoint!");
+    TESSERACT_LOG_DEBUG("WaypointInCollision, skipping cartesian waypoint!");
     return false;
   }
 
@@ -117,7 +116,7 @@ bool waypointInCollision(const tesseract::command_language::WaypointPoly& waypoi
   }
   catch (std::runtime_error& e)
   {
-    CONSOLE_BRIDGE_logError("WaypointInCollision error: %s", e.what());
+    TESSERACT_LOG_ERROR("WaypointInCollision error: {}", e.what());
     return false;
   }
 
@@ -133,7 +132,7 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
 
   if (waypoint.isCartesianWaypoint())
   {
-    CONSOLE_BRIDGE_logDebug("MoveWaypointFromCollision, skipping cartesian waypoint!");
+    TESSERACT_LOG_DEBUG("MoveWaypointFromCollision, skipping cartesian waypoint!");
     return true;
   }
 
@@ -145,7 +144,7 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
   }
   catch (std::runtime_error& e)
   {
-    CONSOLE_BRIDGE_logError("MoveWaypointFromCollision error: %s", e.what());
+    TESSERACT_LOG_ERROR("MoveWaypointFromCollision error: {}", e.what());
     return false;
   }
 
@@ -325,7 +324,7 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
   opt.optimize();
   if (opt.results().status != sco::OptStatus::OPT_CONVERGED)
   {
-    CONSOLE_BRIDGE_logError("MoveWaypointFromCollision did not converge");
+    TESSERACT_LOG_ERROR("MoveWaypointFromCollision did not converge");
 
     TESSERACT_THREAD_LOCAL tesseract::collision::ContactResultMap collisions;
     collisions.clear();
@@ -344,7 +343,7 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
       ss << "Discrete collision detected between '" << link1 << "' and '" << link2 << "' with distance "
          << collision.second.front().distance << "\n";
 
-      CONSOLE_BRIDGE_logError(ss.str().c_str());
+      TESSERACT_LOG_ERROR("{}", ss.str().c_str());
     }
 
     return false;
@@ -361,7 +360,7 @@ bool moveWaypointFromCollisionRandomSampler(tesseract::command_language::Waypoin
 {
   if (waypoint.isCartesianWaypoint())
   {
-    CONSOLE_BRIDGE_logDebug("MoveWaypointFromCollisionRandomSampler, skipping cartesian waypoint!");
+    TESSERACT_LOG_DEBUG("MoveWaypointFromCollisionRandomSampler, skipping cartesian waypoint!");
     return true;
   }
 
@@ -373,7 +372,7 @@ bool moveWaypointFromCollisionRandomSampler(tesseract::command_language::Waypoin
   }
   catch (std::runtime_error& e)
   {
-    CONSOLE_BRIDGE_logError("MoveWaypointFromCollision error: %s", e.what());
+    TESSERACT_LOG_ERROR("MoveWaypointFromCollision error: {}", e.what());
     return false;
   }
 
@@ -488,7 +487,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
     info.status_code = 0;
     info.status_message =
         "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     info.return_value = 0;
     return info;
   }
@@ -499,7 +498,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
   if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input to FixStateCollision must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -523,7 +522,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
         tesseract::common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(first_mi->getManipulatorInfo());
         if (waypointInCollision(first_mi->getWaypoint(), mi, *env, *cur_composite_profile, contact_results[0]))
         {
-          CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
+          TESSERACT_LOG_INFO("FixStateCollisionTask is modifying the input instructions");
           if (!applyCorrectionWorkflow(first_mi->getWaypoint(), mi, env, *cur_composite_profile, contact_results[0]))
           {
             // If the output key is not the same as the input key the output data should be assigned the input data for
@@ -553,7 +552,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
         tesseract::common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(last_mi->getManipulatorInfo());
         if (waypointInCollision(last_mi->getWaypoint(), mi, *env, *cur_composite_profile, contact_results[0]))
         {
-          CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
+          TESSERACT_LOG_INFO("FixStateCollisionTask is modifying the input instructions");
           if (!applyCorrectionWorkflow(last_mi->getWaypoint(), mi, env, *cur_composite_profile, contact_results[0]))
           {
             // If the output key is not the same as the input key the output data should be assigned the input data for
@@ -589,7 +588,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
         info.status_code = 1;
         info.status_message = "FixStateCollisionTask found no MoveInstructions to process";
         info.return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
+        TESSERACT_LOG_WARN("{}", info.status_message.c_str());
         return info;
       }
 
@@ -601,7 +600,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
         info.status_code = 1;
         info.status_message = "FixStateCollisionTask found no intermediate MoveInstructions to process";
         info.return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
+        TESSERACT_LOG_WARN("{}", info.status_message.c_str());
         return info;
       }
 
@@ -618,7 +617,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
       if (!in_collision)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
+      TESSERACT_LOG_INFO("FixStateCollisionTask is modifying the input instructions");
       for (std::size_t i = 1; i < flattened.size() - 1; i++)
       {
         if (in_collision_vec[i])
@@ -657,7 +656,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
         info.status_code = 1;
         info.status_message = "FixStateCollisionTask found no MoveInstructions to process";
         info.return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
+        TESSERACT_LOG_WARN("{}", info.status_message.c_str());
         return info;
       }
 
@@ -674,7 +673,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
       if (!in_collision)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
+      TESSERACT_LOG_INFO("FixStateCollisionTask is modifying the input instructions");
       for (std::size_t i = 0; i < flattened.size(); i++)
       {
         if (in_collision_vec[i])
@@ -715,7 +714,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
         info.status_code = 1;
         info.status_message = "FixStateCollisionTask found no MoveInstructions to process";
         info.return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
+        TESSERACT_LOG_WARN("{}", info.status_message.c_str());
         return info;
       }
 
@@ -732,7 +731,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
       if (!in_collision)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
+      TESSERACT_LOG_INFO("FixStateCollisionTask is modifying the input instructions");
       for (std::size_t i = 1; i < flattened.size(); i++)
       {
         if (in_collision_vec[i])
@@ -771,7 +770,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
         info.status_code = 1;
         info.status_message = "FixStateCollisionTask found no MoveInstructions to process";
         info.return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
+        TESSERACT_LOG_WARN("{}", info.status_message.c_str());
         return info;
       }
 
@@ -788,7 +787,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
       if (!in_collision)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
+      TESSERACT_LOG_INFO("FixStateCollisionTask is modifying the input instructions");
       for (std::size_t i = 0; i < flattened.size() - 1; i++)
       {
         if (in_collision_vec[i])
@@ -834,7 +833,7 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
   info.status_code = 1;
   info.status_message = "Successful";
   info.return_value = 1;
-  CONSOLE_BRIDGE_logDebug("FixStateCollisionTask succeeded");
+  TESSERACT_LOG_DEBUG("FixStateCollisionTask succeeded");
   return info;
 }
 

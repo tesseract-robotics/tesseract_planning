@@ -24,7 +24,7 @@
 
 #include <tesseract/examples/pick_and_place_example.h>
 #include <filesystem>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/resource_locator.h>
 
@@ -43,14 +43,14 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  CONSOLE_BRIDGE_logInform("pick and place example");
+  TESSERACT_LOG_INFO("pick and place example");
 
   PickAndPlaceExample example(env, nullptr);
   if (!example.run())
   {
-    CONSOLE_BRIDGE_logError("PickAndPlaceExample failed");
+    TESSERACT_LOG_ERROR("PickAndPlaceExample failed");
     exit(1);
   }
 
-  CONSOLE_BRIDGE_logInform("PickAndPlaceExample successful");
+  TESSERACT_LOG_INFO("PickAndPlaceExample successful");
 }

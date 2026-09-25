@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 #include <tesseract/common/profile_dictionary.h>
 #include <tesseract/collision/continuous_contact_manager.h>
@@ -107,7 +107,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
     info.status_code = 0;
     info.status_message =
         "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     info.return_value = 0;
     return info;
   }
@@ -119,7 +119,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   {
     info.status_code = 0;
     info.status_message = "Input seed to ContinuousContactCheckTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     info.return_value = 0;
     return info;
   }
@@ -147,7 +147,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   if (traj_results)
   {
     info.status_code = 0;
-    CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());
+    TESSERACT_LOG_INFO("{}", info.status_message.c_str());
 
     // Save space
     for (auto& contact_map : contacts)
@@ -162,7 +162,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
 
   info.color = "green";
   info.status_code = 1;
-  CONSOLE_BRIDGE_logDebug("%s", info.status_message.c_str());
+  TESSERACT_LOG_DEBUG("{}", info.status_message.c_str());
   info.return_value = 1;
   return info;
 }

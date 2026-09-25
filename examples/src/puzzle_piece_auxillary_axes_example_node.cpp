@@ -24,7 +24,7 @@
 
 #include <tesseract/examples/puzzle_piece_auxillary_axes_example.h>
 #include <filesystem>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/resource_locator.h>
 
@@ -43,14 +43,14 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  CONSOLE_BRIDGE_logInform("puzzle piece auxillary axes example");
+  TESSERACT_LOG_INFO("puzzle piece auxillary axes example");
 
   PuzzlePieceAuxillaryAxesExample example(env, nullptr);
   if (!example.run())
   {
-    CONSOLE_BRIDGE_logError("PuzzlePieceAuxillaryAxesExample failed");
+    TESSERACT_LOG_ERROR("PuzzlePieceAuxillaryAxesExample failed");
     exit(1);
   }
 
-  CONSOLE_BRIDGE_logInform("PuzzlePieceAuxillaryAxesExample successful");
+  TESSERACT_LOG_INFO("PuzzlePieceAuxillaryAxesExample successful");
 }

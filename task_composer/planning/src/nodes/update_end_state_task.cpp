@@ -23,7 +23,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/planning/nodes/update_end_state_task.h>
@@ -98,7 +98,7 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   {
     info.status_message = "UpdateEndStateTask: Input data for key '" +
                           input_port_mappings_.single(INPUT_CURRENT_PROGRAM_PORT) + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -106,7 +106,7 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   {
     info.status_message = "UpdateEndStateTask: Input data for key '" +
                           input_port_mappings_.single(INPUT_NEXT_PROGRAM_PORT) + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 

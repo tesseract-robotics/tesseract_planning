@@ -26,7 +26,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <yaml-cpp/yaml.h>
 
 #include <tesseract/environment/environment.h>
@@ -141,7 +141,7 @@ protected:
       info.status_code = 0;
       info.status_message =
           "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-      CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+      TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
       info.return_value = 0;
       return info;
     }
@@ -152,7 +152,7 @@ protected:
     if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
     {
       info.status_message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
-      CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+      TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
       return info;
     }
     tesseract::common::AnyPoly original_input_data_poly{ input_data_poly };
@@ -178,7 +178,7 @@ protected:
     // Fill out response
     // --------------------
     request.verbose = false;
-    if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
+    if (tesseract::common::getLogger()->should_log(spdlog::level::debug))
       request.verbose = true;
     tesseract::motion_planners::PlannerResponse response = planner_->solve(request);
     setData(context, INOUT_PROGRAM_PORT, response.results);
@@ -192,14 +192,14 @@ protected:
       info.color = "green";
       info.status_code = 1;
       info.status_message = response.message;
-      CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
+      TESSERACT_LOG_DEBUG("Motion Planner process succeeded");
       return info;
     }
 
-    CONSOLE_BRIDGE_logInform("%s motion planning failed (%s) for process input: %s",
-                             planner_->getName().c_str(),
-                             response.message.c_str(),
-                             instructions.getDescription().c_str());
+    TESSERACT_LOG_INFO("{} motion planning failed ({}) for process input: {}",
+                       planner_->getName().c_str(),
+                       response.message.c_str(),
+                       instructions.getDescription().c_str());
 
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching

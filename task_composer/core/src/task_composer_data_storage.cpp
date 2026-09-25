@@ -25,7 +25,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <mutex>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/task_composer_data_storage.h>
@@ -148,8 +148,8 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
       }
       else
       {
-        CONSOLE_BRIDGE_logError(
-            "TaskComposerDataStorage, unable to remap data '%s' to '%s'", pair.first.c_str(), pair.second.c_str());
+        TESSERACT_LOG_ERROR(
+            "TaskComposerDataStorage, unable to remap data '{}' to '{}'", pair.first.c_str(), pair.second.c_str());
         return false;
       }
     }
@@ -165,8 +165,8 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
       }
       else
       {
-        CONSOLE_BRIDGE_logError(
-            "TaskComposerDataStorage, unable to remap data '%s' to '%s'", pair.first.c_str(), pair.second.c_str());
+        TESSERACT_LOG_ERROR(
+            "TaskComposerDataStorage, unable to remap data '{}' to '{}'", pair.first.c_str(), pair.second.c_str());
         return false;
       }
     }

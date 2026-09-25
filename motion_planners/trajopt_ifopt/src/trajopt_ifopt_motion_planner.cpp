@@ -23,7 +23,7 @@
  */
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <trajopt_ifopt/variable_sets/nodes_variables.h>
 #include <trajopt_ifopt/variable_sets/node.h>
 #include <trajopt_ifopt/variable_sets/var.h>
@@ -59,7 +59,7 @@ TrajOptIfoptMotionPlanner::TrajOptIfoptMotionPlanner(std::string name) : MotionP
 
 bool TrajOptIfoptMotionPlanner::terminate()
 {
-  CONSOLE_BRIDGE_logWarn("Termination of ongoing optimization is not implemented yet");
+  TESSERACT_LOG_WARN("Termination of ongoing optimization is not implemented yet");
   return false;
 }
 

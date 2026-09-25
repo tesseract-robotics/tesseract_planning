@@ -36,7 +36,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -353,7 +353,7 @@ bool RuckigTrajectorySmoothing::compute(tesseract::command_language::CompositeIn
 
   if (ruckig_result != ruckig::Result::Finished)
   {
-    CONSOLE_BRIDGE_logError("Ruckig trajectory smoothing failed. Ruckig error: %s", ruckig_result);
+    TESSERACT_LOG_ERROR("Ruckig trajectory smoothing failed. Ruckig error code: {}", static_cast<int>(ruckig_result));
     return false;
   }
 

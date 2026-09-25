@@ -24,7 +24,7 @@
 
 #include <tesseract/examples/car_seat_example.h>
 #include <filesystem>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/resource_locator.h>
 
@@ -43,14 +43,14 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
+  TESSERACT_LOG_INFO("Freespace plan to pick seat 1 example");
 
   CarSeatExample example(env, nullptr, false);
   if (!example.run())
   {
-    CONSOLE_BRIDGE_logError("CarSeatExample failed");
+    TESSERACT_LOG_ERROR("CarSeatExample failed");
     exit(1);
   }
 
-  CONSOLE_BRIDGE_logInform("CarSeatExample successful");
+  TESSERACT_LOG_INFO("CarSeatExample successful");
 }

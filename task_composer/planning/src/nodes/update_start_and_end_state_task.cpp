@@ -23,7 +23,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/planning/nodes/update_start_and_end_state_task.h>
@@ -104,7 +104,7 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
   {
     info.status_message = "UpdateStartAndEndStateTask: Input data for key '" +
                           input_port_mappings_.single(INPUT_CURRENT_PROGRAM_PORT) + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -113,7 +113,7 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
     info.status_message = "UpdateStartAndEndStateTask: Input data for key '" +
                           input_port_mappings_.single(INPUT_PREVIOUS_PROGRAM_PORT) +
                           "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -121,7 +121,7 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
   {
     info.status_message = "UpdateStartAndEndStateTask: Input data for key '" +
                           input_port_mappings_.single(INPUT_NEXT_PROGRAM_PORT) + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -156,7 +156,7 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
   info.status_code = 1;
   info.status_message = "Successful";
   info.return_value = 1;
-  CONSOLE_BRIDGE_logDebug("UpdateStartAndEndStateTask succeeded");
+  TESSERACT_LOG_DEBUG("UpdateStartAndEndStateTask succeeded");
   return info;
 }
 

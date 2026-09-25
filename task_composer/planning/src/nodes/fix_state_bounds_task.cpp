@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 
 #include <tesseract/common/profile_dictionary.h>
 #include <tesseract/environment/environment.h>
@@ -105,7 +105,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
     info.status_code = 0;
     info.status_message =
         "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     info.return_value = 0;
     return info;
   }
@@ -115,7 +115,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
   if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input instruction to FixStateBounds must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -145,7 +145,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
         {
           if (!isWithinJointLimits(wp, limits.joint_limits))
           {
-            CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
+            TESSERACT_LOG_INFO("FixStateBoundsTask is modifying the input instructions");
             if (!clampToJointLimits(wp, limits.joint_limits, cur_composite_profile->max_deviation_global))
             {
               // If the output key is not the same as the input key the output data should be assigned the input data
@@ -171,7 +171,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
         {
           if (!isWithinJointLimits(wp, limits.joint_limits))
           {
-            CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
+            TESSERACT_LOG_INFO("FixStateBoundsTask is modifying the input instructions");
             if (!clampToJointLimits(wp, limits.joint_limits, cur_composite_profile->max_deviation_global))
             {
               // If the output key is not the same as the input key the output data should be assigned the input data
@@ -201,7 +201,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
         info.status_code = 1;
         info.status_message = "FixStateBoundsTask found no MoveInstructions to process";
         info.return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
+        TESSERACT_LOG_WARN("{}", info.status_message.c_str());
         return info;
       }
 
@@ -215,7 +215,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
       if (inside_limits)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
+      TESSERACT_LOG_INFO("FixStateBoundsTask is modifying the input instructions");
       for (auto& instruction : flattened)
       {
         auto& wp = instruction.get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint();
@@ -256,7 +256,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
   info.status_code = 1;
   info.status_message = "Successful";
   info.return_value = 1;
-  CONSOLE_BRIDGE_logDebug("FixStateBoundsTask succeeded");
+  TESSERACT_LOG_DEBUG("FixStateBoundsTask succeeded");
   return info;
 }
 

@@ -29,7 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/objectives/PathLengthOptimizationObjective.h>
 #include <ompl/base/goals/GoalStates.h>
 #include <boost/algorithm/string.hpp>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -278,7 +278,7 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
       }
       else
       {
-        CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Goal state has invalid bounds");
+        TESSERACT_LOG_DEBUG("In OMPLRealVectorMoveProfile: Goal state has invalid bounds");
       }
 
       // Get discrete contact manager for testing provided start and end position
@@ -319,8 +319,8 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
       {
         const auto [link1, link2] = contact_vec.first.orderedNameView();
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(
-              "Solution: %zu  Links: %s, %s  Distance: %f", i, link1.c_str(), link2.c_str(), contact.distance);
+          TESSERACT_LOG_ERROR(
+              "Solution: %zu  Links: {}, {}  Distance: {}", i, link1.c_str(), link2.c_str(), contact.distance);
       }
     throw std::runtime_error("In OMPLRealVectorMoveProfile: All goal states are either in collision or outside limits");
   }
@@ -343,7 +343,7 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   }
   else
   {
-    CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Goal state has invalid bounds");
+    TESSERACT_LOG_DEBUG("In OMPLRealVectorMoveProfile: Goal state has invalid bounds");
   }
 
   // Get discrete contact manager for testing provided start and end position
@@ -352,12 +352,12 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   tesseract::collision::ContactResultMap contact_map;
   if (checkStateInCollision(contact_map, contact_checker, manip, solution))
   {
-    CONSOLE_BRIDGE_logError("In OMPLRealVectorMoveProfile: Goal state is in collision");
+    TESSERACT_LOG_ERROR("In OMPLRealVectorMoveProfile: Goal state is in collision");
     for (const auto& contact_vec : contact_map)
     {
       const auto [link1, link2] = contact_vec.first.orderedNameView();
       for (const auto& contact : contact_vec.second)
-        CONSOLE_BRIDGE_logError("Links: %s, %s  Distance: %f", link1.c_str(), link2.c_str(), contact.distance);
+        TESSERACT_LOG_ERROR("Links: {}, {}  Distance: {}", link1.c_str(), link2.c_str(), contact.distance);
     }
   }
 
@@ -403,7 +403,7 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
       }
       else
       {
-        CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Start state has invalid bounds");
+        TESSERACT_LOG_DEBUG("In OMPLRealVectorMoveProfile: Start state has invalid bounds");
       }
 
       // Get discrete contact manager for testing provided start and end position
@@ -445,8 +445,8 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
       {
         const auto [link1, link2] = contact_vec.first.orderedNameView();
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(
-              "Solution: %zu  Links: %s, %s  Distance: %f", i, link1.c_str(), link2.c_str(), contact.distance);
+          TESSERACT_LOG_ERROR(
+              "Solution: %zu  Links: {}, {}  Distance: {}", i, link1.c_str(), link2.c_str(), contact.distance);
       }
     throw std::runtime_error("In OMPLPlannerFreespaceConfig: All start states are either in collision or outside "
                              "limits");
@@ -468,7 +468,7 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   }
   else
   {
-    CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Start state is outside limits");
+    TESSERACT_LOG_DEBUG("In OMPLRealVectorMoveProfile: Start state is outside limits");
   }
 
   // Get discrete contact manager for testing provided start and end position
@@ -477,12 +477,12 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   tesseract::collision::ContactResultMap contact_map;
   if (checkStateInCollision(contact_map, contact_checker, manip, solution))
   {
-    CONSOLE_BRIDGE_logError("In OMPLPlannerFreespaceConfig: Start state is in collision");
+    TESSERACT_LOG_ERROR("In OMPLPlannerFreespaceConfig: Start state is in collision");
     for (const auto& contact_vec : contact_map)
     {
       const auto [link1, link2] = contact_vec.first.orderedNameView();
       for (const auto& contact : contact_vec.second)
-        CONSOLE_BRIDGE_logError("Links: %s, %s  Distance: %f", link1.c_str(), link2.c_str(), contact.distance);
+        TESSERACT_LOG_ERROR("Links: {}, {}  Distance: {}", link1.c_str(), link2.c_str(), contact.distance);
     }
   }
 

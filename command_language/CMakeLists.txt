@@ -29,7 +29,6 @@ set_target_properties(command_language PROPERTIES OUTPUT_NAME tesseract_command_
 target_link_libraries(
   command_language
   PUBLIC Eigen3::Eigen
-         console_bridge::console_bridge
          tesseract::common
          Boost::boost
          cereal::cereal)
@@ -53,7 +52,6 @@ configure_component(
   NAMESPACE tesseract
   TARGETS command_language
   DEPENDENCIES
-    console_bridge
     "tesseract COMPONENTS common"
     Eigen3
     Boost
@@ -80,12 +78,12 @@ if(TESSERACT_PACKAGE)
     VERSION ${pkg_extracted_version}
     DESCRIPTION "Tesseract command language components"
     LINUX_DEPENDS
-      "libconsole-bridge-dev"
+      "libspdlog-dev"
       "libeigen3-dev"
       "cereal"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
     WINDOWS_DEPENDS
-      "console-bridge"
+      "spdlog"
       "Eigen3"
       "cereal"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common")

@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <yaml-cpp/yaml.h>
 
 #include <tesseract/common/yaml_utils.h>
@@ -155,7 +155,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
     info.status_code = 0;
     info.status_message =
         "Input data '" + input_port_mappings_.single(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     info.return_value = 0;
     return info;
   }
@@ -172,7 +172,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   catch (const std::exception& e)
   {
     info.status_message = e.what();
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -315,7 +315,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   if (context.isAborted())
   {
     info.status_message = "Raster only subgraph failed";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 

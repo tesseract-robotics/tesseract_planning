@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/motion_planners/planner.h>
@@ -60,14 +60,14 @@ bool MotionPlanner::checkRequest(const PlannerRequest& request, std::string& rea
   if (request.env == nullptr)
   {
     reason = "PlannerRequest environment is nullptr";
-    CONSOLE_BRIDGE_logError(reason.c_str());
+    TESSERACT_LOG_ERROR("{}", reason.c_str());
     return false;
   }
 
   if (request.instructions.empty())
   {
     reason = "PlannerRequest instruction is empty";
-    CONSOLE_BRIDGE_logError(reason.c_str());
+    TESSERACT_LOG_ERROR("{}", reason.c_str());
     return false;
   }
 

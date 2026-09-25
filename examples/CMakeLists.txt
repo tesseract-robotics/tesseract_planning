@@ -31,7 +31,6 @@ target_link_libraries(
          trajopt::trajopt_ifopt
          tesseract::task_composer
          tesseract::task_composer_planning_nodes
-         console_bridge::console_bridge
   PRIVATE ${PCL_LIBRARIES})
 target_compile_options(examples PUBLIC ${TESSERACT_COMPILE_OPTIONS})
 target_clang_tidy(examples ARGUMENTS ${TESSERACT_CLANG_TIDY_ARGS} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
@@ -103,7 +102,7 @@ if(TESSERACT_PACKAGE)
     VERSION ${pkg_extracted_version}
     DESCRIPTION "Tesseract planning examples"
     LINUX_DEPENDS
-      "libconsole-bridge-dev"
+      "libspdlog-dev"
       "libpcl-dev"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-planning-command-language"
@@ -112,7 +111,7 @@ if(TESSERACT_PACKAGE)
       "${TESSERACT_PACKAGE_PREFIX}trajopt-sqp"
       "${TESSERACT_PACKAGE_PREFIX}trajopt-ifopt"
     WINDOWS_DEPENDS
-      "console-bridge"
+      "spdlog"
       "pcl"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-planning-command-language"

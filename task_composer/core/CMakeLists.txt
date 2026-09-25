@@ -30,8 +30,7 @@ set_target_properties(task_composer PROPERTIES OUTPUT_NAME tesseract_task_compos
 
 target_link_libraries(
   task_composer
-  PUBLIC console_bridge::console_bridge
-         tesseract::common
+  PUBLIC tesseract::common
          boost_plugin_loader::boost_plugin_loader
          Boost::boost
          cereal::cereal
@@ -79,7 +78,6 @@ generate_export_header(
 target_link_libraries(
   task_composer_nodes
   PUBLIC tesseract::task_composer
-         console_bridge::console_bridge
          tesseract::common
          Boost::boost
          cereal::cereal
@@ -160,7 +158,6 @@ configure_component(
   NAMESPACE tesseract
   TARGETS task_composer task_composer_nodes task_composer_validate_config
   DEPENDENCIES
-    console_bridge
     "tesseract COMPONENTS common"
     boost_plugin_loader
     cereal
@@ -172,10 +169,10 @@ if(TESSERACT_PACKAGE)
     VERSION ${pkg_extracted_version}
     DESCRIPTION "Tesseract task composer core components"
     LINUX_DEPENDS
-      "libconsole-bridge-dev"
+      "libspdlog-dev"
       "libyaml-cpp-dev"
       "boost-plugin-loader"
       "Boost REQUIRED COMPONENTS program_options"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
-    WINDOWS_DEPENDS "console-bridge" "yaml-cpp" "${TESSERACT_PACKAGE_PREFIX}tesseract-common")
+    WINDOWS_DEPENDS "spdlog" "yaml-cpp" "${TESSERACT_PACKAGE_PREFIX}tesseract-common")
 endif()

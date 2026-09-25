@@ -26,7 +26,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <Eigen/Geometry>
 #include <vector>
 #include <cassert>
@@ -126,7 +126,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
         {
           samples.push_back(descartes_light::StateSample<FloatType>{ state, 0.0 });
         }
-        else if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
+        else if (tesseract::common::getLogger()->should_log(spdlog::level::debug))
         {
           tesseract::collision::ContactTrajectoryStepResults step_contacts(static_cast<int>(j), sol, sol, 1);
           tesseract::collision::ContactTrajectorySubstepResults substep_contacts(1, sol);
@@ -142,7 +142,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
       }
     }
 
-    if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
+    if (tesseract::common::getLogger()->should_log(spdlog::level::debug))
     {
       error_string_stream << "For sample " << i << " " << ik_solutions.size()
                           << " IK solutions were found, with a collision summary of:\n";

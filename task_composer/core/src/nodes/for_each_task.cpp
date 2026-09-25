@@ -24,7 +24,7 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <yaml-cpp/yaml.h>
 
 #include <tesseract/common/yaml_utils.h>
@@ -153,7 +153,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   catch (const std::exception& e)
   {
     info.status_message = e.what();
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 
@@ -229,7 +229,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   if (context.isAborted())
   {
     info.status_message = "ForEachTask subgraph failed";
-    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    TESSERACT_LOG_ERROR("{}", info.status_message.c_str());
     return info;
   }
 

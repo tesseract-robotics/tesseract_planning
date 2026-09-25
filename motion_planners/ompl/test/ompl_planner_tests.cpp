@@ -45,7 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
 #include <cmath>
 #include <gtest/gtest.h>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/types.h>
@@ -223,7 +223,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   if (!planner_response)
   {
-    CONSOLE_BRIDGE_logError("CI Error: %s", planner_response.message.c_str());
+    TESSERACT_LOG_ERROR("CI Error: {}", planner_response.message.c_str());
   }
 
   EXPECT_TRUE(&planner_response);
@@ -382,7 +382,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   if (!planner_response)
   {
-    CONSOLE_BRIDGE_logError("CI Error: %s", planner_response.message.c_str());
+    TESSERACT_LOG_ERROR("CI Error: {}", planner_response.message.c_str());
   }
   EXPECT_TRUE(&planner_response);
   EXPECT_GE(planner_response.results.getMoveInstructionCount(), 10);
@@ -477,7 +477,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   if (!planner_response)
   {
-    CONSOLE_BRIDGE_logError("CI Error: %s", planner_response.message.c_str());
+    TESSERACT_LOG_ERROR("CI Error: {}", planner_response.message.c_str());
   }
 
   EXPECT_TRUE(&planner_response);
@@ -536,7 +536,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
 //  if (!status)
 //  {
-//    CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
+//    TESSERACT_LOG_ERROR("CI Error: {}", status.message().c_str());
 //  }
 //  EXPECT_TRUE(&status);
 //  EXPECT_EQ(ompl_planning_response.joint_trajectory.trajectory.rows(), ompl_config->n_output_states);

@@ -19,7 +19,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/resource_locator.h>
@@ -178,6 +178,6 @@ int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
 
-  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  tesseract::common::getLogger()->set_level(spdlog::level::debug);
   return RUN_ALL_TESTS();
 }

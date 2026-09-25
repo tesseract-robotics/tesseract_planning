@@ -38,7 +38,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <limits>
 #include <cmath>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -255,20 +255,20 @@ bool IterativeSplineParameterization::compute(tesseract::command_language::Compo
     // Error out if bounds don't make sense
     if ((max_velocity_eigen.array() <= 0.0).any() || (max_acceleration_eigen.array() <= 0.0).any())
     {
-      CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Joint %d max velocity %f and max acceleration %f "
-                              "must be greater than zero or a solution won't be found.",
-                              j,
-                              t2[j].max_velocity_[0],
-                              t2[j].max_acceleration_[0]);
+      TESSERACT_LOG_ERROR("iterative_spline_parameterization: Joint {} max velocity {} and max acceleration {} "
+                          "must be greater than zero or a solution won't be found.",
+                          j,
+                          t2[j].max_velocity_[0],
+                          t2[j].max_acceleration_[0]);
       return false;
     }
     if ((min_velocity_eigen.array() >= 0.0).any() || (min_acceleration_eigen.array() >= 0.0).any())
     {
-      CONSOLE_BRIDGE_logError("trajectory_processing.iterative_spline_parameterization: Joint %d min velocity %f and "
-                              "min acceleration %f must be less than zero or a solution won't be found.",
-                              j,
-                              t2[j].min_velocity_[0],
-                              t2[j].min_acceleration_[0]);
+      TESSERACT_LOG_ERROR("trajectory_processing.iterative_spline_parameterization: Joint {} min velocity {} and "
+                          "min acceleration {} must be less than zero or a solution won't be found.",
+                          j,
+                          t2[j].min_velocity_[0],
+                          t2[j].min_acceleration_[0]);
       return false;
     }
   }
@@ -335,39 +335,39 @@ bool IterativeSplineParameterization::compute(tesseract::command_language::Compo
   // Error check
   if (num_points < 4)
   {
-    CONSOLE_BRIDGE_logError("iterative_spline_parameterization: number of waypoints %d, needs to be greater than 3.",
-                            num_points);
+    TESSERACT_LOG_ERROR("iterative_spline_parameterization: number of waypoints {}, needs to be greater than 3.",
+                        num_points);
     return false;
   }
   for (std::size_t j = 0; j < static_cast<std::size_t>(trajectory.dof()); j++)
   {
     if (t2[j].velocities_[0] > t2[j].max_velocity_[0] || t2[j].velocities_[0] < t2[j].min_velocity_[0])
     {
-      CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Initial velocity %f out of bounds.",
-                              t2[j].velocities_[0]);
+      TESSERACT_LOG_ERROR("iterative_spline_parameterization: Initial velocity {} out of bounds.",
+                          t2[j].velocities_[0]);
       return false;
     }
 
     if (t2[j].velocities_[num_points - 1] > t2[j].max_velocity_[num_points - 1] ||
         t2[j].velocities_[num_points - 1] < t2[j].min_velocity_[num_points - 1])
     {
-      CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Final velocity %f out of bounds.",
-                              t2[j].velocities_[num_points - 1]);
+      TESSERACT_LOG_ERROR("iterative_spline_parameterization: Final velocity {} out of bounds.",
+                          t2[j].velocities_[num_points - 1]);
       return false;
     }
 
     if (t2[j].accelerations_[0] > t2[j].max_acceleration_[0] || t2[j].accelerations_[0] < t2[j].min_acceleration_[0])
     {
-      CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Initial acceleration %f out of bounds\n",
-                              t2[j].accelerations_[0]);
+      TESSERACT_LOG_ERROR("iterative_spline_parameterization: Initial acceleration {} out of bounds\n",
+                          t2[j].accelerations_[0]);
       return false;
     }
 
     if (t2[j].accelerations_[num_points - 1] > t2[j].max_acceleration_[num_points - 1] ||
         t2[j].accelerations_[num_points - 1] < t2[j].min_acceleration_[num_points - 1])
     {
-      CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Final acceleration %f out of bounds\n",
-                              t2[j].accelerations_[num_points - 1]);
+      TESSERACT_LOG_ERROR("iterative_spline_parameterization: Final acceleration {} out of bounds\n",
+                          t2[j].accelerations_[num_points - 1]);
       return false;
     }
   }

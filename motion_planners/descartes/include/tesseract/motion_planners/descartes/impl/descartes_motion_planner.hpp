@@ -27,7 +27,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/solvers/ladder_graph/ladder_graph_solver.h>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/kinematic_limits.h>
@@ -126,7 +126,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
     descartes_result = solver->search();
     if (descartes_result.trajectory.empty())
     {
-      CONSOLE_BRIDGE_logError("Search for graph completion failed");
+      TESSERACT_LOG_ERROR("Search for graph completion failed");
       response.successful = false;
       response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
       return response;
@@ -155,8 +155,8 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
 
     if (!tesseract::common::satisfiesLimits<double>(solution.back(), joint_limits))
     {
-      CONSOLE_BRIDGE_logError("Descartes Motion Planner has solution state outside limits and will be clamped to "
-                              "limit");
+      TESSERACT_LOG_ERROR("Descartes Motion Planner has solution state outside limits and will be clamped to "
+                          "limit");
       response.successful = false;
       response.message = ERROR_SOLUTION_OUTSIDE_LIMITS;
       return response;
@@ -236,7 +236,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
 template <typename FloatType>
 bool DescartesMotionPlanner<FloatType>::terminate()
 {
-  CONSOLE_BRIDGE_logWarn("Termination of ongoing optimization is not implemented yet");
+  TESSERACT_LOG_WARN("Termination of ongoing optimization is not implemented yet");
   return false;
 }
 

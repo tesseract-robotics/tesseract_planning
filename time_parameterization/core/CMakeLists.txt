@@ -7,7 +7,6 @@ target_link_libraries(
          tesseract::kinematics
          tesseract::environment
          tesseract::command_language
-         console_bridge::console_bridge
          Eigen3::Eigen)
 target_include_directories(time_parameterization PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                         "$<INSTALL_INTERFACE:include>")
@@ -37,11 +36,8 @@ configure_component(
   COMPONENT time_parameterization
   NAMESPACE tesseract
   TARGETS time_parameterization
-  DEPENDENCIES
-    "tesseract COMPONENTS common kinematics environment"
-    "tesseract_planning COMPONENTS command_language"
-    console_bridge
-    Eigen3)
+  DEPENDENCIES "tesseract COMPONENTS common kinematics environment" "tesseract_planning COMPONENTS command_language"
+               Eigen3)
 
 if(TESSERACT_PACKAGE)
   cpack_component(
@@ -49,14 +45,14 @@ if(TESSERACT_PACKAGE)
     VERSION ${pkg_extracted_version}
     DESCRIPTION "Tesseract time parameterization core components"
     LINUX_DEPENDS
-      "libconsole-bridge-dev"
+      "libspdlog-dev"
       "libeigen3-dev"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-kinematics-core"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-environment"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-planning-command-language"
     WINDOWS_DEPENDS
-      "console-bridge"
+      "spdlog"
       "Eigen3"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-kinematics-core"

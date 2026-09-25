@@ -7,7 +7,6 @@ target_link_libraries(
   PUBLIC tesseract::environment
          tesseract::common
          tesseract::command_language
-         console_bridge::console_bridge
          Eigen3::Eigen)
 target_compile_options(motion_planners PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(motion_planners PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -39,7 +38,6 @@ configure_component(
   DEPENDENCIES
     "tesseract COMPONENTS environment common"
     "tesseract_planning COMPONENTS command_language"
-    console_bridge
     Threads
     Boost)
 
@@ -49,14 +47,14 @@ if(TESSERACT_PACKAGE)
     VERSION ${pkg_extracted_version}
     DESCRIPTION "Tesseract motion planners core components"
     LINUX_DEPENDS
-      "libconsole-bridge-dev"
+      "libspdlog-dev"
       "libeigen3-dev"
       "libboost-dev"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-planning-command-language"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-environment"
     WINDOWS_DEPENDS
-      "console-bridge"
+      "spdlog"
       "Eigen3"
       "boost"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"

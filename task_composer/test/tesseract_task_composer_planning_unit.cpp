@@ -4,7 +4,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 #include <memory>
 #include <boost/algorithm/string.hpp>
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/task_composer/planning/nodes/continuous_contact_check_task.h>
@@ -122,32 +122,28 @@ TEST(TesseractTaskComposerPlanningSchemaUnit, ConstructionSchemaTests)  // NOLIN
 }
 
 /**
- * @brief Collects console_bridge messages logged at debug level for the enclosing scope
+ * @brief Collects Tesseract messages logged at debug level for the enclosing scope
  *
- * The log level and output handler are process global, so the scope must hold only synchronous single-threaded work.
+ * The log level is process global, so the scope must hold only synchronous single-threaded work.
  */
-class ScopedDebugCapture : public console_bridge::OutputHandler
+class ScopedDebugCapture
 {
 public:
-  ScopedDebugCapture() : previous_level_(console_bridge::getLogLevel())
+  ScopedDebugCapture() : logger_(tesseract::common::getLogger()), previous_level_(logger_->level())
   {
-    console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_DEBUG);
-    console_bridge::useOutputHandler(this);
+    logger_->set_level(spdlog::level::debug);
+    handler_id_ = tesseract::common::addLogRecordHandler(
+        [this](const tesseract::common::LogRecord& record) { messages_.push_back(record.message); });
   }
-  ~ScopedDebugCapture() override
+  ~ScopedDebugCapture()
   {
-    console_bridge::restorePreviousOutputHandler();
-    console_bridge::setLogLevel(previous_level_);
+    tesseract::common::removeLogRecordHandler(handler_id_);
+    logger_->set_level(previous_level_);
   }
   ScopedDebugCapture(const ScopedDebugCapture&) = delete;
   ScopedDebugCapture& operator=(const ScopedDebugCapture&) = delete;
   ScopedDebugCapture(ScopedDebugCapture&&) = delete;
   ScopedDebugCapture& operator=(ScopedDebugCapture&&) = delete;
-
-  void log(const std::string& text, console_bridge::LogLevel /*level*/, const char* /*filename*/, int /*line*/) override
-  {
-    messages_.push_back(text);
-  }
 
   /** @brief Returns the first captured message containing the substring, or an empty string if there is none */
   std::string find(const std::string& substring) const
@@ -161,7 +157,9 @@ public:
   }
 
 private:
-  console_bridge::LogLevel previous_level_;
+  std::shared_ptr<spdlog::logger> logger_;
+  spdlog::level::level_enum previous_level_;
+  tesseract::common::LogRecordHandlerId handler_id_{ 0 };
   std::vector<std::string> messages_;
 };
 

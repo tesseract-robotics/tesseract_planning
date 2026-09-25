@@ -9,7 +9,6 @@ if(WIN32)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
 
-find_package(console_bridge REQUIRED)
 find_package(Boost REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(tesseract REQUIRED COMPONENTS common)

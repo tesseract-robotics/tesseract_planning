@@ -23,7 +23,7 @@
  */
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 #include <trajopt_common/collision_types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -136,9 +136,9 @@ bool PickAndPlaceExample::run()
   /////////////
 
   if (debug_)
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+    tesseract::common::getLogger()->set_level(spdlog::level::debug);
   else
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+    tesseract::common::getLogger()->set_level(spdlog::level::info);
 
   // Set default contact distance
   Command::Ptr cmd_default_dist = std::make_shared<tesseract::environment::ChangeCollisionMarginsCommand>(0.005);
@@ -317,7 +317,7 @@ bool PickAndPlaceExample::run()
   profiles->addProfile(DISCRETE_CONTACT_CHECK_TASK_NAME, "CARTESIAN", post_check_profile);
   profiles->addProfile(DISCRETE_CONTACT_CHECK_TASK_NAME, "DEFAULT", post_check_profile);
 
-  CONSOLE_BRIDGE_logInform("Pick plan");
+  TESSERACT_LOG_INFO("Pick plan");
 
   // Create task
   const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
@@ -472,7 +472,7 @@ bool PickAndPlaceExample::run()
   if (plotter_ != nullptr)
     plotter_->waitForInput();
 
-  CONSOLE_BRIDGE_logInform("Done");
+  TESSERACT_LOG_INFO("Done");
   return true;
 }
 }  // namespace tesseract::examples

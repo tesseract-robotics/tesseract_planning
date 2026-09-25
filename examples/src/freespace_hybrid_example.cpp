@@ -23,7 +23,7 @@
  */
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/examples/freespace_hybrid_example.h>
@@ -120,9 +120,9 @@ Command::Ptr addSphere()
 bool FreespaceHybridExample::run()
 {
   if (debug_)
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+    tesseract::common::getLogger()->set_level(spdlog::level::debug);
   else
-    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+    tesseract::common::getLogger()->set_level(spdlog::level::info);
 
   // Add sphere to environment
   Command::Ptr cmd = addSphere();

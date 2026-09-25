@@ -23,7 +23,7 @@
  */
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <tesseract/common/logging.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/examples/glass_upright_ompl_example.h>
@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <trajopt/file_write_callback.hpp>
 #include <trajopt/problem_description.hpp>
 #include <trajopt_common/config.hpp>
-#include <trajopt_common/logging.hpp>
 #include <tesseract/motion_planners/ompl/config/ompl_planner_freespace_config.h>
 #include <tesseract/motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract/motion_planners/trajopt/config/utils.h>
@@ -70,7 +69,7 @@ public:
     , tcp_link_(tcp_link)
     , plotter_(plotter)
   {
-    trajopt_common::gLogLevel = trajopt_common::LevelError;
+    tesseract::common::getLogger()->set_level(spdlog::level::err);
   }
 
   ~TrajOptGlassUprightConstraint() override = default;
@@ -265,7 +264,7 @@ bool GlassUprightOMPLExample::run()
   //  plotter->plotScene();
 
   // Set Log Level
-  trajopt_common::gLogLevel = trajopt_common::LevelError;
+  tesseract::common::getLogger()->set_level(spdlog::level::err);
 
   // Setup Problem
   tesseract_motion_planners::OMPLMotionPlanner ompl_planner;
@@ -311,11 +310,11 @@ bool GlassUprightOMPLExample::run()
   ompl_planner.setConfiguration(ompl_config);
 
   // Solve Trajectory
-  CONSOLE_BRIDGE_logInform("glass upright plan OMPL example");
+  TESSERACT_LOG_INFO("glass upright plan OMPL example");
 
   ros::Time tStart = ros::Time::now();
   tesseract_motion_planners::PlannerResponse ompl_planning_responseb = ompl_planner.solve(ompl_planning_request);
-  CONSOLE_BRIDGE_logError("planning time: %.3f", (ros::Time::now() - tStart).toSec());
+  TESSERACT_LOG_ERROR("planning time: {:.3f}", (ros::Time::now() - tStart).toSec());
 
   double d = 0;
   tesseract::common::TrajArray traj = ompl_planning_response.joint_trajectory.trajectory;
@@ -326,7 +325,7 @@ bool GlassUprightOMPLExample::run()
       d += std::abs(traj(i, j) - traj(i - 1, j));
     }
   }
-  CONSOLE_BRIDGE_logError("trajectory norm: %.3f", d);
+  TESSERACT_LOG_ERROR("trajectory norm: {:.3f}", d);
 
   if (plotting_)
     plotter->clear();
@@ -344,13 +343,13 @@ bool GlassUprightOMPLExample::run()
     manager->setContactDistanceThreshold(0);
     bool found = checkTrajectory(collisions, *manager, *state_solver, kin->getJointIds(), traj);
 
-    CONSOLE_BRIDGE_logInform((found) ? ("Final trajectory is in collision") : ("Final trajectory is collision free"));
+    TESSERACT_LOG_INFO("{}", (found) ? ("Final trajectory is in collision") : ("Final trajectory is collision free"));
 
     plotter->plotTrajectory(kin->getJointNames(), traj);
   }
   else
   {
-    CONSOLE_BRIDGE_logError("Failed to find a valid trajector: %s", status.message().c_str());
+    TESSERACT_LOG_ERROR("Failed to find a valid trajector: {}", status.message().c_str());
   }
 
   return response.interface->isSuccessful();
