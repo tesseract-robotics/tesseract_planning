@@ -40,12 +40,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
+#include <trajopt_sqp/osqp_eigen_solver.h>
+#include <trajopt_sqp/sqp_callback.h>
+#include <trajopt_sqp/trust_region_sqp_solver.h>
 #ifdef TRAJOPT_SQP_HAS_PIQP
 #include <tesseract/motion_planners/piqp/settings_utils.h>
 #include "piqp_settings_test_utils.h"
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_piqp_solver_profile.h>
 #include <trajopt_sqp/piqp_solver.h>
-#include <trajopt_sqp/trust_region_sqp_solver.h>
 #endif
 
 using namespace tesseract::motion_planners;
@@ -376,6 +378,40 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     EXPECT_TRUE(*profile.qp_settings == *def_constructor.qp_settings);
     EXPECT_TRUE(profile.opt_params == def_constructor.opt_params);
   }
+}
+
+namespace
+{
+class NoOpSQPCallback : public trajopt_sqp::SQPCallback
+{
+public:
+  bool execute(const trajopt_sqp::QPProblem& /*problem*/, const trajopt_sqp::SQPResults& /*sqp_results*/) override
+  {
+    return true;
+  }
+};
+}  // namespace
+
+TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverProfileCreate)  // NOLINT
+{
+  TrajOptIfoptOSQPSolverProfile profile;
+  profile.qp_settings->setMaxIteration(1234);
+  profile.opt_params.max_iter = 17;
+  auto callback = std::make_shared<NoOpSQPCallback>();
+  profile.callbacks.push_back(callback);
+
+  const std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> solver = profile.create(true);
+  auto qp_solver = std::dynamic_pointer_cast<trajopt_sqp::OSQPEigenSolver>(solver->qp_solver);
+  ASSERT_NE(qp_solver, nullptr);
+  EXPECT_TRUE(solver->verbose);
+  EXPECT_TRUE(solver->params == profile.opt_params);
+  EXPECT_EQ(qp_solver->solver_->settings()->getSettings()->max_iter, 1234);
+  EXPECT_NE(qp_solver->solver_->settings()->getSettings()->verbose, 0);
+
+  // Owned by the profile, this test and the solver
+  EXPECT_EQ(callback.use_count(), 3);
+
+  EXPECT_EQ(profile.create(false)->verbose, false);
 }
 
 #ifdef TRAJOPT_SQP_HAS_PIQP
