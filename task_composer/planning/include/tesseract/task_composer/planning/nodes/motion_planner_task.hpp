@@ -178,7 +178,7 @@ protected:
     // Fill out response
     // --------------------
     request.verbose = false;
-    if (tesseract::common::getLogger()->should_log(spdlog::level::debug))
+    if (tesseract::common::isLogLevelEnabled(spdlog::level::debug))
       request.verbose = true;
     tesseract::motion_planners::PlannerResponse response = planner_->solve(request);
     setData(context, INOUT_PROGRAM_PORT, response.results);

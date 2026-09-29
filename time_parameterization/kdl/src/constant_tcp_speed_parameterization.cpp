@@ -267,9 +267,12 @@ bool ConstantTCPSpeedParameterization::compute(tesseract::command_language::Comp
   }
   catch (KDL::Error& e)
   {
-    std::stringstream ss;
-    ss << "KDL Error #" << e.GetType() << ": " << e.Description();
-    TESSERACT_LOG_ERROR("{}", ss.str().c_str());
+    if (tesseract::common::isLogLevelEnabled(spdlog::level::err))
+    {
+      std::stringstream ss;
+      ss << "KDL Error #" << e.GetType() << ": " << e.Description();
+      TESSERACT_LOG_ERROR("{}", ss.str().c_str());
+    }
     return false;
   }
   catch (const std::exception& ex)

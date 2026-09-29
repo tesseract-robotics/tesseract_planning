@@ -83,7 +83,7 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   }
 
   TESSERACT_LOG_DEBUG("Waypoint is not contact free!");
-  if (tesseract::common::getLogger()->should_log(spdlog::level::debug))
+  if (tesseract::common::isLogLevelEnabled(spdlog::level::debug))
   {
     for (const auto& pair : contacts)
     {
@@ -336,14 +336,17 @@ bool moveWaypointFromCollisionTrajopt(tesseract::command_language::WaypointPoly&
     manager->setCollisionObjectsTransform(state);
     manager->contactTest(collisions, profile.collision_check_config.contact_request);
 
-    for (const auto& collision : collisions)
+    if (tesseract::common::isLogLevelEnabled(spdlog::level::err))
     {
-      std::stringstream ss;
-      const auto [link1, link2] = collision.first.orderedNameView();
-      ss << "Discrete collision detected between '" << link1 << "' and '" << link2 << "' with distance "
-         << collision.second.front().distance << "\n";
+      for (const auto& collision : collisions)
+      {
+        std::stringstream ss;
+        const auto [link1, link2] = collision.first.orderedNameView();
+        ss << "Discrete collision detected between '" << link1 << "' and '" << link2 << "' with distance "
+           << collision.second.front().distance << "\n";
 
-      TESSERACT_LOG_ERROR("{}", ss.str().c_str());
+        TESSERACT_LOG_ERROR("{}", ss.str().c_str());
+      }
     }
 
     return false;

@@ -126,7 +126,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
         {
           samples.push_back(descartes_light::StateSample<FloatType>{ state, 0.0 });
         }
-        else if (tesseract::common::getLogger()->should_log(spdlog::level::debug))
+        else if (tesseract::common::isLogLevelEnabled(spdlog::level::debug))
         {
           tesseract::collision::ContactTrajectoryStepResults step_contacts(static_cast<int>(j), sol, sol, 1);
           tesseract::collision::ContactTrajectorySubstepResults substep_contacts(1, sol);
@@ -142,7 +142,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
       }
     }
 
-    if (tesseract::common::getLogger()->should_log(spdlog::level::debug))
+    if (tesseract::common::isLogLevelEnabled(spdlog::level::debug))
     {
       error_string_stream << "For sample " << i << " " << ik_solutions.size()
                           << " IK solutions were found, with a collision summary of:\n";
