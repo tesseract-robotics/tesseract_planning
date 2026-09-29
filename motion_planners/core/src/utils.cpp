@@ -358,7 +358,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
     throw std::runtime_error("contactCheckProgram was given continuous contact manager with a trajectory that only has "
                              "one state.");
 
-  bool debug_logging = tesseract::common::getLogger()->should_log(spdlog::level::debug);
+  bool debug_logging = tesseract::common::isLogLevelEnabled(spdlog::level::debug);
 
   // Grab the first waypoint to get the joint ids
   const auto& wp0 = mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint();
@@ -647,7 +647,7 @@ contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contact
   if (mi.empty())
     throw std::runtime_error("contactCheckProgram was given continuous contact manager with empty trajectory.");
 
-  bool debug_logging = tesseract::common::getLogger()->should_log(spdlog::level::debug);
+  bool debug_logging = tesseract::common::isLogLevelEnabled(spdlog::level::debug);
 
   // Grab the first waypoint to get the joint ids
   const auto& dwp0 = mi.front().get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint();
