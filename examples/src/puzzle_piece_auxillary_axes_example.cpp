@@ -246,7 +246,7 @@ bool PuzzlePieceAuxillaryAxesExample::run()
 
     auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
     // trajopt_ifopt_solver_profile->convex_solver_settings.adaptive_rho = 0;
-    trajopt_ifopt_solver_profile->opt_params.max_iterations = 200;
+    trajopt_ifopt_solver_profile->opt_params.max_iter = 200;
     trajopt_ifopt_solver_profile->opt_params.min_approx_improve = 1e-3;
     trajopt_ifopt_solver_profile->opt_params.min_trust_box_size = 1e-3;
 

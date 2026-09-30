@@ -291,7 +291,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
                                           min_trust_box_size: 1
                                           min_approx_improve: 2
                                           min_approx_improve_frac: 0
-                                          max_iterations: 20
+                                          max_iter: 20
                                           trust_shrink_ratio: 0.5
                                           trust_expand_ratio: 2.5
                                           cnt_tolerance: 3
@@ -350,7 +350,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     def_constructor.opt_params.min_trust_box_size = 1;
     def_constructor.opt_params.min_approx_improve = 2;
     def_constructor.opt_params.min_approx_improve_frac = 0;
-    def_constructor.opt_params.max_iterations = 20;
+    def_constructor.opt_params.max_iter = 20;
     def_constructor.opt_params.trust_shrink_ratio = 0.5;
     def_constructor.opt_params.trust_expand_ratio = 2.5;
     def_constructor.opt_params.cnt_tolerance = 3;

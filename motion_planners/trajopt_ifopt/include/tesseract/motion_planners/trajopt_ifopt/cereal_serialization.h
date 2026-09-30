@@ -65,7 +65,7 @@ void serialize(Archive& ar, SQPParameters& obj)
   ar(cereal::make_nvp("min_trust_box_size", obj.min_trust_box_size));
   ar(cereal::make_nvp("min_approx_improve", obj.min_approx_improve));
   ar(cereal::make_nvp("min_approx_improve_frac", obj.min_approx_improve_frac));
-  ar(cereal::make_nvp("max_iter", obj.max_iterations));
+  ar(cereal::make_nvp("max_iter", obj.max_iter));
   ar(cereal::make_nvp("trust_shrink_ratio", obj.trust_shrink_ratio));
   ar(cereal::make_nvp("trust_expand_ratio", obj.trust_expand_ratio));
   ar(cereal::make_nvp("cnt_tolerance", obj.cnt_tolerance));

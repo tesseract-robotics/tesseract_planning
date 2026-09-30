@@ -238,7 +238,7 @@ struct convert<trajopt_sqp::SQPParameters>
     node["min_trust_box_size"] = rhs.min_trust_box_size;
     node["min_approx_improve"] = rhs.min_approx_improve;
     node["min_approx_improve_frac"] = rhs.min_approx_improve_frac;
-    node["max_iterations"] = rhs.max_iterations;
+    node["max_iter"] = rhs.max_iter;
     node["trust_shrink_ratio"] = rhs.trust_shrink_ratio;
     node["trust_expand_ratio"] = rhs.trust_expand_ratio;
     node["cnt_tolerance"] = rhs.cnt_tolerance;
@@ -265,8 +265,8 @@ struct convert<trajopt_sqp::SQPParameters>
       rhs.min_approx_improve = n.as<double>();
     if (const YAML::Node& n = node["min_approx_improve_frac"])
       rhs.min_approx_improve_frac = n.as<double>();
-    if (const YAML::Node& n = node["max_iterations"])
-      rhs.max_iterations = n.as<int>();
+    if (const YAML::Node& n = node["max_iter"])
+      rhs.max_iter = n.as<int>();
     if (const YAML::Node& n = node["trust_shrink_ratio"])
       rhs.trust_shrink_ratio = n.as<double>();
     if (const YAML::Node& n = node["trust_expand_ratio"])
