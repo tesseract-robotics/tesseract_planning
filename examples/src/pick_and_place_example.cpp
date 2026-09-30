@@ -263,7 +263,7 @@ bool PickAndPlaceExample::run()
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Constant(1, 1);
 
     auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
-    trajopt_ifopt_solver_profile->opt_params.max_iterations = 100;
+    trajopt_ifopt_solver_profile->opt_params.max_iter = 100;
 
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_move_profile);
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_move_profile);

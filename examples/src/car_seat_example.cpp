@@ -304,7 +304,7 @@ bool CarSeatExample::run()
     trajopt_ifopt_move_profile->joint_constraint_config.enabled = true;
 
     auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
-    trajopt_ifopt_solver_profile->opt_params.max_iterations = 200;
+    trajopt_ifopt_solver_profile->opt_params.max_iter = 200;
     trajopt_ifopt_solver_profile->opt_params.min_approx_improve = 1e-3;
     trajopt_ifopt_solver_profile->opt_params.min_trust_box_size = 1e-3;
 
