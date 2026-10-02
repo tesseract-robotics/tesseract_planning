@@ -53,6 +53,7 @@ requirements:
       - taskflow <4
       - if: unix
         then:
+          - piqp 0.6.*
           - xorg-libx11
           - xorg-libxext
           - gperftools
@@ -81,6 +82,7 @@ requirements:
       - ompl
       - if: unix
         then:
+          - piqp 0.6.*
           - xorg-libx11
           - xorg-libxext
           - gperftools
