@@ -1,4 +1,6 @@
 add_executable(motion_planners_trajopt_ifopt_yaml_unit trajopt_ifopt_planner_yaml_conversions_tests.cpp)
+target_include_directories(motion_planners_trajopt_ifopt_yaml_unit
+                           PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../core/test")
 target_link_libraries(motion_planners_trajopt_ifopt_yaml_unit PRIVATE GTest::GTest GTest::Main
                                                                       motion_planners_trajopt_ifopt)
 target_compile_options(motion_planners_trajopt_ifopt_yaml_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}

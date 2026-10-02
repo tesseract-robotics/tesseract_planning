@@ -34,6 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/common/yaml_extensions.h>
 #include <trajopt_common/yaml_extensions.h>
 #include <trajopt_sqp/types.h>
+#ifdef TRAJOPT_SQP_HAS_PIQP
+#include <tesseract/motion_planners/piqp/yaml_extensions.h>
+#endif
 
 namespace YAML
 {

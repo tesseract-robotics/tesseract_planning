@@ -40,6 +40,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
+#include <trajopt_sqp/osqp_eigen_solver.h>
+#include <trajopt_sqp/sqp_callback.h>
+#include <trajopt_sqp/trust_region_sqp_solver.h>
+#ifdef TRAJOPT_SQP_HAS_PIQP
+#include <tesseract/motion_planners/piqp/settings_utils.h>
+#include "piqp_settings_test_utils.h"
+#include <tesseract/motion_planners/trajopt_ifopt/profile/trajopt_ifopt_piqp_solver_profile.h>
+#include <trajopt_sqp/piqp_solver.h>
+#endif
 
 using namespace tesseract::motion_planners;
 using namespace tesseract::command_language;
@@ -370,6 +379,132 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     EXPECT_TRUE(profile.opt_params == def_constructor.opt_params);
   }
 }
+
+namespace
+{
+class NoOpSQPCallback : public trajopt_sqp::SQPCallback
+{
+public:
+  bool execute(const trajopt_sqp::QPProblem& /*problem*/, const trajopt_sqp::SQPResults& /*sqp_results*/) override
+  {
+    return true;
+  }
+};
+}  // namespace
+
+TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverProfileCreate)  // NOLINT
+{
+  TrajOptIfoptOSQPSolverProfile profile;
+  profile.qp_settings->setMaxIteration(1234);
+  profile.opt_params.max_iter = 17;
+  auto callback = std::make_shared<NoOpSQPCallback>();
+  profile.callbacks.push_back(callback);
+
+  const std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> solver = profile.create(true);
+  auto qp_solver = std::dynamic_pointer_cast<trajopt_sqp::OSQPEigenSolver>(solver->qp_solver);
+  ASSERT_NE(qp_solver, nullptr);
+  EXPECT_TRUE(solver->verbose);
+  EXPECT_TRUE(solver->params == profile.opt_params);
+  EXPECT_EQ(qp_solver->solver_->settings()->getSettings()->max_iter, 1234);
+  EXPECT_NE(qp_solver->solver_->settings()->getSettings()->verbose, 0);
+
+  // Owned by the profile, this test and the solver
+  EXPECT_EQ(callback.use_count(), 3);
+
+  EXPECT_EQ(profile.create(false)->verbose, false);
+}
+
+#ifdef TRAJOPT_SQP_HAS_PIQP
+TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, PIQPSolverProfileSerialization)  // NOLINT
+{
+  auto profile = std::make_shared<TrajOptIfoptPIQPSolverProfile>();
+  profile->qp_settings.kkt_solver = piqp::KKTSolver::sparse_ldlt_cond;
+  profile->qp_settings.eps_abs = 3e-7;
+  profile->qp_settings.max_iter = 42;
+  profile->qp_settings.preconditioner_scale_cost = true;
+  profile->opt_params.max_iter = 17;
+
+  const std::string file_name = "trajopt_ifopt_piqp_solver_profile";
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, TrajOptIfoptPIQPSolverProfile>(
+      profile, file_name);
+}
+
+TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptPIQPSolverProfile)  // NOLINT
+{
+  tesseract::common::ProfilePluginFactory plugin_factory;
+
+  {  // Empty config
+    YAML::Node n = YAML::Load("config:\n");
+    TrajOptIfoptPIQPSolverProfile profile(n["config"], plugin_factory);
+    TrajOptIfoptPIQPSolverProfile def_constructor;
+    EXPECT_TRUE(profile == def_constructor);
+    EXPECT_EQ(profile.qp_settings.kkt_solver, piqp::KKTSolver::sparse_ldlt);
+  }
+
+  {  // Every setting
+    YAML::Node n = YAML::Load("config:\n  opt_params:\n    max_iter: 20\n    cnt_tolerance: 3\n");
+    n["config"]["settings"] = YAML::Load(test_suite::PIQP_ALL_SETTINGS_YAML);
+    TrajOptIfoptPIQPSolverProfile profile(n["config"], plugin_factory);
+
+    TrajOptIfoptPIQPSolverProfile expected;
+    expected.qp_settings = test_suite::piqpAllSettings();
+    expected.opt_params.max_iter = 20;
+    expected.opt_params.cnt_tolerance = 3;
+
+    // Every setting differs from its default, so an undecoded field fails the comparison
+    EXPECT_TRUE(profile == expected);
+  }
+
+  {  // Unknown KKT solver name
+    YAML::Node n = YAML::Load("config:\n  settings:\n    kkt_solver: sparse_qr\n");
+    EXPECT_ANY_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+  }
+
+  {  // KKT solver of the dense backend
+    YAML::Node n = YAML::Load("config:\n  settings:\n    kkt_solver: dense_cholesky\n");
+    EXPECT_ANY_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+  }
+
+  {  // KKT solver that needs PIQP built with BLASFEO
+    YAML::Node n = YAML::Load("config:\n  settings:\n    kkt_solver: sparse_multistage\n");
+#ifdef PIQP_HAS_BLASFEO
+    EXPECT_NO_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+#else
+    EXPECT_ANY_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+#endif
+  }
+
+  {  // Setting outside its valid range
+    YAML::Node n = YAML::Load("config:\n  settings:\n    max_iter: 0\n");
+    EXPECT_ANY_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+  }
+}
+
+TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptPIQPSolverProfileCreate)  // NOLINT
+{
+  TrajOptIfoptPIQPSolverProfile profile;
+  profile.qp_settings.eps_abs = 3e-7;
+  profile.opt_params.max_iter = 17;
+
+  const std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> solver = profile.create(true);
+  auto qp_solver = std::dynamic_pointer_cast<trajopt_sqp::PIQPSolver>(solver->qp_solver);
+  ASSERT_NE(qp_solver, nullptr);
+  EXPECT_TRUE(solver->verbose);
+  EXPECT_TRUE(solver->params == profile.opt_params);
+  EXPECT_TRUE(qp_solver->settings.verbose);
+
+  piqp::Settings<double> expected = profile.qp_settings;
+  expected.verbose = true;
+  EXPECT_TRUE(qp_solver->settings == expected);
+
+  profile.qp_settings.kkt_solver = piqp::KKTSolver::dense_cholesky;
+  EXPECT_ANY_THROW(profile.create());  // NOLINT
+
+  profile.qp_settings.kkt_solver = piqp::KKTSolver::sparse_ldlt;
+  profile.qp_settings.tau = 1.5;
+  EXPECT_ANY_THROW(profile.create());  // NOLINT
+}
+#endif
 
 int main(int argc, char** argv)
 {
