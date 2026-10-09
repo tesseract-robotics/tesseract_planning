@@ -152,6 +152,10 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
     {
       bool time1_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end());
 
+      // Skip a segment between two fixed states, as it has no free variables
+      if (time0_fixed && time1_fixed)
+        continue;
+
       auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(manip, env, config);
 
       std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars{ vars[i - 1], vars[i] };
@@ -175,6 +179,10 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
     for (std::size_t i = 1; i < vars.size(); ++i)
     {
       bool time1_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end());
+
+      // Skip a segment between two fixed states, as it has no free variables
+      if (time0_fixed && time1_fixed)
+        continue;
 
       auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSContinuousCollisionEvaluator>(manip, env, config);
 
