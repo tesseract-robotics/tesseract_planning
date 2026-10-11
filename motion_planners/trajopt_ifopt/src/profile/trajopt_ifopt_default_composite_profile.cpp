@@ -112,7 +112,9 @@ TrajOptIfoptDefaultCompositeProfile::create(const tesseract::common::Manipulator
   if (smooth_velocities)
   {
     Eigen::VectorXd target = Eigen::VectorXd::Zero(vars.front()->size());
-    auto constraint = createJointVelocityConstraint(target, vars, velocity_coeff);
+    // Weight every joint 5 by default, as the TrajOpt planner does
+    const Eigen::VectorXd coeffs = (velocity_coeff.size() == 0) ? Eigen::VectorXd::Constant(1, 5.0) : velocity_coeff;
+    auto constraint = createJointVelocityConstraint(target, vars, coeffs);
     term_infos.squared_costs.push_back(constraint);
   }
 

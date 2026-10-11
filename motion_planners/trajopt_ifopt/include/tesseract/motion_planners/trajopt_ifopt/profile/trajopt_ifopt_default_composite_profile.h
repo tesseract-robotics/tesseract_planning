@@ -52,7 +52,7 @@ public:
   trajopt_common::TrajOptCollisionConfig collision_constraint_config;
   /** @brief If true, a joint velocity cost with a target of 0 will be applied for all timesteps Default: true*/
   bool smooth_velocities = true;
-  /** @brief This default to all ones, but allows you to weight different joints */
+  /** @brief Defaults to 5 for every joint; set it to weight joints differently */
   Eigen::VectorXd velocity_coeff;
   /** @brief If true, a joint acceleration cost with a target of 0 will be applied for all timesteps Default: false*/
   bool smooth_accelerations = false;
