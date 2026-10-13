@@ -310,6 +310,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
                                           max_time: 1
                                           initial_merit_error_coeff: 4
                                           inflate_constraints_individually: false
+                                          sum_constraint_set_violations: false
                                           initial_trust_box_size: 7
                                           log_results: true
                                           log_dir: '/temp'
@@ -369,6 +370,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     def_constructor.opt_params.max_time = 1;
     def_constructor.opt_params.initial_merit_error_coeff = 4;
     def_constructor.opt_params.inflate_constraints_individually = false;
+    def_constructor.opt_params.sum_constraint_set_violations = false;
     def_constructor.opt_params.initial_trust_box_size = 7;
     def_constructor.opt_params.log_results = true;
     def_constructor.opt_params.log_dir = "/temp";
