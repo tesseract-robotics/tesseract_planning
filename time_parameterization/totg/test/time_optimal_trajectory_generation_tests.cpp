@@ -452,6 +452,43 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testTrajectoryContainerInterface)  /
   runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.0001);
 }
 
+/** @brief Run compute and return the message of the exception it throws, or an empty string if it does not throw */
+std::string computeErrorMessage(const std::string& name,
+                                const tesseract::environment::Environment& env,
+                                const tesseract::common::ManipulatorInfo& manip_info,
+                                const TimeOptimalTrajectoryGenerationCompositeProfile::Ptr& profile)
+{
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_info);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name, DEFAULT_PROFILE_KEY, profile);
+  TimeOptimalTrajectoryGeneration solver(name);
+  try
+  {
+    solver.compute(program, env, profiles);
+  }
+  catch (const std::exception& e)
+  {
+    return e.what();
+  }
+  return {};
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, scalingFactorErrorsNameTheirClassAndFactor)  // NOLINT
+{
+  auto profile = std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>();
+  profile->max_velocity_scaling_factor = 0.0;
+  std::string message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("TimeOptimalTrajectoryGeneration"), std::string::npos) << message;
+  EXPECT_NE(message.find("velocity scale factor"), std::string::npos) << message;
+
+  profile->max_velocity_scaling_factor = 1.0;
+  profile->max_acceleration_scaling_factor = 1.5;
+  message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("TimeOptimalTrajectoryGeneration"), std::string::npos) << message;
+  EXPECT_NE(message.find("acceleration scale factor"), std::string::npos) << message;
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);

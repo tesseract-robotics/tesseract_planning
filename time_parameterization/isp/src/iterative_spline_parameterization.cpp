@@ -145,11 +145,11 @@ bool IterativeSplineParameterization::compute(tesseract::command_language::Compo
   // Set scaling factors
   // NOLINTNEXTLINE(readability-simplify-boolean-expr)
   if (!((ci_profile->max_velocity_scaling_factor > 0.0) && (ci_profile->max_velocity_scaling_factor <= 1.0)))
-    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be in (0, 1]!");
 
   // NOLINTNEXTLINE(readability-simplify-boolean-expr)
   if (!((ci_profile->max_acceleration_scaling_factor > 0.0) && (ci_profile->max_acceleration_scaling_factor <= 1.0)))
-    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+    throw std::runtime_error("IterativeSplineParameterization, acceleration scale factor must be in (0, 1]!");
 
   const auto flattened_size = static_cast<Eigen::Index>(flattened.size());
   Eigen::VectorXd local_velocity_scaling_factors =
@@ -172,12 +172,12 @@ bool IterativeSplineParameterization::compute(tesseract::command_language::Compo
       // Set scaling factors
       // NOLINTNEXTLINE(readability-simplify-boolean-expr)
       if (!((move_profile->max_velocity_scaling_factor > 0.0) && (move_profile->max_velocity_scaling_factor <= 1.0)))
-        throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+        throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be in (0, 1]!");
 
       // NOLINTNEXTLINE(readability-simplify-boolean-expr)
       if (!((move_profile->max_acceleration_scaling_factor > 0.0) &&
             (move_profile->max_acceleration_scaling_factor <= 1.0)))
-        throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+        throw std::runtime_error("IterativeSplineParameterization, acceleration scale factor must be in (0, 1]!");
 
       local_velocity_scaling_factors[idx] = move_profile->max_velocity_scaling_factor;
       local_acceleration_scaling_factors[idx] = move_profile->max_acceleration_scaling_factor;
