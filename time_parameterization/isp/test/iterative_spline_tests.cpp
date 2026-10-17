@@ -368,6 +368,39 @@ TEST_F(IterativeSplineParameterizationUnit, TestLimitRowsMustMatchTheJointCount)
   EXPECT_FALSE(time_parameterization.compute(program, *env_, profiles));
 }
 
+TEST_F(IterativeSplineParameterizationUnit, TestWaypointJointsMustMatchTheGroup)  // NOLINT
+{
+  auto run = [this](CompositeInstruction program) {
+    program.setManipulatorInfo(manip_);
+    IterativeSplineParameterization time_parameterization(name_);
+    return time_parameterization.compute(program, *env_, tesseract::common::ProfileDictionary());
+  };
+  auto waypoint = [](CompositeInstruction& program, std::size_t i) -> StateWaypointPoly& {
+    return program[i].as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+  };
+
+  EXPECT_TRUE(run(createStraightTrajectory()));
+
+  // Waypoints without ids are checked on their size alone
+  CompositeInstruction program = createStraightTrajectory();
+  for (std::size_t i = 0; i < program.size(); ++i)
+    waypoint(program, i).setJointIds({});
+  EXPECT_TRUE(run(program));
+
+  // Set through the setters: the constructor rejects ids that do not match the positions in size
+  program = createStraightTrajectory();
+  waypoint(program, 5).setPosition(Eigen::VectorXd::Zero(5));
+  EXPECT_FALSE(run(program));
+
+  program = createStraightTrajectory();
+  waypoint(program, 5).setJointIds({ "joint_2", "joint_1", "joint_3", "joint_4", "joint_5", "joint_6" });
+  EXPECT_FALSE(run(program));
+
+  program = createStraightTrajectory();
+  waypoint(program, 5).setJointIds({ "j1", "j2", "j3", "j4", "j5", "j6" });
+  EXPECT_FALSE(run(program));
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
