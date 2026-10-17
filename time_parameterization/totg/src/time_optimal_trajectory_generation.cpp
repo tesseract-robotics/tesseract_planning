@@ -96,11 +96,11 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   // Set scaling factors
   // NOLINTNEXTLINE(readability-simplify-boolean-expr)
   if (!((ci_profile->max_velocity_scaling_factor > 0.0) && (ci_profile->max_velocity_scaling_factor <= 1.0)))
-    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, velocity scale factor must be in (0, 1]!");
 
   // NOLINTNEXTLINE(readability-simplify-boolean-expr)
   if (!((ci_profile->max_acceleration_scaling_factor > 0.0) && (ci_profile->max_acceleration_scaling_factor <= 1.0)))
-    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, acceleration scale factor must be in (0, 1]!");
 
   // Validate limits
   if (velocity_limits.rows() != acceleration_limits.rows())

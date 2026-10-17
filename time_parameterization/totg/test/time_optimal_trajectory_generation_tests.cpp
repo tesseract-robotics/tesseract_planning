@@ -83,6 +83,10 @@ protected:
     manip_.working_frame = "base_link";
     manip_.tcp_frame = "tool0";
   }
+
+  /** @brief Expect compute to throw a message containing expected, for the override profile after change */
+  void expectComputeError(const std::function<void(TimeOptimalTrajectoryGenerationCompositeProfile&)>& change,
+                          const std::string& expected) const;
 };
 
 TEST_F(TimeOptimalTrajectoryGenerationUnit, test1)  // NOLINT
@@ -450,6 +454,56 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testTrajectoryContainerInterface)  /
   runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.001);
   runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.01);
   runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.0001);
+}
+
+/** @brief Run compute and return the message of the exception it throws, or an empty string if it does not throw */
+std::string computeErrorMessage(const std::string& name,
+                                const tesseract::environment::Environment& env,
+                                const tesseract::common::ManipulatorInfo& manip_info,
+                                const TimeOptimalTrajectoryGenerationCompositeProfile::Ptr& profile)
+{
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_info);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name, DEFAULT_PROFILE_KEY, profile);
+  TimeOptimalTrajectoryGeneration solver(name);
+  try
+  {
+    solver.compute(program, env, profiles);
+  }
+  catch (const std::exception& e)
+  {
+    return e.what();
+  }
+  return {};
+}
+
+/** @brief A profile overriding the limits with symmetric velocity and acceleration limits for six joints */
+TimeOptimalTrajectoryGenerationCompositeProfile::Ptr createOverrideProfile()
+{
+  auto profile = std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>();
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::RowVector2d(-1, 1).replicate(6, 1);
+  profile->acceleration_limits = Eigen::RowVector2d(-1, 1).replicate(6, 1);
+  return profile;
+}
+
+void TimeOptimalTrajectoryGenerationUnit::expectComputeError(
+    const std::function<void(TimeOptimalTrajectoryGenerationCompositeProfile&)>& change,
+    const std::string& expected) const
+{
+  auto profile = createOverrideProfile();
+  change(*profile);
+  const std::string message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find(expected), std::string::npos) << "expected '" << expected << "', got '" << message << "'";
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, scalingFactorErrorsNameTheirClassAndFactor)  // NOLINT
+{
+  expectComputeError([](auto& p) { p.max_velocity_scaling_factor = 0.0; },
+                     "TimeOptimalTrajectoryGeneration, velocity scale factor");
+  expectComputeError([](auto& p) { p.max_acceleration_scaling_factor = 1.5; },
+                     "TimeOptimalTrajectoryGeneration, acceleration scale factor");
 }
 
 int main(int argc, char** argv)
