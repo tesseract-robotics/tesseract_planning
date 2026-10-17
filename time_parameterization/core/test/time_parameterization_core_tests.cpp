@@ -37,6 +37,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
+#include <limits>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/resource_locator.h>
@@ -113,6 +114,27 @@ TEST(TimeParameterizationCoreUnit, instructionsTrajectoryTests)  // NOLINT
     EXPECT_TRUE(
         tesseract::common::almostEqualRelativeAndAbs(std::as_const(traj).getTimeFromStart(i), wp.getTime(), epsilon));
   }
+}
+
+TEST(TimeParameterizationCoreUnit, isTimeStrictlyIncreasingChecksEveryWaypoint)  // NOLINT
+{
+  CompositeInstruction program = createStraightTrajectory();
+  auto flattened = program.flatten(moveFilter);
+  InstructionsTrajectory traj(flattened);
+  EXPECT_TRUE(traj.isTimeStrictlyIncreasing());
+
+  const Eigen::Index last = traj.size() - 1;
+  traj.setData(last, traj.getVelocity(last), traj.getAcceleration(last), traj.getTimeFromStart(last - 1));
+  EXPECT_FALSE(traj.isTimeStrictlyIncreasing());
+
+  traj.setData(last, traj.getVelocity(last), traj.getAcceleration(last), traj.getTimeFromStart(last - 1) - 0.5);
+  EXPECT_FALSE(traj.isTimeStrictlyIncreasing());
+
+  CompositeInstruction nan_program = createStraightTrajectory();
+  auto nan_flattened = nan_program.flatten(moveFilter);
+  InstructionsTrajectory nan_traj(nan_flattened);
+  nan_traj.setData(1, nan_traj.getVelocity(1), nan_traj.getAcceleration(1), std::numeric_limits<double>::quiet_NaN());
+  EXPECT_FALSE(nan_traj.isTimeStrictlyIncreasing());
 }
 
 int main(int argc, char** argv)

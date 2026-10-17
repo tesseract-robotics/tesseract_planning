@@ -177,6 +177,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSpline)  // NOLINT
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_EQ(time_parameterization.getName(), name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 
   // Error
@@ -208,6 +209,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineAddPoints)  // NO
   // Solve
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
@@ -246,6 +248,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineDynamicParams)  /
 
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
   EXPECT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 
   // Solve
@@ -253,6 +256,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineDynamicParams)  /
   program.setManipulatorInfo(manip_);
   program.getFirstMoveInstruction()->setProfile("FIRST_MOVE_KEY");
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
 }
 
 TEST_F(IterativeSplineParameterizationUnit, TestRepeatedPoint)  // NOLINT
@@ -278,6 +282,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestRepeatedPoint)  // NOLINT
   // Solve
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
 }
 
@@ -306,6 +311,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestEnforceMinimumDelta)
   // Solve
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
 
   // THEN the timestamp of the first trajectory point is greater than or equal to the minimum time delta
   ASSERT_GE(program[1].as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
