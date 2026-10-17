@@ -50,6 +50,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
 #include <tesseract/time_parameterization/instructions_trajectory.h>
+#include <tesseract/command_language/poly/move_instruction_poly.h>
+#include <tesseract/command_language/poly/state_waypoint_poly.h>
 #include <tesseract/common/kinematic_limits.h>
 #include <tesseract/common/manipulator_info.h>
 #include <tesseract/common/profile_dictionary.h>
@@ -126,6 +128,35 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
       (-velocity_limits.col(0)).cwiseMin(velocity_limits.col(1)) * ci_profile->max_velocity_scaling_factor;
   const Eigen::VectorXd max_acceleration =
       (-acceleration_limits.col(0)).cwiseMin(acceleration_limits.col(1)) * ci_profile->max_acceleration_scaling_factor;
+
+  // The limits and the loops below index every waypoint by the group's joints
+  const std::vector<tesseract::common::JointId>& group_joint_ids = jg->getJointIds();
+  for (std::size_t i = 0; i < flattened.size(); ++i)
+  {
+    const auto& swp = flattened[i]
+                          .get()
+                          .as<tesseract::command_language::MoveInstructionPoly>()
+                          .getWaypoint()
+                          .as<tesseract::command_language::StateWaypointPoly>();
+    if (swp.getPosition().size() != num_joints)
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, waypoint {} has {} positions for a group of {} joints.",
+                          i,
+                          swp.getPosition().size(),
+                          num_joints);
+      return false;
+    }
+
+    // Waypoints without joint ids are taken to be in the group's order
+    if (!swp.getJointIds().empty() && swp.getJointIds() != group_joint_ids)
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, waypoint {} joint ids differ from group '{}' in name or "
+                          "order.",
+                          i,
+                          manip_info.manipulator);
+      return false;
+    }
+  }
 
   InstructionsTrajectory trajectory(flattened);
   auto num_points = static_cast<std::size_t>(trajectory.size());
