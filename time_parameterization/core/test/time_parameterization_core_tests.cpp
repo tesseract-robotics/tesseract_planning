@@ -115,6 +115,21 @@ TEST(TimeParameterizationCoreUnit, instructionsTrajectoryTests)  // NOLINT
   }
 }
 
+TEST(TimeParameterizationCoreUnit, isTimeStrictlyIncreasingChecksEveryWaypoint)  // NOLINT
+{
+  CompositeInstruction program = createStraightTrajectory();
+  auto flattened = program.flatten(moveFilter);
+  InstructionsTrajectory traj(flattened);
+  EXPECT_TRUE(traj.isTimeStrictlyIncreasing());
+
+  const Eigen::Index last = traj.size() - 1;
+  traj.setData(last, traj.getVelocity(last), traj.getAcceleration(last), traj.getTimeFromStart(last - 1));
+  EXPECT_FALSE(traj.isTimeStrictlyIncreasing());
+
+  traj.setData(last, traj.getVelocity(last), traj.getAcceleration(last), traj.getTimeFromStart(last - 1) - 0.5);
+  EXPECT_FALSE(traj.isTimeStrictlyIncreasing());
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);

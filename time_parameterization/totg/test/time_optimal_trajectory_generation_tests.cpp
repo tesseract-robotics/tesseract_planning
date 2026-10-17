@@ -385,6 +385,8 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   TimeOptimalTrajectoryGeneration solver(name_);
   EXPECT_EQ(solver.getName(), name_);
   EXPECT_TRUE(solver.compute(program, *env_, profiles));
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectVelocitiesWithinLimits(program, profile->velocity_limits.col(1));
 
   // Error
   std::string empty_name;
@@ -445,6 +447,8 @@ void runTrajectoryContainerInterfaceTest(const std::string& name,
   // Solve
   TimeOptimalTrajectoryGeneration solver(name);
   EXPECT_TRUE(solver.compute(program, env, profiles));
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectVelocitiesWithinLimits(program, profile->velocity_limits.col(1));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 

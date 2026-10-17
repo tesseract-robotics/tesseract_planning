@@ -148,7 +148,7 @@ bool InstructionsTrajectory::isTimeStrictlyIncreasing() const
     return true;
 
   double t1 = getTimeFromStart(0);
-  for (Eigen::Index i = 1; i < size() - 1; ++i)
+  for (Eigen::Index i = 1; i < size(); ++i)
   {
     double t2 = getTimeFromStart(i);
     if (t1 >= t2)
