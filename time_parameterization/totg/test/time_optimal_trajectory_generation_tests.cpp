@@ -331,7 +331,9 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   Eigen::VectorXd waypoint(6);
   std::list<Eigen::VectorXd> waypoints;
 
-  std::vector<tesseract::common::JointId> joint_ids = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  std::vector<tesseract::common::JointId> joint_ids = {
+    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
+  };
 
   {
     waypoint << 0, 0.7, -2.1, 0, -0.25, 0;
@@ -393,30 +395,28 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   EXPECT_ANY_THROW(TimeOptimalTrajectoryGeneration(std::move(empty_name)));  // NOLINT
 }
 
+/** @brief A straight trajectory in the first joint, with the given joint ids and number of joints per waypoint */
+CompositeInstruction createStraightTrajectory(const std::vector<tesseract::common::JointId>& joint_ids,
+                                              Eigen::Index num_joints)
+{
+  CompositeInstruction program;
+  for (int i = 0; i <= 10; i++)
+  {
+    // Set through the setters: the constructor rejects ids that do not match the positions in size
+    StateWaypoint swp;
+    swp.setJointIds(joint_ids);
+    Eigen::VectorXd position = Eigen::VectorXd::Zero(num_joints);
+    position[0] = i * 2.0 / 10;
+    swp.setPosition(position);
+    program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+  }
+  return program;
+}
+
 // Initialize one-joint, straight-line trajectory
 CompositeInstruction createStraightTrajectory()
 {
-  const int num = 10;
-  const double max = 2.0;
-
-  std::vector<tesseract::common::JointId> joint_ids = {
-    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
-  };
-
-  CompositeInstruction program;
-  for (int i = 0; i < num; i++)
-  {
-    StateWaypoint swp{ joint_ids, Eigen::VectorXd::Zero(6) };
-    swp.getPosition()[0] = i * max / num;
-    program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
-  }
-
-  // leave final velocity/acceleration unset
-  StateWaypoint swp{ joint_ids, Eigen::VectorXd::Zero(6) };
-  swp.getPosition()[0] = max;
-  program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
-
-  return program;
+  return createStraightTrajectory({ "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" }, 6);
 }
 
 void runTrajectoryContainerInterfaceTest(const std::string& name,
@@ -580,6 +580,27 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, asymmetricLimitsUseTheTighterSide)  
   max_velocity[0] = 0.5;
   test_suite::expectTimesStrictlyIncreasing(program);
   test_suite::expectVelocitiesWithinLimits(program, max_velocity);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, waypointJointsMustMatchTheGroup)  // NOLINT
+{
+  auto run = [this](CompositeInstruction program) {
+    program.setManipulatorInfo(manip_);
+    tesseract::common::ProfileDictionary profiles;
+    profiles.addProfile(name_, DEFAULT_PROFILE_KEY, createOverrideProfile());
+    TimeOptimalTrajectoryGeneration solver(name_);
+    return solver.compute(program, *env_, profiles);
+  };
+
+  EXPECT_TRUE(run(createStraightTrajectory()));
+
+  // Waypoints without ids are checked on their size alone
+  EXPECT_TRUE(run(createStraightTrajectory({}, 6)));
+  EXPECT_FALSE(run(createStraightTrajectory({}, 5)));
+
+  EXPECT_FALSE(run(createStraightTrajectory({ "j1", "j2", "j3", "j4", "j5", "j6" }, 6)));
+  EXPECT_FALSE(run(createStraightTrajectory({ "joint_2", "joint_1", "joint_3", "joint_4", "joint_5", "joint_6" }, 6)));
+  EXPECT_FALSE(run(createStraightTrajectory({ "joint_1", "joint_2", "joint_3", "joint_4", "joint_5" }, 5)));
 }
 
 int main(int argc, char** argv)

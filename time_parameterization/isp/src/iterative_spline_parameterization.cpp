@@ -47,6 +47,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/time_parameterization/instructions_trajectory.h>
 #include <tesseract/command_language/composite_instruction.h>
 #include <tesseract/command_language/poly/move_instruction_poly.h>
+#include <tesseract/command_language/poly/state_waypoint_poly.h>
 #include <tesseract/common/kinematic_limits.h>
 #include <tesseract/common/manipulator_info.h>
 #include <tesseract/common/profile_dictionary.h>
@@ -181,6 +182,35 @@ bool IterativeSplineParameterization::compute(tesseract::command_language::Compo
 
       local_velocity_scaling_factors[idx] = move_profile->max_velocity_scaling_factor;
       local_acceleration_scaling_factors[idx] = move_profile->max_acceleration_scaling_factor;
+    }
+  }
+
+  // The limits and the loops below index every waypoint by the group's joints
+  const std::vector<tesseract::common::JointId>& group_joint_ids = jg->getJointIds();
+  for (std::size_t i = 0; i < flattened.size(); ++i)
+  {
+    const auto& swp = flattened[i]
+                          .get()
+                          .as<tesseract::command_language::MoveInstructionPoly>()
+                          .getWaypoint()
+                          .as<tesseract::command_language::StateWaypointPoly>();
+    if (swp.getPosition().size() != jg->numJoints())
+    {
+      TESSERACT_LOG_ERROR("iterative_spline_parameterization: waypoint {} has {} positions for a group of {} joints.",
+                          i,
+                          swp.getPosition().size(),
+                          jg->numJoints());
+      return false;
+    }
+
+    // Waypoints without joint ids are taken to be in the group's order
+    if (!swp.getJointIds().empty() && swp.getJointIds() != group_joint_ids)
+    {
+      TESSERACT_LOG_ERROR("iterative_spline_parameterization: waypoint {} joint ids differ from group '{}' in name or "
+                          "order.",
+                          i,
+                          manip_info.manipulator);
+      return false;
     }
   }
 
