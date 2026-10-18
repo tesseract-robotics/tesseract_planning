@@ -49,13 +49,13 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract::commo
   /**
    * @brief The min/max velocities for each joint, with min <= 0 <= max
    * @details TOTG limits each joint by the tighter of its two sides in both directions, so a zero on either side locks
-   * the joint
+   * the joint, and compute fails for a program that moves it
    */
   Eigen::MatrixX2d velocity_limits;
   /**
    * @brief The min/max acceleration for each joint, with min <= 0 <= max
    * @details TOTG limits each joint by the tighter of its two sides in both directions, so a zero on either side locks
-   * the joint
+   * the joint, and compute fails for a program that moves it
    */
   Eigen::MatrixX2d acceleration_limits;
 
