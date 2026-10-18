@@ -46,9 +46,17 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract::commo
 
   /** @brief Indicate if overriding limits, otherwise manipulator limits will be used. */
   bool override_limits{ false };
-  /** @brief The min/max velocities for each joint */
+  /**
+   * @brief The min/max velocities for each joint, with min <= 0 <= max
+   * @details TOTG limits each joint by the tighter of its two sides in both directions, so a zero on either side locks
+   * the joint
+   */
   Eigen::MatrixX2d velocity_limits;
-  /** @brief The min/max acceleration for each joint */
+  /**
+   * @brief The min/max acceleration for each joint, with min <= 0 <= max
+   * @details TOTG limits each joint by the tighter of its two sides in both directions, so a zero on either side locks
+   * the joint
+   */
   Eigen::MatrixX2d acceleration_limits;
 
   /** @brief The max velocity scaling factor passed to the solver. Default: 1.0*/
@@ -57,10 +65,19 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract::commo
   /** @brief The max acceleration scaling factor passed to the solver. Default: 1.0 */
   double max_acceleration_scaling_factor{ 1.0 };
 
-  /** @brief path_tolerance. Default: 0.1*/
+  /**
+   * @brief The maximum deviation from a corner of the path where the corner is blended; must be greater than zero.
+   * @details One number for all joints, so in a group that mixes prismatic and revolute joints it applies in metres
+   * and in radians alike. Default: 0.1
+   */
   double path_tolerance{ 0.1 };
 
-  /** @brief At least one joint must change by greater than this amount for the point to be added. Default: 0.001*/
+  /**
+   * @brief At least one joint must change by greater than this amount for the point to be added; finite and not
+   * negative.
+   * @details One number for all joints, so in a group that mixes prismatic and revolute joints it applies in metres
+   * and in radians alike. Default: 0.001
+   */
   double min_angle_change{ 0.001 };
 
   bool operator==(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;

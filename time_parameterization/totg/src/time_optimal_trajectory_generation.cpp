@@ -102,14 +102,33 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   if (!((ci_profile->max_acceleration_scaling_factor > 0.0) && (ci_profile->max_acceleration_scaling_factor <= 1.0)))
     throw std::runtime_error("TimeOptimalTrajectoryGeneration, acceleration scale factor must be in (0, 1]!");
 
-  // Validate limits
-  if (velocity_limits.rows() != acceleration_limits.rows())
-  {
-    TESSERACT_LOG_ERROR("Invalid velocity or acceleration specified. They should be the same length");
-  }
+  // Without a positive tolerance the core leaves corners unblended, which no finite acceleration can follow
+  if (!(ci_profile->path_tolerance > 0.0))
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, path tolerance must be greater than zero!");
+
+  // With NaN or infinity every waypoint would repeat the start; below zero not even an exact duplicate would
+  if (!std::isfinite(ci_profile->min_angle_change) || ci_profile->min_angle_change < 0.0)
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, min angle change must be finite and not negative!");
+
+  // The core takes one symmetric limit per joint, so each joint gets the tighter of its two sides, scaled
+  const Eigen::Index num_joints = jg->numJoints();
+  const auto tighter_side = [num_joints](const Eigen::MatrixX2d& limits, const std::string& kind, double scale) {
+    const std::string error = "TimeOptimalTrajectoryGeneration, " + kind + " limits must ";
+    if (limits.rows() != num_joints)
+      throw std::runtime_error(error + "have one row per joint!");
+
+    // Written as a negation so a NaN limit fails too
+    if (!((limits.col(0).array() <= 0.0).all() && (limits.col(1).array() >= 0.0).all()))
+      throw std::runtime_error(error + "have lower <= 0 <= upper!");
+
+    return Eigen::VectorXd((-limits.col(0)).cwiseMin(limits.col(1)) * scale);
+  };
+  const Eigen::VectorXd max_velocity =
+      tighter_side(velocity_limits, "velocity", ci_profile->max_velocity_scaling_factor);
+  const Eigen::VectorXd max_acceleration =
+      tighter_side(acceleration_limits, "acceleration", ci_profile->max_acceleration_scaling_factor);
 
   InstructionsTrajectory trajectory(flattened);
-  const Eigen::Index num_joints = jg->numJoints();
   auto num_points = static_cast<std::size_t>(trajectory.size());
 
   // This lib does not actually work properly when angles wrap around, so we need to unwind the path first
@@ -165,12 +184,10 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
     dummy += 1.0;
   }
 
-  Eigen::VectorXd max_velocity_dummy_appended(velocity_limits.rows() + 1);
-  max_velocity_dummy_appended << (velocity_limits.col(1) * ci_profile->max_velocity_scaling_factor),
-      std::numeric_limits<double>::max();
-  Eigen::VectorXd max_acceleration_dummy_appended(acceleration_limits.rows() + 1);
-  max_acceleration_dummy_appended << (acceleration_limits.col(1) * ci_profile->max_acceleration_scaling_factor),
-      std::numeric_limits<double>::max();
+  Eigen::VectorXd max_velocity_dummy_appended(num_joints + 1);
+  max_velocity_dummy_appended << max_velocity, std::numeric_limits<double>::max();
+  Eigen::VectorXd max_acceleration_dummy_appended(num_joints + 1);
+  max_acceleration_dummy_appended << max_acceleration, std::numeric_limits<double>::max();
 
   // Now actually call the algorithm
   totg::Path path(new_points, ci_profile->path_tolerance);
