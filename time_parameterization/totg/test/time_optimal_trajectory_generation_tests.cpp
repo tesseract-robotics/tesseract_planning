@@ -603,6 +603,81 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, waypointJointsMustMatchTheGroup)  //
   EXPECT_FALSE(run(createStraightTrajectory({ "joint_1", "joint_2", "joint_3", "joint_4", "joint_5" }, 5)));
 }
 
+TEST_F(TimeOptimalTrajectoryGenerationUnit, testRelevantZeroMaxAccelerationsInvalidateTrajectory)  // NOLINT
+{
+  const Eigen::Vector2d max_velocity(1, 1);
+  const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 1) }, 0.1);
+
+  EXPECT_FALSE(Trajectory(path, max_velocity, Eigen::Vector2d(0, 1)).isValid());
+  EXPECT_FALSE(Trajectory(path, max_velocity, Eigen::Vector2d(1, 0)).isValid());
+  EXPECT_FALSE(Trajectory(path, max_velocity, Eigen::Vector2d(0, 0)).isValid());
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, testIrrelevantZeroMaxAccelerationsDontInvalidateTrajectory)  // NOLINT
+{
+  const Eigen::Vector2d max_velocity(1, 1);
+
+  EXPECT_TRUE(
+      Trajectory(Path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1) }, 0.1), max_velocity, Eigen::Vector2d(0, 1))
+          .isValid());
+  EXPECT_TRUE(
+      Trajectory(Path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0) }, 0.1), max_velocity, Eigen::Vector2d(1, 0))
+          .isValid());
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, zeroLimitsOnMovingJointsAreRejected)  // NOLINT
+{
+  // createStraightTrajectory moves joint_1 only. The limits are valid; it is this program that moves a joint they lock,
+  // so compute fails without throwing
+  const auto compute = [this](const std::function<void(TimeOptimalTrajectoryGenerationCompositeProfile&)>& change,
+                              CompositeInstruction& program) {
+    auto profile = createOverrideProfile();
+    change(*profile);
+    tesseract::common::ProfileDictionary profiles;
+    profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+    bool ok{ false };
+    EXPECT_NO_THROW(ok = TimeOptimalTrajectoryGeneration(name_).compute(program, *env_, profiles));  // NOLINT
+    return ok;
+  };
+
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+  const CompositeInstruction input = program;
+  EXPECT_FALSE(compute([](auto& p) { p.acceleration_limits.row(0).setZero(); }, program));
+  EXPECT_EQ(program, input);
+  EXPECT_FALSE(compute([](auto& p) { p.velocity_limits.row(0).setZero(); }, program));
+  EXPECT_EQ(program, input);
+
+  // Zero limits on a joint the program does not move
+  EXPECT_TRUE(compute(
+      [](auto& p) {
+        p.velocity_limits.row(3).setZero();
+        p.acceleration_limits.row(3).setZero();
+      },
+      program));
+  test_suite::expectTimesStrictlyIncreasing(program);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, relevantZeroMaxVelocityInvalidatesTrajectory)  // NOLINT
+{
+  // The second joint moves on the first segment, so its zero limit caps the path velocity at zero there
+  const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 1), Eigen::Vector2d(2, 1) }, 0.1);
+  EXPECT_FALSE(Trajectory(path, Eigen::Vector2d(1, 0), Eigen::Vector2d(1, 1)).isValid());
+
+  // A zero limit on a joint the path never moves leaves the trajectory valid
+  const Path straight({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0) }, 0.1);
+  const Trajectory trajectory(straight, Eigen::Vector2d(1, 0), Eigen::Vector2d(1, 1));
+  ASSERT_TRUE(trajectory.isValid());
+  EXPECT_TRUE(std::isfinite(trajectory.getDuration()));
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, testTimeStepZeroMakesTrajectoryInvalid)  // NOLINT
+{
+  const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 1) }, 0.1);
+  for (double time_step : { 0.0, -0.001 })
+    EXPECT_FALSE(Trajectory(path, Eigen::Vector2d(1, 1), Eigen::Vector2d(1, 1), time_step).isValid()) << time_step;
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
