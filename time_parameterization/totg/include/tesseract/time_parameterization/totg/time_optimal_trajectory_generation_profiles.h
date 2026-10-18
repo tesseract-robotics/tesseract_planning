@@ -57,10 +57,18 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract::commo
   /** @brief The max acceleration scaling factor passed to the solver. Default: 1.0 */
   double max_acceleration_scaling_factor{ 1.0 };
 
-  /** @brief path_tolerance. Default: 0.1*/
+  /**
+   * @brief The maximum deviation from a corner of the path where the corner is blended; must be greater than zero.
+   * @details One number for all joints, so in a group that mixes prismatic and revolute joints it applies in metres
+   * and in radians alike. Default: 0.1
+   */
   double path_tolerance{ 0.1 };
 
-  /** @brief At least one joint must change by greater than this amount for the point to be added. Default: 0.001*/
+  /**
+   * @brief At least one joint must change by greater than this amount for the point to be added.
+   * @details One number for all joints, so in a group that mixes prismatic and revolute joints it applies in metres
+   * and in radians alike. Default: 0.001
+   */
   double min_angle_change{ 0.001 };
 
   bool operator==(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;

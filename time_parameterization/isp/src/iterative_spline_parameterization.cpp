@@ -189,6 +189,16 @@ bool IterativeSplineParameterization::compute(tesseract::command_language::Compo
   // so convert form here.
 
   InstructionsTrajectory trajectory(flattened);
+  if (velocity_limits.rows() != trajectory.dof() || acceleration_limits.rows() != trajectory.dof())
+  {
+    TESSERACT_LOG_ERROR("iterative_spline_parameterization: velocity and acceleration limits must have one row per "
+                        "waypoint joint, got {} and {} rows for {} waypoint joints.",
+                        velocity_limits.rows(),
+                        acceleration_limits.rows(),
+                        trajectory.dof());
+    return false;
+  }
+
   std::vector<SingleJointTrajectory> t2(static_cast<std::size_t>(trajectory.dof()));
 
   auto num_points = flattened.size();
