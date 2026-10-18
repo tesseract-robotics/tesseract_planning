@@ -92,6 +92,12 @@ protected:
 class Path
 {
 public:
+  /**
+   * @brief Build a path through the waypoints, blending each corner within max_deviation
+   * @details With max_deviation <= 0, the default included, the corners are left unblended, and a Trajectory along
+   * them reports velocity jumps that no finite acceleration can follow. TimeOptimalTrajectoryGeneration::compute
+   * rejects such a tolerance.
+   */
   Path(const std::list<Eigen::VectorXd>& path, double max_deviation = 0.0);
   ~Path() = default;
   Path(const Path& path);
