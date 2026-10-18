@@ -348,6 +348,26 @@ TEST_F(IterativeSplineParameterizationUnit, TestScalingFactorErrorsNameTheirFact
   EXPECT_NE(message.find("acceleration scale factor"), std::string::npos) << message;
 }
 
+TEST_F(IterativeSplineParameterizationUnit, TestLimitRowsMustMatchTheJointCount)  // NOLINT
+{
+  auto profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::RowVector2d(-1, 1).replicate(5, 1);
+  profile->acceleration_limits = Eigen::RowVector2d(-1, 1).replicate(6, 1);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+  IterativeSplineParameterization time_parameterization(name_);
+  EXPECT_FALSE(time_parameterization.compute(program, *env_, profiles));
+
+  std::swap(profile->velocity_limits, profile->acceleration_limits);
+  program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+  EXPECT_FALSE(time_parameterization.compute(program, *env_, profiles));
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
