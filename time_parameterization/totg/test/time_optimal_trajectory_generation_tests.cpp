@@ -51,6 +51,7 @@
 #include <tesseract/command_language/state_waypoint.h>
 #include <tesseract/command_language/move_instruction.h>
 #include <tesseract/time_parameterization/instructions_trajectory.h>
+#include "totg_test_oracles.h"
 
 using namespace tesseract::time_parameterization;
 using namespace tesseract::command_language;
@@ -504,6 +505,81 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, scalingFactorErrorsNameTheirClassAnd
                      "TimeOptimalTrajectoryGeneration, velocity scale factor");
   expectComputeError([](auto& p) { p.max_acceleration_scaling_factor = 1.5; },
                      "TimeOptimalTrajectoryGeneration, acceleration scale factor");
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, limitRowsMustMatchTheJointCount)  // NOLINT
+{
+  // Valid signs, so only the row count is wrong
+  expectComputeError([](auto& p) { p.velocity_limits = Eigen::RowVector2d(-1, 1).replicate(5, 1); },
+                     "velocity limits must have one row per joint");
+  expectComputeError([](auto& p) { p.acceleration_limits = Eigen::RowVector2d(-1, 1).replicate(7, 1); },
+                     "acceleration limits must have one row per joint");
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, nonPositivePathToleranceIsRejected)  // NOLINT
+{
+  for (double path_tolerance : { 0.0, -0.1, std::numeric_limits<double>::quiet_NaN() })
+    expectComputeError([path_tolerance](auto& p) { p.path_tolerance = path_tolerance; }, "path tolerance");
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, minAngleChangeMustBeFiniteAndNotNegative)  // NOLINT
+{
+  for (double min_angle_change :
+       { -0.001, std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN() })
+    expectComputeError([min_angle_change](auto& p) { p.min_angle_change = min_angle_change; }, "min angle change");
+
+  // Zero merges only exact duplicates
+  auto profile = createOverrideProfile();
+  profile->min_angle_change = 0.0;
+  EXPECT_EQ(computeErrorMessage(name_, *env_, manip_, profile), "");
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, AccelerationLimitIsRespected)  // NOLINT
+{
+  const double resample_dt = 0.01;
+  const Path path({ Eigen::Vector3d(0, 0, 0), Eigen::Vector3d(1, 0, 0), Eigen::Vector3d(1, 1, 0) }, 0.001);
+  const Eigen::VectorXd max_accelerations = Eigen::VectorXd::Constant(3, 0.5);
+  const Trajectory parameterized(path, Eigen::VectorXd::Constant(3, 0.1), max_accelerations, 0.001);
+  ASSERT_TRUE(parameterized.isValid());
+
+  const auto sample_count = static_cast<std::size_t>(std::ceil(parameterized.getDuration() / resample_dt));
+  Eigen::VectorXd previous_velocity = Eigen::VectorXd::Zero(3);
+  for (std::size_t sample = 0; sample <= sample_count; ++sample)
+  {
+    const double t = std::min(parameterized.getDuration(), static_cast<double>(sample) * resample_dt);
+    const Eigen::VectorXd velocity = parameterized.getVelocity(parameterized.getPathData(t));
+    const double acceleration = (velocity - previous_velocity).norm() / resample_dt;
+    EXPECT_LT(acceleration, max_accelerations.norm() + 1e-3) << "t = " << t;
+    previous_velocity = velocity;
+  }
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, signInvertedLimitsAreRejected)  // NOLINT
+{
+  expectComputeError([](auto& p) { p.velocity_limits(2, 0) = 0.5; }, "velocity limits must have lower <= 0 <= upper");
+  expectComputeError([](auto& p) { p.velocity_limits(2, 1) = -0.5; }, "velocity limits must have lower <= 0 <= upper");
+  expectComputeError([](auto& p) { p.acceleration_limits(4, 0) = std::numeric_limits<double>::quiet_NaN(); },
+                     "acceleration limits must have lower <= 0 <= upper");
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, asymmetricLimitsUseTheTighterSide)  // NOLINT
+{
+  // The straight trajectory moves joint_1 in the positive direction only, so only a tighter lower
+  // limit tells the two sides apart.
+  auto profile = createOverrideProfile();
+  profile->velocity_limits(0, 0) = -0.5;
+
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+  TimeOptimalTrajectoryGeneration solver(name_);
+  ASSERT_TRUE(solver.compute(program, *env_, profiles));
+
+  Eigen::VectorXd max_velocity = Eigen::VectorXd::Ones(6);
+  max_velocity[0] = 0.5;
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectVelocitiesWithinLimits(program, max_velocity);
 }
 
 int main(int argc, char** argv)
