@@ -50,6 +50,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
 #include <tesseract/time_parameterization/instructions_trajectory.h>
+#include <tesseract/command_language/poly/move_instruction_poly.h>
+#include <tesseract/command_language/poly/state_waypoint_poly.h>
 #include <tesseract/common/kinematic_limits.h>
 #include <tesseract/common/manipulator_info.h>
 #include <tesseract/common/profile_dictionary.h>
@@ -96,20 +98,100 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   // Set scaling factors
   // NOLINTNEXTLINE(readability-simplify-boolean-expr)
   if (!((ci_profile->max_velocity_scaling_factor > 0.0) && (ci_profile->max_velocity_scaling_factor <= 1.0)))
-    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, velocity scale factor must be in (0, 1]!");
 
   // NOLINTNEXTLINE(readability-simplify-boolean-expr)
   if (!((ci_profile->max_acceleration_scaling_factor > 0.0) && (ci_profile->max_acceleration_scaling_factor <= 1.0)))
-    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, acceleration scale factor must be in (0, 1]!");
+
+  // Without a positive tolerance the core leaves corners unblended, which no finite acceleration can follow
+  if (!(ci_profile->path_tolerance > 0.0))
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, path tolerance must be greater than zero!");
 
   // Validate limits
-  if (velocity_limits.rows() != acceleration_limits.rows())
+  const Eigen::Index num_joints = jg->numJoints();
+  if (velocity_limits.rows() != num_joints)
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, velocity limits must have one row per joint!");
+
+  if (acceleration_limits.rows() != num_joints)
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, acceleration limits must have one row per joint!");
+
+  // Written as negations so a NaN limit fails too
+  if (!((velocity_limits.col(0).array() <= 0.0).all() && (velocity_limits.col(1).array() >= 0.0).all()))
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, velocity limits must have lower <= 0 <= upper!");
+
+  if (!((acceleration_limits.col(0).array() <= 0.0).all() && (acceleration_limits.col(1).array() >= 0.0).all()))
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, acceleration limits must have lower <= 0 <= upper!");
+
+  // The core takes one symmetric limit per joint, so each joint gets the tighter of its two sides
+  const Eigen::VectorXd max_velocity =
+      (-velocity_limits.col(0)).cwiseMin(velocity_limits.col(1)) * ci_profile->max_velocity_scaling_factor;
+  const Eigen::VectorXd max_acceleration =
+      (-acceleration_limits.col(0)).cwiseMin(acceleration_limits.col(1)) * ci_profile->max_acceleration_scaling_factor;
+
+  // The limits and the loops below index every waypoint by the group's joints
+  const std::vector<tesseract::common::JointId>& group_joint_ids = jg->getJointIds();
+  for (std::size_t i = 0; i < flattened.size(); ++i)
   {
-    TESSERACT_LOG_ERROR("Invalid velocity or acceleration specified. They should be the same length");
+    const auto& swp = flattened[i]
+                          .get()
+                          .as<tesseract::command_language::MoveInstructionPoly>()
+                          .getWaypoint()
+                          .as<tesseract::command_language::StateWaypointPoly>();
+    if (swp.getPosition().size() != num_joints)
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, waypoint {} has {} positions for a group of {} joints.",
+                          i,
+                          swp.getPosition().size(),
+                          num_joints);
+      return false;
+    }
+
+    // Waypoints without joint ids are taken to be in the group's order
+    if (!swp.getJointIds().empty() && swp.getJointIds() != group_joint_ids)
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, waypoint {} joint ids differ from group '{}' in name or "
+                          "order.",
+                          i,
+                          manip_info.manipulator);
+      return false;
+    }
+  }
+
+  // A zero limit is harmless on a joint that never moves, but on one that moves at all the core divides by the joint's
+  // tangent component and stalls or never terminates, so compare exactly
+  const Eigen::VectorXd& first_position = flattened.front()
+                                              .get()
+                                              .as<tesseract::command_language::MoveInstructionPoly>()
+                                              .getWaypoint()
+                                              .as<tesseract::command_language::StateWaypointPoly>()
+                                              .getPosition();
+  for (Eigen::Index j = 0; j < num_joints; ++j)
+  {
+    if (max_velocity[j] > 0.0 && max_acceleration[j] > 0.0)
+      continue;
+
+    const bool moves = std::any_of(flattened.begin(), flattened.end(), [&](const auto& instruction) {
+      return instruction.get()
+                 .template as<tesseract::command_language::MoveInstructionPoly>()
+                 .getWaypoint()
+                 .template as<tesseract::command_language::StateWaypointPoly>()
+                 .getPosition()[j] != first_position[j];
+    });
+    if (!moves)
+      continue;
+
+    const std::string joint_name = group_joint_ids[static_cast<std::size_t>(j)].name();
+    if (!(max_velocity[j] > 0.0))
+      throw std::runtime_error("TimeOptimalTrajectoryGeneration, the tighter of the velocity limits of moving joint '" +
+                               joint_name + "' must be greater than zero!");
+
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, the tighter of the acceleration limits of moving joint "
+                             "'" +
+                             joint_name + "' must be greater than zero!");
   }
 
   InstructionsTrajectory trajectory(flattened);
-  const Eigen::Index num_joints = jg->numJoints();
   auto num_points = static_cast<std::size_t>(trajectory.size());
 
   // This lib does not actually work properly when angles wrap around, so we need to unwind the path first
@@ -165,12 +247,10 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
     dummy += 1.0;
   }
 
-  Eigen::VectorXd max_velocity_dummy_appended(velocity_limits.rows() + 1);
-  max_velocity_dummy_appended << (velocity_limits.col(1) * ci_profile->max_velocity_scaling_factor),
-      std::numeric_limits<double>::max();
-  Eigen::VectorXd max_acceleration_dummy_appended(acceleration_limits.rows() + 1);
-  max_acceleration_dummy_appended << (acceleration_limits.col(1) * ci_profile->max_acceleration_scaling_factor),
-      std::numeric_limits<double>::max();
+  Eigen::VectorXd max_velocity_dummy_appended(num_joints + 1);
+  max_velocity_dummy_appended << max_velocity, std::numeric_limits<double>::max();
+  Eigen::VectorXd max_acceleration_dummy_appended(num_joints + 1);
+  max_acceleration_dummy_appended << max_acceleration, std::numeric_limits<double>::max();
 
   // Now actually call the algorithm
   totg::Path path(new_points, ci_profile->path_tolerance);
@@ -456,6 +536,15 @@ Trajectory::Trajectory(const Path& path,
   , cached_time_(std::numeric_limits<double>::max())
 {
   trajectory_.emplace_back(0.0, 0.0);
+
+  // A non-positive step never advances the integration
+  if (!(time_step_ > 0.0))
+  {
+    valid_ = false;
+    TESSERACT_LOG_ERROR("Trajectory time step must be greater than zero, got {}", time_step_);
+    return;
+  }
+
   double after_acceleration = getMinMaxPathAcceleration(0.0, 0.0, true);
   while (valid_ && !integrateForward(trajectory_, after_acceleration) && valid_)
   {
@@ -487,6 +576,13 @@ Trajectory::Trajectory(const Path& path,
           previous->time_ + (it->path_pos_ - previous->path_pos_) / ((it->path_vel_ + previous->path_vel_) / 2.0);
       previous = it;
       ++it;
+    }
+
+    // A stretch of zero path velocity, such as a zero velocity limit on a moving joint gives, is timed as infinite
+    if (!std::isfinite(trajectory_.back().time_))
+    {
+      valid_ = false;
+      TESSERACT_LOG_ERROR("Trajectory duration is not finite, a moving joint likely has a zero velocity limit");
     }
   }
 }
@@ -706,6 +802,15 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
 
     trajectory.emplace_back(path_pos, path_vel);
     acceleration = getMinMaxPathAcceleration(path_pos, path_vel, true);
+
+    // At rest with no acceleration the position never changes and nothing else ends the loop
+    if (path_vel == 0 && acceleration == 0)
+    {
+      valid_ = false;
+      TESSERACT_LOG_ERROR("Error while integrating forward: zero path velocity and acceleration, a moving joint "
+                          "likely has a zero acceleration limit");
+      return true;
+    }
 
     if (path_vel > getAccelerationMaxPathVelocity(path_pos) || path_vel > getVelocityMaxPathVelocity(path_pos))
     {

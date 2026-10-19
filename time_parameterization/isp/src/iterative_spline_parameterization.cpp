@@ -145,11 +145,11 @@ bool IterativeSplineParameterization::compute(tesseract::command_language::Compo
   // Set scaling factors
   // NOLINTNEXTLINE(readability-simplify-boolean-expr)
   if (!((ci_profile->max_velocity_scaling_factor > 0.0) && (ci_profile->max_velocity_scaling_factor <= 1.0)))
-    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be in (0, 1]!");
 
   // NOLINTNEXTLINE(readability-simplify-boolean-expr)
   if (!((ci_profile->max_acceleration_scaling_factor > 0.0) && (ci_profile->max_acceleration_scaling_factor <= 1.0)))
-    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+    throw std::runtime_error("IterativeSplineParameterization, acceleration scale factor must be in (0, 1]!");
 
   const auto flattened_size = static_cast<Eigen::Index>(flattened.size());
   Eigen::VectorXd local_velocity_scaling_factors =
@@ -172,12 +172,12 @@ bool IterativeSplineParameterization::compute(tesseract::command_language::Compo
       // Set scaling factors
       // NOLINTNEXTLINE(readability-simplify-boolean-expr)
       if (!((move_profile->max_velocity_scaling_factor > 0.0) && (move_profile->max_velocity_scaling_factor <= 1.0)))
-        throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+        throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be in (0, 1]!");
 
       // NOLINTNEXTLINE(readability-simplify-boolean-expr)
       if (!((move_profile->max_acceleration_scaling_factor > 0.0) &&
             (move_profile->max_acceleration_scaling_factor <= 1.0)))
-        throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+        throw std::runtime_error("IterativeSplineParameterization, acceleration scale factor must be in (0, 1]!");
 
       local_velocity_scaling_factors[idx] = move_profile->max_velocity_scaling_factor;
       local_acceleration_scaling_factors[idx] = move_profile->max_acceleration_scaling_factor;
@@ -189,6 +189,16 @@ bool IterativeSplineParameterization::compute(tesseract::command_language::Compo
   // so convert form here.
 
   InstructionsTrajectory trajectory(flattened);
+  if (velocity_limits.rows() != trajectory.dof() || acceleration_limits.rows() != trajectory.dof())
+  {
+    TESSERACT_LOG_ERROR("iterative_spline_parameterization: velocity and acceleration limits must have one row per "
+                        "waypoint joint, got {} and {} rows for {} waypoint joints.",
+                        velocity_limits.rows(),
+                        acceleration_limits.rows(),
+                        trajectory.dof());
+    return false;
+  }
+
   std::vector<SingleJointTrajectory> t2(static_cast<std::size_t>(trajectory.dof()));
 
   auto num_points = flattened.size();

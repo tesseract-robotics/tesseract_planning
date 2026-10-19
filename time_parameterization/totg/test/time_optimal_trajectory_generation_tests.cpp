@@ -51,6 +51,7 @@
 #include <tesseract/command_language/state_waypoint.h>
 #include <tesseract/command_language/move_instruction.h>
 #include <tesseract/time_parameterization/instructions_trajectory.h>
+#include "totg_test_oracles.h"
 
 using namespace tesseract::time_parameterization;
 using namespace tesseract::command_language;
@@ -326,7 +327,9 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   Eigen::VectorXd waypoint(6);
   std::list<Eigen::VectorXd> waypoints;
 
-  std::vector<tesseract::common::JointId> joint_ids = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  std::vector<tesseract::common::JointId> joint_ids = {
+    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
+  };
 
   {
     waypoint << 0, 0.7, -2.1, 0, -0.25, 0;
@@ -382,6 +385,8 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   TimeOptimalTrajectoryGeneration solver(name_);
   EXPECT_EQ(solver.getName(), name_);
   EXPECT_TRUE(solver.compute(program, *env_, profiles));
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectVelocitiesWithinLimits(program, profile->velocity_limits.col(1));
 
   // Error
   std::string empty_name;
@@ -442,6 +447,8 @@ void runTrajectoryContainerInterfaceTest(const std::string& name,
   // Solve
   TimeOptimalTrajectoryGeneration solver(name);
   EXPECT_TRUE(solver.compute(program, env, profiles));
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectVelocitiesWithinLimits(program, profile->velocity_limits.col(1));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
@@ -450,6 +457,255 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testTrajectoryContainerInterface)  /
   runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.001);
   runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.01);
   runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.0001);
+}
+
+/** @brief Run compute and return the message of the exception it throws, or an empty string if it does not throw */
+std::string computeErrorMessage(const std::string& name,
+                                const tesseract::environment::Environment& env,
+                                const tesseract::common::ManipulatorInfo& manip_info,
+                                const TimeOptimalTrajectoryGenerationCompositeProfile::Ptr& profile)
+{
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_info);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name, DEFAULT_PROFILE_KEY, profile);
+  TimeOptimalTrajectoryGeneration solver(name);
+  try
+  {
+    solver.compute(program, env, profiles);
+  }
+  catch (const std::exception& e)
+  {
+    return e.what();
+  }
+  return {};
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, scalingFactorErrorsNameTheirClassAndFactor)  // NOLINT
+{
+  auto profile = std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>();
+  profile->max_velocity_scaling_factor = 0.0;
+  std::string message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("TimeOptimalTrajectoryGeneration"), std::string::npos) << message;
+  EXPECT_NE(message.find("velocity scale factor"), std::string::npos) << message;
+
+  profile->max_velocity_scaling_factor = 1.0;
+  profile->max_acceleration_scaling_factor = 1.5;
+  message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("TimeOptimalTrajectoryGeneration"), std::string::npos) << message;
+  EXPECT_NE(message.find("acceleration scale factor"), std::string::npos) << message;
+}
+
+/** @brief A profile overriding the limits with symmetric velocity and acceleration limits for six joints */
+TimeOptimalTrajectoryGenerationCompositeProfile::Ptr createOverrideProfile(double velocity = 1.0,
+                                                                           double acceleration = 1.0)
+{
+  auto profile = std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>();
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) = -velocity * Eigen::VectorXd::Ones(6);
+  profile->velocity_limits.col(1) = velocity * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -acceleration * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = acceleration * Eigen::VectorXd::Ones(6);
+  return profile;
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, limitRowsMustMatchTheJointCount)  // NOLINT
+{
+  // Valid signs, so only the row count is wrong
+  auto profile = createOverrideProfile();
+  profile->velocity_limits = Eigen::MatrixX2d(5, 2);
+  profile->velocity_limits.col(0) = -Eigen::VectorXd::Ones(5);
+  profile->velocity_limits.col(1) = Eigen::VectorXd::Ones(5);
+  std::string message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("velocity limits must have one row per joint"), std::string::npos) << message;
+
+  profile = createOverrideProfile();
+  profile->acceleration_limits = Eigen::MatrixX2d(7, 2);
+  profile->acceleration_limits.col(0) = -Eigen::VectorXd::Ones(7);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(7);
+  message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("acceleration limits must have one row per joint"), std::string::npos) << message;
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, nonPositivePathToleranceIsRejected)  // NOLINT
+{
+  for (double path_tolerance : { 0.0, -0.1, std::numeric_limits<double>::quiet_NaN() })
+  {
+    auto profile = createOverrideProfile();
+    profile->path_tolerance = path_tolerance;
+    const std::string message = computeErrorMessage(name_, *env_, manip_, profile);
+    EXPECT_NE(message.find("path tolerance"), std::string::npos) << path_tolerance << ": " << message;
+  }
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, AccelerationLimitIsRespected)  // NOLINT
+{
+  const double resample_dt = 0.01;
+  const Path path({ Eigen::Vector3d(0, 0, 0), Eigen::Vector3d(1, 0, 0), Eigen::Vector3d(1, 1, 0) }, 0.001);
+  const Eigen::VectorXd max_accelerations = Eigen::VectorXd::Constant(3, 0.5);
+  const Trajectory parameterized(path, Eigen::VectorXd::Constant(3, 0.1), max_accelerations, 0.001);
+  ASSERT_TRUE(parameterized.isValid());
+
+  const auto sample_count = static_cast<std::size_t>(std::ceil(parameterized.getDuration() / resample_dt));
+  Eigen::VectorXd previous_velocity = Eigen::VectorXd::Zero(3);
+  for (std::size_t sample = 0; sample <= sample_count; ++sample)
+  {
+    const double t = std::min(parameterized.getDuration(), static_cast<double>(sample) * resample_dt);
+    const Eigen::VectorXd velocity = parameterized.getVelocity(parameterized.getPathData(t));
+    const double acceleration = (velocity - previous_velocity).norm() / resample_dt;
+    EXPECT_LT(acceleration, max_accelerations.norm() + 1e-3) << "t = " << t;
+    previous_velocity = velocity;
+  }
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, signInvertedLimitsAreRejected)  // NOLINT
+{
+  auto profile = createOverrideProfile();
+  profile->velocity_limits(2, 0) = 0.5;
+  std::string message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("velocity limits"), std::string::npos) << message;
+
+  profile = createOverrideProfile();
+  profile->velocity_limits(2, 1) = -0.5;
+  message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("velocity limits"), std::string::npos) << message;
+
+  profile = createOverrideProfile();
+  profile->acceleration_limits(4, 0) = std::numeric_limits<double>::quiet_NaN();
+  message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("acceleration limits"), std::string::npos) << message;
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, asymmetricLimitsUseTheTighterSide)  // NOLINT
+{
+  // The straight trajectory moves joint_1 in the positive direction only, so only a tighter lower
+  // limit tells the two sides apart.
+  auto profile = createOverrideProfile();
+  profile->velocity_limits(0, 0) = -0.5;
+
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+  TimeOptimalTrajectoryGeneration solver(name_);
+  ASSERT_TRUE(solver.compute(program, *env_, profiles));
+
+  Eigen::VectorXd max_velocity = Eigen::VectorXd::Ones(6);
+  max_velocity[0] = 0.5;
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectVelocitiesWithinLimits(program, max_velocity);
+}
+
+/** @brief A straight trajectory in the first joint, with the given joint ids and number of joints per waypoint */
+CompositeInstruction createStraightTrajectory(const std::vector<tesseract::common::JointId>& joint_ids,
+                                              Eigen::Index num_joints)
+{
+  CompositeInstruction program;
+  for (int i = 0; i <= 10; i++)
+  {
+    // Set through the setters: the constructor rejects ids that do not match the positions in size
+    StateWaypoint swp;
+    swp.setJointIds(joint_ids);
+    Eigen::VectorXd position = Eigen::VectorXd::Zero(num_joints);
+    position[0] = 0.2 * i;
+    swp.setPosition(position);
+    program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+  }
+  return program;
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, waypointJointsMustMatchTheGroup)  // NOLINT
+{
+  auto run = [this](CompositeInstruction program) {
+    program.setManipulatorInfo(manip_);
+    tesseract::common::ProfileDictionary profiles;
+    profiles.addProfile(name_, DEFAULT_PROFILE_KEY, createOverrideProfile());
+    TimeOptimalTrajectoryGeneration solver(name_);
+    return solver.compute(program, *env_, profiles);
+  };
+
+  const std::vector<tesseract::common::JointId> group_ids = { "joint_1", "joint_2", "joint_3",
+                                                              "joint_4", "joint_5", "joint_6" };
+  EXPECT_TRUE(run(createStraightTrajectory(group_ids, 6)));
+
+  // Waypoints without ids are checked on their size alone
+  EXPECT_TRUE(run(createStraightTrajectory({}, 6)));
+  EXPECT_FALSE(run(createStraightTrajectory({}, 5)));
+
+  EXPECT_FALSE(run(createStraightTrajectory({ "j1", "j2", "j3", "j4", "j5", "j6" }, 6)));
+  EXPECT_FALSE(run(createStraightTrajectory({ "joint_2", "joint_1", "joint_3", "joint_4", "joint_5", "joint_6" }, 6)));
+  EXPECT_FALSE(run(createStraightTrajectory({ "joint_1", "joint_2", "joint_3", "joint_4", "joint_5" }, 5)));
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, testRelevantZeroMaxAccelerationsInvalidateTrajectory)  // NOLINT
+{
+  const Eigen::Vector2d max_velocity(1, 1);
+  const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 1) }, 0.1);
+
+  EXPECT_FALSE(Trajectory(path, max_velocity, Eigen::Vector2d(0, 1)).isValid());
+  EXPECT_FALSE(Trajectory(path, max_velocity, Eigen::Vector2d(1, 0)).isValid());
+  EXPECT_FALSE(Trajectory(path, max_velocity, Eigen::Vector2d(0, 0)).isValid());
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, testIrrelevantZeroMaxAccelerationsDontInvalidateTrajectory)  // NOLINT
+{
+  const Eigen::Vector2d max_velocity(1, 1);
+
+  EXPECT_TRUE(
+      Trajectory(Path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1) }, 0.1), max_velocity, Eigen::Vector2d(0, 1))
+          .isValid());
+  EXPECT_TRUE(
+      Trajectory(Path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0) }, 0.1), max_velocity, Eigen::Vector2d(1, 0))
+          .isValid());
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, zeroLimitsOnMovingJointsAreRejected)  // NOLINT
+{
+  // createStraightTrajectory moves joint_1 only
+  auto profile = createOverrideProfile();
+  profile->acceleration_limits.row(0).setZero();
+  std::string message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("acceleration limits of moving joint 'joint_1'"), std::string::npos) << message;
+
+  profile = createOverrideProfile();
+  profile->velocity_limits.row(0).setZero();
+  message = computeErrorMessage(name_, *env_, manip_, profile);
+  EXPECT_NE(message.find("velocity limits of moving joint 'joint_1'"), std::string::npos) << message;
+
+  profile = createOverrideProfile();
+  profile->velocity_limits.row(3).setZero();
+  profile->acceleration_limits.row(3).setZero();
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+  TimeOptimalTrajectoryGeneration solver(name_);
+  bool ok{ false };
+  EXPECT_NO_THROW(ok = solver.compute(program, *env_, profiles));  // NOLINT
+  EXPECT_TRUE(ok);
+  test_suite::expectTimesStrictlyIncreasing(program);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, relevantZeroMaxVelocityInvalidatesTrajectory)  // NOLINT
+{
+  // The second joint moves on the first segment, so its zero limit caps the path velocity at zero there
+  const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 1), Eigen::Vector2d(2, 1) }, 0.1);
+  EXPECT_FALSE(Trajectory(path, Eigen::Vector2d(1, 0), Eigen::Vector2d(1, 1)).isValid());
+
+  // A zero limit on a joint the path never moves leaves the trajectory valid
+  const Path straight({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0) }, 0.1);
+  const Trajectory trajectory(straight, Eigen::Vector2d(1, 0), Eigen::Vector2d(1, 1));
+  ASSERT_TRUE(trajectory.isValid());
+  EXPECT_TRUE(std::isfinite(trajectory.getDuration()));
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, testTimeStepZeroMakesTrajectoryInvalid)  // NOLINT
+{
+  const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 1) }, 0.1);
+  for (double time_step : { 0.0, -0.001 })
+    EXPECT_FALSE(Trajectory(path, Eigen::Vector2d(1, 1), Eigen::Vector2d(1, 1), time_step).isValid()) << time_step;
 }
 
 int main(int argc, char** argv)
