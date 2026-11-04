@@ -25,6 +25,8 @@
 #define TESSERACT_MOTION_PLANNERS_IMPL_DESCARTES_DECARTES_MOTION_PLANNER_HPP
 
 #include <tesseract/common/macros.h>
+#include <stdexcept>
+#include <sstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/solvers/ladder_graph/ladder_graph_solver.h>
 #include <tesseract/common/logging.h>
@@ -115,10 +117,28 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   try
   {
     // Build Graph
-    if (!solver->build(waypoint_samplers, edge_evaluators, state_evaluators))
+    const descartes_light::BuildStatus build_status =
+        solver->build(waypoint_samplers, edge_evaluators, state_evaluators);
+    if (!build_status)
     {
+      // Name each failed waypoint with its sampler's own report (for DescartesRobotSampler: the
+      // frames, the target pose and why each pose sample was rejected), and each failed edge.
+      std::stringstream ss;
+      ss << ERROR_FAILED_TO_BUILD_GRAPH;
+      if (!build_status.failed_vertices.empty())
+      {
+        ss << "\nFailed vertices (" << build_status.failed_vertices.size() << "/" << waypoint_samplers.size() << "):";
+        for (const std::size_t i : build_status.failed_vertices)
+          ss << "\n  [" << i << "] " << *waypoint_samplers[i];
+      }
+      if (!build_status.failed_edges.empty())
+      {
+        ss << "\nFailed edges (" << build_status.failed_edges.size() << "):";
+        for (const std::size_t i : build_status.failed_edges)
+          ss << " " << i << "->" << (i + 1);
+      }
       response.successful = false;
-      response.message = ERROR_FAILED_TO_BUILD_GRAPH;
+      response.message = ss.str();
       return response;
     }
 
