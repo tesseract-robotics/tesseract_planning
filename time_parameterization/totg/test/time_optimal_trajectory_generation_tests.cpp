@@ -2052,6 +2052,76 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, sharpCornersBlendOrStop)  // NOLINT
   run(dense);
 }
 
+TEST_F(TimeOptimalTrajectoryGenerationUnit, blendedCornersMoveOntoTheBlend)  // NOLINT
+{
+  auto profile = createOverrideProfile();
+  const auto run = [&](const std::vector<Eigen::VectorXd>& positions, double path_tolerance) {
+    profile->path_tolerance = path_tolerance;
+    return runWithinLimits(positions, profile, name_, *env_, manip_);
+  };
+  const auto expectAt = [](const CompositeInstruction& program, std::size_t i, const Eigen::VectorXd& expected) {
+    EXPECT_TRUE(waypointAt(program, i).getPosition().isApprox(expected, 1e-12))
+        << "waypoint " << i << ": " << waypointAt(program, i).getPosition().transpose();
+  };
+  const auto expectUnchanged = [](const CompositeInstruction& program, std::size_t i, const Eigen::VectorXd& input) {
+    expectSameBits(waypointAt(program, i).getPosition(), input);
+  };
+
+  // A right angle at tolerance 0.1: the corner moves onto the middle of its blend, 0.1 from it
+  const double cut = 0.1 / std::sqrt(2.0);
+  const CompositeInstruction corner = run({ joints(0), joints(1), joints(1, 1) }, 0.1);
+  expectUnchanged(corner, 0, joints(0));
+  expectAt(corner, 1, joints(1 - cut, cut));
+  expectUnchanged(corner, 2, joints(1, 1));
+
+  // Two corners whose blends meet, with no line between them
+  const double half = 0.5 / std::sqrt(2.0);
+  const CompositeInstruction meeting = run({ joints(0), joints(1), joints(1, 1), joints(2, 1) }, 0.5);
+  expectAt(meeting, 1, joints(0.5 + half, 0.5 - half));
+  expectAt(meeting, 2, joints(1.5 - half, 0.5 + half));
+
+  // Waypoints the path runs straight through stay as they were, in any direction
+  const std::vector<Eigen::VectorXd> line{
+    joints(0), joints(0.3, 0.2, -0.1), joints(0.6, 0.4, -0.2), joints(0.9, 0.6, -0.3)
+  };
+  const CompositeInstruction straight = run(line, 0.1);
+  for (std::size_t i = 0; i < line.size(); ++i)
+    expectUnchanged(straight, i, line[i]);
+
+  // A stop where the path turns back keeps its waypoint; the corner before it, in the same piece, moves
+  const CompositeInstruction turn = run({ joints(0), joints(1), joints(1, 1), joints(1) }, 0.1);
+  expectAt(turn, 1, joints(1 - cut, cut));
+  expectUnchanged(turn, 2, joints(1, 1));
+  expectUnchanged(turn, 3, joints(1));
+
+  // With a repeat removed before it, the corner's own waypoint moves
+  const CompositeInstruction repeat = run({ joints(0), joints(0), joints(1), joints(1, 1) }, 0.1);
+  ASSERT_EQ(repeat.size(), 3);
+  expectAt(repeat, 1, joints(1 - cut, cut));
+
+  // The moved waypoint's velocity runs along the path there, at 45 degrees through the right angle
+  const Eigen::VectorXd v = waypointAt(corner, 1).getVelocity();
+  EXPECT_NEAR(v[0], v[1], 1e-9 * v.norm()) << v.transpose();
+  EXPECT_GT(v[0], 0.0);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, pathTellsWhichWaypointsAreBlended)  // NOLINT
+{
+  const std::list<Eigen::VectorXd> waypoints{
+    Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0), Eigen::Vector2d(2, 0), Eigen::Vector2d(2, 1)
+  };
+  const Path blended(waypoints, 0.1);
+  ASSERT_EQ(blended.getMapping().size(), waypoints.size());
+  EXPECT_FALSE(blended.isBlended(0));
+  EXPECT_FALSE(blended.isBlended(1));  // straight on
+  EXPECT_TRUE(blended.isBlended(2));
+  EXPECT_FALSE(blended.isBlended(3));
+
+  const Path unblended(waypoints, 0.0);
+  for (std::size_t i = 0; i < waypoints.size(); ++i)
+    EXPECT_FALSE(unblended.isBlended(i)) << i;
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);

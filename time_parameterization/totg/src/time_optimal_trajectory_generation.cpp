@@ -401,19 +401,22 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   // A piece that fails after others have written restores what they wrote
   struct WrittenState
   {
-    Eigen::VectorXd velocity, acceleration;
+    Eigen::VectorXd position, velocity, acceleration;
     double time;
   };
   std::vector<WrittenState> before_writing;
   for (std::size_t index : kept)
   {
     const auto i = static_cast<Eigen::Index>(index);
-    before_writing.push_back(
-        { trajectory.getVelocity(i), trajectory.getAcceleration(i), trajectory.getTimeFromStart(i) });
+    before_writing.push_back({ trajectory.getPosition(i),
+                               trajectory.getVelocity(i),
+                               trajectory.getAcceleration(i),
+                               trajectory.getTimeFromStart(i) });
   }
   const auto restore = [&]() {
     for (std::size_t j = 0; j < kept.size(); ++j)
     {
+      trajectory.getPosition(static_cast<Eigen::Index>(kept[j])) = before_writing[j].position;
       trajectory.setData(static_cast<Eigen::Index>(kept[j]),
                          before_writing[j].velocity,
                          before_writing[j].acceleration,
@@ -587,6 +590,7 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
   Eigen::VectorXd start_config = *path_iterator1;
   mapping_.reserve(path.size());
   mapping_.push_back(0);
+  blended_.push_back(false);
   double l{ 0 };
   while (path_iterator2 != path.end())
   {
@@ -610,6 +614,7 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
       start_config = blend_segment->getConfig(blend_segment->getLength());
 
       mapping_.push_back(l + (blend_segment->getLength() / 2.0));
+      blended_.push_back(blend_segment->getLength() > 0.0);
       l += blend_segment->getLength();
       path_segments_.push_back(std::move(blend_segment));
     }
@@ -618,6 +623,7 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
       path_segments_.push_back(std::make_unique<LinearPathSegment>(start_config, *path_iterator2));
       l += path_segments_.back()->getLength();
       mapping_.push_back(l);
+      blended_.push_back(false);
       start_config = *path_iterator2;
     }
     path_iterator1 = path_iterator2;
@@ -647,6 +653,7 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
 Path::Path(const Path& path)
   : length_(path.length_)
   , mapping_(path.mapping_)
+  , blended_(path.blended_)
   , switching_points_(path.switching_points_)
   , has_reversal_(path.has_reversal_)
 {
@@ -658,6 +665,8 @@ Path::Path(const Path& path)
 double Path::getLength() const { return length_; }
 
 const std::vector<double>& Path::getMapping() const { return mapping_; }
+
+bool Path::isBlended(std::size_t i) const { return blended_.at(i); }
 
 PathSegment* Path::getPathSegment(double& s) const
 {
@@ -1434,8 +1443,12 @@ bool Trajectory::assignData(InstructionsTrajectory& trajectory,
 
   for (std::size_t j = 0; j < kept.size(); ++j)
   {
-    trajectory.setData(
-        static_cast<Eigen::Index>(kept[j]), getVelocity(path_data[j]), getAcceleration(path_data[j]), times[j]);
+    const auto i = static_cast<Eigen::Index>(kept[j]);
+    trajectory.setData(i, getVelocity(path_data[j]), getAcceleration(path_data[j]), times[j]);
+
+    // The path passes a blended corner at its mapped point, not at the corner itself
+    if (path_.isBlended(j))
+      trajectory.getPosition(i) = path_.getConfig(dist_mapping[j]);
   }
   return true;
 }
