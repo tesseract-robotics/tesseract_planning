@@ -914,14 +914,11 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
     path_vel += time_step_ * acceleration;
     path_pos += time_step_ * 0.5 * (old_path_vel + path_vel);
 
+    // Every step that crosses a discontinuity ends on it, so none goes on with the acceleration of the segment before,
+    // and none ends just past it, which would add an almost identical step in the next run
+    // (https://github.com/ros-planning/moveit/issues/1665)
     if (next_discontinuity != switching_points.end() && path_pos > next_discontinuity->first)
     {
-      // Avoid having a TrajectoryStep with path_pos near a switching point which will cause an almost identical
-      // TrajectoryStep get added in the next run (https://github.com/ros-planning/moveit/issues/1665)
-      if (path_pos - next_discontinuity->first < EPS)
-      {
-        continue;
-      }
       path_vel = old_path_vel +
                  (next_discontinuity->first - old_path_pos) * (path_vel - old_path_vel) / (path_pos - old_path_pos);
       path_pos = next_discontinuity->first;
@@ -996,8 +993,9 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
 
       if (getAccelerationMaxPathVelocity(after) < getVelocityMaxPathVelocity(after))
       {
-        // Past the last discontinuity only the end of the path follows, which after cannot pass
-        if (next_discontinuity != switching_points.end() && after > next_discontinuity->first)
+        // Steps that cross a discontinuity end on it, so reaching it counts as passing it. Past the last discontinuity
+        // only the end of the path follows, which after cannot pass
+        if (next_discontinuity != switching_points.end() && after >= next_discontinuity->first)
         {
           return false;
         }
