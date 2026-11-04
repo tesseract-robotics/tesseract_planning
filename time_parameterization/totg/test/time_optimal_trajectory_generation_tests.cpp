@@ -302,8 +302,6 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testLargeAccel)  // NOLINT
   }
 }
 
-// Caues the issue below. Workaround is applied when using computeTimestamps interface like in
-// testCommandLanguageInterface https://github.com/ros-industrial-consortium/tesseract_planning/issues/27
 TEST_F(TimeOptimalTrajectoryGenerationUnit, coreRejectsAReversal)  // NOLINT
 {
   // The second waypoint turns the path back towards the first
@@ -400,6 +398,10 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   EXPECT_TRUE(solver.compute(program, *env_, profiles));
   test_suite::expectTimesStrictlyIncreasing(program);
   test_suite::expectVelocitiesWithinLimits(program, profile->velocity_limits.col(1));
+  test_suite::expectAccelerationsWithinLimits(program, profile->acceleration_limits.col(1));
+
+  // The second waypoint turns the path back, so the motion stops there
+  EXPECT_TRUE(program[1].as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getVelocity().isZero(0.0));
 
   // Error
   std::string empty_name;
@@ -460,6 +462,7 @@ void runTrajectoryContainerInterfaceTest(const std::string& name,
   EXPECT_TRUE(solver.compute(program, env, profiles));
   test_suite::expectTimesStrictlyIncreasing(program);
   test_suite::expectVelocitiesWithinLimits(program, profile->velocity_limits.col(1));
+  test_suite::expectAccelerationsWithinLimits(program, profile->acceleration_limits.col(1));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
@@ -544,15 +547,14 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, nonPositivePathToleranceIsRejected) 
     expectComputeError([path_tolerance](auto& p) { p.path_tolerance = path_tolerance; }, "path tolerance");
 }
 
-TEST_F(TimeOptimalTrajectoryGenerationUnit, minAngleChangeMustBeFiniteAndNotNegative)  // NOLINT
+TEST_F(TimeOptimalTrajectoryGenerationUnit, minAngleChangeHasAFloor)  // NOLINT
 {
   for (double min_angle_change :
-       { -0.001, std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN() })
+       { 0.0, -0.001, 1e-6, std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN() })
     expectComputeError([min_angle_change](auto& p) { p.min_angle_change = min_angle_change; }, "min angle change");
 
-  // Zero merges only exact duplicates
   auto profile = createOverrideProfile();
-  profile->min_angle_change = 0.0;
+  profile->min_angle_change = 1e-5;
   EXPECT_EQ(computeErrorMessage(name_, *env_, manip_, profile), "");
 }
 
@@ -1930,6 +1932,124 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, reportedAccelerationsFollowTheProfil
   const Eigen::VectorXd difference = trajectory.getVelocity(trajectory.getPathData(h)) / h;
   EXPECT_TRUE(trajectory.getAcceleration(start).isApprox(difference, 1e-4))
       << trajectory.getAcceleration(start).transpose() << " vs " << difference.transpose();
+}
+
+namespace
+{
+CompositeInstruction programOf(const std::vector<Eigen::VectorXd>& positions)
+{
+  CompositeInstruction program;
+  for (const auto& q : positions)
+    program.push_back(
+        MoveInstruction(StateWaypoint({ "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" }, q),
+                        MoveInstructionType::FREESPACE));
+  return program;
+}
+
+Eigen::VectorXd joints(double q1, double q2 = 0, double q3 = 0)
+{
+  return (Eigen::VectorXd(6) << q1, q2, q3, 0, 0, 0).finished();
+}
+
+const StateWaypointPoly& waypointAt(const CompositeInstruction& program, std::size_t i)
+{
+  return program.flatten(moveFilter)[i].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+}
+
+/** @brief Time positions through compute, expecting success, increasing times and motion within the limits */
+CompositeInstruction runWithinLimits(const std::vector<Eigen::VectorXd>& positions,
+                                     const TimeOptimalTrajectoryGenerationCompositeProfile::Ptr& profile,
+                                     const std::string& name,
+                                     const tesseract::environment::Environment& env,
+                                     const tesseract::common::ManipulatorInfo& manip)
+{
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name, DEFAULT_PROFILE_KEY, profile);
+  CompositeInstruction program = programOf(positions);
+  program.setManipulatorInfo(manip);
+  EXPECT_TRUE(TimeOptimalTrajectoryGeneration(name).compute(program, env, profiles));
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectVelocitiesWithinLimits(program, Eigen::VectorXd::Ones(6));
+  test_suite::expectAccelerationsWithinLimits(program, Eigen::VectorXd::Ones(6));
+  return program;
+}
+
+}  // namespace
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, reversalsAreTimedWithAStop)  // NOLINT
+{
+  const auto profile = createOverrideProfile();
+  const auto run = [&](const std::vector<Eigen::VectorXd>& positions) {
+    return runWithinLimits(positions, profile, name_, *env_, manip_);
+  };
+  const auto leg = [&](const Eigen::VectorXd& from, const Eigen::VectorXd& to) {
+    return Trajectory(Path({ from, to }, profile->path_tolerance), Eigen::VectorXd::Ones(6), Eigen::VectorXd::Ones(6))
+        .getDuration();
+  };
+
+  // Out and back, on one joint and on three: the turn is passed at rest, after the motion out
+  for (const Eigen::VectorXd& out : { joints(1), joints(1, -0.5, 0.25) })
+  {
+    const CompositeInstruction program = run({ joints(0), out, joints(0) });
+    const auto& turn = waypointAt(program, 1);
+    EXPECT_TRUE(turn.getVelocity().isZero(0.0));
+    expectSameBits(turn.getTime(), leg(joints(0), out));
+  }
+
+  // Several turns in a row, each after the legs before it
+  const CompositeInstruction back_and_forth = run({ joints(0), joints(1), joints(0), joints(1) });
+  EXPECT_TRUE(waypointAt(back_and_forth, 1).getVelocity().isZero(0.0));
+  EXPECT_TRUE(waypointAt(back_and_forth, 2).getVelocity().isZero(0.0));
+  expectSameBits(waypointAt(back_and_forth, 2).getTime(), leg(joints(0), joints(1)) + leg(joints(1), joints(0)));
+
+  // Turns among collinear waypoints, which go straight on
+  const CompositeInstruction mixed = run({ joints(0), joints(0.5), joints(1), joints(0.5), joints(0), joints(0.5) });
+  EXPECT_GT(waypointAt(mixed, 1).getVelocity().norm(), 0.0);
+  EXPECT_TRUE(waypointAt(mixed, 2).getVelocity().isZero(0.0));
+  EXPECT_GT(waypointAt(mixed, 3).getVelocity().norm(), 0.0);
+  EXPECT_TRUE(waypointAt(mixed, 4).getVelocity().isZero(0.0));
+
+  // A turn next to the final run, which moves the last point onto the goal
+  const CompositeInstruction near_goal = run({ joints(0), joints(1), joints(0), joints(0.0005) });
+  ASSERT_EQ(near_goal.size(), 3);
+  EXPECT_TRUE(waypointAt(near_goal, 1).getVelocity().isZero(0.0));
+
+  // A goal a hair away from the start, within min_angle_change, still timed
+  const CompositeInstruction hair = run({ joints(0), joints(1e-12) });
+  ASSERT_EQ(hair.size(), 2);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, sharpCornersBlendOrStop)  // NOLINT
+{
+  auto profile = createOverrideProfile();
+  const auto run = [&](const std::vector<Eigen::VectorXd>& positions) {
+    return runWithinLimits(positions, profile, name_, *env_, manip_);
+  };
+
+  // A sharp corner on long segments still blends, so the motion goes on through it
+  const CompositeInstruction blended = run({ joints(0), joints(1), joints(0, 0.15) });
+  EXPECT_GT(waypointAt(blended, 1).getVelocity().norm(), 0.0);
+
+  // The same corner on segments too short for a blend the integration resolves stops instead
+  const CompositeInstruction stopped = run({ joints(0), joints(0.002), joints(0, 0.0003) });
+  EXPECT_TRUE(waypointAt(stopped, 1).getVelocity().isZero(0.0));
+
+  // Just short of a reversal: a turn of pi - 0.006, blended on long segments, stopped on short ones
+  const double turn = M_PI - 0.006;
+  const Eigen::VectorXd back = joints(std::cos(turn), std::sin(turn));
+  EXPECT_GT(waypointAt(run({ joints(0), joints(1), joints(1) + back }), 1).getVelocity().norm(), 0.0);
+  EXPECT_TRUE(waypointAt(run({ joints(0), joints(0.01), joints(0.01) + (0.01 * back) }), 1).getVelocity().isZero(0.0));
+
+  // Straight on, and nearly straight on, at deflections from 1e-6 to 1e-3 rad
+  for (double deflection : { 0.0, 1e-6, 1e-5, 1e-4, 1e-3 })
+    run({ joints(0), joints(0.5), joints(1.0, 0.5 * deflection) });
+
+  // A dense path, with segments shorter than the integration's switching-point scan
+  profile->min_angle_change = 1e-5;
+  std::vector<Eigen::VectorXd> dense;
+  for (int i = 0; i <= 600; ++i)
+    dense.push_back(joints(0.3 * std::sin(i * 0.0015), 0.3 * (1.0 - std::cos(i * 0.0015)), 0.0002 * i));
+  run(dense);
 }
 
 int main(int argc, char** argv)
