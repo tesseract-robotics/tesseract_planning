@@ -1020,16 +1020,15 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
     // trajectory segments
     const double start_slope = (start2->path_vel_ - start1->path_vel_) / (start2->path_pos_ - start1->path_pos_);
 
-    // It is possible to have both slope and start_slope to be equal
-    // This occurs if two consecutive TrajectorySteps have the same acceleration.
-    // Resulting in intersection_path_pos being nan because it divides by zero
-    bool check_eq_slope = tesseract::common::almostEqualRelativeAndAbs(slope, start_slope, EPS);
-    double intersection_path_pos{ 0 };
-    if (check_eq_slope)
-      intersection_path_pos = start1->path_pos_ + (start2->path_pos_ - start1->path_pos_) / 2.0;
-    else
+    // Parallel lines meet only where they coincide, and then anywhere along the step. Parallel lines apart never meet:
+    // the intersection is left NaN, fails both checks below, and the integration goes on backward to where they do
+    double intersection_path_pos = std::numeric_limits<double>::quiet_NaN();
+    if (!tesseract::common::almostEqualRelativeAndAbs(slope, start_slope, EPS))
       intersection_path_pos =
           (start1->path_vel_ - path_vel + slope * path_pos - start_slope * start1->path_pos_) / (slope - start_slope);
+    else if (tesseract::common::almostEqualRelativeAndAbs(
+                 start1->path_vel_ + (start_slope * (path_pos - start1->path_pos_)), path_vel, EPS))
+      intersection_path_pos = start1->path_pos_ + (start2->path_pos_ - start1->path_pos_) / 2.0;
 
     double pos_max = std::max(start1->path_pos_, path_pos);
     double pos_min = std::min(start2->path_pos_, trajectory.front().path_pos_);
