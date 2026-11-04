@@ -676,12 +676,53 @@ Trajectory::Trajectory(const Path& path,
     auto it = previous;
     it->time_ = 0.0;
     ++it;
+    // Each step's path acceleration is constant. It is read off the change in velocity over the step's own duration,
+    // which stays accurate on short steps where the change in position cancels. A step too short for that takes it
+    // from a neighbour on its side of any segment end: the next step if it starts on one, else the previous one
+    const double min_step_duration = 1e-6 * time_step_;
+    std::vector<double> segment_ends;
+    for (const auto& switching_point : path_.getSwitchingPoints())
+    {
+      if (switching_point.second)
+        segment_ends.push_back(switching_point.first);
+    }
+    const auto starts_on_segment_end = [&segment_ends](double path_pos) {
+      return std::binary_search(segment_ends.begin(), segment_ends.end(), path_pos);
+    };
+
+    std::vector<std::list<TrajectoryStep>::iterator> short_steps;
     while (it != trajectory_.end())
     {
-      it->time_ =
-          previous->time_ + (it->path_pos_ - previous->path_pos_) / ((it->path_vel_ + previous->path_vel_) / 2.0);
+      const double step_duration =
+          (it->path_pos_ - previous->path_pos_) / ((it->path_vel_ + previous->path_vel_) / 2.0);
+      it->time_ = previous->time_ + step_duration;
+      if (step_duration > min_step_duration)
+        it->path_acc_ = (it->path_vel_ - previous->path_vel_) / step_duration;
+      else
+        short_steps.push_back(it);
       previous = it;
       ++it;
+    }
+
+    // An acceleration taken from a step that is itself short would be just as inaccurate
+    const auto is_short = [&short_steps](std::list<TrajectoryStep>::iterator step) {
+      return std::find(short_steps.begin(), short_steps.end(), step) != short_steps.end();
+    };
+    for (auto step : short_steps)
+    {
+      auto before = step;
+      while (before != std::next(trajectory_.begin()) && is_short(before))
+        --before;
+      auto after = step;
+      while (std::next(after) != trajectory_.end() && is_short(after))
+        ++after;
+      const bool before_usable = !is_short(before);
+      const bool after_usable = !is_short(after);
+      const bool prefer_after = starts_on_segment_end(std::prev(step)->path_pos_);
+      if (after_usable && (prefer_after || !before_usable))
+        step->path_acc_ = after->path_acc_;
+      else if (before_usable)
+        step->path_acc_ = before->path_acc_;
     }
 
     // A stretch of zero path velocity, such as a zero velocity limit on a moving joint gives, is timed as infinite
@@ -1317,13 +1358,15 @@ PathData Trajectory::getPathData(double time) const
   auto previous = it;
   previous--;
 
-  double time_step = it->time_ - previous->time_;
-  const double acceleration =
-      2.0 * (it->path_pos_ - previous->path_pos_ - time_step * previous->path_vel_) / (time_step * time_step);
+  const double elapsed = time - previous->time_;
+  data.path_acc = it->path_acc_;
+  data.path_pos = previous->path_pos_ + (elapsed * previous->path_vel_) + (0.5 * elapsed * elapsed * data.path_acc);
+  data.path_vel = previous->path_vel_ + (elapsed * data.path_acc);
 
-  time_step = time - previous->time_;
-  data.path_pos = (previous->path_pos_ + time_step * previous->path_vel_ + 0.5 * time_step * time_step * acceleration);
-  data.path_vel = previous->path_vel_ + time_step * acceleration;
+  // Keep the position on the step, below its end, so the path is read in the segment the step lies in
+  if (it->path_pos_ > previous->path_pos_)
+    data.path_pos = std::min(std::max(data.path_pos, previous->path_pos_),
+                             std::nextafter(it->path_pos_, -std::numeric_limits<double>::infinity()));
   data.time = time;
   data.prev_path_pos = previous->path_pos_;
   data.prev_path_vel = previous->path_vel_;
@@ -1341,8 +1384,7 @@ double Trajectory::getTime(double pos) const
   assert(pos >= previous->path_pos_ && pos <= it->path_pos_);
 
   const double time_step = it->time_ - previous->time_;
-  const double acceleration =
-      2.0 * (it->path_pos_ - previous->path_pos_ - time_step * previous->path_vel_) / (time_step * time_step);
+  const double acceleration = it->path_acc_;
 
   // Solve 0.5 * acceleration * dt^2 + velocity * dt = distance for the root that is not negative, in the form that does
   // not cancel: it holds for zero acceleration, where the textbook form divides zero by zero, and for zero velocity
@@ -1369,12 +1411,9 @@ Eigen::VectorXd Trajectory::getVelocity(const PathData& data) const
 
 Eigen::VectorXd Trajectory::getAcceleration(const PathData& data) const
 {
-  Eigen::VectorXd path_acc =
-      (path_.getTangent(data.path_pos) * data.path_vel - path_.getTangent(data.prev_path_pos) * data.prev_path_vel);
-  double time_step = data.time - data.prev_time;
-  if (time_step > 0.0)
-    path_acc /= time_step;
-  return path_acc;
+  // The joint acceleration along the path, d2q/dt2 = q'(s) s'' + q''(s) s'^2, which the integration bounds
+  return (path_.getTangent(data.path_pos) * data.path_acc) +
+         (path_.getCurvature(data.path_pos) * data.path_vel * data.path_vel);
 }
 }  // namespace totg
 }  // namespace tesseract::time_parameterization
