@@ -234,6 +234,60 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerReportsFailedVertices)  /
   EXPECT_NE(response.message.find("Failed edges (1): 0->1"), std::string::npos) << response.message;
 }
 
+/** @brief A waypoint sampler that is not a DescartesRobotSampler: it finds no state and describes itself. */
+class NoStateSampler : public descartes_light::WaypointSampler<double>
+{
+public:
+  std::vector<descartes_light::StateSample<double>> sample() const override { return {}; }
+  void print(std::ostream& os) const override { os << "NoStateSampler: no states by design"; }
+};
+
+/** @brief The default move profile, with every waypoint sampled by NoStateSampler. */
+class NoStateMoveProfile : public DescartesDefaultMoveProfileD
+{
+public:
+  std::unique_ptr<descartes_light::WaypointSampler<double>>
+  createWaypointSampler(const MoveInstructionPoly& /*move_instruction*/,
+                        const tesseract::common::ManipulatorInfo& /*composite_manip_info*/,
+                        const std::shared_ptr<const Environment>& /*env*/) const override
+  {
+    return std::make_unique<NoStateSampler>();
+  }
+};
+
+TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerReportsAnySamplersFailure)  // NOLINT
+{
+  // A sampler of another kind than DescartesRobotSampler is reported by what it prints.
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+
+  CompositeInstruction program;
+  program.setManipulatorInfo(manip);
+  program.push_back(MoveInstruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip));
+  program.push_back(MoveInstruction(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip));
+
+  auto solver_profile = std::make_shared<DescartesLadderGraphSolverProfileD>();
+  solver_profile->num_threads = 1;
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", std::make_shared<NoStateMoveProfile>());
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
+
+  PlannerRequest request;
+  request.instructions = program;
+  request.env = env_;
+  request.profiles = profiles;
+
+  DescartesMotionPlannerD planner(DESCARTES_DEFAULT_NAMESPACE);
+  const PlannerResponse response = planner.solve(request);
+  EXPECT_FALSE(response.successful);
+  EXPECT_NE(response.message.find("Failed vertices (2/2):\n  [0] NoStateSampler: no states by design\n  [1] "
+                                  "NoStateSampler: no states by design"),
+            std::string::npos)
+      << response.message;
+}
+
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 {
   // Specify a start waypoint
