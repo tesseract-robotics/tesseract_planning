@@ -197,6 +197,40 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   }
 }
 
+TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerReportsFailedVertices)  // NOLINT
+{
+  // The end pose is out of the robot's reach, so the graph cannot be built.
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(5.0, .20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
+
+  CompositeInstruction program;
+  program.setManipulatorInfo(manip);
+  program.push_back(MoveInstruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip));
+  program.push_back(MoveInstruction(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip));
+
+  auto solver_profile = std::make_shared<DescartesLadderGraphSolverProfileD>();
+  solver_profile->num_threads = 1;
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", std::make_shared<DescartesDefaultMoveProfileD>());
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
+
+  PlannerRequest request;
+  request.instructions = program;
+  request.env = env_;
+  request.profiles = profiles;
+
+  DescartesMotionPlannerD planner(DESCARTES_DEFAULT_NAMESPACE);
+  const PlannerResponse response = planner.solve(request);
+  EXPECT_FALSE(response.successful);
+  EXPECT_EQ(response.message.rfind("Failed to build graph", 0), 0) << response.message;
+  // The unreachable waypoint (index 1 of 2) is named, with its sampler's report.
+  EXPECT_NE(response.message.find("Failed vertices (1/2):"), std::string::npos) << response.message;
+  EXPECT_NE(response.message.find("\n  [1] "), std::string::npos) << response.message;
+  EXPECT_NE(response.message.find("Error string:"), std::string::npos) << response.message;
+}
+
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 {
   // Specify a start waypoint
