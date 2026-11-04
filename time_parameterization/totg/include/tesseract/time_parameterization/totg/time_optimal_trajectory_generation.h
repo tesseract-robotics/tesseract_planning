@@ -66,7 +66,9 @@ public:
    * between them; the program then ends at the run's first move, within min_angle_change of the goal. The goal also
    * replaces the kept moves before it that are within min_angle_change of it, so a removed move lies within twice
    * min_angle_change of a kept one. When nothing moves, only the first move instruction is kept. Other instructions
-   * keep their place relative to the motion.
+   * keep their place relative to the motion. Where the path turns back, or a corner would blend at a radius below
+   * 1e-4, the motion stops: the waypoint there has zero velocity. Throws if the profile's min_angle_change is below
+   * 1e-5.
    */
   bool compute(tesseract::command_language::CompositeInstruction& composite_instruction,
                const tesseract::environment::Environment& env,
@@ -128,8 +130,8 @@ public:
   Eigen::VectorXd getCurvature(double s) const;
   double getNextSwitchingPoint(double s, bool& discontinuity) const;
   /**
-   * @brief Whether the path turns back on itself at a waypoint, where no corner blend fits; a Trajectory along it is
-   * invalid, so split such a path there and time the pieces from rest to rest
+   * @brief Whether the path turns back on itself at a waypoint, where the path velocity must come to zero; a Trajectory
+   * along it is invalid, so split such a path there and time the pieces from rest to rest
    */
   bool hasReversal() const;
   const std::list<std::pair<double, bool>>& getSwitchingPoints() const&;
@@ -175,10 +177,7 @@ public:
    * @param max_velocity Maximum velocity per joint
    * @param max_acceleration Maximum acceleration per joint
    * @param time_step Time step used when integrating forward and backward
-   * @bug A negative path velocity error will occur if the path contains points that are close to but not equal to the
-   * start or end point. A workaround (implemented in TimeOptimalTrajectoryGeneration::computeTimesteps) is to append an
-   * extra joint that increments such that no point is ever repeated. See
-   * https://github.com/ros-industrial-consortium/tesseract_planning/issues/27
+   * @details Invalid if the time step is not positive or the path has a reversal (Path::hasReversal)
    */
   Trajectory(const Path& path,
              const Eigen::VectorXd& max_velocity,
@@ -224,6 +223,9 @@ public:
    * increase
    */
   bool assignData(InstructionsTrajectory& trajectory, const std::vector<std::size_t>& kept) const;
+
+  /** @brief As assignData, with every time written time_offset later, for a trajectory that continues another */
+  bool assignData(InstructionsTrajectory& trajectory, const std::vector<std::size_t>& kept, double time_offset) const;
 
 private:
   struct TrajectoryStep
