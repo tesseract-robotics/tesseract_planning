@@ -382,6 +382,10 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
   profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
   profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
+  profile->use_start_velocity = true;
+  TimeOptimalTrajectoryGenerationCompositeProfile at_rest(*profile);
+  at_rest.use_start_velocity = false;
+  EXPECT_FALSE(*profile == at_rest);
 
   // Serialization
   tesseract::common::testSerializationDerivedClass<tesseract::common::Profile,
@@ -2120,6 +2124,110 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, pathTellsWhichWaypointsAreBlended)  
   const Path unblended(waypoints, 0.0);
   for (std::size_t i = 0; i < waypoints.size(); ++i)
     EXPECT_FALSE(unblended.isBlended(i)) << i;
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, coreStartsAtAStartVelocity)  // NOLINT
+{
+  // A unit line, with an acceleration limit of 1 and room to brake from up to sqrt(2) by its end
+  const Path line({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0) }, 0.1);
+  const Eigen::Vector2d fast(10, 10);
+  const Eigen::Vector2d unit(1, 1);
+
+  const Trajectory moving(line, fast, unit, 0.001, 1.0);
+  ASSERT_TRUE(moving.isValid());
+  expectSameBits(moving.getPathData(0.0).path_vel, 1.0);
+  EXPECT_LT(moving.getDuration(), Trajectory(line, fast, unit).getDuration());
+  for (int i = 0; i * 1e-3 <= moving.getDuration(); ++i)
+  {
+    const Eigen::VectorXd a = moving.getAcceleration(moving.getPathData(i * 1e-3));
+    EXPECT_LE(a.cwiseAbs().maxCoeff(), 1.05) << i;
+  }
+
+  // Braking room
+  EXPECT_TRUE(Trajectory(line, fast, unit, 0.001, std::sqrt(2.0) * 0.999).isValid());
+  EXPECT_FALSE(Trajectory(line, fast, unit, 0.001, std::sqrt(2.0) * 1.001).isValid());
+
+  // The velocity limit, which a start exactly at it meets, also where the limit is not exactly representable
+  EXPECT_TRUE(Trajectory(line, unit, unit, 0.001, 1.0).isValid());
+  const Path diagonal({ Eigen::Vector2d(0, 0), Eigen::Vector2d(0.3, 0.7) }, 0.1);
+  EXPECT_TRUE(Trajectory(diagonal, unit, unit, 0.001, Eigen::Vector2d(0.3, 0.7).norm() / 0.7).isValid());
+  EXPECT_FALSE(Trajectory(line, unit, unit, 0.001, 1.5).isValid());
+  for (double bad : { -1.0, std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity() })
+    EXPECT_FALSE(Trajectory(line, fast, unit, 0.001, bad).isValid()) << bad;
+
+  // A straight lead-in to a tight corner, which slows the path to a crawl: braking from 1.2 takes 0.72 of the 0.5 there
+  // is, from 0.6 only 0.18
+  const Path lead_in({ Eigen::Vector2d(0, 0), Eigen::Vector2d(0.5, 0), Eigen::Vector2d(0.5, 1) }, 0.001);
+  EXPECT_FALSE(Trajectory(lead_in, fast, unit, 0.001, 1.2).isValid());
+  EXPECT_TRUE(Trajectory(lead_in, fast, unit, 0.001, 0.6).isValid());
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, computeStartsAtTheFirstWaypointsVelocity)  // NOLINT
+{
+  auto profile = createOverrideProfile();
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+  const TimeOptimalTrajectoryGeneration solver(name_);
+  const auto program = [&](const std::vector<Eigen::VectorXd>& positions, const Eigen::VectorXd& start_velocity) {
+    CompositeInstruction p = programOf(positions);
+    p.setManipulatorInfo(manip_);
+    p.front().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().setVelocity(start_velocity);
+    return p;
+  };
+  const std::vector<Eigen::VectorXd> line{ joints(0), joints(1), joints(2) };
+  const Eigen::VectorXd along = joints(0.5);
+
+  // Ignored unless the profile asks for it
+  CompositeInstruction ignored = program(line, along);
+  CompositeInstruction at_rest = programOf(line);
+  at_rest.setManipulatorInfo(manip_);
+  ASSERT_TRUE(solver.compute(ignored, *env_, profiles));
+  ASSERT_TRUE(solver.compute(at_rest, *env_, profiles));
+  for (std::size_t i = 0; i < line.size(); ++i)
+    expectSameBits(waypointAt(ignored, i).getTime(), waypointAt(at_rest, i).getTime());
+
+  profile->use_start_velocity = true;
+  CompositeInstruction moving = program(line, along);
+  ASSERT_TRUE(solver.compute(moving, *env_, profiles));
+  EXPECT_TRUE(waypointAt(moving, 0).getVelocity().isApprox(along, 1e-12)) << waypointAt(moving, 0).getVelocity();
+  test_suite::expectTimesStrictlyIncreasing(moving);
+  test_suite::expectVelocitiesWithinLimits(moving, Eigen::VectorXd::Ones(6));
+  test_suite::expectAccelerationsWithinLimits(moving, Eigen::VectorXd::Ones(6));
+  EXPECT_LT(waypointAt(moving, 2).getTime(), waypointAt(at_rest, 2).getTime());
+
+  // Across a stop where the path turns back, only the motion out starts moving
+  CompositeInstruction turn = program({ joints(0), joints(1), joints(0) }, along);
+  ASSERT_TRUE(solver.compute(turn, *env_, profiles));
+  EXPECT_TRUE(waypointAt(turn, 1).getVelocity().isZero(0.0));
+
+  // A goal within min_angle_change of the start, or of the last point kept, sets the direction itself
+  CompositeInstruction hair = program({ joints(0), joints(0.0005) }, joints(0.01));
+  EXPECT_TRUE(solver.compute(hair, *env_, profiles));
+  CompositeInstruction near_goal = program({ joints(0), joints(1), joints(1.0005) }, along);
+  ASSERT_TRUE(solver.compute(near_goal, *env_, profiles));
+  EXPECT_TRUE(waypointAt(near_goal, 0).getVelocity().isApprox(along, 1e-12));
+
+  // A slightly tilted start velocity is taken along the path
+  const double tilt = 5e-4;
+  CompositeInstruction tilted = program(line, joints(0.5 * std::cos(tilt), 0.5 * std::sin(tilt)));
+  ASSERT_TRUE(solver.compute(tilted, *env_, profiles));
+  EXPECT_NEAR(waypointAt(tilted, 0).getVelocity()[1], 0.0, 1e-12);
+  EXPECT_NEAR(waypointAt(tilted, 0).getVelocity()[0], 0.5 * std::cos(tilt), 1e-12);
+
+  // Backwards, sideways, too fast, malformed, or with nowhere to go
+  const double off = 1e-2;
+  for (const Eigen::VectorXd& bad : { joints(-0.5),
+                                      Eigen::VectorXd(joints(0.5 * std::cos(off), 0.5 * std::sin(off))),
+                                      joints(1.5),
+                                      Eigen::VectorXd(Eigen::VectorXd::Constant(5, 0.1)),
+                                      Eigen::VectorXd(Eigen::VectorXd::Zero(5)),
+                                      joints(std::numeric_limits<double>::quiet_NaN()) })
+  {
+    CompositeInstruction rejected = program(line, bad);
+    EXPECT_FALSE(solver.compute(rejected, *env_, profiles)) << bad.transpose();
+  }
+  CompositeInstruction still = program({ joints(0), joints(0) }, along);
+  EXPECT_FALSE(solver.compute(still, *env_, profiles));
 }
 
 int main(int argc, char** argv)

@@ -84,6 +84,15 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract::commo
    */
   double min_angle_change{ 0.001 };
 
+  /**
+   * @brief Start at the first waypoint's velocity instead of at rest
+   * @details The velocity must point forward along the path's first segment: its part across it at most 1e-9 plus 1e-3
+   * times its part along it. The motion starts at the part along it, which must be within the scaled velocity limits,
+   * and is written back to the first waypoint. compute fails otherwise, as it does when the path leaves no room to
+   * slow down. A zero or empty velocity starts at rest. Default: false
+   */
+  bool use_start_velocity{ false };
+
   bool operator==(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
   bool operator!=(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
 };

@@ -197,6 +197,18 @@ public:
              const Eigen::VectorXd& max_acceleration,
              double time_step = 0.001);
 
+  /**
+   * @brief Generates a time-optimal trajectory that starts moving along the path at start_path_velocity
+   * @details Also invalid if start_path_velocity is negative or not finite, if it exceeds the velocity limit at the
+   * start of the path (within rounding of it, the limit is taken instead), or if the path does not leave room to slow
+   * down from it for a later limit
+   */
+  Trajectory(const Path& path,
+             const Eigen::VectorXd& max_velocity,
+             const Eigen::VectorXd& max_acceleration,
+             double time_step,
+             double start_path_velocity);
+
   /** @brief Call this method after constructing the object to make sure the
      trajectory generation succeeded without errors. If this method returns
      false, all other methods have undefined behavior. **/
