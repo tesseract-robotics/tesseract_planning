@@ -71,6 +71,26 @@ inline void expectVelocitiesWithinLimits(const tesseract::command_language::Comp
 }
 
 /**
+ * @brief Expect every joint acceleration of every waypoint to be within max_acceleration, up to a relative tolerance
+ * @details The default tolerance allows for the integration's own error at its 1 ms step
+ */
+inline void expectAccelerationsWithinLimits(const tesseract::command_language::CompositeInstruction& program,
+                                            const Eigen::VectorXd& max_acceleration,
+                                            double relative_tolerance = 0.06)
+{
+  using namespace tesseract::command_language;
+  const auto moves = program.flatten(moveFilter);
+  for (std::size_t i = 0; i < moves.size(); ++i)
+  {
+    const Eigen::VectorXd& a =
+        moves[i].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getAcceleration();
+    ASSERT_EQ(a.size(), max_acceleration.size()) << "waypoint " << i;
+    for (Eigen::Index j = 0; j < a.size(); ++j)
+      EXPECT_LE(std::abs(a[j]), max_acceleration[j] * (1.0 + relative_tolerance)) << "waypoint " << i << " joint " << j;
+  }
+}
+
+/**
  * @brief Expect no joint to cover more between consecutive waypoints than max_velocity allows in the time between them,
  * up to a relative tolerance
  * @details Compares the waypoint positions, so it holds only where the path runs straight between them

@@ -614,6 +614,8 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, asymmetricLimitsUseTheTighterSide)  
   max_velocity[0] = 0.5;
   test_suite::expectTimesStrictlyIncreasing(program);
   test_suite::expectVelocitiesWithinLimits(program, max_velocity);
+  test_suite::expectAccelerationsWithinLimits(
+      program, (-profile->acceleration_limits.col(0)).cwiseMin(profile->acceleration_limits.col(1)));
 }
 
 TEST_F(TimeOptimalTrajectoryGenerationUnit, waypointJointsMustMatchTheGroup)  // NOLINT
@@ -988,6 +990,7 @@ void expectTimedFromRestToRest(const CompositeInstruction& program)
 {
   test_suite::expectTimesStrictlyIncreasing(program);
   test_suite::expectDisplacementsWithinLimits(program, Eigen::VectorXd::Ones(6));
+  test_suite::expectAccelerationsWithinLimits(program, Eigen::VectorXd::Ones(6));
   const auto moves = program.flatten(moveFilter);
   const auto& last = moves.back().get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
   EXPECT_TRUE(last.getVelocity().isZero(0.0)) << last.getVelocity().transpose();
@@ -1497,6 +1500,124 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, integrationStepsKeepTheAccelerationL
 
   // Euler integration at a 1 ms step overshoots by a few percent
   EXPECT_LT(worst, 1.05);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, reportedAccelerationsFollowTheProfile)  // NOLINT
+{
+  // Dense random waypoints; sampled every millisecond, many samples land within rounding of an integration step's start
+  const std::vector<Eigen::VectorXd> waypoints{
+    (Eigen::VectorXd(6) << 1.1527481255201792,
+     2.4778545783982735,
+     0.39805022606117779,
+     0.30752038635737333,
+     -1.2468101667282403,
+     0.30785189430654714)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.1464036611492012,
+     2.4909805068210518,
+     0.41097238462529373,
+     0.30924966160534401,
+     -1.2581055239522116,
+     0.3001943293424339)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.1367663646321557,
+     2.4739886282915426,
+     0.42008499996441989,
+     0.31984134436365175,
+     -1.2744913717179533,
+     0.28417343570792553)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.124437429231131,
+     2.4605596305985098,
+     0.42602274226660991,
+     0.33759919631686841,
+     -1.2570365212201005,
+     0.30394649940247054)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.1052077531021138,
+     2.4782218830875906,
+     0.43031578658094083,
+     0.34390091022355207,
+     -1.2654336237048578,
+     0.28807540332793091)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.0963362296304924,
+     2.4750262390834967,
+     0.42174875766997955,
+     0.34325305855541954,
+     -1.2797754253280167,
+     0.28088909715921612)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.0954643803658908,
+     2.4726033213113423,
+     0.42577793650601276,
+     0.33717512675686767,
+     -1.2790226923964845,
+     0.2646151257032579)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.0997053306623745,
+     2.4728585182303013,
+     0.43212708979127867,
+     0.32348833490549106,
+     -1.2646388057955611,
+     0.27660279535650384)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.1011512108892363,
+     2.4610899896317036,
+     0.44847706169685647,
+     0.32012336723525353,
+     -1.2540057829150661,
+     0.25786654794921854)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.0828371415913773,
+     2.4649827948660641,
+     0.45600193514513571,
+     0.31204750228887757,
+     -1.2500617418293454,
+     0.27237147889151458)
+        .finished(),
+    (Eigen::VectorXd(6) << 1.0704178445375758,
+     2.464737883383437,
+     0.43770942350636166,
+     0.31879310559672758,
+     -1.247759098197426,
+     0.28010624561612885)
+        .finished(),
+  };
+  const Eigen::VectorXd max_velocity = (Eigen::VectorXd(6) << 1.1555103964761071,
+                                        1.1930992499937916,
+                                        1.1613936958961411,
+                                        1.0114525775956422,
+                                        1.9610162098264725,
+                                        1.4527014311498441)
+                                           .finished();
+  const Eigen::VectorXd max_acceleration = (Eigen::VectorXd(6) << 1.1238693172413976,
+                                            1.803423252441716,
+                                            1.1706228638524405,
+                                            0.51805638339175875,
+                                            1.916070845494902,
+                                            1.9068486895287216)
+                                               .finished();
+
+  const Path path(std::list<Eigen::VectorXd>(waypoints.begin(), waypoints.end()), 0.1);
+  const Trajectory trajectory(path, max_velocity, max_acceleration);
+  ASSERT_TRUE(trajectory.isValid());
+
+  double worst{ 0 };
+  for (int i = 0; i * 1e-3 <= trajectory.getDuration(); ++i)
+  {
+    const PathData data = trajectory.getPathData(i * 1e-3);
+    worst = std::max(worst, trajectory.getAcceleration(data).cwiseAbs().cwiseQuotient(max_acceleration).maxCoeff());
+  }
+  EXPECT_LT(worst, 1.05);
+
+  // The motion starts at rest, accelerating
+  const PathData start = trajectory.getPathData(0.0);
+  EXPECT_TRUE(trajectory.getVelocity(start).isZero(0.0));
+  const double h = 1e-6;
+  const Eigen::VectorXd difference = trajectory.getVelocity(trajectory.getPathData(h)) / h;
+  EXPECT_TRUE(trajectory.getAcceleration(start).isApprox(difference, 1e-4))
+      << trajectory.getAcceleration(start).transpose() << " vs " << difference.transpose();
 }
 
 int main(int argc, char** argv)
