@@ -161,7 +161,7 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, test2)  // NOLINT
 
   Trajectory trajectory(Path(waypoints, 100.0), max_velocities, max_accelerations, 10.0);
   EXPECT_TRUE(trajectory.isValid());
-  EXPECT_DOUBLE_EQ(1922.1418427445944, trajectory.getDuration());
+  EXPECT_DOUBLE_EQ(1922.1436537997095, trajectory.getDuration());
 
   // Test start matches
   PathData path_data = trajectory.getPathData(0);
@@ -203,7 +203,7 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, test3)  // NOLINT
 
   Trajectory trajectory(Path(waypoints, 100.0), max_velocities, max_accelerations);
   EXPECT_TRUE(trajectory.isValid());
-  EXPECT_DOUBLE_EQ(1919.5597888812974, trajectory.getDuration());
+  EXPECT_DOUBLE_EQ(1919.5597913722672, trajectory.getDuration());
 
   // Test start matches
   PathData path_data = trajectory.getPathData(0);
@@ -1320,6 +1320,183 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, backwardIntegrationJoinsOnlyWhereThe
     v_prev = v;
   }
   EXPECT_LT(worst, 1.1);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, integrationStepsKeepTheAccelerationLimit)  // NOLINT
+{
+  // Dense random waypoints, whose backward pass decelerates from lines into blends
+  const std::vector<Eigen::VectorXd> waypoints{
+    (Eigen::VectorXd(6) << -0.65579606047800976,
+     1.6305341103863198,
+     0.88375613919118434,
+     1.3792520549974243,
+     1.7297410090512955,
+     0.49512407542683956)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.64119901666227186,
+     1.6171914013989865,
+     0.88087381761232797,
+     1.373922123016432,
+     1.7322346799208579,
+     0.49661933108330031)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.62846303314618301,
+     1.6043420662099721,
+     0.88337914954116203,
+     1.3659640475914243,
+     1.7467055010530308,
+     0.48624214889569922)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.62674036993575144,
+     1.5902582854829386,
+     0.88939754148485806,
+     1.3735005545326844,
+     1.7562925309373523,
+     0.50485352857185495)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.62790049349228894,
+     1.5899317389336214,
+     0.88357651861160258,
+     1.3541639371062943,
+     1.7638962782998822,
+     0.52365205819066363)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.62230409257841468,
+     1.5710729818676559,
+     0.90100805426902197,
+     1.3374934735558532,
+     1.7526912796796321,
+     0.53914844988344968)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.62036092706377577,
+     1.5704705181362941,
+     0.89267366807771853,
+     1.3367129393389077,
+     1.7404099866802252,
+     0.52827886967159676)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.629175976179559,
+     1.5604246662952908,
+     0.88072285814687479,
+     1.328817460482524,
+     1.7547908940320118,
+     0.52237968327292916)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.61769069575602742,
+     1.5496255033077242,
+     0.86241156413931175,
+     1.3353013049389177,
+     1.7745271002221175,
+     0.52816798281456512)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.6292428489010391,
+     1.5331990750473943,
+     0.87150836396966769,
+     1.3222487345524307,
+     1.7854025044701614,
+     0.51124295647672846)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.64062901316444643,
+     1.5178383253400425,
+     0.85376323612123861,
+     1.3276177453455889,
+     1.792132509368207,
+     0.51217561637122655)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.64487808431708737,
+     1.4998035041951547,
+     0.85853576990716163,
+     1.310636852061787,
+     1.7975128238223164,
+     0.5208116143878917)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.65437034658230919,
+     1.4992395874462705,
+     0.86914992842342953,
+     1.3015772651362238,
+     1.7938840767297486,
+     0.51670620752799978)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.65414527312580628,
+     1.5171831264698663,
+     0.88127619123390699,
+     1.2965729109513411,
+     1.792054540624221,
+     0.52693620830256582)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.66551281452830213,
+     1.5332401926037307,
+     0.89455470417305916,
+     1.312521809471616,
+     1.7844037148605607,
+     0.52446100892156)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.66622953226728421,
+     1.5432965727050212,
+     0.89346645327788454,
+     1.2935351176906522,
+     1.7670554413385506,
+     0.50847057964665465)
+        .finished(),
+    (Eigen::VectorXd(6) << -0.67351162523156705,
+     1.5487164714846922,
+     0.89654305428978187,
+     1.3077168078161017,
+     1.7550246475502032,
+     0.49900248878812331)
+        .finished(),
+  };
+  const Eigen::VectorXd max_velocity = (Eigen::VectorXd(6) << 0.7483295128489762,
+                                        1.2746354603674193,
+                                        1.8479081329738245,
+                                        1.1446014158050404,
+                                        1.7600521322113427,
+                                        0.77593825559627749)
+                                           .finished();
+  const Eigen::VectorXd max_acceleration = (Eigen::VectorXd(6) << 0.89230822956140776,
+                                            1.5009400983009549,
+                                            0.82768002176751199,
+                                            1.2866478274695268,
+                                            1.2981213905675786,
+                                            0.5019603210569894)
+                                               .finished();
+
+  const Path path(std::list<Eigen::VectorXd>(waypoints.begin(), waypoints.end()), 0.1);
+  const Trajectory trajectory(path, max_velocity, max_acceleration);
+  ASSERT_TRUE(trajectory.isValid());
+
+  // Recover the integration steps, then evaluate the exact joint acceleration T(s) s'' + K(s) s'^2 inside each
+  struct Step
+  {
+    double t, s, v;
+  };
+  std::vector<Step> steps;
+  for (int k = 0; k * 2e-6 < trajectory.getDuration(); ++k)
+  {
+    const PathData data = trajectory.getPathData(k * 2e-6);
+    if (steps.empty() || data.prev_time > steps.back().t)
+      steps.push_back({ data.prev_time, data.prev_path_pos, data.prev_path_vel });
+  }
+  steps.push_back({ trajectory.getDuration(), path.getLength(), 0.0 });
+
+  double worst{ 0 };
+  for (std::size_t i = 0; i + 1 < steps.size(); ++i)
+  {
+    const double dt = steps[i + 1].t - steps[i].t;
+    const double ds = steps[i + 1].s - steps[i].s;
+    const double sdd = 2.0 * (ds - dt * steps[i].v) / (dt * dt);
+    for (int f = 0; f <= 8; ++f)
+    {
+      const double fraction = std::min(std::max(f / 8.0, 1e-9), 1.0 - 1e-9);
+      const double s = steps[i].s + (fraction * ds);
+      const double v = steps[i].v + (fraction * dt * sdd);
+      const Eigen::VectorXd a = path.getTangent(s) * sdd + path.getCurvature(s) * v * v;
+      worst = std::max(worst, a.cwiseAbs().cwiseQuotient(max_acceleration).maxCoeff());
+    }
+  }
+
+  // Euler integration at a 1 ms step overshoots by a few percent
+  EXPECT_LT(worst, 1.05);
 }
 
 int main(int argc, char** argv)

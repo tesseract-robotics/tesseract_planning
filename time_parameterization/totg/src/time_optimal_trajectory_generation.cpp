@@ -992,15 +992,41 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
   assert(start1->path_pos_ < path_pos ||
          tesseract::common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS));
 
+  // The segment ends, from the last one before path_pos down
+  const std::list<std::pair<double, bool>>& switching_points = path_.getSwitchingPoints();
+  auto prev_discontinuity = switching_points.rbegin();
+
   while (start1 != start_trajectory.begin() || path_pos >= 0.0)
   {
     if (start1->path_pos_ < path_pos || tesseract::common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS))
     {
       trajectory.emplace_front(path_pos, path_vel);
+      const double old_path_pos = path_pos;
+      const double old_path_vel = path_vel;
       path_vel -= time_step_ * acceleration;
       path_pos -= time_step_ * 0.5 * (path_vel + trajectory.front().path_vel_);
-      acceleration = getMinMaxPathAcceleration(path_pos, path_vel, false);
+
+      // A step must not cross a segment end, where the curvature, and with it the feasible acceleration, jumps: end it
+      // there, as integrateForward does, and take the next step's acceleration from the segment it lies in
+      while (prev_discontinuity != switching_points.rend() &&
+             (prev_discontinuity->first >= old_path_pos || !prev_discontinuity->second))
+        ++prev_discontinuity;
+      // Taken from the whole step: the clipped one lies on the same line, and can be too short to give it accurately
       slope = (trajectory.front().path_vel_ - path_vel) / (trajectory.front().path_pos_ - path_pos);
+
+      // A step that lands on the segment end takes the next acceleration below it too
+      if (prev_discontinuity != switching_points.rend() && path_pos <= prev_discontinuity->first)
+      {
+        path_vel = old_path_vel +
+                   (prev_discontinuity->first - old_path_pos) * (path_vel - old_path_vel) / (path_pos - old_path_pos);
+        path_pos = prev_discontinuity->first;
+        acceleration = getMinMaxPathAcceleration(
+            std::nextafter(path_pos, -std::numeric_limits<double>::infinity()), path_vel, false);
+      }
+      else
+      {
+        acceleration = getMinMaxPathAcceleration(path_pos, path_vel, false);
+      }
 
       if (path_vel < 0.0)
       {
