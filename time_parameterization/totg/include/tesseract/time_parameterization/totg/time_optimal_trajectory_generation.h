@@ -69,6 +69,13 @@ public:
    * keep their place relative to the motion. Where the path turns back, or a corner would blend at a radius below
    * 1e-4, the motion stops: the waypoint there has zero velocity. Throws if the profile's min_angle_change is below
    * 1e-5.
+   *
+   * A waypoint at a blended corner is moved onto the blend, where its time, velocity and acceleration are taken, by up
+   * to the profile's path_tolerance (the Euclidean distance in joint space). It stays within the joint ranges of the
+   * waypoints around it, but contact checks run before this do not see the moved position, and callers that match
+   * output waypoints to input ones by position do not find it; an instruction such as I/O that follows it runs there.
+   * The motion is exact at the waypoints only: between them
+   * a controller's interpolation does not follow the time-optimal profile, so densify the input where that matters.
    */
   bool compute(tesseract::command_language::CompositeInstruction& composite_instruction,
                const tesseract::environment::Environment& env,
@@ -138,11 +145,17 @@ public:
   /** @brief A copy, so that it outlives the temporary path */
   std::list<std::pair<double, bool>> getSwitchingPoints() const&&;
   const std::vector<double>& getMapping() const;
+  /**
+   * @brief Whether waypoint i is a corner blended by an arc of positive length; the path then misses it, and passes the
+   * arc's middle at getMapping()[i]
+   */
+  bool isBlended(std::size_t i) const;
 
 private:
   PathSegment* getPathSegment(double& s) const;
   double length_{ 0 };
   std::vector<double> mapping_;
+  std::vector<bool> blended_;
   std::list<std::pair<double, bool>> switching_points_;
   bool has_reversal_{ false };
   std::list<std::unique_ptr<PathSegment>> path_segments_;
@@ -215,7 +228,8 @@ public:
   double getTime(double pos) const;
 
   /**
-   * @brief Write time, velocity and acceleration to the waypoints at the path's points
+   * @brief Write time, velocity and acceleration to the waypoints at the path's points, and move waypoints at blended
+   * corners onto the blend, where the path passes them
    * @param trajectory The waypoints
    * @param kept For each point of the path, the index in trajectory of the waypoint at it; waypoints not listed are
    * left as they are
