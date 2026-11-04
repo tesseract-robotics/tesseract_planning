@@ -68,6 +68,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 constexpr double EPS = 0.000001;
 
+// Waypoint directions whose dot product is at most this turn back, as MoveIt2 tests them
+constexpr double REVERSAL_COS = -1.0 + 1e-5;
+
 namespace tesseract::time_parameterization
 {
 namespace
@@ -513,6 +516,11 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
   {
     path_iterator3 = path_iterator2;
     ++path_iterator3;
+    if (path_iterator3 != path.end() &&
+        (*path_iterator2 - *path_iterator1).normalized().dot((*path_iterator3 - *path_iterator2).normalized()) <=
+            REVERSAL_COS)
+      has_reversal_ = true;
+
     if (max_deviation > 0.0 && path_iterator3 != path.end())
     {
       auto blend_segment = std::make_unique<CircularPathSegment>(0.5 * (*path_iterator1 + *path_iterator2),
@@ -562,7 +570,11 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
   cursor_ = path_segments_.begin();
 }
 
-Path::Path(const Path& path) : length_(path.length_), mapping_(path.mapping_), switching_points_(path.switching_points_)
+Path::Path(const Path& path)
+  : length_(path.length_)
+  , mapping_(path.mapping_)
+  , switching_points_(path.switching_points_)
+  , has_reversal_(path.has_reversal_)
 {
   for (const std::unique_ptr<PathSegment>& path_segment : path.path_segments_)
     path_segments_.emplace_back(path_segment->clone());
@@ -631,6 +643,8 @@ const std::list<std::pair<double, bool>>& Path::getSwitchingPoints() const& { re
 
 std::list<std::pair<double, bool>> Path::getSwitchingPoints() const&& { return switching_points_; }
 
+bool Path::hasReversal() const { return has_reversal_; }
+
 Trajectory::Trajectory(const Path& path,
                        const Eigen::VectorXd& max_velocity,
                        const Eigen::VectorXd& max_acceleration,  // NOLINT
@@ -648,6 +662,14 @@ Trajectory::Trajectory(const Path& path,
   {
     valid_ = false;
     TESSERACT_LOG_ERROR("Trajectory time step must be greater than zero, got {}", time_step_);
+    return;
+  }
+
+  // The path velocity must reach zero where the path turns back, which the integration does not model
+  if (path_.hasReversal())
+  {
+    valid_ = false;
+    TESSERACT_LOG_ERROR("Trajectory path turns back on itself; split it there and time the pieces from rest to rest");
     return;
   }
 
