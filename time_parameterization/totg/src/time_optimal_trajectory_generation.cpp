@@ -361,6 +361,43 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
     }
   }
 
+  // The profile can ask to start at the first waypoint's velocity, which must point along the path's first direction;
+  // the trajectory then starts at its part along that direction
+  double start_path_velocity{ 0 };
+  const Eigen::VectorXd& start_velocity = trajectory.getVelocity(static_cast<Eigen::Index>(kept.front()));
+  if (ci_profile->use_start_velocity && start_velocity.size() != 0)
+  {
+    if (start_velocity.size() != num_joints || !start_velocity.allFinite())
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the start velocity must be finite, with one value per "
+                          "joint.");
+      return false;
+    }
+  }
+  if (ci_profile->use_start_velocity && start_velocity.size() != 0 && !(start_velocity.norm() <= 1e-9))
+  {
+    if (points.size() == 1)
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the program does not move, so it cannot start moving.");
+      return false;
+    }
+    const Eigen::VectorXd direction = (points[1] - points[0]).normalized();
+    const double along = start_velocity.dot(direction);
+    const double sideways = (start_velocity - along * direction).norm();
+    if (!(along > 0.0) || sideways > 1e-9 + (1e-3 * along))
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the start velocity must point forward along the path's "
+                          "first segment.");
+      return false;
+    }
+    if ((((along * direction).cwiseAbs() - max_velocity).array() > 1e-12 * max_velocity.array()).any())
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the start velocity exceeds the velocity limits.");
+      return false;
+    }
+    start_path_velocity = along;
+  }
+
   // Nothing moves; the start stays, as callers that prepend a start waypoint remove the first again
   if (points.size() == 1)
   {
@@ -390,7 +427,8 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
     const auto piece_begin = points.begin() + static_cast<std::ptrdiff_t>(cuts[k]);
     const auto piece_end = points.begin() + static_cast<std::ptrdiff_t>(cuts[k + 1]) + 1;
     const totg::Path path(std::list<Eigen::VectorXd>(piece_begin, piece_end), ci_profile->path_tolerance);
-    pieces.push_back(std::make_unique<totg::Trajectory>(path, max_velocity, max_acceleration, 0.001));
+    pieces.push_back(std::make_unique<totg::Trajectory>(
+        path, max_velocity, max_acceleration, 0.001, k == 0 ? start_path_velocity : 0.0));
     if (!pieces.back()->isValid())
     {
       TESSERACT_LOG_ERROR("Unable to parameterize trajectory.");
@@ -732,6 +770,15 @@ Trajectory::Trajectory(const Path& path,
                        const Eigen::VectorXd& max_velocity,
                        const Eigen::VectorXd& max_acceleration,  // NOLINT
                        double time_step)
+  : Trajectory(path, max_velocity, max_acceleration, time_step, 0.0)
+{
+}
+
+Trajectory::Trajectory(const Path& path,
+                       const Eigen::VectorXd& max_velocity,
+                       const Eigen::VectorXd& max_acceleration,  // NOLINT
+                       double time_step,
+                       double start_path_velocity)
   : path_(path)
   , max_velocity_(max_velocity)
   , max_acceleration_(max_acceleration)
@@ -756,7 +803,28 @@ Trajectory::Trajectory(const Path& path,
     return;
   }
 
-  double after_acceleration = getMinMaxPathAcceleration(0.0, 0.0, true);
+  // The first step is built at rest, so its checks pass, and takes the start velocity once that is known to be valid
+  if (!(start_path_velocity >= 0.0) || !std::isfinite(start_path_velocity))
+  {
+    valid_ = false;
+    TESSERACT_LOG_ERROR("Trajectory start path velocity must be finite and not negative, got {}", start_path_velocity);
+    return;
+  }
+  if (start_path_velocity > 0.0)
+  {
+    const double start_limit = std::min(getVelocityMaxPathVelocity(0.0), getAccelerationMaxPathVelocity(0.0));
+    if (start_path_velocity > start_limit * (1.0 + 1e-12))
+    {
+      valid_ = false;
+      TESSERACT_LOG_ERROR("Trajectory start path velocity {} exceeds the limit {} at the start of the path",
+                          start_path_velocity,
+                          start_limit);
+      return;
+    }
+    trajectory_.front().path_vel_ = std::min(start_path_velocity, start_limit);
+  }
+
+  double after_acceleration = getMinMaxPathAcceleration(0.0, trajectory_.front().path_vel_, true);
   while (valid_ && !integrateForward(trajectory_, after_acceleration) && valid_)
   {
     double before_acceleration{ NAN };
@@ -1288,7 +1356,11 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
   }
 
   valid_ = false;
-  TESSERACT_LOG_ERROR("Error while integrating backward: Did not hit start trajectory");
+  if (start_trajectory.front().path_vel_ > 0.0)
+    TESSERACT_LOG_ERROR("Error while integrating backward: Did not hit start trajectory; the path leaves no room to "
+                        "slow down from the start velocity");
+  else
+    TESSERACT_LOG_ERROR("Error while integrating backward: Did not hit start trajectory");
   end_trajectory_ = trajectory;
 }
 
