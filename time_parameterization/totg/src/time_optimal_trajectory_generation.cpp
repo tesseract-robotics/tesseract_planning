@@ -1059,12 +1059,18 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
     // Parallel lines meet only where they coincide, and then anywhere along the step. Parallel lines apart never meet:
     // the intersection is left NaN, fails both checks below, and the integration goes on backward to where they do
     double intersection_path_pos = std::numeric_limits<double>::quiet_NaN();
+    bool coincident{ false };
     if (!tesseract::common::almostEqualRelativeAndAbs(slope, start_slope, EPS))
+    {
       intersection_path_pos =
           (start1->path_vel_ - path_vel + slope * path_pos - start_slope * start1->path_pos_) / (slope - start_slope);
+    }
     else if (tesseract::common::almostEqualRelativeAndAbs(
                  start1->path_vel_ + (start_slope * (path_pos - start1->path_pos_)), path_vel, EPS))
+    {
+      coincident = true;
       intersection_path_pos = start1->path_pos_ + (start2->path_pos_ - start1->path_pos_) / 2.0;
+    }
 
     double pos_max = std::max(start1->path_pos_, path_pos);
     double pos_min = std::min(start2->path_pos_, trajectory.front().path_pos_);
@@ -1075,10 +1081,20 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
 
     if (check1 && check2)
     {
+      // Coincident lines can still lie up to EPS apart, so join them on the backward line, which the next step follows
       const double intersection_path_vel =
-          start1->path_vel_ + (start_slope * (intersection_path_pos - start1->path_pos_));
+          coincident ? path_vel + (slope * (intersection_path_pos - path_pos)) :
+                       start1->path_vel_ + (start_slope * (intersection_path_pos - start1->path_pos_));
+
+      // The checks accept a meeting point within EPS outside the steps. There, join the two at the step end it lies
+      // beyond instead, dropping forward steps the backward pass already starts below, so that positions, and the
+      // times computed from them, never go back
       start_trajectory.erase(start2, start_trajectory.end());
-      start_trajectory.emplace_back(intersection_path_pos, intersection_path_vel);
+      while (start_trajectory.size() > 1 && !(start_trajectory.back().path_pos_ < trajectory.front().path_pos_))
+        start_trajectory.pop_back();
+      if (intersection_path_pos > start_trajectory.back().path_pos_ &&
+          intersection_path_pos < trajectory.front().path_pos_)
+        start_trajectory.emplace_back(intersection_path_pos, intersection_path_vel);
       start_trajectory.splice(start_trajectory.end(), trajectory);
       return;
     }
