@@ -71,10 +71,51 @@ constexpr double EPS = 0.000001;
 // Waypoint directions whose dot product is at most this turn back, as MoveIt2 tests them
 constexpr double REVERSAL_COS = -1.0 + 1e-5;
 
+/** @brief Whether the path through before, corner and after turns back at corner, as compute and Path both test it */
+static bool turnsBack(const Eigen::VectorXd& before, const Eigen::VectorXd& corner, const Eigen::VectorXd& after)
+{
+  return (corner - before).normalized().dot((after - corner).normalized()) <= REVERSAL_COS;
+}
+
+// Corner blends of a smaller radius approach the integration's resolution; the path velocity there is about
+// sqrt(amax * radius) anyway, so stopping costs little
+constexpr double MIN_BLEND_RADIUS = 1e-4;
+
 namespace tesseract::time_parameterization
 {
 namespace
 {
+/**
+ * @brief Whether the corner at waypoint corner turns back, or blends at a radius the integration cannot resolve, as
+ * Path would blend it within max_deviation
+ */
+bool stopsAtCorner(const Eigen::VectorXd& before,
+                   const Eigen::VectorXd& corner,
+                   const Eigen::VectorXd& after,
+                   double max_deviation)
+{
+  if (turnsBack(before, corner, after))
+    return true;
+
+  const Eigen::VectorXd start = 0.5 * (before + corner);
+  const Eigen::VectorXd end = 0.5 * (corner + after);
+  const double start_distance = (corner - start).norm();
+  const double end_distance = (end - corner).norm();
+  if (start_distance < 0.000001 || end_distance < 0.000001)
+    return false;
+
+  const Eigen::VectorXd start_direction = (corner - start) / start_distance;
+  const Eigen::VectorXd end_direction = (end - corner) / end_distance;
+  const double cos_angle = start_direction.dot(end_direction);
+  if ((start_direction - end_direction).norm() < 0.000001)
+    return false;
+
+  const double angle = std::acos(std::max(-1.0, cos_angle));
+  const double deviation_distance = max_deviation * std::sin(0.5 * angle) / (1.0 - std::cos(0.5 * angle));
+  const double distance = std::min({ start_distance, end_distance, deviation_distance });
+  return distance / std::tan(0.5 * angle) < MIN_BLEND_RADIUS;
+}
+
 /** @brief Whether any non-move instruction lies between the moves moves[first] and moves[second] */
 bool hasInstructionsBetween(
     const tesseract::command_language::CompositeInstruction& composite,
@@ -179,9 +220,10 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   if (!(ci_profile->path_tolerance > 0.0))
     throw std::runtime_error("TimeOptimalTrajectoryGeneration, path tolerance must be greater than zero!");
 
-  // With NaN or infinity every waypoint would repeat the start; below zero not even an exact duplicate would
-  if (!std::isfinite(ci_profile->min_angle_change) || ci_profile->min_angle_change < 0.0)
-    throw std::runtime_error("TimeOptimalTrajectoryGeneration, min angle change must be finite and not negative!");
+  // With NaN or infinity every waypoint would repeat the start; below 1e-5 dedup keeps segments too short for the
+  // corner blends
+  if (!std::isfinite(ci_profile->min_angle_change) || ci_profile->min_angle_change < 1e-5)
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, min angle change must be finite and at least 1e-5!");
 
   // The core takes one symmetric limit per joint, so each joint gets the tighter of its two sides, scaled
   const Eigen::Index num_joints = jg->numJoints();
@@ -332,33 +374,67 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
     return true;
   }
 
-  // Append a dummy joint as a workaround to https://github.com/ros-industrial-consortium/tesseract_planning/issues/27
-  std::list<Eigen::VectorXd> new_points;
-  double dummy = 1.0;
-  for (auto& point : points)
+  // A corner that turns back, or is too sharp to blend at a size the integration resolves, is passed at rest: the path
+  // is cut there, and each piece is timed from rest to rest
+  std::vector<std::size_t> cuts{ 0 };
+  for (std::size_t i = 1; i + 1 < points.size(); ++i)
   {
-    Eigen::VectorXd new_point(point.size() + 1);
-    new_point << point, dummy;
-    new_points.push_back(new_point);
-    dummy += 1.0;
+    if (stopsAtCorner(points[i - 1], points[i], points[i + 1], ci_profile->path_tolerance))
+      cuts.push_back(i);
+  }
+  cuts.push_back(points.size() - 1);
+
+  std::vector<std::unique_ptr<totg::Trajectory>> pieces;
+  for (std::size_t k = 0; k + 1 < cuts.size(); ++k)
+  {
+    const auto piece_begin = points.begin() + static_cast<std::ptrdiff_t>(cuts[k]);
+    const auto piece_end = points.begin() + static_cast<std::ptrdiff_t>(cuts[k + 1]) + 1;
+    const totg::Path path(std::list<Eigen::VectorXd>(piece_begin, piece_end), ci_profile->path_tolerance);
+    pieces.push_back(std::make_unique<totg::Trajectory>(path, max_velocity, max_acceleration, 0.001));
+    if (!pieces.back()->isValid())
+    {
+      TESSERACT_LOG_ERROR("Unable to parameterize trajectory.");
+      return false;
+    }
   }
 
-  Eigen::VectorXd max_velocity_dummy_appended(num_joints + 1);
-  max_velocity_dummy_appended << max_velocity, std::numeric_limits<double>::max();
-  Eigen::VectorXd max_acceleration_dummy_appended(num_joints + 1);
-  max_acceleration_dummy_appended << max_acceleration, std::numeric_limits<double>::max();
-
-  // Now actually call the algorithm
-  totg::Path path(new_points, ci_profile->path_tolerance);
-  totg::Trajectory parameterized(path, max_velocity_dummy_appended, max_acceleration_dummy_appended, 0.001);
-  if (!parameterized.isValid())
+  // A piece that fails after others have written restores what they wrote
+  struct WrittenState
   {
-    TESSERACT_LOG_ERROR("Unable to parameterize trajectory.");
-    return false;
+    Eigen::VectorXd velocity, acceleration;
+    double time;
+  };
+  std::vector<WrittenState> before_writing;
+  for (std::size_t index : kept)
+  {
+    const auto i = static_cast<Eigen::Index>(index);
+    before_writing.push_back(
+        { trajectory.getVelocity(i), trajectory.getAcceleration(i), trajectory.getTimeFromStart(i) });
   }
+  const auto restore = [&]() {
+    for (std::size_t j = 0; j < kept.size(); ++j)
+    {
+      trajectory.setData(static_cast<Eigen::Index>(kept[j]),
+                         before_writing[j].velocity,
+                         before_writing[j].acceleration,
+                         before_writing[j].time);
+    }
+  };
 
-  if (!parameterized.assignData(trajectory, kept))
-    return false;
+  // Each piece starts where the one before stops; the waypoint they share is written by the later one, at rest with
+  // the later piece's starting acceleration
+  double time_offset{ 0 };
+  for (std::size_t k = 0; k < pieces.size(); ++k)
+  {
+    const std::vector<std::size_t> piece_kept(kept.begin() + static_cast<std::ptrdiff_t>(cuts[k]),
+                                              kept.begin() + static_cast<std::ptrdiff_t>(cuts[k + 1]) + 1);
+    if (!pieces[k]->assignData(trajectory, piece_kept, time_offset))
+    {
+      restore();
+      return false;
+    }
+    time_offset += pieces[k]->getDuration();
+  }
 
   removeDroppedWaypoints(composite_instruction, flattened, kept);
   return true;
@@ -516,9 +592,7 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
   {
     path_iterator3 = path_iterator2;
     ++path_iterator3;
-    if (path_iterator3 != path.end() &&
-        (*path_iterator2 - *path_iterator1).normalized().dot((*path_iterator3 - *path_iterator2).normalized()) <=
-            REVERSAL_COS)
+    if (path_iterator3 != path.end() && turnsBack(*path_iterator1, *path_iterator2, *path_iterator3))
       has_reversal_ = true;
 
     if (max_deviation > 0.0 && path_iterator3 != path.end())
@@ -1306,6 +1380,13 @@ double Trajectory::getDuration() const { return trajectory_.back().time_; }
 
 bool Trajectory::assignData(InstructionsTrajectory& trajectory, const std::vector<std::size_t>& kept) const
 {
+  return assignData(trajectory, kept, 0.0);
+}
+
+bool Trajectory::assignData(InstructionsTrajectory& trajectory,
+                            const std::vector<std::size_t>& kept,
+                            double time_offset) const
+{
   const auto& dist_mapping = path_.getMapping();
   if (kept.size() != dist_mapping.size() || kept.size() < 2)
   {
@@ -1334,7 +1415,7 @@ bool Trajectory::assignData(InstructionsTrajectory& trajectory, const std::vecto
     else if (j > 0)
       time = getTime(dist_mapping[j]);
     path_data[j] = getPathData(time);
-    times[j] = time;
+    times[j] = time_offset + time;
 
     // Written as a negation so a NaN time fails too
     if (j > 0 && !(times[j] > times[j - 1]))
@@ -1353,10 +1434,8 @@ bool Trajectory::assignData(InstructionsTrajectory& trajectory, const std::vecto
 
   for (std::size_t j = 0; j < kept.size(); ++j)
   {
-    trajectory.setData(static_cast<Eigen::Index>(kept[j]),
-                       getVelocity(path_data[j]).head(trajectory.dof()),
-                       getAcceleration(path_data[j]).head(trajectory.dof()),
-                       times[j]);
+    trajectory.setData(
+        static_cast<Eigen::Index>(kept[j]), getVelocity(path_data[j]), getAcceleration(path_data[j]), times[j]);
   }
   return true;
 }
