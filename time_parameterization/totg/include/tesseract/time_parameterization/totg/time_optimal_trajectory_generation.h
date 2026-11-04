@@ -127,6 +127,11 @@ public:
   Eigen::VectorXd getTangent(double s) const;
   Eigen::VectorXd getCurvature(double s) const;
   double getNextSwitchingPoint(double s, bool& discontinuity) const;
+  /**
+   * @brief Whether the path turns back on itself at a waypoint, where no corner blend fits; a Trajectory along it is
+   * invalid, so split such a path there and time the pieces from rest to rest
+   */
+  bool hasReversal() const;
   const std::list<std::pair<double, bool>>& getSwitchingPoints() const&;
   /** @brief A copy, so that it outlives the temporary path */
   std::list<std::pair<double, bool>> getSwitchingPoints() const&&;
@@ -137,6 +142,7 @@ private:
   double length_{ 0 };
   std::vector<double> mapping_;
   std::list<std::pair<double, bool>> switching_points_;
+  bool has_reversal_{ false };
   std::list<std::unique_ptr<PathSegment>> path_segments_;
   /** @brief The segment the last lookup found, where the next one starts */
   mutable std::list<std::unique_ptr<PathSegment>>::const_iterator cursor_;

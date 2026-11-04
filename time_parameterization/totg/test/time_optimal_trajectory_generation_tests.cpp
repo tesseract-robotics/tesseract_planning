@@ -304,28 +304,24 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testLargeAccel)  // NOLINT
 
 // Caues the issue below. Workaround is applied when using computeTimestamps interface like in
 // testCommandLanguageInterface https://github.com/ros-industrial-consortium/tesseract_planning/issues/27
-// TEST(time_optimal_trajectory_generation, test_return_home)
-//{
-//  Eigen::VectorXd waypoint(6);
-//  std::list<Eigen::VectorXd> waypoints;
+TEST_F(TimeOptimalTrajectoryGenerationUnit, coreRejectsAReversal)  // NOLINT
+{
+  // The second waypoint turns the path back towards the first
+  std::list<Eigen::VectorXd> waypoints;
+  Eigen::VectorXd waypoint(6);
+  waypoint << 0, 0.7, -2.1, 0, -0.25, 0;
+  waypoints.push_back(waypoint);
+  waypoint << 0, 0, 0, 0, 0, 0;
+  waypoints.push_back(waypoint);
+  waypoint << 0, 0.70001, -2.1, 0, -0.25, 0;
+  waypoints.push_back(waypoint);
+  waypoint << 0, 0, 0, 0, 0, 0.1;
+  waypoints.push_back(waypoint);
 
-//  waypoint << 0, 0.7, -2.1, 0, -0.25, 0;
-//  waypoints.push_back(waypoint);
-//  waypoint << 0, 0, 0, 0, 0, 0;
-//  waypoints.push_back(waypoint);
-//  waypoint << 0, 0.70001, -2.1, 0, -0.25, 0;
-//  waypoints.push_back(waypoint);
-//  waypoint << 0, 0, 0, 0, 0, 0.1;
-//  waypoints.push_back(waypoint);
-
-//  Eigen::VectorXd max_velocities(6);
-//  max_velocities.setOnes();
-//  Eigen::VectorXd max_accelerations(6);
-//  max_accelerations.setOnes();
-
-//  Trajectory trajectory(Path(waypoints, 0.001), max_velocities, max_accelerations, 0.001);
-//  EXPECT_TRUE(trajectory.isValid());
-//}
+  const Path path(waypoints, 0.001);
+  EXPECT_TRUE(path.hasReversal());
+  EXPECT_FALSE(Trajectory(path, Eigen::VectorXd::Ones(6), Eigen::VectorXd::Ones(6), 0.001).isValid());
+}
 
 TEST_F(TimeOptimalTrajectoryGenerationUnit, profileConstructor)  // NOLINT
 {
