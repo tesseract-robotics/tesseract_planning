@@ -225,10 +225,13 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerReportsFailedVertices)  /
   const PlannerResponse response = planner.solve(request);
   EXPECT_FALSE(response.successful);
   EXPECT_EQ(response.message.rfind("Failed to build graph", 0), 0) << response.message;
-  // The unreachable waypoint (index 1 of 2) is named, with its sampler's report.
-  EXPECT_NE(response.message.find("Failed vertices (1/2):"), std::string::npos) << response.message;
-  EXPECT_NE(response.message.find("\n  [1] "), std::string::npos) << response.message;
-  EXPECT_NE(response.message.find("Error string:"), std::string::npos) << response.message;
+  // The unreachable waypoint (index 1 of 2) is named with just why it failed, not the sampler's pose dump.
+  EXPECT_NE(response.message.find("Failed vertices (1/2):\n  [1] Descartes vertex failure: No IK solutions were "
+                                  "found."),
+            std::string::npos)
+      << response.message;
+  EXPECT_EQ(response.message.find("Target Pose"), std::string::npos) << response.message;
+  EXPECT_NE(response.message.find("Failed edges (1): 0->1"), std::string::npos) << response.message;
 }
 
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT

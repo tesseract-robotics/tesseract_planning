@@ -46,6 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/command_language/utils.h>
 
 #include <tesseract/motion_planners/descartes/descartes_motion_planner.h>
+#include <tesseract/motion_planners/descartes/descartes_robot_sampler.h>
 #include <tesseract/motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract/motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
 #include <tesseract/motion_planners/types.h>
@@ -121,15 +122,27 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
         solver->build(waypoint_samplers, edge_evaluators, state_evaluators);
     if (!build_status)
     {
-      // Name each failed waypoint with its sampler's own report (for DescartesRobotSampler: the
-      // frames, the target pose and why each pose sample was rejected), and each failed edge.
+      // Name each failed waypoint with why its sampler found no valid state, and each failed edge.
       std::stringstream ss;
       ss << ERROR_FAILED_TO_BUILD_GRAPH;
       if (!build_status.failed_vertices.empty())
       {
         ss << "\nFailed vertices (" << build_status.failed_vertices.size() << "/" << waypoint_samplers.size() << "):";
         for (const std::size_t i : build_status.failed_vertices)
-          ss << "\n  [" << i << "] " << *waypoint_samplers[i];
+        {
+          ss << "\n  [" << i << "] ";
+          // A robot sampler reports just why it failed; any other sampler prints itself.
+          const auto* robot_sampler = dynamic_cast<const DescartesRobotSampler<FloatType>*>(waypoint_samplers[i].get());
+          if (robot_sampler == nullptr)
+          {
+            ss << *waypoint_samplers[i];
+            continue;
+          }
+          std::string reason = robot_sampler->getErrorString();
+          while (!reason.empty() && reason.back() == '\n')
+            reason.pop_back();
+          ss << reason;
+        }
       }
       if (!build_status.failed_edges.empty())
       {
