@@ -1041,7 +1041,11 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
 
   while (start1 != start_trajectory.begin() || path_pos >= 0.0)
   {
-    if (start1->path_pos_ < path_pos || tesseract::common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS))
+    // Take a backward step while the forward step starts below the backward one's lower end, else go to the forward
+    // step before. Strict, so that no overlapping pair of steps is skipped. The first step is taken regardless, as the
+    // pass may start up to EPS below the forward step's start and the meeting test needs a backward step, and so is
+    // every step once the forward steps run out
+    if (trajectory.empty() || start1->path_pos_ < path_pos || start1 == start_trajectory.begin())
     {
       trajectory.emplace_front(path_pos, path_vel);
       const double old_path_pos = path_pos;
@@ -1098,8 +1102,9 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
     // trajectory segments
     const double start_slope = (start2->path_vel_ - start1->path_vel_) / (start2->path_pos_ - start1->path_pos_);
 
-    // Parallel lines meet only where they coincide, and then anywhere along the step. Parallel lines apart never meet:
-    // the intersection is left NaN, fails both checks below, and the integration goes on backward to where they do
+    // Parallel lines meet only where they coincide, and then anywhere along the step. Otherwise the intersection is
+    // left NaN, which no position test below accepts; only the comparison at the overlap's ends can still join such
+    // lines
     double intersection_path_pos = std::numeric_limits<double>::quiet_NaN();
     bool coincident{ false };
     if (!tesseract::common::almostEqualRelativeAndAbs(slope, start_slope, EPS))
@@ -1114,28 +1119,63 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
       intersection_path_pos = start1->path_pos_ + (start2->path_pos_ - start1->path_pos_) / 2.0;
     }
 
-    double pos_max = std::max(start1->path_pos_, path_pos);
-    double pos_min = std::min(start2->path_pos_, trajectory.front().path_pos_);
-    bool check1 = (pos_max < intersection_path_pos) ||
-                  tesseract::common::almostEqualRelativeAndAbs(pos_max, intersection_path_pos, EPS);
-    bool check2 = (intersection_path_pos < pos_min) ||
-                  tesseract::common::almostEqualRelativeAndAbs(pos_min, intersection_path_pos, EPS);
+    // The meeting point must lie on both steps
+    const double pos_max = std::max(start1->path_pos_, path_pos);
+    const double pos_min = std::min(start2->path_pos_, trajectory.front().path_pos_);
+    bool meets = pos_max <= intersection_path_pos && intersection_path_pos <= pos_min;
 
-    if (check1 && check2)
+    // The forward pass ends up to EPS short of where it meets the limit curve, as its bisection stops there, so past
+    // its last step the backward step may meet the forward one's line within EPS
+    if (!meets && !coincident && std::next(start2) == start_trajectory.end() &&
+        start2->path_pos_ < intersection_path_pos && intersection_path_pos <= start2->path_pos_ + EPS &&
+        path_pos <= intersection_path_pos)
+      meets = true;
+
+    // Lines that cross on the overlap of the steps can round their meeting point just outside it. Then read each step
+    // at the overlap's ends, exactly at its own ends, so that two pairs of steps sharing an end agree on which side of
+    // the forward step the backward one passes, and join where the difference vanishes
+    if (!meets && !coincident && pos_max <= pos_min)
+    {
+      const auto on = [](double pos0, double vel0, double pos1, double vel1, double pos) {
+        if (pos == pos0)
+          return vel0;
+        if (pos == pos1)
+          return vel1;
+        return vel0 + ((vel1 - vel0) * (pos - pos0) / (pos1 - pos0));
+      };
+      const double front_pos = trajectory.front().path_pos_;
+      const double front_vel = trajectory.front().path_vel_;
+      const double low = on(path_pos, path_vel, front_pos, front_vel, pos_max) -
+                         on(start1->path_pos_, start1->path_vel_, start2->path_pos_, start2->path_vel_, pos_max);
+      const double high = on(path_pos, path_vel, front_pos, front_vel, pos_min) -
+                          on(start1->path_pos_, start1->path_vel_, start2->path_pos_, start2->path_vel_, pos_min);
+      if ((low >= 0.0 && high <= 0.0) || (low <= 0.0 && high >= 0.0))
+      {
+        meets = true;
+        intersection_path_pos = (low == high) ?
+                                    pos_min :
+                                    std::clamp(pos_max + ((pos_min - pos_max) * low / (low - high)), pos_max, pos_min);
+      }
+    }
+
+    if (meets)
     {
       // Coincident lines can still lie up to EPS apart, so join them on the backward line, which the next step follows
       const double intersection_path_vel =
           coincident ? path_vel + (slope * (intersection_path_pos - path_pos)) :
                        start1->path_vel_ + (start_slope * (intersection_path_pos - start1->path_pos_));
 
-      // The checks accept a meeting point within EPS outside the steps. There, join the two at the step end it lies
-      // beyond instead, dropping forward steps the backward pass already starts below, so that positions, and the
-      // times computed from them, never go back
+      // Join the two at the meeting point, dropping forward steps the backward pass already starts below, so that
+      // positions, and the times computed from them, never go back. A meeting point past the backward pass's start,
+      // which the forward pass's end allows, or within a negligible fraction of the gap from either neighbour, joins at
+      // that neighbour instead, so no step lasts only a rounding error
       start_trajectory.erase(start2, start_trajectory.end());
       while (start_trajectory.size() > 1 && !(start_trajectory.back().path_pos_ < trajectory.front().path_pos_))
         start_trajectory.pop_back();
-      if (intersection_path_pos > start_trajectory.back().path_pos_ &&
-          intersection_path_pos < trajectory.front().path_pos_)
+      const double gap = trajectory.front().path_pos_ - start_trajectory.back().path_pos_;
+      constexpr double negligible = 1e-12;
+      if (intersection_path_pos - start_trajectory.back().path_pos_ > negligible * gap &&
+          trajectory.front().path_pos_ - intersection_path_pos > negligible * gap)
         start_trajectory.emplace_back(intersection_path_pos, intersection_path_vel);
       start_trajectory.splice(start_trajectory.end(), trajectory);
       return;
