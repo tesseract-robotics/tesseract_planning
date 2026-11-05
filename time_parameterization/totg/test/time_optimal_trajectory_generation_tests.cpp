@@ -566,6 +566,15 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, signInvertedLimitsAreRejected)  // N
                      "acceleration limits must have lower <= 0 <= upper");
 }
 
+TEST_F(TimeOptimalTrajectoryGenerationUnit, infiniteLimitsAreRejected)  // NOLINT
+{
+  // An infinite side is rejected even where the other side would make the joint's limit finite
+  expectComputeError([](auto& p) { p.velocity_limits(2, 0) = -std::numeric_limits<double>::infinity(); },
+                     "velocity limits must be finite");
+  expectComputeError([](auto& p) { p.acceleration_limits(4, 1) = std::numeric_limits<double>::infinity(); },
+                     "acceleration limits must be finite");
+}
+
 TEST_F(TimeOptimalTrajectoryGenerationUnit, asymmetricLimitsUseTheTighterSide)  // NOLINT
 {
   // The straight trajectory moves joint_1 in the positive direction only, so only a tighter lower

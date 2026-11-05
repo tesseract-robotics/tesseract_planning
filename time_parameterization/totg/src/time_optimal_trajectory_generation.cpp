@@ -123,6 +123,10 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
     if (!((limits.col(0).array() <= 0.0).all() && (limits.col(1).array() >= 0.0).all()))
       throw std::runtime_error(error + "have lower <= 0 <= upper!");
 
+    // The core compares curves derived from the limits, which an infinite limit leaves to rounding and NaN
+    if (!limits.allFinite())
+      throw std::runtime_error(error + "be finite!");
+
     return Eigen::VectorXd((-limits.col(0)).cwiseMin(limits.col(1)) * scale);
   };
   const Eigen::VectorXd max_velocity =
