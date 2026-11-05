@@ -1146,6 +1146,30 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, assignDataEndsAtTheDuration)  // NOL
   EXPECT_TRUE(last.getVelocity().isZero(0.0));
 }
 
+TEST_F(TimeOptimalTrajectoryGenerationUnit, hugeVelocityLimitsLeaveOnlyTheAccelerationLimits)  // NOLINT
+{
+  // A velocity limit far above what the acceleration limits allow does not bind, so the trajectory takes as long as
+  // under a moderate one. Scaled down, the path's first blend lies below 0.1, where adding and then subtracting the
+  // velocity switching-point scan's step does not always give back the position
+  for (const double scale : { 1.0, 0.01 })
+  {
+    const Path path({ Eigen::Vector3d(0, 0, 0) * scale,
+                      Eigen::Vector3d(1, 0.5, -0.3) * scale,
+                      Eigen::Vector3d(1.4, -0.2, 0.6) * scale,
+                      Eigen::Vector3d(0.5, 0.9, 1.2) * scale },
+                    0.1 * scale);
+    const Trajectory moderate(path, Eigen::VectorXd::Constant(3, 1e3), Eigen::VectorXd::Ones(3));
+    ASSERT_TRUE(moderate.isValid()) << scale;
+    const double duration = moderate.getDuration();
+    for (const double limit : { 1e8, 1e300, std::numeric_limits<double>::max() })
+    {
+      const Trajectory trajectory(path, Eigen::VectorXd::Constant(3, limit), Eigen::VectorXd::Ones(3));
+      EXPECT_TRUE(trajectory.isValid()) << scale << " " << limit;
+      EXPECT_NEAR(trajectory.getDuration(), duration, 1e-9 * duration) << scale << " " << limit;
+    }
+  }
+}
+
 TEST_F(TimeOptimalTrajectoryGenerationUnit, backwardIntegrationJoinsOnlyWhereTheCurvesMeet)  // NOLINT
 {
   // Random spread waypoints on which the backward pass runs parallel to the forward one at a lower velocity before

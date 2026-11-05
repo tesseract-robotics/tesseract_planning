@@ -849,8 +849,11 @@ bool Trajectory::getNextVelocitySwitchingPoint(double path_pos,
   const double step_size = 0.001;
   const double accuracy = 0.000001;
 
-  bool start = false;
-  path_pos -= step_size;
+  // Start the scan one step past path_pos, so the switching point it brackets lies past path_pos and a search that
+  // resumes from it advances. Where the two slopes agree to rounding, as under very high velocity limits, path_pos
+  // itself could otherwise stop the scan and bracket a switching point behind it
+  bool start = getMinMaxPhaseSlope(path_pos, getVelocityMaxPathVelocity(path_pos), false) >=
+               getVelocityMaxPathVelocityDeriv(path_pos);
   do  // NOLINT(cppcoreguidelines-avoid-do-while)
   {
     path_pos += step_size;
