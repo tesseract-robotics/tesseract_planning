@@ -53,6 +53,7 @@
 #include <tesseract/common/unit_test_utils.h>
 #include <tesseract/common/serialization.h>
 #include <tesseract/environment/environment.h>
+#include <tesseract/kinematics/joint_group.h>
 #include <tesseract/command_language/poly/state_waypoint_poly.h>
 #include <tesseract/command_language/poly/move_instruction_poly.h>
 #include <tesseract/command_language/composite_instruction.h>
@@ -1349,6 +1350,50 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, backwardIntegrationJoinsOnlyWhereThe
   EXPECT_LT(worst, 1.1);
 }
 
+namespace
+{
+/**
+ * @brief The worst exact joint acceleration T(s) s'' + K(s) s'^2 inside any integration step, divided by the limit
+ * @details Recovers the steps from the lookups at a probe interval well below time_step
+ */
+double worstAccelerationInSteps(const Path& path,
+                                const Trajectory& trajectory,
+                                const Eigen::VectorXd& max_acceleration,
+                                double time_step)
+{
+  struct Step
+  {
+    double t, s, v;
+  };
+  const double probe = 2e-3 * time_step;
+  std::vector<Step> steps;
+  for (int k = 0; k * probe < trajectory.getDuration(); ++k)
+  {
+    const PathData data = trajectory.getPathData(k * probe);
+    if (steps.empty() || data.prev_time > steps.back().t)
+      steps.push_back({ data.prev_time, data.prev_path_pos, data.prev_path_vel });
+  }
+  steps.push_back({ trajectory.getDuration(), path.getLength(), 0.0 });
+
+  double worst{ 0 };
+  for (std::size_t i = 0; i + 1 < steps.size(); ++i)
+  {
+    const double dt = steps[i + 1].t - steps[i].t;
+    const double ds = steps[i + 1].s - steps[i].s;
+    const double sdd = 2.0 * (ds - dt * steps[i].v) / (dt * dt);
+    for (int f = 0; f <= 8; ++f)
+    {
+      const double fraction = std::min(std::max(f / 8.0, 1e-9), 1.0 - 1e-9);
+      const double s = steps[i].s + (fraction * ds);
+      const double v = steps[i].v + (fraction * dt * sdd);
+      const Eigen::VectorXd a = path.getTangent(s) * sdd + path.getCurvature(s) * v * v;
+      worst = std::max(worst, a.cwiseAbs().cwiseQuotient(max_acceleration).maxCoeff());
+    }
+  }
+  return worst;
+}
+}  // namespace
+
 TEST_F(TimeOptimalTrajectoryGenerationUnit, integrationStepsKeepTheAccelerationLimit)  // NOLINT
 {
   // Dense random waypoints, whose backward pass decelerates from lines into blends
@@ -1492,38 +1537,285 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, integrationStepsKeepTheAccelerationL
   const Trajectory trajectory(path, max_velocity, max_acceleration);
   ASSERT_TRUE(trajectory.isValid());
 
-  // Recover the integration steps, then evaluate the exact joint acceleration T(s) s'' + K(s) s'^2 inside each
-  struct Step
-  {
-    double t, s, v;
-  };
-  std::vector<Step> steps;
-  for (int k = 0; k * 2e-6 < trajectory.getDuration(); ++k)
-  {
-    const PathData data = trajectory.getPathData(k * 2e-6);
-    if (steps.empty() || data.prev_time > steps.back().t)
-      steps.push_back({ data.prev_time, data.prev_path_pos, data.prev_path_vel });
-  }
-  steps.push_back({ trajectory.getDuration(), path.getLength(), 0.0 });
-
-  double worst{ 0 };
-  for (std::size_t i = 0; i + 1 < steps.size(); ++i)
-  {
-    const double dt = steps[i + 1].t - steps[i].t;
-    const double ds = steps[i + 1].s - steps[i].s;
-    const double sdd = 2.0 * (ds - dt * steps[i].v) / (dt * dt);
-    for (int f = 0; f <= 8; ++f)
-    {
-      const double fraction = std::min(std::max(f / 8.0, 1e-9), 1.0 - 1e-9);
-      const double s = steps[i].s + (fraction * ds);
-      const double v = steps[i].v + (fraction * dt * sdd);
-      const Eigen::VectorXd a = path.getTangent(s) * sdd + path.getCurvature(s) * v * v;
-      worst = std::max(worst, a.cwiseAbs().cwiseQuotient(max_acceleration).maxCoeff());
-    }
-  }
+  const double worst = worstAccelerationInSteps(path, trajectory, max_acceleration, 0.001);
 
   // Euler integration at a 1 ms step overshoots by a few percent
   EXPECT_LT(worst, 1.05);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, integrationStepsKeepTheAccelerationLimitAtAShortTimeStep)  // NOLINT
+{
+  // Dense random waypoints at a 0.1 ms step, where the steps the backward pass joins on are about a micrometre long
+  const std::vector<Eigen::VectorXd> waypoints{
+    (Eigen::VectorXd(6) << -1.455322847590911,
+     0.50525778821539047,
+     0.23264999276890228,
+     1.7714755634773203,
+     1.566289489071391,
+     0.82108015937536061)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.468114301895409,
+     0.49170694322841291,
+     0.22116046409975954,
+     1.7628267471880603,
+     1.5820015112149644,
+     0.83459527551800883)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4716180204294467,
+     0.50757648081553242,
+     0.20188162559545372,
+     1.7670009027569999,
+     1.6008960783385933,
+     0.83939118947661706)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4592272893992455,
+     0.52318032747455889,
+     0.18959011492151157,
+     1.7806688467783947,
+     1.5915172298896336,
+     0.82177647961391886)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4636813589794251,
+     0.50991192956984965,
+     0.1935269385267292,
+     1.7734962475037777,
+     1.5746876963475285,
+     0.8173578919593778)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4594245963457617,
+     0.5049869411472484,
+     0.17751435435067348,
+     1.7745279555664284,
+     1.5574768684678866,
+     0.81731855387076469)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4692812871564962,
+     0.49080640190413993,
+     0.18031005624290389,
+     1.7724429968276021,
+     1.5431081714569619,
+     0.83288273995660933)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4598782937288273,
+     0.4859333595387953,
+     0.20023724108557328,
+     1.7647034291342314,
+     1.535783814313459,
+     0.84373772096290256)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4686913194060287,
+     0.48477696353371807,
+     0.21884981592511923,
+     1.7458557273130624,
+     1.5243135837157367,
+     0.84648736829216165)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.472888820857402,
+     0.46645995554245673,
+     0.21683995536191505,
+     1.7522652816591384,
+     1.54139045824504,
+     0.84422853567769185)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4552847342368953,
+     0.44968902303028507,
+     0.21720948587840014,
+     1.7444579651770713,
+     1.5305134029524148,
+     0.83633402162290271)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.460711981323632,
+     0.44156783940585165,
+     0.2003089737269331,
+     1.7425862022902827,
+     1.5267279149743942,
+     0.81947340745943176)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4507153504568644,
+     0.45395177470007941,
+     0.20629195753247764,
+     1.750087124143739,
+     1.5210892313763111,
+     0.80810405429539156)
+        .finished(),
+  };
+  const Eigen::VectorXd max_velocity = (Eigen::VectorXd(6) << 1.8897585866447471,
+                                        0.55774425781799186,
+                                        0.95906699437263798,
+                                        0.60132892891696166,
+                                        1.281202330663112,
+                                        1.9243510379229172)
+                                           .finished();
+  const Eigen::VectorXd max_acceleration = (Eigen::VectorXd(6) << 0.97079115837935548,
+                                            1.3194753024447889,
+                                            0.78470208935848373,
+                                            1.0849480333274344,
+                                            1.1733674956226832,
+                                            0.72072924811328787)
+                                               .finished();
+
+  const Path path(std::list<Eigen::VectorXd>(waypoints.begin(), waypoints.end()), 0.1);
+  const Trajectory trajectory(path, max_velocity, max_acceleration, 1e-4);
+  ASSERT_TRUE(trajectory.isValid());
+  // The Euler integration's overshoot shrinks with the step
+  EXPECT_LT(worstAccelerationInSteps(path, trajectory, max_acceleration, 1e-4), 1.01);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, slowStopsKeepTheAccelerationLimit)  // NOLINT
+{
+  // So slow that the stop's last steps are shorter than the core's position tolerance; how the stop falls on the
+  // step grid depends on the length
+  const Eigen::Vector2d direction = Eigen::Vector2d(3, 1).normalized();
+  for (const double length : { 0.05, 0.1, 0.316, 1.0 })
+  {
+    for (const auto& [velocity, acceleration] : { std::pair{ 0.0015, 0.1 }, std::pair{ 0.0026, 1.3 } })
+    {
+      const Path path({ Eigen::Vector2d::Zero(), Eigen::Vector2d(length * direction) }, 0.1);
+      const Eigen::Vector2d max_acceleration = Eigen::Vector2d::Constant(acceleration);
+      const Trajectory trajectory(path, Eigen::Vector2d::Constant(velocity), max_acceleration);
+      ASSERT_TRUE(trajectory.isValid()) << length << " " << velocity;
+      double worst{ 0 };
+      for (int k = 0; k * 1e-4 < trajectory.getDuration(); ++k)
+        worst = std::max(worst, trajectory.getAcceleration(trajectory.getPathData(k * 1e-4)).cwiseAbs().maxCoeff());
+      worst = std::max(
+          worst, trajectory.getAcceleration(trajectory.getPathData(trajectory.getDuration())).cwiseAbs().maxCoeff());
+      EXPECT_LE(worst, acceleration * (1.0 + 1e-6)) << length << " " << velocity;
+    }
+  }
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, slowMotionEndsWithinTheAccelerationLimits)  // NOLINT
+{
+  // The URDF limits, scaled down to a crawl
+  auto profile = std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>();
+  profile->max_velocity_scaling_factor = 0.001;
+  CompositeInstruction program;
+  program.setManipulatorInfo(manip_);
+  program.push_back(joint1Move(0, 0));
+  program.push_back(joint1Move(0.3, 0.1));
+
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+  ASSERT_TRUE(TimeOptimalTrajectoryGeneration(name_).compute(program, *env_, profiles));
+  test_suite::expectAccelerationsWithinLimits(
+      program, env_->getJointGroup(manip_.manipulator)->getLimits().acceleration_limits.col(1));
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, backwardPassMeetsTheForwardPassPastItsEnd)  // NOLINT
+{
+  // The forward pass stops just short of the limit curve, and the backward pass from the next switching point meets
+  // its line in that gap: past the forward pass's last step, and here past the backward pass's own start too
+  const Path corner({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0), Eigen::Vector2d(1, 1) }, 0.1);
+  const Trajectory corner_trajectory(corner, Eigen::Vector2d::Constant(0.4913476), Eigen::Vector2d::Ones());
+  ASSERT_TRUE(corner_trajectory.isValid());
+  EXPECT_LT(worstAccelerationInSteps(corner, corner_trajectory, Eigen::Vector2d::Ones(), 0.001), 1.05);
+
+  const std::vector<Eigen::VectorXd> waypoints{
+    (Eigen::VectorXd(6) << -1.4081554911517529,
+     -1.8043029710580933,
+     0.91977775831180519,
+     0.79130680885445914,
+     0.56739349488577195,
+     -1.0513272140246777)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4078990700666134,
+     -1.8052591319171054,
+     0.92069733244027718,
+     0.79195461539826928,
+     0.56813864550675219,
+     -1.0516678791310725)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4079810688644787,
+     -1.8051215829482243,
+     0.91976933280897455,
+     0.79250200168584339,
+     0.56792268237523069,
+     -1.0502433208001487)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4078162224064195,
+     -1.8048041826540628,
+     0.9199442547658897,
+     0.79286677339688838,
+     0.56704483385039872,
+     -1.0501270261026985)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4077181133417265,
+     -1.8035636381569178,
+     0.91873093440957909,
+     0.79427089068349899,
+     0.56556687297402819,
+     -1.0494742221189644)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4077872127459414,
+     -1.8043505779996694,
+     0.91777000492435412,
+     0.79460580649355661,
+     0.56479976908039464,
+     -1.0494285692615297)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4092114720337137,
+     -1.8032311412075346,
+     0.91674293269325824,
+     0.79536026145733929,
+     0.56612809090020011,
+     -1.0501839333563214)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4102208843809108,
+     -1.8017712521327274,
+     0.91637376953969163,
+     0.79584596158853171,
+     0.56738154846407374,
+     -1.0512447134306266)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4110741375998486,
+     -1.8019143725218374,
+     0.91545801999896137,
+     0.79654509082884473,
+     0.56593025861744239,
+     -1.0506958573024314)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4100624297029938,
+     -1.8032753213112978,
+     0.91476026739528493,
+     0.79745594889596771,
+     0.56511518737768185,
+     -1.051821035215176)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4110604978080736,
+     -1.8045544481358804,
+     0.91507785375039907,
+     0.79844194297576243,
+     0.56650703545317704,
+     -1.0527401622652839)
+        .finished(),
+    (Eigen::VectorXd(6) << -1.4101478071303422,
+     -1.8034857222221989,
+     0.91553566879852244,
+     0.79988422322767483,
+     0.56532780435690577,
+     -1.0528973816009179)
+        .finished(),
+  };
+  const Eigen::VectorXd max_velocity = (Eigen::VectorXd(6) << 1.3551854663497644,
+                                        0.89581542174147022,
+                                        1.8133583493077112,
+                                        0.62636411627240562,
+                                        0.64084573254981514,
+                                        1.2094044284346199)
+                                           .finished();
+  const Eigen::VectorXd max_acceleration = (Eigen::VectorXd(6) << 0.64306331237214454,
+                                            0.84418233362658501,
+                                            1.236686502320351,
+                                            0.65925237480723775,
+                                            1.532753762121885,
+                                            1.3764998609414565)
+                                               .finished();
+  const Path path(std::list<Eigen::VectorXd>(waypoints.begin(), waypoints.end()), 0.1);
+  const Trajectory trajectory(path, max_velocity, max_acceleration);
+  ASSERT_TRUE(trajectory.isValid());
+
+  // The Euler integration overshoots by up to 7% where this path's deceleration limit changes fast before a segment end
+  EXPECT_LT(worstAccelerationInSteps(path, trajectory, max_acceleration, 0.001), 1.1);
 }
 
 TEST_F(TimeOptimalTrajectoryGenerationUnit, reportedAccelerationsFollowTheProfile)  // NOLINT
