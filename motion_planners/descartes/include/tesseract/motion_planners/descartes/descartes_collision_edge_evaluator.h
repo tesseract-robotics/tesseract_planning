@@ -27,12 +27,13 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
-#include <mutex>
+#include <memory>
 #include <descartes_light/core/edge_evaluator.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/common/eigen_types.h>
 #include <tesseract/collision/fwd.h>
+#include <tesseract/collision/per_thread_contact_manager.h>
 #include <tesseract/collision/types.h>
 #include <tesseract/kinematics/fwd.h>
 #include <tesseract/environment/fwd.h>
@@ -58,10 +59,6 @@ protected:
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip_;
   /** @brief A vector of active link ids */
   std::vector<tesseract::common::LinkId> active_link_ids_;
-  /** @brief The discrete contact manager */
-  std::shared_ptr<tesseract::collision::DiscreteContactManager> discrete_contact_manager_;
-  /** @brief The discrete contact manager */
-  std::shared_ptr<tesseract::collision::ContinuousContactManager> continuous_contact_manager_;
   /** @brief The collision margin data */
   tesseract::common::CollisionMarginData contact_margin_data_;
   /** @brief The contact request used during collision checking */
@@ -71,21 +68,14 @@ protected:
   /** @brief Enable debug information to be printed to the terminal */
   bool debug_;
 
-  // The member variables below are to cache the contact manager based on thread ID. Currently descartes is multi
-  // threaded but the methods used to implement collision checking are not thread safe. To prevent
-  // reconstructing the collision environment for every check this will cache a contact manager
-  // based on its thread ID.
+  /**
+   * @brief Each thread's own clone of the configured discrete contact manager, null if the environment has none
+   * @details Descartes may evaluate edges from several threads at once, and a contact manager is not thread safe.
+   */
+  std::unique_ptr<tesseract::collision::PerThreadDiscreteContactManager> discrete_contact_managers_;
 
-  /** @brief Contact manager caching mutex */
-  mutable std::mutex mutex_;
-
-  /** @brief The continuous contact manager cache */
-  mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::ContinuousContactManager>>
-      continuous_contact_managers_;
-
-  /** @brief The discrete contact manager cache */
-  mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::DiscreteContactManager>>
-      discrete_contact_managers_;
+  /** @brief Each thread's own clone of the configured continuous contact manager, null if the environment has none */
+  std::unique_ptr<tesseract::collision::PerThreadContinuousContactManager> continuous_contact_managers_;
 
   /**
    * @brief Perform a continuous collision check between two states
