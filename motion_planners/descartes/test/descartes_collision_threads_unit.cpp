@@ -31,7 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <filesystem>
 #include <functional>
 #include <memory>
+#include <stdexcept>
 #include <thread>
+#include <type_traits>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -43,6 +45,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/kinematics/joint_group.h>
 #include <tesseract/scene_graph/joint.h>
 #include <tesseract/scene_graph/link.h>
+#include <tesseract/scene_graph/graph.h>
+#include <tesseract/srdf/srdf_model.h>
+#include <tesseract/urdf/urdf_parser.h>
 
 #include <tesseract/motion_planners/descartes/descartes_collision_edge_evaluator.h>
 
@@ -197,6 +202,52 @@ INSTANTIATE_TEST_SUITE_P(CollisionTypes,
                                          CollisionEvaluatorType::LVS_DISCRETE,
                                          CollisionEvaluatorType::CONTINUOUS,
                                          CollisionEvaluatorType::LVS_CONTINUOUS));
+
+// The evaluator owns its per-thread managers, and a moved-from evaluator would have none, so it is neither copied nor
+// moved
+TEST(DescartesCollisionEdgeEvaluator, NotCopyableOrMovable)  // NOLINT
+{
+  EXPECT_FALSE(std::is_copy_constructible_v<DescartesCollisionEdgeEvaluatorD>);
+  EXPECT_FALSE(std::is_copy_assignable_v<DescartesCollisionEdgeEvaluatorD>);
+  EXPECT_FALSE(std::is_move_constructible_v<DescartesCollisionEdgeEvaluatorD>);
+  EXPECT_FALSE(std::is_move_assignable_v<DescartesCollisionEdgeEvaluatorD>);
+}
+
+// An environment without a continuous contact manager still serves the discrete types, and refuses the continuous ones
+TEST(DescartesCollisionEdgeEvaluator, NoContinuousContactManager)  // NOLINT
+{
+  auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
+  const std::string urdf_path =
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
+  const std::string srdf_path =
+      locator->locateResource("package://tesseract/support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
+  const std::unique_ptr<tesseract::scene_graph::SceneGraph> scene_graph =
+      tesseract::urdf::parseURDFFile(urdf_path, *locator);
+  auto srdf = std::make_shared<tesseract::srdf::SRDFModel>();
+  srdf->initFile(*scene_graph, srdf_path, *locator);
+  srdf->contact_managers_plugin_info.continuous_plugin_infos.clear();
+
+  tesseract::environment::Environment env;
+  ASSERT_TRUE(env.init(*scene_graph, srdf));
+  ASSERT_EQ(env.getContinuousContactManager(), nullptr);
+  const std::shared_ptr<const tesseract::kinematics::JointGroup> manip = env.getJointGroup("manipulator");
+
+  for (const auto type : { CollisionEvaluatorType::DISCRETE, CollisionEvaluatorType::LVS_DISCRETE })
+  {
+    tesseract::collision::CollisionCheckConfig check_config;
+    check_config.type = type;
+    EXPECT_NO_THROW(
+        DescartesCollisionEdgeEvaluatorD(env, manip, tesseract::collision::ContactManagerConfig(), check_config));
+  }
+  for (const auto type : { CollisionEvaluatorType::CONTINUOUS, CollisionEvaluatorType::LVS_CONTINUOUS })
+  {
+    tesseract::collision::CollisionCheckConfig check_config;
+    check_config.type = type;
+    EXPECT_THROW(
+        DescartesCollisionEdgeEvaluatorD(env, manip, tesseract::collision::ContactManagerConfig(), check_config),
+        std::runtime_error);
+  }
+}
 
 int main(int argc, char** argv)
 {

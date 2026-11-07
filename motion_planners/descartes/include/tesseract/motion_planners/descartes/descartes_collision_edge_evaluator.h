@@ -50,6 +50,12 @@ public:
                                   tesseract::collision::CollisionCheckConfig collision_check_config,
                                   bool allow_collision = false,
                                   bool debug = false);
+  ~DescartesCollisionEdgeEvaluator() override = default;
+  // A moved-from evaluator would have no contact managers
+  DescartesCollisionEdgeEvaluator(const DescartesCollisionEdgeEvaluator&) = delete;
+  DescartesCollisionEdgeEvaluator& operator=(const DescartesCollisionEdgeEvaluator&) = delete;
+  DescartesCollisionEdgeEvaluator(DescartesCollisionEdgeEvaluator&&) = delete;
+  DescartesCollisionEdgeEvaluator& operator=(DescartesCollisionEdgeEvaluator&&) = delete;
 
   std::pair<bool, FloatType> evaluate(const descartes_light::State<FloatType>& start,
                                       const descartes_light::State<FloatType>& end) const override;
