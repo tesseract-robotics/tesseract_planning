@@ -82,7 +82,7 @@ bool isValidState(const tesseract::kinematics::JointGroup& joint_group,
                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                   const Eigen::Matrix<FloatType, Eigen::Dynamic, 2>& limits)
 {
-  if (!tesseract::common::isWithinLimits(joint_values, limits))
+  if (!tesseract::common::isWithinLimits<FloatType>(joint_values, limits))
     return false;
 
   Eigen::Vector2i sign_correction = Eigen::Vector2i::Ones();
