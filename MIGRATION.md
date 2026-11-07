@@ -15,6 +15,15 @@ code should retain only runtime-dependent checks such as plugin lookup, graph to
 Code that previously constructed configurable nodes directly from YAML should use the corresponding factory so schema
 validation is not bypassed.
 
+## Descartes Collision Edge Evaluator Contact Managers
+
+`DescartesCollisionEdgeEvaluator` gets its per-thread contact managers from `tesseract::collision::PerThreadContactManager`.
+Its protected members `discrete_contact_manager_`, `continuous_contact_manager_` and `mutex_` are removed, and
+`discrete_contact_managers_` / `continuous_contact_managers_` are now
+`std::unique_ptr<tesseract::collision::PerThread{Discrete,Continuous}ContactManager>` (null when the environment has no
+manager of that type). A subclass gets the calling thread's manager with `discrete_contact_managers_->get()`. The
+evaluator can no longer be copied or moved.
+
 ## Summary of Changes
 
 - All `tesseract_*` subdirectories renamed (dropping the prefix)
