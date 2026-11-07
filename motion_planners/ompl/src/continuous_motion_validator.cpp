@@ -25,7 +25,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/SpaceInformation.h>
 #include <ompl/base/StateValidityChecker.h>
-#include <thread>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/motion_planners/ompl/continuous_motion_validator.h>
@@ -47,12 +46,16 @@ ContinuousMotionValidator::ContinuousMotionValidator(
   : MotionValidator(space_info)
   , state_validator_(std::move(state_validator))
   , manip_(std::move(manip))
-  , continuous_contact_manager_(env.getContinuousContactManager())
   , link_ids_(manip_->getActiveLinkIds())
   , extractor_(std::move(extractor))
 {
-  continuous_contact_manager_->setActiveCollisionObjects(link_ids_);
-  continuous_contact_manager_->applyContactManagerConfig(contact_manager_config);
+  std::unique_ptr<tesseract::collision::ContinuousContactManager> contact_manager = env.getContinuousContactManager();
+  contact_manager->setActiveCollisionObjects(link_ids_);
+  contact_manager->applyContactManagerConfig(contact_manager_config);
+
+  // Each checking thread gets its own clone of the configured manager
+  continuous_contact_managers_ =
+      std::make_unique<tesseract::collision::PerThreadContinuousContactManager>(std::move(contact_manager));
 }
 
 bool ContinuousMotionValidator::checkMotion(const ompl::base::State* s1, const ompl::base::State* s2) const
@@ -123,21 +126,7 @@ bool ContinuousMotionValidator::checkMotion(const ompl::base::State* s1,
 
 bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State* s1, const ompl::base::State* s2) const
 {
-  // It was time using chronos time elapsed and it was faster to cache the contact manager
-  unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
-  tesseract::collision::ContinuousContactManager::Ptr cm;
-  mutex_.lock();
-  auto it = continuous_contact_managers_.find(hash);
-  if (it == continuous_contact_managers_.end())
-  {
-    cm = continuous_contact_manager_->clone();
-    continuous_contact_managers_[hash] = cm;
-  }
-  else
-  {
-    cm = it->second;
-  }
-  mutex_.unlock();
+  tesseract::collision::ContinuousContactManager& cm = continuous_contact_managers_->get();
 
   Eigen::Map<Eigen::VectorXd> start_joints = extractor_(s1);
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(s2);
@@ -150,10 +139,10 @@ bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State
   state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
-  cm->setCollisionObjectsTransform(link_ids_, state0, state1);
+  cm.setCollisionObjectsTransform(link_ids_, state0, state1);
 
   tesseract::collision::ContactResultMap contact_map;
-  cm->contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
+  cm.contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
 
   return contact_map.empty();
 }
