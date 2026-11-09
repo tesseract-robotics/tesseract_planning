@@ -68,7 +68,8 @@ public:
    * min_angle_change of a kept one. When nothing moves, only the first move instruction is kept. Other instructions
    * keep their place relative to the motion. Where the path turns back, or a corner would blend at a radius below
    * 1e-4, the motion stops: the waypoint there has zero velocity. Throws if the profile's min_angle_change is below
-   * 1e-5.
+   * 1e-5. The motion starts and ends at rest, unless the profile's use_start_velocity or use_end_velocity takes the
+   * first or last waypoint's velocity instead.
    *
    * A waypoint at a blended corner is moved onto the blend, where its time, velocity and acceleration are taken, by up
    * to the profile's path_tolerance (the Euclidean distance in joint space). It stays within the joint ranges of the
@@ -198,16 +199,18 @@ public:
              double time_step = 0.001);
 
   /**
-   * @brief Generates a time-optimal trajectory that starts moving along the path at start_path_velocity
-   * @details Also invalid if start_path_velocity is negative or not finite, if it exceeds the velocity limit at the
-   * start of the path (within rounding of it, the limit is taken instead), or if the path does not leave room to slow
-   * down from it for a later limit
+   * @brief Generates a time-optimal trajectory that starts moving along the path at start_path_velocity and ends at
+   * end_path_velocity
+   * @details Also invalid if either velocity is negative or not finite, if it exceeds the limit at its end of the path
+   * (within rounding of it, the limit is taken instead), if the path does not leave room to slow down from the start
+   * velocity for a later limit, or if the end velocity is out of reach
    */
   Trajectory(const Path& path,
              const Eigen::VectorXd& max_velocity,
              const Eigen::VectorXd& max_acceleration,
              double time_step,
-             double start_path_velocity);
+             double start_path_velocity,
+             double end_path_velocity = 0.0);
 
   /** @brief Call this method after constructing the object to make sure the
      trajectory generation succeeded without errors. If this method returns
