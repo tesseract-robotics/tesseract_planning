@@ -44,6 +44,9 @@
 #include <stdexcept>
 #include <type_traits>
 #include <utility>
+#include <numeric>
+#include <random>
+#include <set>
 #include <gtest/gtest.h>
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
@@ -390,6 +393,18 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   TimeOptimalTrajectoryGenerationCompositeProfile ending_at_rest(*profile);
   ending_at_rest.use_end_velocity = false;
   EXPECT_FALSE(*profile == ending_at_rest);
+  TimeOptimalTrajectoryGenerationCompositeProfile upsampled(*profile);
+  upsampled.upsample_dt = 1e-7;
+  EXPECT_FALSE(*profile == upsampled);
+  TimeOptimalTrajectoryGenerationCompositeProfile counted(*profile);
+  counted.upsample_num_waypoints = 7;
+  EXPECT_FALSE(*profile == counted);
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile,
+                                                   TimeOptimalTrajectoryGenerationCompositeProfile>(
+      std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>(upsampled), "totgUpsampleDt");
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile,
+                                                   TimeOptimalTrajectoryGenerationCompositeProfile>(
+      std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>(counted), "totgUpsampleNumWaypoints");
 
   // Serialization
   tesseract::common::testSerializationDerivedClass<tesseract::common::Profile,
@@ -2388,6 +2403,541 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, computeEndsAtTheLastWaypointsVelocit
   }
   CompositeInstruction still = program({ joints(0), joints(0) }, along);
   EXPECT_FALSE(solver.compute(still, *env_, profiles));
+}
+
+namespace
+{
+/** @brief The fewest parts at most max_part long that split interval, found by search rather than division */
+std::size_t partsWithin(double interval, double max_part)
+{
+  auto parts = static_cast<std::size_t>(std::max(1.0, std::ceil(interval / max_part)));
+  while (parts > 1 && interval / static_cast<double>(parts - 1) <= max_part)
+    --parts;
+  while (interval / static_cast<double>(parts) > max_part)
+    ++parts;
+  return parts;
+}
+
+/** @brief The longest part of the intervals split into the given numbers of parts */
+double longestPart(const std::vector<double>& intervals, const std::vector<std::size_t>& parts)
+{
+  double longest{ 0 };
+  for (std::size_t i = 0; i < intervals.size(); ++i)
+    longest = std::max(longest, intervals[i] / static_cast<double>(parts[i]));
+  return longest;
+}
+
+/** @brief The shortest longest part of any split of the intervals into num_parts parts, at least one per interval */
+double shortestLongestPart(const std::vector<double>& intervals, std::size_t num_parts)
+{
+  double shortest = std::numeric_limits<double>::infinity();
+  for (double interval : intervals)
+  {
+    for (std::size_t m = 1; m <= num_parts; ++m)
+    {
+      const double candidate = interval / static_cast<double>(m);
+      std::size_t needed{ 0 };
+      for (double other : intervals)
+        needed += partsWithin(other, candidate);
+      if (needed <= num_parts)
+        shortest = std::min(shortest, candidate);
+    }
+  }
+  return shortest;
+}
+
+std::vector<double> moveTimes(const CompositeInstruction& program)
+{
+  std::vector<double> times;
+  for (const auto& move : program.flatten(moveFilter))
+    times.push_back(move.get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime());
+  return times;
+}
+
+std::vector<boost::uuids::uuid> moveUUIDs(const CompositeInstruction& program)
+{
+  std::vector<boost::uuids::uuid> uuids;
+  for (const auto& move : program.flatten(moveFilter))
+    uuids.push_back(move.get().as<MoveInstructionPoly>().getUUID());
+  return uuids;
+}
+
+/** @brief How far a controller's interpolation through the waypoints strays from the trajectory they were taken from */
+struct InterpolationError
+{
+  /** @brief The largest joint speed of the interpolation */
+  double speed{ 0 };
+  /** @brief The largest joint position error of the interpolation against the trajectory */
+  double position{ 0 };
+};
+
+/**
+ * @brief Interpolate between consecutive waypoints by a cubic through their positions and velocities, or a quintic
+ * through their accelerations too, and compare with the trajectory at the same times
+ */
+InterpolationError interpolationError(const CompositeInstruction& program, const Trajectory& trajectory, bool quintic)
+{
+  InterpolationError error;
+  const auto moves = program.flatten(moveFilter);
+  const Eigen::Index order = quintic ? 6 : 4;
+  for (std::size_t i = 1; i < moves.size(); ++i)
+  {
+    const auto& a = moves[i - 1].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+    const auto& b = moves[i].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+    const double h = b.getTime() - a.getTime();
+
+    // Rows: position, velocity and, for the quintic, acceleration at the start, then the same at the end
+    Eigen::MatrixXd basis = Eigen::MatrixXd::Zero(order, order);
+    Eigen::MatrixXd values(order, a.getPosition().size());
+    const Eigen::Index per_end = order / 2;
+    for (Eigen::Index k = 0; k < order; ++k)
+    {
+      basis(0, k) = (k == 0) ? 1.0 : 0.0;
+      basis(1, k) = (k == 1) ? 1.0 : 0.0;
+      basis(per_end, k) = std::pow(h, static_cast<double>(k));
+      basis(per_end + 1, k) = static_cast<double>(k) * std::pow(h, static_cast<double>(k - 1));
+      if (quintic)
+      {
+        basis(2, k) = (k == 2) ? 2.0 : 0.0;
+        basis(per_end + 2, k) =
+            static_cast<double>(k * (k - 1)) * std::pow(h, static_cast<double>(std::max<Eigen::Index>(k - 2, 0)));
+      }
+    }
+    values.row(0) = a.getPosition().transpose();
+    values.row(1) = a.getVelocity().transpose();
+    values.row(per_end) = b.getPosition().transpose();
+    values.row(per_end + 1) = b.getVelocity().transpose();
+    if (quintic)
+    {
+      values.row(2) = a.getAcceleration().transpose();
+      values.row(per_end + 2) = b.getAcceleration().transpose();
+    }
+    const Eigen::MatrixXd coefficients = basis.fullPivLu().solve(values);
+
+    const int samples = 50;
+    for (int j = 1; j < samples; ++j)
+    {
+      const double t = h * j / samples;
+      Eigen::VectorXd powers(order);
+      Eigen::VectorXd derivative_powers = Eigen::VectorXd::Zero(order);
+      for (Eigen::Index k = 0; k < order; ++k)
+      {
+        powers[k] = std::pow(t, static_cast<double>(k));
+        if (k > 0)
+          derivative_powers[k] = static_cast<double>(k) * std::pow(t, static_cast<double>(k - 1));
+      }
+      const Eigen::VectorXd position = coefficients.transpose() * powers;
+      const Eigen::VectorXd velocity = coefficients.transpose() * derivative_powers;
+      const Eigen::VectorXd reference = trajectory.getPosition(trajectory.getPathData(a.getTime() + t));
+      error.speed = std::max(error.speed, velocity.cwiseAbs().maxCoeff());
+      error.position = std::max(error.position, (position - reference).cwiseAbs().maxCoeff());
+    }
+  }
+  return error;
+}
+}  // namespace
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, splitIntervalsWithinAPart)  // NOLINT
+{
+  using tesseract::time_parameterization::totg::splitIntervalsWithin;
+  EXPECT_EQ(splitIntervalsWithin({ 0.05, 0.08, 0.1, 0.12, 0.15, 0.2, 0.0, 0.04 }, 0.05),
+            (std::vector<std::size_t>{ 1, 2, 2, 3, 3, 4, 1, 1 }));
+
+  // Each part is within max_part to rounding, and one part fewer would not be
+  std::mt19937 generator(5);
+  std::uniform_real_distribution<double> length(0.0, 3.0);
+  for (int trial = 0; trial < 1000; ++trial)
+  {
+    const std::vector<double> intervals{ length(generator), length(generator) };
+    const double max_part = 0.001 + length(generator) / 10;
+    const auto parts = splitIntervalsWithin(intervals, max_part);
+    for (std::size_t i = 0; i < intervals.size(); ++i)
+    {
+      ASSERT_GE(parts[i], 1);
+      EXPECT_LE(intervals[i] / static_cast<double>(parts[i]), max_part * (1 + 1e-15));
+      if (parts[i] > 1)
+      {
+        EXPECT_GT(intervals[i] / static_cast<double>(parts[i] - 1), max_part * (1 - 1e-15));
+      }
+    }
+  }
+
+  // Extreme parts neither divide by zero nor overflow
+  EXPECT_EQ(splitIntervalsWithin({ 1e-16 }, 1e308), (std::vector<std::size_t>{ 1 }));
+  EXPECT_EQ(splitIntervalsWithin({ 4.0 }, 1e-300), (std::vector<std::size_t>{ std::size_t{ 1 } << 52 }));
+  EXPECT_EQ(splitIntervalsWithin({ 4.0 }, std::numeric_limits<double>::denorm_min()),
+            (std::vector<std::size_t>{ std::size_t{ 1 } << 52 }));
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, splitIntervalsIntoAPartCount)  // NOLINT
+{
+  using tesseract::time_parameterization::totg::splitIntervalsInto;
+
+  // Twelve waypoints 70 ms apart, upsampled to 31: ties go to the earlier interval
+  const std::vector<std::size_t> even = splitIntervalsInto(std::vector<double>(11, 0.07), 30);
+  EXPECT_EQ(even, (std::vector<std::size_t>{ 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2 }));
+
+  // No more parts than intervals leaves one each
+  EXPECT_EQ(splitIntervalsInto({ 1.0, 2.0, 3.0 }, 2), (std::vector<std::size_t>{ 1, 1, 1 }));
+  EXPECT_EQ(splitIntervalsInto({ 1.0, 2.0, 3.0 }, 3), (std::vector<std::size_t>{ 1, 1, 1 }));
+  EXPECT_EQ(splitIntervalsInto({ 1.0, 1.0 }, 3), (std::vector<std::size_t>{ 2, 1 }));
+  EXPECT_TRUE(splitIntervalsInto({}, 5).empty());
+
+  // The longest part is as short as any split into that many parts makes it
+  std::mt19937 generator(7);
+  std::uniform_real_distribution<double> length(0.0, 1.0);
+  std::uniform_int_distribution<std::size_t> count(1, 8);
+  for (int trial = 0; trial < 300; ++trial)
+  {
+    std::vector<double> intervals(count(generator));
+    for (double& interval : intervals)
+      interval = length(generator);
+    const std::size_t num_parts = intervals.size() + (count(generator) * 3) - 3;
+    const auto parts = splitIntervalsInto(intervals, num_parts);
+    ASSERT_EQ(parts.size(), intervals.size());
+    EXPECT_EQ(std::accumulate(parts.begin(), parts.end(), std::size_t{ 0 }), num_parts);
+    for (std::size_t part : parts)
+      EXPECT_GE(part, 1);
+    EXPECT_EQ(longestPart(intervals, parts), shortestLongestPart(intervals, num_parts));
+  }
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, computeUpsamplesToAnInterval)  // NOLINT
+{
+  const std::vector<Eigen::VectorXd> line{ joints(0), joints(1) };
+  auto profile = createOverrideProfile();
+  const CompositeInstruction sparse = runWithinLimits(line, profile, name_, *env_, manip_);
+  profile->upsample_dt = 0.01;
+  const CompositeInstruction upsampled = runWithinLimits(line, profile, name_, *env_, manip_);
+
+  // The originals are written as without upsampling
+  const auto sparse_times = moveTimes(sparse);
+  const auto times = moveTimes(upsampled);
+  ASSERT_EQ(sparse_times.size(), 2);
+  ASSERT_EQ(times.size(), partsWithin(sparse_times[1], 0.01) + 1);
+  for (std::size_t i : { std::size_t{ 0 }, std::size_t{ 1 } })
+  {
+    const auto& original = waypointAt(sparse, i);
+    const auto& kept = waypointAt(upsampled, i == 0 ? 0 : times.size() - 1);
+    expectSameBits(kept.getTime(), original.getTime());
+    expectSameBits(kept.getPosition(), original.getPosition());
+    expectSameBits(kept.getVelocity(), original.getVelocity());
+    expectSameBits(kept.getAcceleration(), original.getAcceleration());
+  }
+
+  // Equal parts within the interval, each on the trajectory
+  const Path path(std::list<Eigen::VectorXd>(line.begin(), line.end()), profile->path_tolerance);
+  const Trajectory trajectory(path, Eigen::VectorXd::Ones(6), Eigen::VectorXd::Ones(6));
+  for (std::size_t i = 1; i < times.size(); ++i)
+  {
+    EXPECT_LE(times[i] - times[i - 1], 0.01 * (1 + 1e-12));
+    EXPECT_GT(times[i] - times[i - 1], 0.005);
+  }
+  for (std::size_t i = 1; i + 1 < times.size(); ++i)
+  {
+    const auto& sample = waypointAt(upsampled, i);
+    const PathData data = trajectory.getPathData(sample.getTime());
+    expectSameBits(sample.getPosition(), trajectory.getPosition(data));
+    expectSameBits(sample.getVelocity(), trajectory.getVelocity(data));
+    expectSameBits(sample.getAcceleration(), trajectory.getAcceleration(data));
+  }
+
+  // Every interval between the waypoints kept is split on its own; one already within upsample_dt is left as it is
+  const std::vector<Eigen::VectorXd> waypoints{ joints(0), joints(0.3, 0.1), joints(0.302, 0.1), joints(1, 0.5) };
+  auto coarse = createOverrideProfile();
+  const CompositeInstruction unsplit = runWithinLimits(waypoints, coarse, name_, *env_, manip_);
+  coarse->upsample_dt = 0.05;
+  const CompositeInstruction split = runWithinLimits(waypoints, coarse, name_, *env_, manip_);
+  const auto unsplit_times = moveTimes(unsplit);
+  std::vector<double> intervals;
+  for (std::size_t i = 1; i < unsplit_times.size(); ++i)
+    intervals.push_back(unsplit_times[i] - unsplit_times[i - 1]);
+  const auto parts = tesseract::time_parameterization::totg::splitIntervalsWithin(intervals, 0.05);
+  EXPECT_EQ(parts[1], 1) << intervals[1];
+  const auto split_times = moveTimes(split);
+  std::size_t at{ 0 };
+  for (std::size_t i = 1; i < unsplit_times.size(); ++i)
+  {
+    // The waypoints kept keep their times exactly
+    const auto next = std::find(split_times.begin(), split_times.end(), unsplit_times[i]);
+    ASSERT_NE(next, split_times.end()) << i;
+    const auto index = static_cast<std::size_t>(next - split_times.begin());
+    EXPECT_EQ(index - at, parts[i - 1]) << i;
+    at = index;
+  }
+  EXPECT_EQ(at + 1, split_times.size());
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, upsamplingLetsInterpolationFollowTheTrajectory)  // NOLINT
+{
+  // A long move cruises most of the way, so a polynomial through its two waypoints at rest runs well above the
+  // velocity limit
+  const std::vector<Eigen::VectorXd> line{ joints(0), joints(10) };
+  auto profile = createOverrideProfile();
+  const CompositeInstruction sparse = runWithinLimits(line, profile, name_, *env_, manip_);
+  const double dt = 0.05;
+  profile->upsample_dt = dt;
+  const CompositeInstruction upsampled = runWithinLimits(line, profile, name_, *env_, manip_);
+
+  const Path path(std::list<Eigen::VectorXd>(line.begin(), line.end()), profile->path_tolerance);
+  const Trajectory trajectory(path, Eigen::VectorXd::Ones(6), Eigen::VectorXd::Ones(6));
+  for (bool quintic : { false, true })
+  {
+    const InterpolationError before = interpolationError(sparse, trajectory, quintic);
+    const InterpolationError after = interpolationError(upsampled, trajectory, quintic);
+    EXPECT_GT(before.speed, quintic ? 1.05 : 1.3) << quintic;
+    EXPECT_LT(after.speed, 1.01) << quintic;
+    EXPECT_LT(after.position, 1e-3 * before.position) << quintic;
+  }
+
+  // The cubic is exact where the acceleration is constant, and strays most in an interval holding a jump in it, here
+  // by the acceleration limit: by at most 0.01615 times the jump times the interval squared
+  EXPECT_LT(interpolationError(upsampled, trajectory, false).position, 0.0162 * dt * dt);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, computeUpsamplesToAWaypointCount)  // NOLINT
+{
+  std::vector<Eigen::VectorXd> zigzag;
+  for (int i = 0; i < 12; ++i)
+    zigzag.push_back(joints(0.25 * i, (i % 2) * 0.05));
+  auto profile = createOverrideProfile();
+  const CompositeInstruction sparse = runWithinLimits(zigzag, profile, name_, *env_, manip_);
+  ASSERT_EQ(sparse.flatten(moveFilter).size(), 12);
+
+  profile->upsample_num_waypoints = 31;
+  const CompositeInstruction upsampled = runWithinLimits(zigzag, profile, name_, *env_, manip_);
+  EXPECT_EQ(upsampled.flatten(moveFilter).size(), 31);
+
+  // Inserted where the waypoints are furthest apart in time
+  const auto sparse_times = moveTimes(sparse);
+  std::vector<double> intervals;
+  for (std::size_t i = 1; i < sparse_times.size(); ++i)
+    intervals.push_back(sparse_times[i] - sparse_times[i - 1]);
+  const auto times = moveTimes(upsampled);
+  double longest{ 0 };
+  for (std::size_t i = 1; i < times.size(); ++i)
+    longest = std::max(longest, times[i] - times[i - 1]);
+  const double shortest = shortestLongestPart(intervals, 30);
+  EXPECT_NEAR(longest, shortest, 1e-12 * shortest);
+
+  // No more than the waypoints kept inserts none
+  for (int num_waypoints : { 1, 5, 12 })
+  {
+    profile->upsample_num_waypoints = num_waypoints;
+    const CompositeInstruction same = runWithinLimits(zigzag, profile, name_, *env_, manip_);
+    ASSERT_EQ(same.flatten(moveFilter).size(), 12) << num_waypoints;
+    for (std::size_t i = 0; i < 12; ++i)
+    {
+      expectSameBits(waypointAt(same, i).getTime(), waypointAt(sparse, i).getTime());
+      expectSameBits(waypointAt(same, i).getPosition(), waypointAt(sparse, i).getPosition());
+      expectSameBits(waypointAt(same, i).getVelocity(), waypointAt(sparse, i).getVelocity());
+      expectSameBits(waypointAt(same, i).getAcceleration(), waypointAt(sparse, i).getAcceleration());
+    }
+  }
+
+  // A stop where the path turns back is counted once, and stays at rest
+  profile->upsample_num_waypoints = 11;
+  const CompositeInstruction turn = runWithinLimits({ joints(0), joints(1), joints(0) }, profile, name_, *env_, manip_);
+  ASSERT_EQ(turn.flatten(moveFilter).size(), 11);
+  std::size_t stop{ 0 };
+  for (std::size_t i = 1; i + 1 < 11; ++i)
+  {
+    if (waypointAt(turn, i).getVelocity().isZero(0.0))
+    {
+      EXPECT_EQ(stop, 0) << i;
+      stop = i;
+    }
+  }
+  EXPECT_GT(stop, 1);
+  EXPECT_LT(stop, 9);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, upsampledWaypointsKeepTheProgramsStructure)  // NOLINT
+{
+  auto profile = createOverrideProfile();
+  profile->upsample_dt = 0.1;
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+  const TimeOptimalTrajectoryGeneration solver(name_);
+
+  // I/O between two composites, a repeat, and a move with a parent, an effort and its own profile, first in its
+  // composite
+  CompositeInstruction program;
+  CompositeInstruction first;
+  first.push_back(joint1Move(0));
+  first.push_back(joint1Move(1));
+  first.push_back(joint1Move(1.0005));
+  program.push_back(first);
+  program.push_back(SetDigitalInstruction("io", 0, true));
+  CompositeInstruction second;
+  MoveInstruction linear = joint1Move(2, 0.5);
+  linear.setMoveType(MoveInstructionType::LINEAR);
+  linear.setProfile("linear_profile");
+  const boost::uuids::uuid parent = MoveInstruction(StateWaypoint(), MoveInstructionType::FREESPACE).getUUID();
+  linear.setParentUUID(parent);
+  linear.getWaypoint().as<StateWaypointPoly>().setEffort(Eigen::VectorXd::Ones(6));
+  linear.getWaypoint().setName("approach");
+  second.push_back(linear);
+  second.push_back(joint1Move(3, 0.5));
+  program.push_back(second);
+  program.setManipulatorInfo(manip_);
+  const auto input = moveUUIDs(program);
+
+  ASSERT_TRUE(solver.compute(program, *env_, profiles));
+  expectTimedFromRestToRest(program);
+  ASSERT_EQ(program.size(), 3);
+  ASSERT_TRUE(!program[1].isMoveInstruction() && !program[1].isCompositeInstruction());
+
+  // The I/O still follows the waypoint at 1, the last move of the first composite; the repeat is gone
+  const auto& first_out = program[0].as<CompositeInstruction>();
+  const auto& last_of_first = first_out.back().as<MoveInstructionPoly>();
+  EXPECT_EQ(last_of_first.getUUID(), input[1]);
+  EXPECT_GT(first_out.size(), 2);
+
+  // The second composite starts with copies of its first move, then the move itself
+  const auto& second_out = program[2].as<CompositeInstruction>();
+  std::size_t copies{ 0 };
+  for (const auto& instruction : second_out)
+  {
+    const auto& move = instruction.as<MoveInstructionPoly>();
+    if (move.getUUID() == input[3])
+      break;
+    ++copies;
+    EXPECT_EQ(move.getProfile(), "linear_profile");
+    EXPECT_TRUE(move.isLinear());
+    EXPECT_EQ(move.getParentUUID(), parent);
+    EXPECT_EQ(move.getWaypoint().as<StateWaypointPoly>().getEffort().size(), 0);
+    EXPECT_EQ(move.getWaypoint().getName(), "approach");
+  }
+  EXPECT_GT(copies, 0);
+  EXPECT_LT(copies, second_out.size());
+
+  // Every move has its own UUID; a copy of a move without a parent takes it as the parent
+  const auto output = moveUUIDs(program);
+  std::set<boost::uuids::uuid> unique(output.begin(), output.end());
+  EXPECT_EQ(unique.size(), output.size());
+  for (const auto& instruction : first_out)
+  {
+    const auto& move = instruction.as<MoveInstructionPoly>();
+    if (move.getUUID() != input[0] && move.getUUID() != input[1])
+    {
+      EXPECT_EQ(move.getParentUUID(), input[1]);
+    }
+  }
+
+  // The goal replaces the run before it, and the copies before it are of the goal
+  CompositeInstruction swapped = joint1Program({ 0, 1, 1.0005 });
+  swapped.setManipulatorInfo(manip_);
+  const auto swapped_input = moveUUIDs(swapped);
+  ASSERT_TRUE(solver.compute(swapped, *env_, profiles));
+  const auto swapped_output = moveUUIDs(swapped);
+  ASSERT_GT(swapped_output.size(), 2);
+  EXPECT_EQ(swapped_output.front(), swapped_input[0]);
+  EXPECT_EQ(swapped_output.back(), swapped_input[2]);
+  for (std::size_t i = 1; i + 1 < swapped_output.size(); ++i)
+    EXPECT_EQ(swapped.flatten(moveFilter)[i].get().as<MoveInstructionPoly>().getParentUUID(), swapped_input[2]);
+  EXPECT_DOUBLE_EQ(joint1Positions(swapped).back(), 1.0005);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, upsampledWaypointsFollowEachPiece)  // NOLINT
+{
+  // Out and back, starting and ending in motion: two pieces, the first starting at 0.5 and the second ending at it
+  auto profile = createOverrideProfile();
+  profile->use_start_velocity = true;
+  profile->use_end_velocity = true;
+  profile->upsample_dt = 0.05;
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+  CompositeInstruction program = programOf({ joints(0), joints(1), joints(0) });
+  program.front().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().setVelocity(joints(0.5));
+  program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().setVelocity(joints(-0.5));
+  program.setManipulatorInfo(manip_);
+  ASSERT_TRUE(TimeOptimalTrajectoryGeneration(name_).compute(program, *env_, profiles));
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectVelocitiesWithinLimits(program, Eigen::VectorXd::Ones(6));
+  test_suite::expectAccelerationsWithinLimits(program, Eigen::VectorXd::Ones(6));
+
+  const Path out(std::list<Eigen::VectorXd>{ joints(0), joints(1) }, profile->path_tolerance);
+  const Path back(std::list<Eigen::VectorXd>{ joints(1), joints(0) }, profile->path_tolerance);
+  const Trajectory first(out, Eigen::VectorXd::Ones(6), Eigen::VectorXd::Ones(6), 0.001, 0.5, 0.0);
+  const Trajectory second(back, Eigen::VectorXd::Ones(6), Eigen::VectorXd::Ones(6), 0.001, 0.0, 0.5);
+  const double cut = first.getDuration();
+
+  // Each inserted waypoint is read from its piece, the second at its own time
+  const auto times = moveTimes(program);
+  std::size_t before_cut{ 0 };
+  std::size_t after_cut{ 0 };
+  for (std::size_t i = 1; i + 1 < times.size(); ++i)
+  {
+    const auto& waypoint = waypointAt(program, i);
+    if (times[i] == cut)
+    {
+      EXPECT_TRUE(waypoint.getVelocity().isZero(0.0));
+      continue;
+    }
+    const bool in_first = times[i] < cut;
+    (in_first ? before_cut : after_cut)++;
+    const Trajectory& piece = in_first ? first : second;
+    const PathData data = piece.getPathData(in_first ? times[i] : times[i] - cut);
+    expectSameBits(waypoint.getPosition(), piece.getPosition(data));
+    expectSameBits(waypoint.getVelocity(), piece.getVelocity(data));
+    expectSameBits(waypoint.getAcceleration(), piece.getAcceleration(data));
+  }
+  EXPECT_GT(before_cut, 1);
+  EXPECT_GT(after_cut, 1);
+  expectSameBits(times.back(), cut + second.getDuration());
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, invalidUpsamplingIsRejected)  // NOLINT
+{
+  for (double dt : { -0.1, std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity() })
+  {
+    auto profile = createOverrideProfile();
+    profile->upsample_dt = dt;
+    const std::string message = computeErrorMessage(name_, *env_, manip_, profile);
+    EXPECT_NE(message.find("upsample dt"), std::string::npos) << dt << ": " << message;
+  }
+
+  auto negative = createOverrideProfile();
+  negative->upsample_num_waypoints = -1;
+  std::string message = computeErrorMessage(name_, *env_, manip_, negative);
+  EXPECT_NE(message.find("upsample number of waypoints"), std::string::npos) << message;
+
+  auto both = createOverrideProfile();
+  both->upsample_dt = 0.1;
+  both->upsample_num_waypoints = 10;
+  message = computeErrorMessage(name_, *env_, manip_, both);
+  EXPECT_NE(message.find("not both"), std::string::npos) << message;
+
+  // Checked even when nothing moves
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, negative);
+  CompositeInstruction still = joint1Program({ 0 });
+  still.setManipulatorInfo(manip_);
+  EXPECT_ANY_THROW(TimeOptimalTrajectoryGeneration(name_).compute(still, *env_, profiles));
+
+  // A huge interval inserts none; one too short to tell the times apart fails, leaving the waypoints as they were
+  auto huge = createOverrideProfile();
+  const CompositeInstruction sparse = runWithinLimits({ joints(0), joints(1) }, huge, name_, *env_, manip_);
+  huge->upsample_dt = std::numeric_limits<double>::max();
+  const CompositeInstruction unsplit = runWithinLimits({ joints(0), joints(1) }, huge, name_, *env_, manip_);
+  ASSERT_EQ(unsplit.flatten(moveFilter).size(), 2);
+  expectSameBits(waypointAt(unsplit, 1).getTime(), waypointAt(sparse, 1).getTime());
+
+  auto tiny = createOverrideProfile();
+  tiny->upsample_dt = 1e-300;
+  tesseract::common::ProfileDictionary tiny_profiles;
+  tiny_profiles.addProfile(name_, DEFAULT_PROFILE_KEY, tiny);
+  CompositeInstruction failing = programOf({ joints(0), joints(1) });
+  failing.setManipulatorInfo(manip_);
+  const CompositeInstruction before = failing;
+  EXPECT_FALSE(TimeOptimalTrajectoryGeneration(name_).compute(failing, *env_, tiny_profiles));
+  EXPECT_EQ(failing.flatten(moveFilter).size(), 2);
+  for (std::size_t i = 0; i < 2; ++i)
+  {
+    expectSameBits(waypointAt(failing, i).getTime(), waypointAt(before, i).getTime());
+    expectSameBits(waypointAt(failing, i).getVelocity(), waypointAt(before, i).getVelocity());
+  }
 }
 
 int main(int argc, char** argv)

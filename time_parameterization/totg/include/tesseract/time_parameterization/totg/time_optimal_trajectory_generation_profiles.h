@@ -102,6 +102,25 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract::commo
    */
   bool use_end_velocity{ false };
 
+  /**
+   * @brief Insert waypoints between the kept ones so that, within rounding, no two are more than this far apart in time
+   * @details The interval between two kept waypoints is split into the fewest equal parts that are at most this long,
+   * so a shorter interval is left as it is. Each inserted waypoint lies on the time-optimal trajectory, with its
+   * position, velocity, acceleration and time. Must be finite and not negative, and cannot be combined with
+   * upsample_num_waypoints. Default: 0, which inserts none
+   */
+  double upsample_dt{ 0.0 };
+
+  /**
+   * @brief Insert waypoints between the kept ones until the output has this many, or keep the kept ones if there are
+   * more of them
+   * @details The waypoints are inserted where the time between waypoints is longest, which makes the longest time
+   * between two output waypoints as short as it can be. They lie on the time-optimal trajectory, as for upsample_dt.
+   * A motion that does not move keeps its one waypoint. Must not be negative, and cannot be combined with upsample_dt.
+   * Default: 0, which inserts none
+   */
+  int upsample_num_waypoints{ 0 };
+
   bool operator==(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
   bool operator!=(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
 };
