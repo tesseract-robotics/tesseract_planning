@@ -93,6 +93,15 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract::commo
    */
   bool use_start_velocity{ false };
 
+  /**
+   * @brief End at the last waypoint's velocity instead of at rest
+   * @details The velocity must point forward along the path's last segment: its part across it at most 1e-9 plus 1e-3
+   * times its part along it. The motion ends at the part along it, which must be within the scaled velocity limits,
+   * and is written to the last waypoint kept. compute fails otherwise, as it does when the end velocity is out of
+   * reach. A zero or empty velocity ends at rest. Default: false
+   */
+  bool use_end_velocity{ false };
+
   bool operator==(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
   bool operator!=(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
 };

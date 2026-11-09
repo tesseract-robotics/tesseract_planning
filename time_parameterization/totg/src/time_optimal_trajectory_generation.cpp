@@ -45,6 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <algorithm>
 #include <functional>
+#include <optional>
 #include <unordered_set>
 #include <cmath>
 #include <vector>
@@ -114,6 +115,54 @@ bool stopsAtCorner(const Eigen::VectorXd& before,
   const double deviation_distance = max_deviation * std::sin(0.5 * angle) / (1.0 - std::cos(0.5 * angle));
   const double distance = std::min({ start_distance, end_distance, deviation_distance });
   return distance / std::tan(0.5 * angle) < MIN_BLEND_RADIUS;
+}
+
+/**
+ * @brief The path velocity a boundary waypoint's velocity gives the path's first (at_start) or last segment: 0 for an
+ * empty or zero velocity, nothing (logged) for one that is malformed, is not zero where the path has a single point,
+ * does not point forward along that segment, or exceeds the velocity limits
+ */
+std::optional<double> boundaryPathVelocity(const Eigen::VectorXd& velocity,
+                                           const std::vector<Eigen::VectorXd>& points,
+                                           const Eigen::VectorXd& max_velocity,
+                                           bool at_start)
+{
+  const char* boundary = at_start ? "start" : "end";
+  if (velocity.size() == 0)
+    return 0.0;
+  if (velocity.size() != max_velocity.size() || !velocity.allFinite())
+  {
+    TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the {} velocity must be finite, with one value per joint.",
+                        boundary);
+    return std::nullopt;
+  }
+  if (velocity.norm() <= 1e-9)
+    return 0.0;
+  if (points.size() == 1)
+  {
+    TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the program does not move, so it cannot {}.",
+                        at_start ? "start moving" : "end in motion");
+    return std::nullopt;
+  }
+
+  const Eigen::VectorXd direction =
+      at_start ? (points[1] - points[0]).normalized() : (points.back() - points[points.size() - 2]).normalized();
+  const double along = velocity.dot(direction);
+  const double sideways = (velocity - along * direction).norm();
+  if (!(along > 0.0) || sideways > 1e-9 + (1e-3 * along))
+  {
+    TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the {} velocity must point forward along the path's {} "
+                        "segment.",
+                        boundary,
+                        at_start ? "first" : "last");
+    return std::nullopt;
+  }
+  if ((((along * direction).cwiseAbs() - max_velocity).array() > 1e-12 * max_velocity.array()).any())
+  {
+    TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the {} velocity exceeds the velocity limits.", boundary);
+    return std::nullopt;
+  }
+  return along;
 }
 
 /** @brief Whether any non-move instruction lies between the moves moves[first] and moves[second] */
@@ -361,41 +410,26 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
     }
   }
 
-  // The profile can ask to start at the first waypoint's velocity, which must point along the path's first direction;
-  // the trajectory then starts at its part along that direction
+  // The profile can ask to start at the first waypoint's velocity, or end at the last one's, each along the path's
+  // direction there; the trajectory then starts or ends at its part along that direction. The goal carries the end
+  // velocity even where it was merged into the waypoint before it
   double start_path_velocity{ 0 };
-  const Eigen::VectorXd& start_velocity = trajectory.getVelocity(static_cast<Eigen::Index>(kept.front()));
-  if (ci_profile->use_start_velocity && start_velocity.size() != 0)
+  if (ci_profile->use_start_velocity)
   {
-    if (start_velocity.size() != num_joints || !start_velocity.allFinite())
-    {
-      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the start velocity must be finite, with one value per "
-                          "joint.");
+    const auto velocity = boundaryPathVelocity(
+        trajectory.getVelocity(static_cast<Eigen::Index>(kept.front())), points, max_velocity, true);
+    if (!velocity)
       return false;
-    }
+    start_path_velocity = *velocity;
   }
-  if (ci_profile->use_start_velocity && start_velocity.size() != 0 && !(start_velocity.norm() <= 1e-9))
+  double end_path_velocity{ 0 };
+  if (ci_profile->use_end_velocity)
   {
-    if (points.size() == 1)
-    {
-      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the program does not move, so it cannot start moving.");
+    const auto velocity =
+        boundaryPathVelocity(trajectory.getVelocity(static_cast<Eigen::Index>(last)), points, max_velocity, false);
+    if (!velocity)
       return false;
-    }
-    const Eigen::VectorXd direction = (points[1] - points[0]).normalized();
-    const double along = start_velocity.dot(direction);
-    const double sideways = (start_velocity - along * direction).norm();
-    if (!(along > 0.0) || sideways > 1e-9 + (1e-3 * along))
-    {
-      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the start velocity must point forward along the path's "
-                          "first segment.");
-      return false;
-    }
-    if ((((along * direction).cwiseAbs() - max_velocity).array() > 1e-12 * max_velocity.array()).any())
-    {
-      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, the start velocity exceeds the velocity limits.");
-      return false;
-    }
-    start_path_velocity = along;
+    end_path_velocity = *velocity;
   }
 
   // Nothing moves; the start stays, as callers that prepend a start waypoint remove the first again
@@ -412,7 +446,7 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   }
 
   // A corner that turns back, or is too sharp to blend at a size the integration resolves, is passed at rest: the path
-  // is cut there, and each piece is timed from rest to rest
+  // is cut there, and each piece is at rest at its cuts
   std::vector<std::size_t> cuts{ 0 };
   for (std::size_t i = 1; i + 1 < points.size(); ++i)
   {
@@ -427,8 +461,12 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
     const auto piece_begin = points.begin() + static_cast<std::ptrdiff_t>(cuts[k]);
     const auto piece_end = points.begin() + static_cast<std::ptrdiff_t>(cuts[k + 1]) + 1;
     const totg::Path path(std::list<Eigen::VectorXd>(piece_begin, piece_end), ci_profile->path_tolerance);
-    pieces.push_back(std::make_unique<totg::Trajectory>(
-        path, max_velocity, max_acceleration, 0.001, k == 0 ? start_path_velocity : 0.0));
+    pieces.push_back(std::make_unique<totg::Trajectory>(path,
+                                                        max_velocity,
+                                                        max_acceleration,
+                                                        0.001,
+                                                        k == 0 ? start_path_velocity : 0.0,
+                                                        k + 2 == cuts.size() ? end_path_velocity : 0.0));
     if (!pieces.back()->isValid())
     {
       TESSERACT_LOG_ERROR("Unable to parameterize trajectory.");
@@ -778,7 +816,8 @@ Trajectory::Trajectory(const Path& path,
                        const Eigen::VectorXd& max_velocity,
                        const Eigen::VectorXd& max_acceleration,  // NOLINT
                        double time_step,
-                       double start_path_velocity)
+                       double start_path_velocity,
+                       double end_path_velocity)
   : path_(path)
   , max_velocity_(max_velocity)
   , max_acceleration_(max_acceleration)
@@ -824,6 +863,26 @@ Trajectory::Trajectory(const Path& path,
     trajectory_.front().path_vel_ = std::min(start_path_velocity, start_limit);
   }
 
+  if (!(end_path_velocity >= 0.0) || !std::isfinite(end_path_velocity))
+  {
+    valid_ = false;
+    TESSERACT_LOG_ERROR("Trajectory end path velocity must be finite and not negative, got {}", end_path_velocity);
+    return;
+  }
+  if (end_path_velocity > 0.0)
+  {
+    const double end_limit =
+        std::min(getVelocityMaxPathVelocity(path_.getLength()), getAccelerationMaxPathVelocity(path_.getLength()));
+    if (end_path_velocity > end_limit * (1.0 + 1e-12))
+    {
+      valid_ = false;
+      TESSERACT_LOG_ERROR(
+          "Trajectory end path velocity {} exceeds the limit {} at the end of the path", end_path_velocity, end_limit);
+      return;
+    }
+    end_path_velocity = std::min(end_path_velocity, end_limit);
+  }
+
   double after_acceleration = getMinMaxPathAcceleration(0.0, trajectory_.front().path_vel_, true);
   while (valid_ && !integrateForward(trajectory_, after_acceleration) && valid_)
   {
@@ -836,10 +895,34 @@ Trajectory::Trajectory(const Path& path,
     integrateBackward(trajectory_, switching_point.path_pos_, switching_point.path_vel_, before_acceleration);
   }
 
+  // From an end velocity the forward pass reaches, the backward pass stays below the forward one until they meet. From
+  // one above, past a blend it can rise over the limit curve, where its deceleration turns into acceleration, and meet
+  // the forward pass on motion no joint can follow. A forward pass that stops short of the end admits no end velocity
+  if (valid_ && end_path_velocity > 0.0)
+  {
+    const TrajectoryStep& reached = trajectory_.back();
+    if (reached.path_pos_ != path_.getLength())
+    {
+      valid_ = false;
+      TESSERACT_LOG_ERROR("Trajectory end path velocity {} is out of reach: the forward pass stops at {} of {}",
+                          end_path_velocity,
+                          reached.path_pos_,
+                          path_.getLength());
+    }
+    else if (end_path_velocity > reached.path_vel_ * (1.0 + 1e-12))
+    {
+      valid_ = false;
+      TESSERACT_LOG_ERROR("Trajectory end path velocity {} is out of reach: the path leaves room for {} at its end",
+                          end_path_velocity,
+                          reached.path_vel_);
+    }
+    end_path_velocity = std::min(end_path_velocity, reached.path_vel_);
+  }
+
   if (valid_)
   {
-    double before_acceleration = getMinMaxPathAcceleration(path_.getLength(), 0.0, false);
-    integrateBackward(trajectory_, path_.getLength(), 0.0, before_acceleration);
+    double before_acceleration = getMinMaxPathAcceleration(path_.getLength(), end_path_velocity, false);
+    integrateBackward(trajectory_, path_.getLength(), end_path_velocity, before_acceleration);
   }
 
   if (valid_)
@@ -1100,8 +1183,14 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
       path_pos = next_discontinuity->first;
     }
 
-    if (path_pos > path_.getLength())
+    // The step that reaches the end ends on it, within the limits there, so the backward pass from the end joins a step
+    // that keeps them, also where the path ends moving
+    if (path_pos >= path_.getLength())
     {
+      path_vel =
+          old_path_vel + (path_.getLength() - old_path_pos) * (path_vel - old_path_vel) / (path_pos - old_path_pos);
+      path_pos = path_.getLength();
+      path_vel = std::min({ path_vel, getVelocityMaxPathVelocity(path_pos), getAccelerationMaxPathVelocity(path_pos) });
       trajectory.emplace_back(path_pos, path_vel);
       return true;
     }
@@ -1510,8 +1599,8 @@ bool Trajectory::assignData(InstructionsTrajectory& trajectory,
     }
   }
 
-  // The path ends at rest at the last waypoint
-  path_data.back().path_vel = 0.0;
+  // The path ends at the last step, which holds the end velocity exactly
+  path_data.back().path_vel = trajectory_.back().path_vel_;
 
   for (std::size_t j = 0; j < kept.size(); ++j)
   {

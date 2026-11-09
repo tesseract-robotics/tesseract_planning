@@ -62,6 +62,7 @@ bool TimeOptimalTrajectoryGenerationCompositeProfile::operator==(
   equal &= tesseract::common::almostEqualRelativeAndAbs(path_tolerance, rhs.path_tolerance, max_diff);
   equal &= tesseract::common::almostEqualRelativeAndAbs(min_angle_change, rhs.min_angle_change, max_diff);
   equal &= (use_start_velocity == rhs.use_start_velocity);
+  equal &= (use_end_velocity == rhs.use_end_velocity);
   return equal;
 }
 

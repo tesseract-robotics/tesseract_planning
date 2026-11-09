@@ -386,6 +386,10 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   TimeOptimalTrajectoryGenerationCompositeProfile at_rest(*profile);
   at_rest.use_start_velocity = false;
   EXPECT_FALSE(*profile == at_rest);
+  profile->use_end_velocity = true;
+  TimeOptimalTrajectoryGenerationCompositeProfile ending_at_rest(*profile);
+  ending_at_rest.use_end_velocity = false;
+  EXPECT_FALSE(*profile == ending_at_rest);
 
   // Serialization
   tesseract::common::testSerializationDerivedClass<tesseract::common::Profile,
@@ -2213,6 +2217,162 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, computeStartsAtTheFirstWaypointsVelo
   ASSERT_TRUE(solver.compute(tilted, *env_, profiles));
   EXPECT_NEAR(waypointAt(tilted, 0).getVelocity()[1], 0.0, 1e-12);
   EXPECT_NEAR(waypointAt(tilted, 0).getVelocity()[0], 0.5 * std::cos(tilt), 1e-12);
+
+  // Backwards, sideways, too fast, malformed, or with nowhere to go
+  const double off = 1e-2;
+  for (const Eigen::VectorXd& bad : { joints(-0.5),
+                                      Eigen::VectorXd(joints(0.5 * std::cos(off), 0.5 * std::sin(off))),
+                                      joints(1.5),
+                                      Eigen::VectorXd(Eigen::VectorXd::Constant(5, 0.1)),
+                                      Eigen::VectorXd(Eigen::VectorXd::Zero(5)),
+                                      joints(std::numeric_limits<double>::quiet_NaN()) })
+  {
+    CompositeInstruction rejected = program(line, bad);
+    EXPECT_FALSE(solver.compute(rejected, *env_, profiles)) << bad.transpose();
+  }
+  CompositeInstruction still = program({ joints(0), joints(0) }, along);
+  EXPECT_FALSE(solver.compute(still, *env_, profiles));
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, coreEndsAtAnEndVelocity)  // NOLINT
+{
+  // A unit line, with an acceleration limit of 1 and room to reach up to sqrt(2) by its end
+  const Path line({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0) }, 0.1);
+  const Eigen::Vector2d fast(10, 10);
+  const Eigen::Vector2d unit(1, 1);
+
+  const Trajectory moving(line, fast, unit, 0.001, 0.0, 1.0);
+  ASSERT_TRUE(moving.isValid());
+  EXPECT_NEAR(moving.getPathData(moving.getDuration()).path_vel, 1.0, 1e-9);
+  EXPECT_LT(moving.getDuration(), Trajectory(line, fast, unit).getDuration());
+  for (int i = 0; i * 1e-3 <= moving.getDuration(); ++i)
+  {
+    const Eigen::VectorXd a = moving.getAcceleration(moving.getPathData(i * 1e-3));
+    EXPECT_LE(a.cwiseAbs().maxCoeff(), 1.05) << i;
+  }
+
+  // Room to reach it; exactly sqrt(2) is not, as the integration's chords lie below the curve
+  EXPECT_TRUE(Trajectory(line, fast, unit, 0.001, 0.0, std::sqrt(2.0) * 0.999).isValid());
+  EXPECT_FALSE(Trajectory(line, fast, unit, 0.001, 0.0, std::sqrt(2.0) * 1.001).isValid());
+
+  // The velocity limit, which an end exactly at it meets, also where the limit is not exactly representable
+  EXPECT_TRUE(Trajectory(line, unit, unit, 0.001, 0.0, 1.0).isValid());
+  const Path diagonal({ Eigen::Vector2d(0, 0), Eigen::Vector2d(0.3, 0.7) }, 0.1);
+  EXPECT_TRUE(Trajectory(diagonal, unit, unit, 0.001, 0.0, Eigen::Vector2d(0.3, 0.7).norm() / 0.7).isValid());
+  EXPECT_FALSE(Trajectory(line, unit, unit, 0.001, 0.0, 1.5).isValid());
+  for (double bad : { -1.0, std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity() })
+    EXPECT_FALSE(Trajectory(line, fast, unit, 0.001, 0.0, bad).isValid()) << bad;
+
+  // Ending at the cruise velocity saves the braking, half a second here; starting at it too saves the acceleration
+  const Path long_line({ Eigen::Vector2d(0, 0), Eigen::Vector2d(5, 0) }, 0.1);
+  const Trajectory cruising(long_line, unit, unit, 0.001, 0.0, 1.0);
+  ASSERT_TRUE(cruising.isValid());
+  EXPECT_NEAR(cruising.getDuration(), 5.5, 1e-6);
+  EXPECT_NEAR(Trajectory(long_line, unit, unit, 0.001, 1.0, 1.0).getDuration(), 5.0, 1e-6);
+
+  // The cruise holds to the end, at the limit and without the braking the last steps would otherwise read
+  const double end = cruising.getDuration();
+  for (int i = 0; i <= 100; ++i)
+  {
+    const PathData data = cruising.getPathData(end - (i * 1e-4));
+    EXPECT_NEAR(data.path_vel, 1.0, 1e-9) << i;
+  }
+  EXPECT_NEAR(cruising.getAcceleration(cruising.getPathData(end)).cwiseAbs().maxCoeff(), 0.0, 1e-9);
+
+  // Past a blend the backward pass from an end velocity out of reach must not leave the limit curve; within reach it
+  // keeps the limit
+  const Path corner({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 1), Eigen::Vector2d(1, 1.3) }, 0.1);
+  EXPECT_FALSE(Trajectory(corner, unit, unit, 0.001, 0.0, 1.0).isValid());
+  const Trajectory reachable(corner, unit, unit, 0.001, 0.0, 0.6);
+  ASSERT_TRUE(reachable.isValid());
+  EXPECT_NEAR(reachable.getPathData(reachable.getDuration()).path_vel, 0.6, 1e-9);
+  for (int i = 0; i * 1e-4 <= reachable.getDuration(); ++i)
+  {
+    const PathData data = reachable.getPathData(i * 1e-4);
+    EXPECT_LE(reachable.getAcceleration(data).cwiseAbs().maxCoeff(), 1.05) << i;
+    EXPECT_LE(reachable.getVelocity(data).cwiseAbs().maxCoeff(), 1.0 + 1e-6) << i;
+  }
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, computeEndsAtTheLastWaypointsVelocity)  // NOLINT
+{
+  auto profile = createOverrideProfile();
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+  const TimeOptimalTrajectoryGeneration solver(name_);
+  const auto program = [&](const std::vector<Eigen::VectorXd>& positions, const Eigen::VectorXd& end_velocity) {
+    CompositeInstruction p = programOf(positions);
+    p.setManipulatorInfo(manip_);
+    p.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().setVelocity(end_velocity);
+    return p;
+  };
+  const std::vector<Eigen::VectorXd> line{ joints(0), joints(1), joints(2) };
+  const Eigen::VectorXd along = joints(0.5);
+
+  // Ignored unless the profile asks for it
+  CompositeInstruction ignored = program(line, along);
+  CompositeInstruction at_rest = programOf(line);
+  at_rest.setManipulatorInfo(manip_);
+  ASSERT_TRUE(solver.compute(ignored, *env_, profiles));
+  ASSERT_TRUE(solver.compute(at_rest, *env_, profiles));
+  for (std::size_t i = 0; i < line.size(); ++i)
+    expectSameBits(waypointAt(ignored, i).getTime(), waypointAt(at_rest, i).getTime());
+  EXPECT_TRUE(waypointAt(ignored, 2).getVelocity().isZero(0.0));
+
+  profile->use_end_velocity = true;
+  CompositeInstruction moving = program(line, along);
+  ASSERT_TRUE(solver.compute(moving, *env_, profiles));
+  expectSameBits(waypointAt(moving, 2).getVelocity(), along);
+  test_suite::expectTimesStrictlyIncreasing(moving);
+  test_suite::expectVelocitiesWithinLimits(moving, Eigen::VectorXd::Ones(6));
+  test_suite::expectAccelerationsWithinLimits(moving, Eigen::VectorXd::Ones(6));
+  EXPECT_LT(waypointAt(moving, 2).getTime(), waypointAt(at_rest, 2).getTime());
+
+  // A zero end velocity ends at rest, as without the flag
+  CompositeInstruction zero = program(line, joints(0));
+  ASSERT_TRUE(solver.compute(zero, *env_, profiles));
+  for (std::size_t i = 0; i < line.size(); ++i)
+    expectSameBits(waypointAt(zero, i).getTime(), waypointAt(at_rest, i).getTime());
+
+  // A slightly tilted end velocity is taken along the path
+  const double tilt = 5e-4;
+  CompositeInstruction tilted = program(line, joints(0.5 * std::cos(tilt), 0.5 * std::sin(tilt)));
+  ASSERT_TRUE(solver.compute(tilted, *env_, profiles));
+  EXPECT_NEAR(waypointAt(tilted, 2).getVelocity()[1], 0.0, 1e-12);
+  EXPECT_NEAR(waypointAt(tilted, 2).getVelocity()[0], 0.5 * std::cos(tilt), 1e-12);
+
+  // Across a stop where the path turns back, only the motion back ends moving
+  CompositeInstruction turn = program({ joints(0), joints(1), joints(0) }, joints(-0.5));
+  ASSERT_TRUE(solver.compute(turn, *env_, profiles));
+  EXPECT_TRUE(waypointAt(turn, 1).getVelocity().isZero(0.0));
+  EXPECT_TRUE(waypointAt(turn, 2).getVelocity().isApprox(joints(-0.5), 1e-12));
+
+  // Starting and ending moving at once
+  profile->use_start_velocity = true;
+  CompositeInstruction both = program(line, along);
+  both.front().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().setVelocity(along);
+  ASSERT_TRUE(solver.compute(both, *env_, profiles));
+  EXPECT_TRUE(waypointAt(both, 0).getVelocity().isApprox(along, 1e-12));
+  EXPECT_TRUE(waypointAt(both, 2).getVelocity().isApprox(along, 1e-12));
+  profile->use_start_velocity = false;
+
+  // When I/O keeps the goal's run from moving its last point onto the goal, the goal's velocity still ends the motion
+  CompositeInstruction blocked = programOf({ joints(0), joints(1) });
+  blocked.setManipulatorInfo(manip_);
+  blocked.push_back(SetDigitalInstruction("io", 0, true));
+  blocked.push_back(MoveInstruction(
+      StateWaypoint({ "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" }, joints(1.0005)),
+      MoveInstructionType::FREESPACE));
+  blocked.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().setVelocity(along);
+  ASSERT_TRUE(solver.compute(blocked, *env_, profiles));
+  ASSERT_EQ(blocked.flatten(moveFilter).size(), 2);
+  EXPECT_TRUE(waypointAt(blocked, 1).getVelocity().isApprox(along, 1e-12)) << waypointAt(blocked, 1).getVelocity();
+
+  // Out of reach: at the limit right after a corner, or after a short last piece past a stop
+  CompositeInstruction corner = program({ joints(0, 0), joints(1, 1), joints(1, 1.3) }, joints(0, 1));
+  EXPECT_FALSE(solver.compute(corner, *env_, profiles));
+  CompositeInstruction short_return = program({ joints(0), joints(1), joints(0.9) }, joints(-1));
+  EXPECT_FALSE(solver.compute(short_return, *env_, profiles));
 
   // Backwards, sideways, too fast, malformed, or with nowhere to go
   const double off = 1e-2;
