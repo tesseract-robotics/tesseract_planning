@@ -45,7 +45,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <algorithm>
 #include <functional>
+#include <iterator>
 #include <optional>
+#include <queue>
+#include <unordered_map>
 #include <unordered_set>
 #include <cmath>
 #include <vector>
@@ -188,9 +191,14 @@ bool hasInstructionsBetween(
   return false;
 }
 
-/** @brief Remove the dropped instructions from the composite, at any depth */
-void pruneComposite(tesseract::command_language::CompositeInstruction& composite,
-                    const std::unordered_set<const tesseract::command_language::InstructionPoly*>& dropped)
+/** @brief Instructions to insert before an instruction, by the address of that instruction */
+using Insertions = std::unordered_map<const tesseract::command_language::InstructionPoly*,
+                                      std::vector<tesseract::command_language::InstructionPoly>>;
+
+/** @brief Remove the dropped instructions from the composite, at any depth, and insert the inserted ones */
+void rebuildComposite(tesseract::command_language::CompositeInstruction& composite,
+                      const std::unordered_set<const tesseract::command_language::InstructionPoly*>& dropped,
+                      Insertions& inserted)
 {
   // Each element is tested at its own address before the vector holding it is replaced
   std::vector<tesseract::command_language::InstructionPoly> remaining;
@@ -198,20 +206,27 @@ void pruneComposite(tesseract::command_language::CompositeInstruction& composite
   for (auto& instruction : composite)
   {
     if (instruction.isCompositeInstruction())
-      pruneComposite(instruction.as<tesseract::command_language::CompositeInstruction>(), dropped);
-    if (dropped.count(&instruction) == 0)
-      remaining.push_back(std::move(instruction));
+      rebuildComposite(instruction.as<tesseract::command_language::CompositeInstruction>(), dropped, inserted);
+    if (dropped.count(&instruction) != 0)
+      continue;
+    auto before = inserted.find(&instruction);
+    if (before != inserted.end())
+      std::move(before->second.begin(), before->second.end(), std::back_inserter(remaining));
+    remaining.push_back(std::move(instruction));
   }
   composite.setInstructions(std::move(remaining));
 }
 
-/** @brief Remove from the composite, at any depth, every move in moves that is not listed in kept */
-void removeDroppedWaypoints(
-    tesseract::command_language::CompositeInstruction& composite,
-    const std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>>& moves,
-    const std::vector<std::size_t>& kept)
+/**
+ * @brief Remove from the composite, at any depth, every move in moves that is not listed in kept, and insert the
+ * inserted instructions
+ */
+void rebuildProgram(tesseract::command_language::CompositeInstruction& composite,
+                    const std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>>& moves,
+                    const std::vector<std::size_t>& kept,
+                    Insertions inserted = {})
 {
-  if (kept.size() == moves.size())
+  if (kept.size() == moves.size() && inserted.empty())
     return;
 
   std::unordered_set<const tesseract::command_language::InstructionPoly*> dropped;
@@ -220,7 +235,7 @@ void removeDroppedWaypoints(
   for (std::size_t index : kept)
     dropped.erase(&moves[index].get());
 
-  pruneComposite(composite, dropped);
+  rebuildComposite(composite, dropped, inserted);
 }
 }  // namespace
 
@@ -273,6 +288,17 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   // corner blends
   if (!std::isfinite(ci_profile->min_angle_change) || ci_profile->min_angle_change < 1e-5)
     throw std::runtime_error("TimeOptimalTrajectoryGeneration, min angle change must be finite and at least 1e-5!");
+
+  // Written as negations so a NaN fails too
+  if (!(ci_profile->upsample_dt >= 0.0) || !std::isfinite(ci_profile->upsample_dt))
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, upsample dt must be finite and not negative!");
+
+  if (ci_profile->upsample_num_waypoints < 0)
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, upsample number of waypoints must not be negative!");
+
+  if (ci_profile->upsample_dt > 0.0 && ci_profile->upsample_num_waypoints > 0)
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration, set upsample dt or upsample number of waypoints, not "
+                             "both!");
 
   // The core takes one symmetric limit per joint, so each joint gets the tighter of its two sides, scaled
   const Eigen::Index num_joints = jg->numJoints();
@@ -438,7 +464,7 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
                        Eigen::VectorXd::Zero(num_joints),
                        Eigen::VectorXd::Zero(num_joints),
                        0);
-    removeDroppedWaypoints(composite_instruction, flattened, kept);
+    rebuildProgram(composite_instruction, flattened, kept);
     return true;
   }
 
@@ -499,20 +525,97 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
 
   // Each piece starts where the one before stops; the waypoint they share is written by the later one, at rest with
   // the later piece's starting acceleration
-  double time_offset{ 0 };
+  std::vector<double> time_offsets{ 0 };
   for (std::size_t k = 0; k < pieces.size(); ++k)
   {
     const std::vector<std::size_t> piece_kept(kept.begin() + static_cast<std::ptrdiff_t>(cuts[k]),
                                               kept.begin() + static_cast<std::ptrdiff_t>(cuts[k + 1]) + 1);
-    if (!pieces[k]->assignData(trajectory, piece_kept, time_offset))
+    if (!pieces[k]->assignData(trajectory, piece_kept, time_offsets.back()))
     {
       restore();
       return false;
     }
-    time_offset += pieces[k]->getDuration();
+    time_offsets.push_back(time_offsets.back() + pieces[k]->getDuration());
   }
 
-  removeDroppedWaypoints(composite_instruction, flattened, kept);
+  if (!(ci_profile->upsample_dt > 0.0) && ci_profile->upsample_num_waypoints == 0)
+  {
+    rebuildProgram(composite_instruction, flattened, kept);
+    return true;
+  }
+
+  // Each interval between the waypoints kept is split into equal parts, a waypoint at each split. Nothing in the
+  // program changes until it is rebuilt, so a failure, or a split too large to hold, restores what the pieces wrote
+  Insertions inserted;
+  try
+  {
+    std::vector<double> intervals;
+    intervals.reserve(kept.size() - 1);
+    for (std::size_t j = 1; j < kept.size(); ++j)
+      intervals.push_back(trajectory.getTimeFromStart(static_cast<Eigen::Index>(kept[j])) -
+                          trajectory.getTimeFromStart(static_cast<Eigen::Index>(kept[j - 1])));
+    const std::vector<std::size_t> parts =
+        (ci_profile->upsample_dt > 0.0) ?
+            totg::splitIntervalsWithin(intervals, ci_profile->upsample_dt) :
+            totg::splitIntervalsInto(intervals, static_cast<std::size_t>(ci_profile->upsample_num_waypoints) - 1);
+
+    // Times start + k * part increase only if a part is longer than their rounding, which a split at
+    // splitIntervalsWithin's cap is not
+    for (std::size_t j = 1; j < kept.size(); ++j)
+    {
+      const double end = trajectory.getTimeFromStart(static_cast<Eigen::Index>(kept[j]));
+      const double part = intervals[j - 1] / static_cast<double>(parts[j - 1]);
+      if (parts[j - 1] > 1 && !(part > 4.0 * (std::nextafter(end, std::numeric_limits<double>::infinity()) - end)))
+      {
+        TESSERACT_LOG_ERROR(
+            "TimeOptimalTrajectoryGeneration, waypoints {} apart in time cannot be timed apart near {}", part, end);
+        restore();
+        return false;
+      }
+    }
+
+    // Each inserted waypoint is a copy of the move it precedes, read from the piece that holds its interval
+    std::size_t piece{ 0 };
+    for (std::size_t j = 1; j < kept.size(); ++j)
+    {
+      while (cuts[piece + 1] < j)
+        ++piece;
+      const std::size_t num_parts = parts[j - 1];
+      if (num_parts < 2)
+        continue;
+
+      const double start = trajectory.getTimeFromStart(static_cast<Eigen::Index>(kept[j - 1]));
+      const double part = intervals[j - 1] / static_cast<double>(num_parts);
+      const tesseract::command_language::InstructionPoly& next = flattened[kept[j]].get();
+      const boost::uuids::uuid next_uuid = next.as<tesseract::command_language::MoveInstructionPoly>().getUUID();
+      std::vector<tesseract::command_language::InstructionPoly>& before_next = inserted[&next];
+      before_next.reserve(num_parts - 1);
+      for (std::size_t k = 1; k < num_parts; ++k)
+      {
+        const double time = start + (static_cast<double>(k) * part);
+        const totg::PathData data = pieces[piece]->getPathData(time - time_offsets[piece]);
+        tesseract::command_language::InstructionPoly copy(next);
+        auto& move = copy.as<tesseract::command_language::MoveInstructionPoly>();
+        move.regenerateUUID();
+        if (move.getParentUUID().is_nil())
+          move.setParentUUID(next_uuid);
+        auto& waypoint = move.getWaypoint().as<tesseract::command_language::StateWaypointPoly>();
+        waypoint.setPosition(pieces[piece]->getPosition(data));
+        waypoint.setVelocity(pieces[piece]->getVelocity(data));
+        waypoint.setAcceleration(pieces[piece]->getAcceleration(data));
+        waypoint.setEffort(Eigen::VectorXd());
+        waypoint.setTime(time);
+        before_next.push_back(std::move(copy));
+      }
+    }
+  }
+  catch (...)
+  {
+    restore();
+    throw;
+  }
+
+  rebuildProgram(composite_instruction, flattened, kept, std::move(inserted));
   return true;
 }
 
@@ -1727,6 +1830,42 @@ Eigen::VectorXd Trajectory::getAcceleration(const PathData& data) const
   // The joint acceleration along the path, d2q/dt2 = q'(s) s'' + q''(s) s'^2, which the integration bounds
   return (path_.getTangent(data.path_pos) * data.path_acc) +
          (path_.getCurvature(data.path_pos) * data.path_vel * data.path_vel);
+}
+
+std::vector<std::size_t> splitIntervalsWithin(const std::vector<double>& intervals, double max_part)
+{
+  // Counted in double, since the quotient can be past any integer, or zero
+  const double most = std::ldexp(1.0, 52);
+  std::vector<std::size_t> parts;
+  parts.reserve(intervals.size());
+  for (double interval : intervals)
+    parts.push_back(static_cast<std::size_t>(std::min(std::max(std::ceil(interval / max_part), 1.0), most)));
+  return parts;
+}
+
+std::vector<std::size_t> splitIntervalsInto(const std::vector<double>& intervals, std::size_t num_parts)
+{
+  std::vector<std::size_t> parts(intervals.size(), 1);
+  if (intervals.empty() || num_parts <= intervals.size())
+    return parts;
+
+  // Ordered by the length of the interval's parts, longest first, then by the interval, earliest first
+  const auto shorter = [&](std::size_t a, std::size_t b) {
+    const double part_a = intervals[a] / static_cast<double>(parts[a]);
+    const double part_b = intervals[b] / static_cast<double>(parts[b]);
+    return part_a < part_b || (part_a == part_b && a > b);
+  };
+  std::priority_queue<std::size_t, std::vector<std::size_t>, decltype(shorter)> longest(shorter);
+  for (std::size_t i = 0; i < intervals.size(); ++i)
+    longest.push(i);
+  for (std::size_t added = intervals.size(); added < num_parts; ++added)
+  {
+    const std::size_t i = longest.top();
+    longest.pop();
+    ++parts[i];
+    longest.push(i);
+  }
+  return parts;
 }
 }  // namespace totg
 }  // namespace tesseract::time_parameterization

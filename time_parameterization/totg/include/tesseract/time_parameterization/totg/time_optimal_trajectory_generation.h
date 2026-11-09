@@ -46,6 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <list>
 #include <memory>
 #include <cassert>
+#include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/time_parameterization/fwd.h>
@@ -75,8 +76,18 @@ public:
    * to the profile's path_tolerance (the Euclidean distance in joint space). It stays within the joint ranges of the
    * waypoints around it, but contact checks run before this do not see the moved position, and callers that match
    * output waypoints to input ones by position do not find it; an instruction such as I/O that follows it runs there.
-   * The motion is exact at the waypoints only: between them
-   * a controller's interpolation does not follow the time-optimal profile, so densify the input where that matters.
+   * The motion is exact at the waypoints only: between them a controller's interpolation does not follow the
+   * time-optimal profile, so on sparse waypoints it can exceed the limits. The profile's upsample_dt or
+   * upsample_num_waypoints inserts waypoints on the profile between the kept ones, at most upsample_dt apart within
+   * rounding, or until there are upsample_num_waypoints of them. Each is a copy of the move
+   * instruction it precedes, with its own UUID, no effort, and the parent UUID of that move, or its UUID when it has no
+   * parent. Inserted waypoints on a blend are off the input's segments as the waypoints moved onto it are.
+   * Throws if both are set, or either is negative, or upsample_dt is not finite. Fails, leaving the waypoints as they
+   * were, if the inserted waypoints would be too close together for their times to increase.
+   *
+   * The trajectory limits acceleration, not jerk: the acceleration jumps at the profile's switches, and a controller's
+   * smooth interpolation briefly exceeds the acceleration limit across a jump, however densely the profile is
+   * sampled. Smooth the output, for example with RuckigTrajectorySmoothing, where that matters.
    */
   bool compute(tesseract::command_language::CompositeInstruction& composite_instruction,
                const tesseract::environment::Environment& env,
@@ -325,6 +336,22 @@ private:
   };
   mutable LookupCache lookup_;
 };
+
+/**
+ * @brief The number of equal parts to split each interval into: the fewest that are, within rounding, at most max_part
+ * long
+ * @details Every interval gets at least one part, and none more than 2^52, which takes precedence over max_part. An
+ * interval no longer than its end time, split that often, has parts below twice the rounding of that time
+ */
+std::vector<std::size_t> splitIntervalsWithin(const std::vector<double>& intervals, double max_part);
+
+/**
+ * @brief The number of equal parts to split each interval into, num_parts in all, making the longest part as short as
+ * it can be
+ * @details Every interval gets at least one part, so with no more parts than intervals each gets one. Each further part
+ * goes to the interval whose parts are longest, the earlier one on a tie.
+ */
+std::vector<std::size_t> splitIntervalsInto(const std::vector<double>& intervals, std::size_t num_parts);
 }  // namespace totg
 }  // namespace tesseract::time_parameterization
 
