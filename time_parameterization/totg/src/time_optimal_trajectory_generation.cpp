@@ -359,9 +359,6 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   const auto num_points = static_cast<std::size_t>(trajectory.size());
   const std::size_t last = num_points - 1;
 
-  // This lib does not actually work properly when angles wrap around, so we need to unwind the path first
-  //  trajectory.unwind(); /// @todo
-
   // A waypoint within min_angle_change of the last kept point in every joint repeats it
   // (https://github.com/tobiaskunz/trajectories/issues/3), so the path gets one point per run of such waypoints, and
   // the output keeps one waypoint per path point
