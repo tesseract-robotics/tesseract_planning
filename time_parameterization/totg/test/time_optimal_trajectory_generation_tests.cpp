@@ -36,6 +36,12 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <limits>
+#include <memory>
+#include <stdexcept>
 #include <gtest/gtest.h>
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
@@ -689,6 +695,195 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testTimeStepZeroMakesTrajectoryInval
   const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 1) }, 0.1);
   for (double time_step : { 0.0, -0.001 })
     EXPECT_FALSE(Trajectory(path, Eigen::Vector2d(1, 1), Eigen::Vector2d(1, 1), time_step).isValid()) << time_step;
+}
+
+namespace
+{
+/** @brief Expect the same bit patterns, so NaN results compare too */
+void expectSameBits(const Eigen::VectorXd& actual, const Eigen::VectorXd& expected)
+{
+  ASSERT_EQ(actual.size(), expected.size());
+  EXPECT_EQ(std::memcmp(actual.data(), expected.data(), sizeof(double) * static_cast<std::size_t>(actual.size())), 0)
+      << actual.transpose() << " vs " << expected.transpose();
+}
+
+void expectSameBits(double actual, double expected)
+{
+  expectSameBits(Eigen::VectorXd::Constant(1, actual), Eigen::VectorXd::Constant(1, expected));
+}
+
+void expectSameBits(const PathData& actual, const PathData& expected)
+{
+  const auto fields = [](const PathData& d) {
+    return (Eigen::VectorXd(6) << d.prev_path_pos, d.prev_path_vel, d.prev_time, d.path_pos, d.path_vel, d.time)
+        .finished();
+  };
+  expectSameBits(fields(actual), fields(expected));
+}
+
+/** @brief Each value with its neighbouring doubles on both sides */
+std::vector<double> withNeighbours(const std::vector<double>& values)
+{
+  std::vector<double> out;
+  for (double v : values)
+  {
+    out.push_back(std::nextafter(v, -std::numeric_limits<double>::infinity()));
+    out.push_back(v);
+    out.push_back(std::nextafter(v, std::numeric_limits<double>::infinity()));
+  }
+  return out;
+}
+
+/** @brief Sort, then alternate between the smallest and the largest left, so every query jumps far forward or back */
+std::vector<double> alternateEnds(std::vector<double> values)
+{
+  std::sort(values.begin(), values.end());
+  std::vector<double> out;
+  std::size_t lo = 0;
+  std::size_t hi = values.size();
+  while (lo < hi)
+  {
+    out.push_back(values[lo++]);
+    if (lo < hi)
+      out.push_back(values[--hi]);
+  }
+  return out;
+}
+
+// The first three waypoints are collinear, so the blend at the second has zero length and two segments start at one
+// position
+const std::list<Eigen::VectorXd> cursor_waypoints{ Eigen::Vector3d(0, 0, 0), Eigen::Vector3d(1, 0, 0),
+                                                   Eigen::Vector3d(2, 0, 0), Eigen::Vector3d(2, 1, 0),
+                                                   Eigen::Vector3d(2, 1, 1), Eigen::Vector3d(0, 0, 0) };
+const Eigen::Vector3d cursor_max_velocity(1, 1, 1);
+const Eigen::Vector3d cursor_max_acceleration(1, 2, 3);
+}  // namespace
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, pathLookupsInAnyOrderMatchAFreshPath)  // NOLINT
+{
+  const Path path(cursor_waypoints, 0.1);
+  std::vector<double> boundaries{ 0.0, path.getLength() };
+  for (const auto& switching_point : path.getSwitchingPoints())
+    boundaries.push_back(switching_point.first);
+  for (double s : path.getMapping())
+    boundaries.push_back(s);
+
+  for (double s : alternateEnds(withNeighbours(boundaries)))
+  {
+    const Path fresh(cursor_waypoints, 0.1);
+    expectSameBits(path.getConfig(s), fresh.getConfig(s));
+    expectSameBits(path.getTangent(s), fresh.getTangent(s));
+    expectSameBits(path.getCurvature(s), fresh.getCurvature(s));
+  }
+
+  // The segments that share a start, approached from below and from above
+  for (double before : { 0.5, path.getLength() })
+  {
+    const Path fresh(cursor_waypoints, 0.1);
+    path.getConfig(before);
+    expectSameBits(path.getConfig(1.0), fresh.getConfig(1.0));
+    expectSameBits(path.getTangent(1.0), fresh.getTangent(1.0));
+  }
+
+  // A NaN position finds the first segment
+  path.getConfig(path.getLength());
+  const double nan = std::numeric_limits<double>::quiet_NaN();
+  expectSameBits(path.getTangent(nan), Path(cursor_waypoints, 0.1).getTangent(nan));
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, trajectoryLookupsInAnyOrderMatchAFreshTrajectory)  // NOLINT
+{
+  const Path path(cursor_waypoints, 0.1);
+  const Trajectory trajectory(path, cursor_max_velocity, cursor_max_acceleration);
+  ASSERT_TRUE(trajectory.isValid());
+  const double duration = trajectory.getDuration();
+
+  // The step keys, read off the steps that samples land in
+  std::vector<double> times{ 0.0, duration };
+  std::vector<double> positions{ 0.0, path.getLength() };
+  for (int i = 1; i < 40; ++i)
+  {
+    const PathData data = trajectory.getPathData(duration * i / 40.0);
+    times.push_back(data.prev_time);
+    positions.push_back(data.prev_path_pos);
+  }
+  for (double s : path.getMapping())
+    positions.push_back(s);
+
+  // Each lookup is compared with one in a copy of a trajectory never queried, so it starts from the first step
+  const Trajectory unqueried(path, cursor_max_velocity, cursor_max_acceleration);
+  for (double t : alternateEnds(withNeighbours(times)))
+  {
+    if (t < 0.0)
+      continue;
+    expectSameBits(trajectory.getPathData(t), Trajectory(unqueried).getPathData(t));
+  }
+  for (double s : alternateEnds(withNeighbours(positions)))
+  {
+    if (s < 0.0 || s > path.getLength())
+      continue;
+    expectSameBits(trajectory.getTime(s), Trajectory(unqueried).getTime(s));
+  }
+
+  // A NaN position matches no step
+  trajectory.getTime(path.getLength() * 0.9);
+  EXPECT_THROW(trajectory.getTime(std::numeric_limits<double>::quiet_NaN()), std::runtime_error);  // NOLINT
+
+  // A failed lookup leaves the next one unaffected
+  expectSameBits(trajectory.getTime(path.getLength() * 0.95), Trajectory(unqueried).getTime(path.getLength() * 0.95));
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, copiedTrajectoryLooksUpInItsOwnSteps)  // NOLINT
+{
+  const Path path(cursor_waypoints, 0.1);
+  auto original = std::make_unique<Trajectory>(path, cursor_max_velocity, cursor_max_acceleration);
+  ASSERT_TRUE(original->isValid());
+  const double duration = original->getDuration();
+  original->getPathData(0.5 * duration);
+  original->getTime(0.5 * path.getLength());
+
+  const Trajectory fresh(path, cursor_max_velocity, cursor_max_acceleration);
+  const PathData expected_data = fresh.getPathData(0.75 * duration);
+  const double expected_time = fresh.getTime(0.75 * path.getLength());
+
+  // A copy that kept the original's cursors would read freed steps here, which only a sanitizer reliably reports
+  const Trajectory copy(*original);
+  original.reset();
+
+  // Later than the original's last queries, so a lookup resumes rather than restarts
+  expectSameBits(copy.getPathData(0.75 * duration), expected_data);
+  expectSameBits(copy.getTime(0.75 * path.getLength()), expected_time);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, lookupsOutsideTheTrajectoryReadItsEnds)  // NOLINT
+{
+  const Path path(cursor_waypoints, 0.1);
+  const Trajectory trajectory(path, cursor_max_velocity, cursor_max_acceleration);
+  ASSERT_TRUE(trajectory.isValid());
+  const double nan = std::numeric_limits<double>::quiet_NaN();
+
+  // Before the start, on the first lookup and on one after a later time
+  const auto expect_first_step = [](const PathData& data) {
+    EXPECT_EQ(data.prev_time, 0.0);
+    EXPECT_EQ(data.prev_path_pos, 0.0);
+    EXPECT_TRUE(std::isfinite(data.path_pos));
+  };
+  expect_first_step(trajectory.getPathData(-0.1));
+  trajectory.getPathData(0.5 * trajectory.getDuration());
+  expect_first_step(trajectory.getPathData(-0.1));
+
+  const PathData at_nan = trajectory.getPathData(nan);
+  EXPECT_EQ(at_nan.prev_time, 0.0);
+  EXPECT_TRUE(std::isnan(at_nan.path_pos));
+  EXPECT_TRUE(std::isnan(at_nan.path_vel));
+
+  EXPECT_DEBUG_DEATH(EXPECT_EQ(trajectory.getTime(-1e-12), 0.0), "");  // NOLINT
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, pathNeedsTwoWaypoints)  // NOLINT
+{
+  EXPECT_THROW(Path(std::list<Eigen::VectorXd>{}, 0.1), std::invalid_argument);                         // NOLINT
+  EXPECT_THROW(Path(std::list<Eigen::VectorXd>{ Eigen::Vector2d(0, 0) }, 0.1), std::invalid_argument);  // NOLINT
 }
 
 int main(int argc, char** argv)

@@ -38,7 +38,10 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <iterator>
 #include <limits>
+#include <stdexcept>
+#include <string>
 #include <Eigen/Geometry>
 #include <algorithm>
 #include <cmath>
@@ -399,7 +402,7 @@ private:
 Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
 {
   if (path.size() < 2)
-    return;
+    throw std::invalid_argument("A TOTG path needs at least two waypoints, got " + std::to_string(path.size()));
   auto path_iterator1 = path.begin();
   auto path_iterator2 = path_iterator1;
   ++path_iterator2;
@@ -458,12 +461,14 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
     switching_points_.emplace_back(length_, true);
   }
   switching_points_.pop_back();
+  cursor_ = path_segments_.begin();
 }
 
 Path::Path(const Path& path) : length_(path.length_), mapping_(path.mapping_), switching_points_(path.switching_points_)
 {
   for (const std::unique_ptr<PathSegment>& path_segment : path.path_segments_)
     path_segments_.emplace_back(path_segment->clone());
+  cursor_ = path_segments_.begin();
 }
 
 double Path::getLength() const { return length_; }
@@ -472,7 +477,12 @@ const std::vector<double>& Path::getMapping() const { return mapping_; }
 
 PathSegment* Path::getPathSegment(double& s) const
 {
-  auto it = path_segments_.begin();
+  // Find the last segment that starts at or before s, resuming from the last one found. The start positions are running
+  // sums of lengths, so s >= position holds on a prefix of the segments for any s, NaN included, and this finds the
+  // segment a scan from the first one finds
+  auto it = cursor_;
+  while (it != path_segments_.begin() && !(s >= (*it)->position_))
+    --it;
   auto next = it;
   ++next;
   while (next != path_segments_.end() && s >= (*next)->position_)
@@ -480,6 +490,7 @@ PathSegment* Path::getPathSegment(double& s) const
     it = next;
     ++next;
   }
+  cursor_ = it;
   s -= (*it)->position_;
   return (*it).get();
 }
@@ -529,7 +540,6 @@ Trajectory::Trajectory(const Path& path,
   , max_acceleration_(max_acceleration)
   , joint_num_(max_velocity.size())
   , time_step_(time_step)
-  , cached_time_(std::numeric_limits<double>::max())
 {
   trajectory_.emplace_back(0.0, 0.0);
 
@@ -1091,16 +1101,19 @@ std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectoryS
     return last;
   }
 
-  if (time < cached_time_)
+  // Restart unless time went forward; written as a negation so a NaN time restarts too, and so does any time after one
+  // Any time from 0 on is past the first step, so starting after it changes nothing there, and a time before 0 or a NaN
+  // gets the first interval rather than none
+  if (!(time >= lookup_.time))
   {
-    cached_trajectory_segment_ = trajectory_.begin();
+    lookup_.time_segment = std::next(trajectory_.begin());
   }
-  while (time >= cached_trajectory_segment_->time_)
+  while (time >= lookup_.time_segment->time_)
   {
-    ++cached_trajectory_segment_;
+    ++lookup_.time_segment;
   }
-  cached_time_ = time;
-  return cached_trajectory_segment_;
+  lookup_.time = time;
+  return lookup_.time_segment;
 }
 
 std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectorySegmentFromDist(double pos) const
@@ -1113,12 +1126,19 @@ std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectoryS
   }
 
   if (pos < 0)
-    return trajectory_.begin();
+    return std::next(trajectory_.begin());
 
-  for (auto it = trajectory_.begin(); it != trajectory_.end(); ++it)
+  // Find the first step past pos, resuming from the last one found unless pos went back. No step before that one is
+  // past the last pos, so a scan from the first step reaches it too, however the steps are ordered
+  auto it = (pos >= lookup_.path_pos) ? lookup_.path_pos_segment : trajectory_.begin();
+  for (; it != trajectory_.end(); ++it)
   {
     if (pos < it->path_pos_)
+    {
+      lookup_.path_pos = pos;
+      lookup_.path_pos_segment = it;
       return it;
+    }
   }
 
   throw std::runtime_error("Failed to find trajectory segment, this should not happen");
