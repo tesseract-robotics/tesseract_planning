@@ -117,7 +117,9 @@ public:
   Eigen::VectorXd getTangent(double s) const;
   Eigen::VectorXd getCurvature(double s) const;
   double getNextSwitchingPoint(double s, bool& discontinuity) const;
-  std::list<std::pair<double, bool>> getSwitchingPoints() const;
+  const std::list<std::pair<double, bool>>& getSwitchingPoints() const&;
+  /** @brief A copy, so that it outlives the temporary path */
+  std::list<std::pair<double, bool>> getSwitchingPoints() const&&;
   const std::vector<double>& getMapping() const;
 
 private:

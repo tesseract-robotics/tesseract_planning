@@ -42,6 +42,8 @@
 #include <limits>
 #include <memory>
 #include <stdexcept>
+#include <type_traits>
+#include <utility>
 #include <gtest/gtest.h>
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
@@ -885,6 +887,11 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, pathNeedsTwoWaypoints)  // NOLINT
   EXPECT_THROW(Path(std::list<Eigen::VectorXd>{}, 0.1), std::invalid_argument);                         // NOLINT
   EXPECT_THROW(Path(std::list<Eigen::VectorXd>{ Eigen::Vector2d(0, 0) }, 0.1), std::invalid_argument);  // NOLINT
 }
+
+// A temporary path's switching points come back as a copy, so that a loop over them outlives the path
+static_assert(std::is_same_v<decltype(std::declval<Path>().getSwitchingPoints()), std::list<std::pair<double, bool>>>);
+static_assert(std::is_same_v<decltype(std::declval<const Path&>().getSwitchingPoints()),
+                             const std::list<std::pair<double, bool>>&>);
 
 int main(int argc, char** argv)
 {
