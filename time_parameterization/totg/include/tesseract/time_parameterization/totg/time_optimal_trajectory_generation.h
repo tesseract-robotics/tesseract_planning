@@ -42,6 +42,7 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
+#include <limits>
 #include <list>
 #include <memory>
 #include <cassert>
@@ -89,6 +90,11 @@ protected:
   double length_{ 0 };
 };
 
+/**
+ * @brief A piecewise linear path through waypoints, with its corners blended
+ * @details getConfig, getTangent and getCurvature resume their segment lookup from the last one, so they must not be
+ * called concurrently on one object.
+ */
 class Path
 {
 public:
@@ -97,6 +103,7 @@ public:
    * @details With max_deviation <= 0, the default included, the corners are left unblended, and a Trajectory along
    * them reports velocity jumps that no finite acceleration can follow. TimeOptimalTrajectoryGeneration::compute
    * rejects such a tolerance.
+   * @throws std::invalid_argument with fewer than two waypoints
    */
   Path(const std::list<Eigen::VectorXd>& path, double max_deviation = 0.0);
   ~Path() = default;
@@ -119,6 +126,8 @@ private:
   std::vector<double> mapping_;
   std::list<std::pair<double, bool>> switching_points_;
   std::list<std::unique_ptr<PathSegment>> path_segments_;
+  /** @brief The segment the last lookup found, where the next one starts */
+  mutable std::list<std::unique_ptr<PathSegment>>::const_iterator cursor_;
 };
 
 /** @brief Structure to store path data sampled at a point in time. */
@@ -132,6 +141,11 @@ struct PathData
   double time{ 0 };
 };
 
+/**
+ * @brief A time-optimal trajectory along a path
+ * @details getPathData and getTime resume their step lookup from the last one, and getPosition, getVelocity and
+ * getAcceleration look up the path, so none of them may be called concurrently on one object.
+ */
 class Trajectory
 {
 public:
@@ -159,7 +173,11 @@ public:
   /// @brief Returns the optimal duration of the trajectory
   double getDuration() const;
 
-  /** @brief Return the path data for a given point in time */
+  /**
+   * @brief Return the path data for a given point in time
+   * @details A time before 0 or after getDuration() extrapolates the first or last step, and a NaN time gives a NaN
+   * path position and velocity
+   */
   PathData getPathData(double time) const;
   /** @brief Return the position/configuration vector for a given point in time */
   Eigen::VectorXd getPosition(const PathData& data) const;
@@ -167,7 +185,11 @@ public:
   Eigen::VectorXd getVelocity(const PathData& data) const;
   /** @brief Return the acceleration vector for a given point in time */
   Eigen::VectorXd getAcceleration(const PathData& data) const;
-  /** @brief get the time given a position on the trajectory */
+  /**
+   * @brief get the time given a position on the trajectory
+   * @details pos must lie within [0, the path's length]. Outside it, debug builds assert, and other builds read the
+   * time off the first or last step
+   */
   double getTime(double pos) const;
 
   /**
@@ -225,8 +247,23 @@ private:
 
   const double time_step_;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
 
-  mutable double cached_time_;
-  mutable std::list<TrajectoryStep>::const_iterator cached_trajectory_segment_;
+  /** @brief The last time and path position looked up, and the steps they found; a copy starts over */
+  struct LookupCache
+  {
+    LookupCache() = default;
+    ~LookupCache() = default;
+    LookupCache(const LookupCache& /*other*/) {}
+    LookupCache& operator=(const LookupCache&) = delete;
+    LookupCache(LookupCache&&) = delete;
+    LookupCache& operator=(LookupCache&&) = delete;
+
+    /** @brief NaN until the first lookup, so that one starts at the first step */
+    double time{ std::numeric_limits<double>::quiet_NaN() };
+    std::list<TrajectoryStep>::const_iterator time_segment;
+    double path_pos{ std::numeric_limits<double>::quiet_NaN() };
+    std::list<TrajectoryStep>::const_iterator path_pos_segment;
+  };
+  mutable LookupCache lookup_;
 };
 }  // namespace totg
 }  // namespace tesseract::time_parameterization
