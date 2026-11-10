@@ -1177,18 +1177,23 @@ double Trajectory::getTime(double pos) const
 
   assert(pos >= previous->path_pos_ && pos <= it->path_pos_);
 
-  double time_step = it->time_ - previous->time_;
+  const double time_step = it->time_ - previous->time_;
   const double acceleration =
       2.0 * (it->path_pos_ - previous->path_pos_ - time_step * previous->path_vel_) / (time_step * time_step);
 
-  const double a = 0.5 * acceleration;
-  const double b = previous->path_vel_;
-  const double c = previous->path_pos_ - pos;
+  // Solve 0.5 * acceleration * dt^2 + velocity * dt = distance for the root that is not negative, in the form that does
+  // not cancel: it holds for zero acceleration, where the textbook form divides zero by zero, and for zero velocity
+  const double distance = pos - previous->path_pos_;
+  const double velocity = previous->path_vel_;
+  const double discriminant = std::max(0.0, (velocity * velocity) + (2.0 * acceleration * distance));
+  const double denominator = velocity + std::sqrt(discriminant);
 
-  const double d = std::pow(b, 2.0) - (4 * a * c);
-  const double e = ((d > 0) ? std::sqrt(d) : 0);
-  const double dt = (-b + e) / (2.0 * a);
-  assert(!(dt < 0));
+  // Only at rest, within rounding of the step's start
+  if (!(denominator > 0.0))
+    return previous->time_;
+
+  // Rounding can put the root just outside the step; std::max and std::min keep a NaN
+  const double dt = std::min(std::max(2.0 * distance / denominator, 0.0), time_step);
   return (previous->time_ + dt);
 }
 

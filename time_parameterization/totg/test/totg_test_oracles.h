@@ -69,6 +69,30 @@ inline void expectVelocitiesWithinLimits(const tesseract::command_language::Comp
       EXPECT_LE(std::abs(v[j]), max_velocity[j] * (1.0 + relative_tolerance)) << "waypoint " << i << " joint " << j;
   }
 }
+
+/**
+ * @brief Expect no joint to cover more between consecutive waypoints than max_velocity allows in the time between them,
+ * up to a relative tolerance
+ */
+inline void expectDisplacementsWithinLimits(const tesseract::command_language::CompositeInstruction& program,
+                                            const Eigen::VectorXd& max_velocity,
+                                            double relative_tolerance = 1e-6)
+{
+  using namespace tesseract::command_language;
+  const auto moves = program.flatten(moveFilter);
+  for (std::size_t i = 1; i < moves.size(); ++i)
+  {
+    const auto& prev = moves[i - 1].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+    const auto& curr = moves[i].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+    const double dt = curr.getTime() - prev.getTime();
+    for (Eigen::Index j = 0; j < max_velocity.size(); ++j)
+    {
+      EXPECT_LE(std::abs(curr.getPosition()[j] - prev.getPosition()[j]),
+                max_velocity[j] * dt * (1.0 + relative_tolerance))
+          << "waypoints " << i - 1 << " to " << i << " joint " << j;
+    }
+  }
+}
 }  // namespace tesseract::time_parameterization::test_suite
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_TOTG_TEST_ORACLES_H
