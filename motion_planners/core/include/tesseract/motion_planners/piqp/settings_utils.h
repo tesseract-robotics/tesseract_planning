@@ -57,6 +57,8 @@ inline bool operator==(const piqp::Settings<double>& lhs, const piqp::Settings<d
   equal &= near(lhs.eps_duality_gap_abs, rhs.eps_duality_gap_abs);
   equal &= near(lhs.eps_duality_gap_rel, rhs.eps_duality_gap_rel);
   equal &= near(lhs.infeasibility_threshold, rhs.infeasibility_threshold);
+  equal &= near(lhs.eps_primal_inf, rhs.eps_primal_inf);
+  equal &= near(lhs.eps_dual_inf, rhs.eps_dual_inf);
   equal &= near(lhs.reg_lower_limit, rhs.reg_lower_limit);
   equal &= near(lhs.reg_finetune_lower_limit, rhs.reg_finetune_lower_limit);
   equal &= (lhs.reg_finetune_primal_update_threshold == rhs.reg_finetune_primal_update_threshold);
@@ -68,6 +70,7 @@ inline bool operator==(const piqp::Settings<double>& lhs, const piqp::Settings<d
   equal &= (lhs.preconditioner_iter == rhs.preconditioner_iter);
   equal &= near(lhs.tau, rhs.tau);
   equal &= (lhs.kkt_solver == rhs.kkt_solver);
+  equal &= (lhs.num_threads == rhs.num_threads);
   equal &= (lhs.iterative_refinement_always_enabled == rhs.iterative_refinement_always_enabled);
   equal &= near(lhs.iterative_refinement_eps_abs, rhs.iterative_refinement_eps_abs);
   equal &= near(lhs.iterative_refinement_eps_rel, rhs.iterative_refinement_eps_rel);

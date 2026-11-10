@@ -80,6 +80,8 @@ struct convert<piqp::Settings<double>>
     node["eps_duality_gap_abs"] = rhs.eps_duality_gap_abs;
     node["eps_duality_gap_rel"] = rhs.eps_duality_gap_rel;
     node["infeasibility_threshold"] = rhs.infeasibility_threshold;
+    node["eps_primal_inf"] = rhs.eps_primal_inf;
+    node["eps_dual_inf"] = rhs.eps_dual_inf;
     node["reg_lower_limit"] = rhs.reg_lower_limit;
     node["reg_finetune_lower_limit"] = rhs.reg_finetune_lower_limit;
     node["reg_finetune_primal_update_threshold"] = rhs.reg_finetune_primal_update_threshold;
@@ -91,6 +93,7 @@ struct convert<piqp::Settings<double>>
     node["preconditioner_iter"] = rhs.preconditioner_iter;
     node["tau"] = rhs.tau;
     node["kkt_solver"] = rhs.kkt_solver;
+    node["num_threads"] = rhs.num_threads;
     node["iterative_refinement_always_enabled"] = rhs.iterative_refinement_always_enabled;
     node["iterative_refinement_eps_abs"] = rhs.iterative_refinement_eps_abs;
     node["iterative_refinement_eps_rel"] = rhs.iterative_refinement_eps_rel;
@@ -121,6 +124,10 @@ struct convert<piqp::Settings<double>>
       rhs.eps_duality_gap_rel = n.as<double>();
     if (const YAML::Node& n = node["infeasibility_threshold"])
       rhs.infeasibility_threshold = n.as<double>();
+    if (const YAML::Node& n = node["eps_primal_inf"])
+      rhs.eps_primal_inf = n.as<double>();
+    if (const YAML::Node& n = node["eps_dual_inf"])
+      rhs.eps_dual_inf = n.as<double>();
     if (const YAML::Node& n = node["reg_lower_limit"])
       rhs.reg_lower_limit = n.as<double>();
     if (const YAML::Node& n = node["reg_finetune_lower_limit"])
@@ -143,6 +150,8 @@ struct convert<piqp::Settings<double>>
       rhs.tau = n.as<double>();
     if (const YAML::Node& n = node["kkt_solver"])
       rhs.kkt_solver = n.as<piqp::KKTSolver>();
+    if (const YAML::Node& n = node["num_threads"])
+      rhs.num_threads = n.as<piqp::isize>();
     if (const YAML::Node& n = node["iterative_refinement_always_enabled"])
       rhs.iterative_refinement_always_enabled = n.as<bool>();
     if (const YAML::Node& n = node["iterative_refinement_eps_abs"])
