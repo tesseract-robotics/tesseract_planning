@@ -529,7 +529,9 @@ double Path::getNextSwitchingPoint(double s, bool& discontinuity) const
   return it->first;
 }
 
-std::list<std::pair<double, bool>> Path::getSwitchingPoints() const { return switching_points_; }
+const std::list<std::pair<double, bool>>& Path::getSwitchingPoints() const& { return switching_points_; }
+
+std::list<std::pair<double, bool>> Path::getSwitchingPoints() const&& { return switching_points_; }
 
 Trajectory::Trajectory(const Path& path,
                        const Eigen::VectorXd& max_velocity,
@@ -756,7 +758,7 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
   double path_pos = trajectory.back().path_pos_;
   double path_vel = trajectory.back().path_vel_;
 
-  std::list<std::pair<double, bool>> switching_points = path_.getSwitchingPoints();
+  const std::list<std::pair<double, bool>>& switching_points = path_.getSwitchingPoints();
   auto next_discontinuity = switching_points.begin();
 
   while (true)
