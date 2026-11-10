@@ -58,6 +58,16 @@ class TimeOptimalTrajectoryGeneration : public TimeParameterization
 public:
   TimeOptimalTrajectoryGeneration(std::string name);
 
+  /**
+   * @brief Time the program's move instructions
+   * @details A move instruction within the profile's min_angle_change of the last one kept, in every joint, is removed,
+   * so the program can come back with fewer of them, and a composite made only of such repeats with none. At the end of
+   * the program the last move of such a run, the goal, is kept instead of the first, unless another instruction lies
+   * between them; the program then ends at the run's first move, within min_angle_change of the goal. The goal also
+   * replaces the kept moves before it that are within min_angle_change of it, so a removed move lies within twice
+   * min_angle_change of a kept one. When nothing moves, only the first move instruction is kept. Other instructions
+   * keep their place relative to the motion.
+   */
   bool compute(tesseract::command_language::CompositeInstruction& composite_instruction,
                const tesseract::environment::Environment& env,
                const tesseract::common::ProfileDictionary& profiles) const override;
@@ -195,10 +205,14 @@ public:
   double getTime(double pos) const;
 
   /**
-   * @brief Assign trajectory velocity acceleration and time
-   * @details This is brute force approach and should always return true
+   * @brief Write time, velocity and acceleration to the waypoints at the path's points
+   * @param trajectory The waypoints
+   * @param kept For each point of the path, the index in trajectory of the waypoint at it; waypoints not listed are
+   * left as they are
+   * @return False, leaving the waypoints unchanged, if kept does not match the path or the times would not strictly
+   * increase
    */
-  bool assignData(InstructionsTrajectory& trajectory, const std::vector<std::size_t>& mapping) const;
+  bool assignData(InstructionsTrajectory& trajectory, const std::vector<std::size_t>& kept) const;
 
 private:
   struct TrajectoryStep
