@@ -893,6 +893,61 @@ static_assert(std::is_same_v<decltype(std::declval<Path>().getSwitchingPoints())
 static_assert(std::is_same_v<decltype(std::declval<const Path&>().getSwitchingPoints()),
                              const std::list<std::pair<double, bool>>&>);
 
+TEST_F(TimeOptimalTrajectoryGenerationUnit, getTimeInvertsGetPathData)  // NOLINT
+{
+  // Long enough to cruise, and too short to; the low acceleration rounds the first steps' 2 a d to zero next to the start
+  for (double length : { 10.0, 0.5 })
+  {
+    const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(length, 0) }, 0.1);
+    const Trajectory trajectory(path, Eigen::Vector2d(1, 1), Eigen::Vector2d(0.25, 0.25));
+    ASSERT_TRUE(trajectory.isValid());
+
+    double t_prev = 0.0;
+    for (int i = 1; i <= 200; ++i)
+    {
+      const double s = path.getLength() * i / 201.0;
+      const double t = trajectory.getTime(s);
+      ASSERT_TRUE(std::isfinite(t)) << "length " << length << " s " << s;
+      EXPECT_GT(t, t_prev) << "length " << length << " s " << s;
+      EXPECT_NEAR(trajectory.getPathData(t).path_pos, s, 1e-9) << "length " << length;
+      t_prev = t;
+    }
+
+    const double t_first = trajectory.getTime(std::nextafter(0.0, 1.0));
+    EXPECT_GE(t_first, 0.0);
+    EXPECT_LT(t_first, 1e-100);
+  }
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, cruiseWaypointsAreTimedAtTheCruiseVelocity)  // NOLINT
+{
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, createOverrideProfile());
+  TimeOptimalTrajectoryGeneration solver(name_);
+  ASSERT_TRUE(solver.compute(program, *env_, profiles));
+
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectDisplacementsWithinLimits(program, Eigen::VectorXd::Ones(6));
+
+  // Between two waypoints at the same velocity the motion cruises, so it takes the distance over that velocity
+  const auto moves = program.flatten(moveFilter);
+  int cruising{ 0 };
+  for (std::size_t i = 1; i < moves.size(); ++i)
+  {
+    const auto& prev = moves[i - 1].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+    const auto& curr = moves[i].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+    const double v = curr.getVelocity()[0];
+    if (!(v > 0.0) || std::abs(prev.getVelocity()[0] - v) > 1e-9)
+      continue;
+    ++cruising;
+    EXPECT_NEAR(curr.getTime() - prev.getTime(), (curr.getPosition()[0] - prev.getPosition()[0]) / v, 1e-6)
+        << "waypoints " << i - 1 << " to " << i;
+  }
+  EXPECT_GT(cruising, 0);
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
