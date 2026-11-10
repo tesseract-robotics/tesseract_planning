@@ -476,6 +476,15 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptPIQPSolverPro
 #endif
   }
 
+  {  // KKT solver that needs PIQP built with BLASFEO and OpenMP
+    YAML::Node n = YAML::Load("config:\n  settings:\n    kkt_solver: sparse_multistage_parallel\n");
+#if defined(PIQP_HAS_BLASFEO) && defined(PIQP_HAS_OPENMP)
+    EXPECT_NO_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+#else
+    EXPECT_ANY_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT
+#endif
+  }
+
   {  // Setting outside its valid range
     YAML::Node n = YAML::Load("config:\n  settings:\n    max_iter: 0\n");
     EXPECT_ANY_THROW(TrajOptIfoptPIQPSolverProfile(n["config"], plugin_factory));  // NOLINT

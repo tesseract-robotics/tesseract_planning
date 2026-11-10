@@ -85,8 +85,9 @@ inline bool operator==(const piqp::Settings<double>& lhs, const piqp::Settings<d
 
 /**
  * @brief Check that the settings are valid for PIQP's sparse backend
- * @details kkt_solver must be a sparse_ldlt variant, or sparse_multistage when PIQP was built with BLASFEO, and every
- * other field must pass piqp::Settings::verify_settings().
+ * @details kkt_solver must be a sparse_ldlt variant, sparse_multistage when PIQP was built with BLASFEO, or
+ * sparse_multistage_parallel when PIQP was built with BLASFEO and OpenMP, and every other field must pass
+ * piqp::Settings::verify_settings().
  * @param settings The settings to check
  * @param profile_name The name that prefixes the error message
  * @throws std::runtime_error if the sparse backend would reject the settings at setup
@@ -101,6 +102,9 @@ inline void checkPIQPSettings(const piqp::Settings<double>& settings, const std:
     case piqp::KKTSolver::sparse_ldlt_cond:
 #ifdef PIQP_HAS_BLASFEO
     case piqp::KKTSolver::sparse_multistage:
+#ifdef PIQP_HAS_OPENMP
+    case piqp::KKTSolver::sparse_multistage_parallel:
+#endif
 #endif
       break;
     default:

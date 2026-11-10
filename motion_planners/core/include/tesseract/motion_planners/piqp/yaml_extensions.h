@@ -45,10 +45,13 @@ struct convert<piqp::KKTSolver>
 
   static bool decode(const Node& node, piqp::KKTSolver& rhs)
   {
-    static constexpr std::array<piqp::KKTSolver, 6> values = {
-      piqp::KKTSolver::dense_cholesky,        piqp::KKTSolver::sparse_ldlt,      piqp::KKTSolver::sparse_ldlt_eq_cond,
-      piqp::KKTSolver::sparse_ldlt_ineq_cond, piqp::KKTSolver::sparse_ldlt_cond, piqp::KKTSolver::sparse_multistage
-    };
+    static constexpr std::array<piqp::KKTSolver, 7> values = { piqp::KKTSolver::dense_cholesky,
+                                                               piqp::KKTSolver::sparse_ldlt,
+                                                               piqp::KKTSolver::sparse_ldlt_eq_cond,
+                                                               piqp::KKTSolver::sparse_ldlt_ineq_cond,
+                                                               piqp::KKTSolver::sparse_ldlt_cond,
+                                                               piqp::KKTSolver::sparse_multistage,
+                                                               piqp::KKTSolver::sparse_multistage_parallel };
 
     if (!node.IsScalar())
       return false;
