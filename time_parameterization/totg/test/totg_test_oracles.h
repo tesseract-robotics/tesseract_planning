@@ -73,6 +73,7 @@ inline void expectVelocitiesWithinLimits(const tesseract::command_language::Comp
 /**
  * @brief Expect no joint to cover more between consecutive waypoints than max_velocity allows in the time between them,
  * up to a relative tolerance
+ * @details Compares the waypoint positions, so it holds only where the path runs straight between them
  */
 inline void expectDisplacementsWithinLimits(const tesseract::command_language::CompositeInstruction& program,
                                             const Eigen::VectorXd& max_velocity,

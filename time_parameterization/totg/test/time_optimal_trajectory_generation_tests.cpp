@@ -58,6 +58,7 @@
 #include <tesseract/command_language/composite_instruction.h>
 #include <tesseract/command_language/state_waypoint.h>
 #include <tesseract/command_language/move_instruction.h>
+#include <tesseract/command_language/set_digital_instruction.h>
 #include <tesseract/time_parameterization/instructions_trajectory.h>
 #include "totg_test_oracles.h"
 
@@ -96,6 +97,9 @@ protected:
   /** @brief Expect compute to throw a message containing expected, for the override profile after change */
   void expectComputeError(const std::function<void(TimeOptimalTrajectoryGenerationCompositeProfile&)>& change,
                           const std::string& expected) const;
+
+  /** @brief Run compute on the program with the override profile, for the fixture's manipulator */
+  bool computeWithOverrideProfile(CompositeInstruction& program) const;
 };
 
 TEST_F(TimeOptimalTrajectoryGenerationUnit, test1)  // NOLINT
@@ -511,6 +515,15 @@ void TimeOptimalTrajectoryGenerationUnit::expectComputeError(
   EXPECT_NE(message.find(expected), std::string::npos) << "expected '" << expected << "', got '" << message << "'";
 }
 
+bool TimeOptimalTrajectoryGenerationUnit::computeWithOverrideProfile(CompositeInstruction& program) const
+{
+  program.setManipulatorInfo(manip_);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, createOverrideProfile());
+  const TimeOptimalTrajectoryGeneration solver(name_);
+  return solver.compute(program, *env_, profiles);
+}
+
 TEST_F(TimeOptimalTrajectoryGenerationUnit, scalingFactorErrorsNameTheirClassAndFactor)  // NOLINT
 {
   expectComputeError([](auto& p) { p.max_velocity_scaling_factor = 0.0; },
@@ -895,7 +908,8 @@ static_assert(std::is_same_v<decltype(std::declval<const Path&>().getSwitchingPo
 
 TEST_F(TimeOptimalTrajectoryGenerationUnit, getTimeInvertsGetPathData)  // NOLINT
 {
-  // Long enough to cruise, and too short to; the low acceleration rounds the first steps' 2 a d to zero next to the start
+  // Long enough to cruise, and too short to; the low acceleration rounds the first steps' 2 a d to zero next to the
+  // start
   for (double length : { 10.0, 0.5 })
   {
     const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(length, 0) }, 0.1);
@@ -922,11 +936,7 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, getTimeInvertsGetPathData)  // NOLIN
 TEST_F(TimeOptimalTrajectoryGenerationUnit, cruiseWaypointsAreTimedAtTheCruiseVelocity)  // NOLINT
 {
   CompositeInstruction program = createStraightTrajectory();
-  program.setManipulatorInfo(manip_);
-  tesseract::common::ProfileDictionary profiles;
-  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, createOverrideProfile());
-  TimeOptimalTrajectoryGeneration solver(name_);
-  ASSERT_TRUE(solver.compute(program, *env_, profiles));
+  ASSERT_TRUE(computeWithOverrideProfile(program));
 
   test_suite::expectTimesStrictlyIncreasing(program);
   test_suite::expectDisplacementsWithinLimits(program, Eigen::VectorXd::Ones(6));
@@ -946,6 +956,191 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, cruiseWaypointsAreTimedAtTheCruiseVe
         << "waypoints " << i - 1 << " to " << i;
   }
   EXPECT_GT(cruising, 0);
+}
+
+namespace
+{
+MoveInstruction joint1Move(double joint_1, double joint_2 = 0.0)
+{
+  StateWaypoint swp({ "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" },
+                    (Eigen::VectorXd(6) << joint_1, joint_2, 0, 0, 0, 0).finished());
+  return MoveInstruction(swp, MoveInstructionType::FREESPACE);
+}
+
+CompositeInstruction joint1Program(const std::vector<double>& joint_1)
+{
+  CompositeInstruction program;
+  for (double q : joint_1)
+    program.push_back(joint1Move(q));
+  return program;
+}
+
+std::vector<double> joint1Positions(const CompositeInstruction& program)
+{
+  std::vector<double> positions;
+  for (const auto& move : program.flatten(moveFilter))
+    positions.push_back(move.get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getPosition()[0]);
+  return positions;
+}
+
+/** @brief Expect strictly increasing times, motion within the velocity limit, and rest at the last waypoint */
+void expectTimedFromRestToRest(const CompositeInstruction& program)
+{
+  test_suite::expectTimesStrictlyIncreasing(program);
+  test_suite::expectDisplacementsWithinLimits(program, Eigen::VectorXd::Ones(6));
+  const auto moves = program.flatten(moveFilter);
+  const auto& last = moves.back().get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+  EXPECT_TRUE(last.getVelocity().isZero(0.0)) << last.getVelocity().transpose();
+}
+}  // namespace
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, repeatedWaypointsLeaveTheOutput)  // NOLINT
+{
+  const auto run = [this](CompositeInstruction program) {
+    EXPECT_TRUE(computeWithOverrideProfile(program));
+    return program;
+  };
+
+  // A repeat inside the program goes; a final run keeps its last waypoint, the goal
+  const std::vector<std::pair<std::vector<double>, std::vector<double>>> cases{
+    { { 0, 0.5, 0.5, 1.0 }, { 0, 0.5, 1.0 } },
+    { { 0, 1, 1.0005 }, { 0, 1.0005 } },
+    // Moving the last point onto the goal can make it repeat the point before, which then goes
+    { { 0, 0.01, 0.0111, 0.0102 }, { 0, 0.0102 } },
+    // A motion within min_angle_change of the start is still timed
+    { { 0, 0.0005, 0.0009 }, { 0, 0.0009 } },
+    { { 0, 0.0011, 0.0003 }, { 0, 0.0003 } },
+  };
+  for (const auto& [input, expected] : cases)
+  {
+    const CompositeInstruction program = run(joint1Program(input));
+    EXPECT_EQ(joint1Positions(program), expected);
+    expectTimedFromRestToRest(program);
+  }
+
+  // Nothing moves: the first waypoint stays, at rest at time zero
+  for (const std::vector<double>& input : { std::vector<double>{ 0, 0, 0 }, std::vector<double>{ 0, 0.0005, 0 } })
+  {
+    CompositeInstruction input_program = joint1Program(input);
+    const boost::uuids::uuid first = input_program.front().getUUID();
+    const CompositeInstruction program = run(input_program);
+    ASSERT_EQ(joint1Positions(program), std::vector<double>{ 0 });
+    EXPECT_EQ(program.front().getUUID(), first);
+    const auto& swp = program.front().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+    EXPECT_EQ(swp.getTime(), 0.0);
+    EXPECT_TRUE(swp.getVelocity().isZero(0.0));
+    EXPECT_TRUE(swp.getAcceleration().isZero(0.0));
+  }
+
+  // A repeat is one within min_angle_change in every joint
+  CompositeInstruction program;
+  program.push_back(joint1Move(0, 0));
+  program.push_back(joint1Move(1, 0));
+  program.push_back(joint1Move(1.0005, 0.002));
+  EXPECT_EQ(joint1Positions(run(program)).size(), 3);
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, repeatedWaypointsLeaveOtherInstructionsInPlace)  // NOLINT
+{
+  const auto run = [this](CompositeInstruction& program) {
+    EXPECT_TRUE(computeWithOverrideProfile(program));
+    expectTimedFromRestToRest(program);
+  };
+
+  // I/O after the run's first waypoint keeps it, so the I/O still follows the motion
+  CompositeInstruction blocked = joint1Program({ 0, 1 });
+  blocked.push_back(SetDigitalInstruction("io", 0, true));
+  blocked.push_back(joint1Move(1.0005));
+  run(blocked);
+  ASSERT_EQ(blocked.size(), 3);
+  EXPECT_TRUE(blocked[1].isMoveInstruction());
+  EXPECT_FALSE(blocked[2].isMoveInstruction());
+  EXPECT_EQ(joint1Positions(blocked), (std::vector<double>{ 0, 1 }));
+
+  // I/O before the run is not crossed, so the goal is kept
+  CompositeInstruction free;
+  free.push_back(joint1Move(0));
+  free.push_back(SetDigitalInstruction("io", 0, true));
+  free.push_back(joint1Move(1));
+  free.push_back(joint1Move(1.0005));
+  run(free);
+  ASSERT_EQ(free.size(), 3);
+  EXPECT_FALSE(free[1].isMoveInstruction());
+  EXPECT_EQ(joint1Positions(free), (std::vector<double>{ 0, 1.0005 }));
+
+  // When nothing moves, I/O still follows the one waypoint kept
+  CompositeInstruction still = joint1Program({ 0 });
+  still.push_back(SetDigitalInstruction("io", 0, true));
+  still.push_back(joint1Move(0));
+  run(still);
+  ASSERT_EQ(still.size(), 2);
+  EXPECT_TRUE(still[0].isMoveInstruction());
+  EXPECT_FALSE(still[1].isMoveInstruction());
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, nonFiniteWaypointsAreRejected)  // NOLINT
+{
+  for (double bad : { std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity() })
+  {
+    CompositeInstruction program = joint1Program({ 0, bad, 1 });
+    EXPECT_FALSE(computeWithOverrideProfile(program)) << bad;
+  }
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, repeatedWaypointsLeaveNestedComposites)  // NOLINT
+{
+  // The second composite only repeats the first's end, so it is left empty
+  CompositeInstruction program;
+  program.push_back(joint1Program({ 0, 1 }));
+  program.push_back(joint1Program({ 1 }));
+  program.push_back(joint1Program({ 2, 2.0005 }));
+  ASSERT_TRUE(computeWithOverrideProfile(program));
+  expectTimedFromRestToRest(program);
+
+  ASSERT_EQ(program.size(), 3);
+  EXPECT_EQ(joint1Positions(program[0].as<CompositeInstruction>()), (std::vector<double>{ 0, 1 }));
+  EXPECT_TRUE(program[1].as<CompositeInstruction>().empty());
+  EXPECT_EQ(joint1Positions(program[2].as<CompositeInstruction>()), (std::vector<double>{ 2.0005 }));
+
+  // The goal is kept across composites
+  CompositeInstruction split;
+  split.push_back(joint1Program({ 0, 1 }));
+  split.push_back(joint1Program({ 1.0005 }));
+  ASSERT_TRUE(computeWithOverrideProfile(split));
+  expectTimedFromRestToRest(split);
+  EXPECT_EQ(joint1Positions(split[0].as<CompositeInstruction>()), (std::vector<double>{ 0 }));
+  EXPECT_EQ(joint1Positions(split[1].as<CompositeInstruction>()), (std::vector<double>{ 1.0005 }));
+
+  // ...unless I/O in between would then come ahead of the motion
+  CompositeInstruction blocked;
+  blocked.push_back(joint1Program({ 0, 1 }));
+  CompositeInstruction tail;
+  tail.push_back(SetDigitalInstruction("io", 0, true));
+  tail.push_back(joint1Move(1.0005));
+  blocked.push_back(tail);
+  ASSERT_TRUE(computeWithOverrideProfile(blocked));
+  expectTimedFromRestToRest(blocked);
+  EXPECT_EQ(joint1Positions(blocked[0].as<CompositeInstruction>()), (std::vector<double>{ 0, 1 }));
+  ASSERT_EQ(blocked[1].as<CompositeInstruction>().size(), 1);
+  EXPECT_FALSE(blocked[1].as<CompositeInstruction>().front().isMoveInstruction());
+}
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, assignDataEndsAtTheDuration)  // NOLINT
+{
+  const Path path({ Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0), Eigen::Vector2d(1, 1) }, 0.1);
+  const Trajectory trajectory(path, Eigen::Vector2d(1, 1), Eigen::Vector2d(1, 1));
+  ASSERT_TRUE(trajectory.isValid());
+
+  CompositeInstruction program;
+  for (const Eigen::Vector2d& q : { Eigen::Vector2d(0, 0), Eigen::Vector2d(1, 0), Eigen::Vector2d(1, 1) })
+    program.push_back(MoveInstruction(StateWaypoint({ "a", "b" }, q), MoveInstructionType::FREESPACE));
+  auto flattened = program.flatten(moveFilter);
+  InstructionsTrajectory waypoints(flattened);
+  ASSERT_TRUE(trajectory.assignData(waypoints, { 0, 1, 2 }));
+
+  const auto& last = program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+  expectSameBits(last.getTime(), trajectory.getDuration());
+  EXPECT_TRUE(last.getVelocity().isZero(0.0));
 }
 
 int main(int argc, char** argv)
