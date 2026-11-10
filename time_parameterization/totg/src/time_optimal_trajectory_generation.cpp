@@ -44,6 +44,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <Eigen/Geometry>
 #include <algorithm>
+#include <functional>
+#include <unordered_set>
 #include <cmath>
 #include <vector>
 #include <tesseract/common/logging.h>
@@ -53,6 +55,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
 #include <tesseract/time_parameterization/instructions_trajectory.h>
+#include <tesseract/command_language/composite_instruction.h>
+#include <tesseract/command_language/poly/instruction_poly.h>
 #include <tesseract/command_language/poly/move_instruction_poly.h>
 #include <tesseract/command_language/poly/state_waypoint_poly.h>
 #include <tesseract/common/kinematic_limits.h>
@@ -66,6 +70,67 @@ constexpr double EPS = 0.000001;
 
 namespace tesseract::time_parameterization
 {
+namespace
+{
+/** @brief Whether any non-move instruction lies between the moves moves[first] and moves[second] */
+bool hasInstructionsBetween(
+    const tesseract::command_language::CompositeInstruction& composite,
+    const std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>>& moves,
+    std::size_t first,
+    std::size_t second)
+{
+  const auto instructions = composite.flatten();
+  std::size_t move = 0;
+  std::size_t first_index{ 0 };
+  for (std::size_t i = 0; i < instructions.size() && move <= second; ++i)
+  {
+    if (&instructions[i].get() != &moves[move].get())
+      continue;
+    if (move == first)
+      first_index = i;
+    if (move == second)
+      return (i - first_index) != (second - first);
+    ++move;
+  }
+  return false;
+}
+
+/** @brief Remove the dropped instructions from the composite, at any depth */
+void pruneComposite(tesseract::command_language::CompositeInstruction& composite,
+                    const std::unordered_set<const tesseract::command_language::InstructionPoly*>& dropped)
+{
+  // Each element is tested at its own address before the vector holding it is replaced
+  std::vector<tesseract::command_language::InstructionPoly> remaining;
+  remaining.reserve(composite.size());
+  for (auto& instruction : composite)
+  {
+    if (instruction.isCompositeInstruction())
+      pruneComposite(instruction.as<tesseract::command_language::CompositeInstruction>(), dropped);
+    if (dropped.count(&instruction) == 0)
+      remaining.push_back(std::move(instruction));
+  }
+  composite.setInstructions(std::move(remaining));
+}
+
+/** @brief Remove from the composite, at any depth, every move in moves that is not listed in kept */
+void removeDroppedWaypoints(
+    tesseract::command_language::CompositeInstruction& composite,
+    const std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>>& moves,
+    const std::vector<std::size_t>& kept)
+{
+  if (kept.size() == moves.size())
+    return;
+
+  std::unordered_set<const tesseract::command_language::InstructionPoly*> dropped;
+  for (const auto& move : moves)
+    dropped.insert(&move.get());
+  for (std::size_t index : kept)
+    dropped.erase(&moves[index].get());
+
+  pruneComposite(composite, dropped);
+}
+}  // namespace
+
 TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(std::string name)
   : TimeParameterization(std::move(name))
 {
@@ -162,6 +227,12 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
       return false;
     }
 
+    if (!swp.getPosition().allFinite())
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, waypoint {} has a position that is not finite.", i);
+      return false;
+    }
+
     // Waypoints without joint ids are taken to be in the group's order
     if (!swp.getJointIds().empty() && swp.getJointIds() != group_joint_ids)
     {
@@ -191,47 +262,70 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
   }
 
   InstructionsTrajectory trajectory(flattened);
-  auto num_points = static_cast<std::size_t>(trajectory.size());
+  const auto num_points = static_cast<std::size_t>(trajectory.size());
+  const std::size_t last = num_points - 1;
 
   // This lib does not actually work properly when angles wrap around, so we need to unwind the path first
   //  trajectory.unwind(); /// @todo
 
-  // Have to convert into Eigen data structs and remove repeated points
-  //  (https://github.com/tobiaskunz/trajectories/issues/3)
-  std::list<Eigen::VectorXd> points;
-  std::vector<std::size_t> mapping;
-  for (Eigen::Index p = 0; p < static_cast<Eigen::Index>(num_points); ++p)
+  // A waypoint within min_angle_change of the last kept point in every joint repeats it
+  // (https://github.com/tobiaskunz/trajectories/issues/3), so the path gets one point per run of such waypoints, and
+  // the output keeps one waypoint per path point
+  const double min_angle_change = ci_profile->min_angle_change;
+  const auto repeats = [min_angle_change](const Eigen::VectorXd& a, const Eigen::VectorXd& b) {
+    return !((a - b).array().abs() > min_angle_change).any();
+  };
+  std::vector<Eigen::VectorXd> points;
+  std::vector<std::size_t> kept;
+  for (std::size_t p = 0; p < num_points; ++p)
   {
-    const Eigen::VectorXd& position = trajectory.getPosition(p);
-    bool diverse_point = (p == 0);
-
-    if (p > 0)
+    const Eigen::VectorXd& position = trajectory.getPosition(static_cast<Eigen::Index>(p));
+    if (p == 0 || !repeats(position, points.back()))
     {
-      const Eigen::VectorXd& prev_point = points.back();
-      for (Eigen::Index j = 0; j < num_joints; j++)
-      {
-        if (std::abs(position[j] - prev_point[j]) > ci_profile->min_angle_change)
-          diverse_point = true;
-      }
-    }
-
-    if (diverse_point)
       points.push_back(position);
-
-    // Need to store the index mapping for assignData
-    mapping.push_back(points.size() - 1);
+      kept.push_back(p);
+    }
   }
 
-  // Return trajectory with only the first waypoint if there are not multiple diverse points
+  // The goal is the last waypoint, so a final run keeps its last waypoint instead of its first
+  if (kept.back() != last)
+  {
+    const Eigen::VectorXd& goal = trajectory.getPosition(static_cast<Eigen::Index>(last));
+    if (points.size() > 1)
+    {
+      // The goal replaces the last kept point, and so does any point before that it then repeats, down to the point
+      // after the start
+      std::size_t first_replaced = points.size() - 1;
+      while (first_replaced > 1 && repeats(points[first_replaced - 1], goal))
+        --first_replaced;
+
+      // Dropping earlier waypoints for the goal must not move other instructions, such as I/O, ahead of the motion
+      if (!hasInstructionsBetween(composite_instruction, flattened, kept[first_replaced], last))
+      {
+        points.resize(first_replaced);
+        kept.resize(first_replaced);
+        points.push_back(goal);
+        kept.push_back(last);
+      }
+    }
+    else if ((goal.array() != points.front().array()).any())
+    {
+      // Every waypoint is within min_angle_change of the start, but the motion still ends somewhere else
+      points.push_back(goal);
+      kept.push_back(last);
+    }
+  }
+
+  // Nothing moves; the start stays, as callers that prepend a start waypoint remove the first again
   if (points.size() == 1)
   {
     TESSERACT_LOG_DEBUG("Trajectory is parameterized with 0.0 dynamics since it only contains a single distinct "
                         "waypoint.");
-
-    // Set velocity, acceleration and time to zero for all points in the trajectory.
-    for (long i = 0; i < trajectory.size(); ++i)
-      trajectory.setData(i, Eigen::VectorXd::Zero(num_joints), Eigen::VectorXd::Zero(num_joints), 0);
-
+    trajectory.setData(static_cast<Eigen::Index>(kept.front()),
+                       Eigen::VectorXd::Zero(num_joints),
+                       Eigen::VectorXd::Zero(num_joints),
+                       0);
+    removeDroppedWaypoints(composite_instruction, flattened, kept);
     return true;
   }
 
@@ -260,7 +354,11 @@ bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::Compo
     return false;
   }
 
-  return parameterized.assignData(trajectory, mapping);
+  if (!parameterized.assignData(trajectory, kept))
+    return false;
+
+  removeDroppedWaypoints(composite_instruction, flattened, kept);
+  return true;
 }
 
 namespace totg
@@ -1051,46 +1149,60 @@ bool Trajectory::isValid() const { return valid_; }
 
 double Trajectory::getDuration() const { return trajectory_.back().time_; }
 
-bool Trajectory::assignData(InstructionsTrajectory& trajectory, const std::vector<std::size_t>& mapping) const
+bool Trajectory::assignData(InstructionsTrajectory& trajectory, const std::vector<std::size_t>& kept) const
 {
   const auto& dist_mapping = path_.getMapping();
-  assert(trajectory.size() == static_cast<Eigen::Index>(mapping.size()));
-
-  // Set Start
-  PathData path_data = getPathData(0);
-  Eigen::VectorXd uv = getVelocity(path_data).head(trajectory.dof());
-  Eigen::VectorXd ua = getAcceleration(path_data).head(trajectory.dof());
-  double time{ 0 };
-  trajectory.setData(0, uv, ua, time);
-
-  // Set intermidiate points
-  double prev_time{ 0 };
-  for (Eigen::Index i = 1; i < trajectory.size(); ++i)
+  if (kept.size() != dist_mapping.size() || kept.size() < 2)
   {
-    std::size_t seg_idx = mapping[static_cast<std::size_t>(i)];
-
-    time = getTime(dist_mapping.at(seg_idx));
-    if (!(time > prev_time))
-      time = prev_time + 1e-8;
-
-    path_data = getPathData(time);
-    uv = getVelocity(path_data).head(trajectory.dof());
-    ua = getAcceleration(path_data).head(trajectory.dof());
-    trajectory.setData(i, uv, ua, time);
-
-    prev_time = time;
+    TESSERACT_LOG_ERROR(
+        "TimeOptimalTrajectoryGeneration, {} kept waypoints for a path of {} points", kept.size(), dist_mapping.size());
+    return false;
+  }
+  for (std::size_t j = 0; j < kept.size(); ++j)
+  {
+    if (kept[j] >= static_cast<std::size_t>(trajectory.size()) || (j > 0 && kept[j] <= kept[j - 1]))
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, kept waypoint indices must increase within the trajectory");
+      return false;
+    }
   }
 
-  // Set end
-  if (!(time > prev_time))
-    time = prev_time + 1e-8;
+  // Time every point before writing any, so a failure leaves the waypoints as they were
+  std::vector<double> times(kept.size());
+  std::vector<PathData> path_data(kept.size());
+  for (std::size_t j = 0; j < kept.size(); ++j)
+  {
+    // The first point is at the start and the last at the end, so only the points between are looked up
+    double time = 0.0;
+    if (j + 1 == kept.size())
+      time = getDuration();
+    else if (j > 0)
+      time = getTime(dist_mapping[j]);
+    path_data[j] = getPathData(time);
+    times[j] = time;
 
-  path_data = getPathData(time);
-  uv = getVelocity(path_data).head(trajectory.dof());
-  ua = getAcceleration(path_data).head(trajectory.dof());
-  trajectory.setData((trajectory.size() - 1), uv, ua, time);
+    // Written as a negation so a NaN time fails too
+    if (j > 0 && !(times[j] > times[j - 1]))
+    {
+      TESSERACT_LOG_ERROR("TimeOptimalTrajectoryGeneration, waypoint {} is timed at {}, not after the previous one at "
+                          "{}",
+                          kept[j],
+                          times[j],
+                          times[j - 1]);
+      return false;
+    }
+  }
 
-  assert(trajectory.isTimeStrictlyIncreasing());
+  // The path ends at rest at the last waypoint
+  path_data.back().path_vel = 0.0;
+
+  for (std::size_t j = 0; j < kept.size(); ++j)
+  {
+    trajectory.setData(static_cast<Eigen::Index>(kept[j]),
+                       getVelocity(path_data[j]).head(trajectory.dof()),
+                       getAcceleration(path_data[j]).head(trajectory.dof()),
+                       times[j]);
+  }
   return true;
 }
 
