@@ -41,6 +41,8 @@ check_duality_gap: false
 eps_duality_gap_abs: 2e-7
 eps_duality_gap_rel: 3e-8
 infeasibility_threshold: 0.8
+eps_primal_inf: 2e-5
+eps_dual_inf: 3e-5
 reg_lower_limit: 2e-10
 reg_finetune_lower_limit: 3e-13
 reg_finetune_primal_update_threshold: 5
@@ -52,6 +54,7 @@ preconditioner_reuse_on_update: true
 preconditioner_iter: 3
 tau: 0.95
 kkt_solver: sparse_ldlt_ineq_cond
+num_threads: 2
 iterative_refinement_always_enabled: true
 iterative_refinement_eps_abs: 2e-12
 iterative_refinement_eps_rel: 3e-12
@@ -75,6 +78,8 @@ inline piqp::Settings<double> piqpAllSettings()
   settings.eps_duality_gap_abs = 2e-7;
   settings.eps_duality_gap_rel = 3e-8;
   settings.infeasibility_threshold = 0.8;
+  settings.eps_primal_inf = 2e-5;
+  settings.eps_dual_inf = 3e-5;
   settings.reg_lower_limit = 2e-10;
   settings.reg_finetune_lower_limit = 3e-13;
   settings.reg_finetune_primal_update_threshold = 5;
@@ -86,6 +91,7 @@ inline piqp::Settings<double> piqpAllSettings()
   settings.preconditioner_iter = 3;
   settings.tau = 0.95;
   settings.kkt_solver = piqp::KKTSolver::sparse_ldlt_ineq_cond;
+  settings.num_threads = 2;
   settings.iterative_refinement_always_enabled = true;
   settings.iterative_refinement_eps_abs = 2e-12;
   settings.iterative_refinement_eps_rel = 3e-12;
