@@ -252,6 +252,7 @@ struct convert<trajopt_sqp::SQPParameters>
     node["initial_merit_error_coeff"] = rhs.initial_merit_error_coeff;
     node["inflate_constraints_individually"] = rhs.inflate_constraints_individually;
     node["sum_constraint_set_violations"] = rhs.sum_constraint_set_violations;
+    node["qp_row_reduction"] = rhs.qp_row_reduction;
     node["initial_trust_box_size"] = rhs.initial_trust_box_size;
     node["log_results"] = rhs.log_results;
     node["log_dir"] = rhs.log_dir;
@@ -291,6 +292,8 @@ struct convert<trajopt_sqp::SQPParameters>
       rhs.inflate_constraints_individually = n.as<bool>();
     if (const YAML::Node& n = node["sum_constraint_set_violations"])
       rhs.sum_constraint_set_violations = n.as<bool>();
+    if (const YAML::Node& n = node["qp_row_reduction"])
+      rhs.qp_row_reduction = n.as<bool>();
     if (const YAML::Node& n = node["initial_trust_box_size"])
       rhs.initial_trust_box_size = n.as<double>();
     if (const YAML::Node& n = node["log_results"])

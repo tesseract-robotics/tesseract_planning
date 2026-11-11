@@ -80,6 +80,7 @@ void serialize(Archive& ar, SQPParameters& obj)
   ar(cereal::make_nvp("initial_merit_error_coeff", obj.initial_merit_error_coeff));
   ar(cereal::make_nvp("inflate_constraints_individually", obj.inflate_constraints_individually));
   ar(cereal::make_nvp("sum_constraint_set_violations", obj.sum_constraint_set_violations));
+  ar(cereal::make_nvp("qp_row_reduction", obj.qp_row_reduction));
   ar(cereal::make_nvp("trust_box_size", obj.initial_trust_box_size));
   ar(cereal::make_nvp("log_results", obj.log_results));
   ar(cereal::make_nvp("log_dir", obj.log_dir));
