@@ -21,6 +21,8 @@ void serialize(Archive& ar, TimeOptimalTrajectoryGenerationCompositeProfile& obj
   ar(cereal::make_nvp("acceleration_limits", obj.acceleration_limits));
   ar(cereal::make_nvp("max_velocity_scaling_factor", obj.max_velocity_scaling_factor));
   ar(cereal::make_nvp("max_acceleration_scaling_factor", obj.max_acceleration_scaling_factor));
+  ar(cereal::make_nvp("use_start_velocity", obj.use_start_velocity));
+  ar(cereal::make_nvp("use_end_velocity", obj.use_end_velocity));
 }
 
 }  // namespace tesseract::time_parameterization
