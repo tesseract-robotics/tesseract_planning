@@ -47,6 +47,8 @@ public:
 
   /**
    * @brief Compute the time stamps for a flattened vector of move instruction
+   * @details An implementation may also remove move instructions, such as ones that repeat the one before, so the
+   * program can come back with fewer of them
    * @param composite_instruction The composite instruction
    * @param env The environment
    * @param profiles The profile dictionary
