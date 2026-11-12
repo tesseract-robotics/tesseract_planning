@@ -61,6 +61,11 @@ bool TimeOptimalTrajectoryGenerationCompositeProfile::operator==(
       max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
   equal &= tesseract::common::almostEqualRelativeAndAbs(path_tolerance, rhs.path_tolerance, max_diff);
   equal &= tesseract::common::almostEqualRelativeAndAbs(min_angle_change, rhs.min_angle_change, max_diff);
+  equal &= (use_start_velocity == rhs.use_start_velocity);
+  equal &= (use_end_velocity == rhs.use_end_velocity);
+  // Exact, so that a small upsample_dt does not compare equal to none
+  equal &= (upsample_dt == rhs.upsample_dt);
+  equal &= (upsample_num_waypoints == rhs.upsample_num_waypoints);
   return equal;
 }
 
