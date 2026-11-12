@@ -124,10 +124,13 @@ void OnlinePlanningExample::updateState(const std::vector<tesseract::common::Joi
     //        Eigen::Vector3d(joint_state->position[10], joint_state->position[11], joint_state->position[12]));
     target_pose_constraint_->setTargetPose(target_pose_base_frame_ * target_pose_delta_);
 
-    plotter_->clear();
-    tesseract::visualization::AxisMarker am(target_pose_base_frame_ * target_pose_delta_);
-    am.setScale(Eigen::Vector3d::Constant(0.3));
-    plotter_->plotMarker(am);
+    if (plotter_ != nullptr)
+    {
+      plotter_->clear();
+      tesseract::visualization::AxisMarker am(target_pose_base_frame_ * target_pose_delta_);
+      am.setScale(Eigen::Vector3d::Constant(0.3));
+      plotter_->plotMarker(am);
+    }
   }
 }
 
@@ -296,8 +299,11 @@ void OnlinePlanningExample::updateAndPlotTrajectory(const Eigen::VectorXd& osqp_
   player_.setTrajectory(joint_traj);
 
   // Display Results
-  auto state_solver = env_->getStateSolver();
-  plotter_->plotTrajectory(joint_traj, *state_solver);
+  if (plotter_ != nullptr)
+  {
+    auto state_solver = env_->getStateSolver();
+    plotter_->plotTrajectory(joint_traj, *state_solver);
+  }
 }
 
 bool OnlinePlanningExample::onlinePlan()
@@ -312,18 +318,29 @@ bool OnlinePlanningExample::onlinePlan()
   solver.solve(nlp_);
   Eigen::VectorXd x = solver.getResults().best_var_vals;
   updateAndPlotTrajectory(x);
-  plotter_->waitForInput("View global trajectory. Hit enter to run online planner.");
+  if (plotter_ != nullptr)
+    plotter_->waitForInput("View global trajectory. Hit enter to run online planner.");
 
   solver.params.initial_trust_box_size = box_size_;
   solver.init(nlp_);
 
   tesseract::common::getLogger()->set_level(spdlog::level::info);
 
+  // Without a visualizer nothing can call toggleRealtime(false), so cap the number of online iterations
+  constexpr int max_headless_iterations = 20;
+  int online_iteration = 0;
+
   using namespace std::chrono;
   auto user_input_start = steady_clock::now();
   auto prev_start = steady_clock::now();
   while (realtime_running_)
   {
+    if (plotter_ == nullptr && online_iteration++ >= max_headless_iterations)
+    {
+      realtime_running_ = false;
+      break;
+    }
+
     auto start = steady_clock::now();
     auto dt = 0.01 * std::chrono::duration<double>(start - prev_start).count();
     prev_start = start;
@@ -388,8 +405,8 @@ bool OnlinePlanningExample::onlinePlan()
     // Update manipulator joint values and plot trajectory
     updateAndPlotTrajectory(x);
 
-    // Wait for user input every 5 seconds to allow viewing the trajectory
-    if (std::chrono::duration<double>(steady_clock::now() - user_input_start).count() > 10)
+    // Wait for user input every 10 seconds to allow viewing the trajectory
+    if (plotter_ != nullptr && std::chrono::duration<double>(steady_clock::now() - user_input_start).count() > 10)
     {
       plotter_->waitForInput("Pausing to allow viewing of trajectory. Hit enter to continue online planner.");
       user_input_start = steady_clock::now();

@@ -93,6 +93,7 @@ public:
 
   /**
    * @brief Runs the online planning process, occasionally checking ROS callbacks until realtime_running_ = false
+   * @details Without a plotter nothing can stop the loop externally, so it ends after a fixed number of iterations
    * @return True if successful
    */
   bool onlinePlan();
