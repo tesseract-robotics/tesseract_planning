@@ -24,7 +24,6 @@
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/SpaceInformation.h>
-#include <thread>
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -46,41 +45,31 @@ StateCollisionValidator::StateCollisionValidator(
     OMPLStateExtractor extractor)
   : StateValidityChecker(space_info)
   , manip_(std::move(manip))
-  , contact_manager_(env.getDiscreteContactManager())
   , link_ids_(manip_->getActiveLinkIds())
   , extractor_(std::move(extractor))
 {
-  contact_manager_->setActiveCollisionObjects(link_ids_);
-  contact_manager_->applyContactManagerConfig(contact_manager_config);
+  std::unique_ptr<tesseract::collision::DiscreteContactManager> contact_manager = env.getDiscreteContactManager();
+  contact_manager->setActiveCollisionObjects(link_ids_);
+  contact_manager->applyContactManagerConfig(contact_manager_config);
+
+  // Each checking thread gets its own clone of the configured manager
+  contact_managers_ =
+      std::make_unique<tesseract::collision::PerThreadDiscreteContactManager>(std::move(contact_manager));
 }
 
 bool StateCollisionValidator::isValid(const ompl::base::State* state) const
 {
-  // It was time using chronos time elapsed and it was faster to cache the contact manager
-  unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
-  tesseract::collision::DiscreteContactManager::Ptr cm;
-  mutex_.lock();
-  auto it = contact_managers_.find(hash);
-  if (it == contact_managers_.end())
-  {
-    cm = contact_manager_->clone();
-    contact_managers_[hash] = cm;
-  }
-  else
-  {
-    cm = it->second;
-  }
-  mutex_.unlock();
+  tesseract::collision::DiscreteContactManager& cm = contact_managers_->get();
 
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
   TESSERACT_THREAD_LOCAL tesseract::common::LinkIdTransformMap state1;
   state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
-  cm->setCollisionObjectsTransform(link_ids_, state1);
+  cm.setCollisionObjectsTransform(link_ids_, state1);
 
   tesseract::collision::ContactResultMap contact_map;
-  cm->contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
+  cm.contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
 
   return contact_map.empty();
 }
