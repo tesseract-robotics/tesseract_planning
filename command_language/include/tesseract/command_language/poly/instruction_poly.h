@@ -30,8 +30,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/core/demangle.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <string>
 #include <memory>
+#include <stdexcept>
+#include <string>
 #include <typeindex>
 #include <tesseract/common/fwd.h>
 
