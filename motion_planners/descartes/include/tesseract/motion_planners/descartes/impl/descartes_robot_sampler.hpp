@@ -229,6 +229,12 @@ void DescartesRobotSampler<FloatType>::print(std::ostream& os) const
   os << "Error string:\n" << error_string_;
 }
 
+template <typename FloatType>
+const std::string& DescartesRobotSampler<FloatType>::getErrorString() const
+{
+  return error_string_;
+}
+
 }  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_ROBOT_SAMPLER_HPP
