@@ -26,7 +26,6 @@
 
 #include <tesseract/common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <thread>
 #include <cassert>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -50,8 +49,6 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
     bool debug)
   : manip_(std::move(manip))
   , active_link_ids_(manip_->getActiveLinkIds())
-  , discrete_contact_manager_(collision_env.getDiscreteContactManager())
-  , continuous_contact_manager_(collision_env.getContinuousContactManager())
   , collision_check_config_(std::move(collision_check_config))
   , allow_collision_(allow_collision)
   , debug_(debug)
@@ -59,11 +56,16 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
   collision_check_config_.contact_request.type = (allow_collision_) ? tesseract::collision::ContactTestType::CLOSEST :
                                                                       tesseract::collision::ContactTestType::FIRST;
 
-  if (discrete_contact_manager_ != nullptr)
+  std::unique_ptr<tesseract::collision::DiscreteContactManager> discrete_contact_manager =
+      collision_env.getDiscreteContactManager();
+  if (discrete_contact_manager != nullptr)
   {
-    discrete_contact_manager_->setActiveCollisionObjects(active_link_ids_);
-    discrete_contact_manager_->applyContactManagerConfig(contact_manager_config);
-    contact_margin_data_ = discrete_contact_manager_->getCollisionMarginData();
+    discrete_contact_manager->setActiveCollisionObjects(active_link_ids_);
+    discrete_contact_manager->applyContactManagerConfig(contact_manager_config);
+    contact_margin_data_ = discrete_contact_manager->getCollisionMarginData();
+    // Each evaluating thread gets its own clone of the configured manager
+    discrete_contact_managers_ =
+        std::make_unique<tesseract::collision::PerThreadDiscreteContactManager>(std::move(discrete_contact_manager));
   }
   else if (collision_check_config_.type == tesseract::collision::CollisionEvaluatorType::DISCRETE ||
            collision_check_config_.type == tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE)
@@ -72,11 +74,16 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
                              "available");
   }
 
-  if (continuous_contact_manager_ != nullptr)
+  std::unique_ptr<tesseract::collision::ContinuousContactManager> continuous_contact_manager =
+      collision_env.getContinuousContactManager();
+  if (continuous_contact_manager != nullptr)
   {
-    continuous_contact_manager_->setActiveCollisionObjects(active_link_ids_);
-    continuous_contact_manager_->applyContactManagerConfig(contact_manager_config);
-    contact_margin_data_ = continuous_contact_manager_->getCollisionMarginData();
+    continuous_contact_manager->setActiveCollisionObjects(active_link_ids_);
+    continuous_contact_manager->applyContactManagerConfig(contact_manager_config);
+    contact_margin_data_ = continuous_contact_manager->getCollisionMarginData();
+    // Each evaluating thread gets its own clone of the configured manager
+    continuous_contact_managers_ = std::make_unique<tesseract::collision::PerThreadContinuousContactManager>(
+        std::move(continuous_contact_manager));
   }
   else if (collision_check_config_.type == tesseract::collision::CollisionEvaluatorType::CONTINUOUS ||
            collision_check_config_.type == tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS)
@@ -140,23 +147,9 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck(
     std::vector<tesseract::collision::ContactResultMap>& results,
     const tesseract::common::TrajArray& segment) const
 {
-  // It was time using chronos time elapsed and it was faster to cache the contact manager
-  unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
-  tesseract::collision::ContinuousContactManager::Ptr cm;
-  mutex_.lock();
-  auto it = continuous_contact_managers_.find(hash);
-  if (it == continuous_contact_managers_.end())
-  {
-    cm = continuous_contact_manager_->clone();
-    continuous_contact_managers_[hash] = cm;
-  }
-  else
-  {
-    cm = it->second;
-  }
-  mutex_.unlock();
+  tesseract::collision::ContinuousContactManager& cm = continuous_contact_managers_->get();
 
-  return tesseract::environment::checkTrajectory(results, *cm, *manip_, segment, collision_check_config_);
+  return tesseract::environment::checkTrajectory(results, cm, *manip_, segment, collision_check_config_);
 }
 
 template <typename FloatType>
@@ -164,23 +157,9 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck(
     std::vector<tesseract::collision::ContactResultMap>& results,
     const tesseract::common::TrajArray& segment) const
 {
-  // It was time using chronos time elapsed and it was faster to cache the contact manager
-  unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
-  tesseract::collision::DiscreteContactManager::Ptr cm;
-  mutex_.lock();
-  auto it = discrete_contact_managers_.find(hash);
-  if (it == discrete_contact_managers_.end())
-  {
-    cm = discrete_contact_manager_->clone();
-    discrete_contact_managers_[hash] = cm;
-  }
-  else
-  {
-    cm = it->second;
-  }
-  mutex_.unlock();
+  tesseract::collision::DiscreteContactManager& cm = discrete_contact_managers_->get();
 
-  return tesseract::environment::checkTrajectory(results, *cm, *manip_, segment, collision_check_config_);
+  return tesseract::environment::checkTrajectory(results, cm, *manip_, segment, collision_check_config_);
 }
 
 }  // namespace tesseract::motion_planners

@@ -28,8 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/StateValidityChecker.h>
 #include <vector>
-#include <map>
-#include <mutex>
+#include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract/motion_planners/ompl/types.h>
@@ -38,6 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract/environment/fwd.h>
 #include <tesseract/kinematics/fwd.h>
 #include <tesseract/collision/fwd.h>
+#include <tesseract/collision/per_thread_contact_manager.h>
 
 namespace ompl::base
 {
@@ -63,25 +63,17 @@ private:
   /** @brief The Tesseract Joint Group */
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip_;
 
-  /** @brief The discrete contact manager used for creating cached discrete contact managers. */
-  std::shared_ptr<tesseract::collision::DiscreteContactManager> contact_manager_;
-
   /** @brief A list of active link IDs */
   std::vector<tesseract::common::LinkId> link_ids_;
 
   /** @brief This will extract an Eigen::VectorXd from the OMPL State */
   OMPLStateExtractor extractor_;
 
-  // The items below are to cache the contact manager based on thread ID. Currently ompl is multi
-  // threaded but the methods used to implement collision checking are not thread safe. To prevent
-  // reconstructing the collision environment for every check this will cache a contact manager
-  // based on its thread ID.
-
-  /** @brief Contact manager caching mutex */
-  mutable std::mutex mutex_;
-
-  /** @brief The discrete contact manager cache */
-  mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::DiscreteContactManager>> contact_managers_;
+  /**
+   * @brief Each thread's own clone of the configured discrete contact manager
+   * @details OMPL may check states from several threads at once, and a contact manager is not thread safe.
+   */
+  std::unique_ptr<tesseract::collision::PerThreadDiscreteContactManager> contact_managers_;
 };
 
 }  // namespace tesseract::motion_planners
