@@ -131,15 +131,19 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
 
   std::shared_ptr<const tesseract::kinematics::JointGroup> manip = env->getJointGroup(manip_info.manipulator);
 
-  // Add a collision cost for all steps
+  // Add a collision cost for all steps. Every constraint of this call shares one evaluator: each evaluator clones a
+  // contact manager, and the evaluators hold no per-step state (results are cached per constraint).
   if (config.collision_check_config.type == tesseract::collision::CollisionEvaluatorType::DISCRETE)
   {
+    std::shared_ptr<trajopt_ifopt::SingleTimestepCollisionEvaluator> collision_evaluator;
     for (std::size_t i = 0; i < vars.size(); ++i)
     {
       if (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end())
         continue;
 
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(manip, env, config);
+      // Built on the first free step, so a fully fixed program clones no contact manager
+      if (collision_evaluator == nullptr)
+        collision_evaluator = std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(manip, env, config);
 
       constraints.push_back(std::make_shared<trajopt_ifopt::DiscreteCollisionConstraintD>(
           collision_evaluator, vars[i], "DiscreteCollision_" + std::to_string(i)));
@@ -147,12 +151,14 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
   }
   else if (config.collision_check_config.type == tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
+    if (vars.size() < 2)
+      return constraints;
+
+    auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(manip, env, config);
     bool time0_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), 0) != fixed_indices.end());
     for (std::size_t i = 1; i < vars.size(); ++i)
     {
       bool time1_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end());
-
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(manip, env, config);
 
       std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars{ vars[i - 1], vars[i] };
       constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraintD>(
@@ -171,12 +177,14 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
                                                                                                                "Continu"
                                                                                                                "ousColl"
                                                                                                                "ision_";
+    if (vars.size() < 2)
+      return constraints;
+
+    auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSContinuousCollisionEvaluator>(manip, env, config);
     bool time0_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), 0) != fixed_indices.end());
     for (std::size_t i = 1; i < vars.size(); ++i)
     {
       bool time1_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end());
-
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSContinuousCollisionEvaluator>(manip, env, config);
 
       std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars{ vars[i - 1], vars[i] };
       constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraintD>(
