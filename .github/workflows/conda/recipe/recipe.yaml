@@ -51,9 +51,9 @@ requirements:
       - qpoases
       - ompl
       - taskflow <4
+      - piqp 0.7.*
       - if: unix
         then:
-          - piqp 0.6.*
           - xorg-libx11
           - xorg-libxext
           - gperftools
@@ -80,9 +80,9 @@ requirements:
       - osqp-eigen
       - qpoases
       - ompl
+      - piqp 0.7.*
       - if: unix
         then:
-          - piqp 0.6.*
           - xorg-libx11
           - xorg-libxext
           - gperftools
