@@ -69,7 +69,7 @@ public:
   void print(std::ostream& os) const override;
 
   /** @brief Why the last sample() call found no valid state, or a success note; empty before sampling */
-  const std::string& getErrorString() const { return error_string_; }
+  const std::string& getErrorString() const;
 
 private:
   /** @brief The target pose working frame */
