@@ -177,6 +177,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSpline)  // NOLINT
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_EQ(time_parameterization.getName(), name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 
   // Error
@@ -208,6 +209,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineAddPoints)  // NO
   // Solve
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
@@ -246,6 +248,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineDynamicParams)  /
 
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
   EXPECT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 
   // Solve
@@ -253,6 +256,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineDynamicParams)  /
   program.setManipulatorInfo(manip_);
   program.getFirstMoveInstruction()->setProfile("FIRST_MOVE_KEY");
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
 }
 
 TEST_F(IterativeSplineParameterizationUnit, TestRepeatedPoint)  // NOLINT
@@ -278,6 +282,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestRepeatedPoint)  // NOLINT
   // Solve
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
 }
 
@@ -306,6 +311,7 @@ TEST_F(IterativeSplineParameterizationUnit, TestEnforceMinimumDelta)
   // Solve
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+  EXPECT_TRUE(InstructionsTrajectory(program).isTimeStrictlyIncreasing());
 
   // THEN the timestamp of the first trajectory point is greater than or equal to the minimum time delta
   ASSERT_GE(program[1].as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
@@ -314,6 +320,91 @@ TEST_F(IterativeSplineParameterizationUnit, TestEnforceMinimumDelta)
   // previous trajectory point
   ASSERT_GE(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
             profile->minimum_time_delta * static_cast<double>(program.size() - 1));
+}
+
+TEST_F(IterativeSplineParameterizationUnit, TestScalingFactorErrorsNameTheirFactor)  // NOLINT
+{
+  auto run = [this](const tesseract::common::ProfileDictionary& profiles) -> std::string {
+    CompositeInstruction program = createStraightTrajectory();
+    program.setManipulatorInfo(manip_);
+    IterativeSplineParameterization time_parameterization(name_);
+    try
+    {
+      time_parameterization.compute(program, *env_, profiles);
+    }
+    catch (const std::exception& e)
+    {
+      return e.what();
+    }
+    return {};
+  };
+
+  auto composite_profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+  composite_profile->max_acceleration_scaling_factor = 0.0;
+  tesseract::common::ProfileDictionary composite_profiles;
+  composite_profiles.addProfile(name_, DEFAULT_PROFILE_KEY, composite_profile);
+  std::string message = run(composite_profiles);
+  EXPECT_NE(message.find("acceleration scale factor"), std::string::npos) << message;
+
+  auto move_profile = std::make_shared<IterativeSplineParameterizationMoveProfile>();
+  move_profile->max_acceleration_scaling_factor = 0.0;
+  tesseract::common::ProfileDictionary move_profiles;
+  move_profiles.addProfile(name_, DEFAULT_PROFILE_KEY, move_profile);
+  message = run(move_profiles);
+  EXPECT_NE(message.find("acceleration scale factor"), std::string::npos) << message;
+}
+
+TEST_F(IterativeSplineParameterizationUnit, TestLimitRowsMustMatchTheJointCount)  // NOLINT
+{
+  auto profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::RowVector2d(-1, 1).replicate(5, 1);
+  profile->acceleration_limits = Eigen::RowVector2d(-1, 1).replicate(6, 1);
+  tesseract::common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+  IterativeSplineParameterization time_parameterization(name_);
+  EXPECT_FALSE(time_parameterization.compute(program, *env_, profiles));
+
+  std::swap(profile->velocity_limits, profile->acceleration_limits);
+  program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+  EXPECT_FALSE(time_parameterization.compute(program, *env_, profiles));
+}
+
+TEST_F(IterativeSplineParameterizationUnit, TestWaypointJointsMustMatchTheGroup)  // NOLINT
+{
+  auto run = [this](CompositeInstruction program) {
+    program.setManipulatorInfo(manip_);
+    IterativeSplineParameterization time_parameterization(name_);
+    return time_parameterization.compute(program, *env_, tesseract::common::ProfileDictionary());
+  };
+  auto waypoint = [](CompositeInstruction& program, std::size_t i) -> StateWaypointPoly& {
+    return program[i].as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+  };
+
+  EXPECT_TRUE(run(createStraightTrajectory()));
+
+  // Waypoints without ids are checked on their size alone
+  CompositeInstruction program = createStraightTrajectory();
+  for (std::size_t i = 0; i < program.size(); ++i)
+    waypoint(program, i).setJointIds({});
+  EXPECT_TRUE(run(program));
+
+  // Set through the setters: the constructor rejects ids that do not match the positions in size
+  program = createStraightTrajectory();
+  waypoint(program, 5).setPosition(Eigen::VectorXd::Zero(5));
+  EXPECT_FALSE(run(program));
+
+  program = createStraightTrajectory();
+  waypoint(program, 5).setJointIds({ "joint_2", "joint_1", "joint_3", "joint_4", "joint_5", "joint_6" });
+  EXPECT_FALSE(run(program));
+
+  program = createStraightTrajectory();
+  waypoint(program, 5).setJointIds({ "j1", "j2", "j3", "j4", "j5", "j6" });
+  EXPECT_FALSE(run(program));
 }
 
 int main(int argc, char** argv)
