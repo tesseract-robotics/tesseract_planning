@@ -27,6 +27,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/variable_sets/nodes_variables.h>
 #include <trajopt_ifopt/variable_sets/node.h>
 #include <trajopt_ifopt/variable_sets/var.h>
+#include <trajopt_ifopt/utils/ifopt_utils.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/trajopt_qp_problem.h>
 #include <cassert>
@@ -114,9 +115,13 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
     // Create waypoint info
     TrajOptIfoptWaypointInfo wp_info = cur_move_profile->create(move_instruction, composite_mi, request.env, i);
 
-    // Update fixed steps
+    // Update fixed steps and hold the node's position at its initial value
     if (wp_info.fixed)
+    {
       fixed_steps.push_back(i);
+      const Eigen::VectorXd position = wp_info.node->getVar("position")->value();
+      wp_info.node->setVarBounds("position", trajopt_ifopt::toBounds(position, position));
+    }
 
     // Add Node
     nodes.emplace_back(std::move(wp_info.node));

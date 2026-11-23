@@ -55,6 +55,8 @@ struct TrajOptIfoptWaypointInfo
 {
   TrajOptIfoptTermInfos term_infos;
   std::unique_ptr<trajopt_ifopt::Node> node;
+  /** @brief The planner holds the node's position variable at its initial value and collision terms treat it as
+   * constant */
   bool fixed{ false };
 };
 
