@@ -33,7 +33,6 @@ using namespace tesseract::motion_planners;
 using namespace tesseract::command_language;
 
 static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
-static const double PIN_TOL = 1e-4;
 
 class TesseractPlanningTrajOptIfoptUnit : public ::testing::Test
 {
@@ -145,8 +144,9 @@ TEST_F(TesseractPlanningTrajOptIfoptUnit, FixedStateWaypointsHeldWithoutJointCon
   for (const auto& solver : solverProfiles())
   {
     PlannerResponse response = solve(interpolated, solver, profiles);
-    EXPECT_LE((resultPosition(response, 0) - q0).cwiseAbs().maxCoeff(), PIN_TOL);
-    EXPECT_LE((resultPosition(response, mid_index) - qm).cwiseAbs().maxCoeff(), PIN_TOL);
+    EXPECT_TRUE(response.successful);
+    EXPECT_TRUE((resultPosition(response, 0).array() == q0.array()).all());
+    EXPECT_TRUE((resultPosition(response, mid_index).array() == qm.array()).all());
   }
 }
 
@@ -165,8 +165,8 @@ TEST_F(TesseractPlanningTrajOptIfoptUnit, DefaultJointWaypointsHeld)  // NOLINT
     PlannerResponse response = solve(interpolated, solver, profiles);
     EXPECT_TRUE(response.successful);
     const std::size_t last = response.results.flatten(&moveFilter).size() - 1;
-    EXPECT_LE((resultPosition(response, 0) - q0).cwiseAbs().maxCoeff(), PIN_TOL);
-    EXPECT_LE((resultPosition(response, last) - q1).cwiseAbs().maxCoeff(), PIN_TOL);
+    EXPECT_TRUE((resultPosition(response, 0).array() == q0.array()).all());
+    EXPECT_TRUE((resultPosition(response, last).array() == q1.array()).all());
   }
 }
 

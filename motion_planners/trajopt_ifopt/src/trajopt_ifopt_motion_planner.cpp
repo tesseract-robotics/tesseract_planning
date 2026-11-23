@@ -206,14 +206,18 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
 
   // Get the results - This can likely be simplified if we get rid of the traj array
-  Eigen::VectorXd x = nlp->getVariableValues();
+  // The solver meets bounds only to its tolerance; return values inside them.
+  const Eigen::VectorXd x_raw = nlp->getVariableValues();
+  Eigen::VectorXd x = trajopt_ifopt::getClosestValidPoint(x_raw, variables->getBounds());
+  assert((x - x_raw).lpNorm<Eigen::Infinity>() <= 1e-4);
   Eigen::Map<tesseract::common::TrajArray> traj(
       x.data(), static_cast<Eigen::Index>(move_instructions.size()), manip->numJoints());
+  const Eigen::Map<const tesseract::common::TrajArray> traj_raw(x_raw.data(), traj.rows(), traj.cols());
 
-  // Enforce limits
+  // Enforce limits; the raw solution must lie within them to the solver tolerance
   for (Eigen::Index i = 0; i < traj.rows(); i++)
   {
-    assert(tesseract::common::satisfiesLimits<double>(traj.row(i), joint_limits, 1e-4));
+    assert(tesseract::common::satisfiesLimits<double>(traj_raw.row(i), joint_limits, 1e-4));
     tesseract::common::enforceLimits<double>(traj.row(i), joint_limits);
   }
 
