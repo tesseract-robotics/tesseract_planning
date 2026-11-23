@@ -27,6 +27,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/variable_sets/nodes_variables.h>
 #include <trajopt_ifopt/variable_sets/node.h>
 #include <trajopt_ifopt/variable_sets/var.h>
+#include <trajopt_ifopt/utils/ifopt_utils.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/trajopt_qp_problem.h>
 #include <cassert>
@@ -114,9 +115,13 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
     // Create waypoint info
     TrajOptIfoptWaypointInfo wp_info = cur_move_profile->create(move_instruction, composite_mi, request.env, i);
 
-    // Update fixed steps
+    // Update fixed steps and hold the node's position at its initial value
     if (wp_info.fixed)
+    {
       fixed_steps.push_back(i);
+      const Eigen::VectorXd position = wp_info.node->getVar("position")->value();
+      wp_info.node->setVarBounds("position", trajopt_ifopt::toBounds(position, position));
+    }
 
     // Add Node
     nodes.emplace_back(std::move(wp_info.node));
@@ -201,14 +206,18 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
 
   // Get the results - This can likely be simplified if we get rid of the traj array
-  Eigen::VectorXd x = nlp->getVariableValues();
+  // The solver meets bounds only to its tolerance; return values inside them.
+  const Eigen::VectorXd x_raw = nlp->getVariableValues();
+  Eigen::VectorXd x = trajopt_ifopt::getClosestValidPoint(x_raw, variables->getBounds());
+  assert((x - x_raw).lpNorm<Eigen::Infinity>() <= 1e-4);
   Eigen::Map<tesseract::common::TrajArray> traj(
       x.data(), static_cast<Eigen::Index>(move_instructions.size()), manip->numJoints());
+  const Eigen::Map<const tesseract::common::TrajArray> traj_raw(x_raw.data(), traj.rows(), traj.cols());
 
-  // Enforce limits
+  // Enforce limits; the raw solution must lie within them to the solver tolerance
   for (Eigen::Index i = 0; i < traj.rows(); i++)
   {
-    assert(tesseract::common::satisfiesLimits<double>(traj.row(i), joint_limits, 1e-4));
+    assert(tesseract::common::satisfiesLimits<double>(traj_raw.row(i), joint_limits, 1e-4));
     tesseract::common::enforceLimits<double>(traj.row(i), joint_limits);
   }
 

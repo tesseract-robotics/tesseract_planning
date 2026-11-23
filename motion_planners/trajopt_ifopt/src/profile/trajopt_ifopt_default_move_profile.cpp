@@ -235,8 +235,7 @@ TrajOptIfoptDefaultMoveProfile::create(const tesseract::command_language::MoveIn
       jwp = move_instruction.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
       if (jwp.isConstrained())
       {
-        // Add to fixed indices if constraint config is enabled and not toleranced to prevent collision checks at this
-        // state during planning
+        // Mark as fixed when the waypoint is an exact requirement
         if (!jwp.isToleranced() && joint_constraint_config.enabled)
           info.fixed = true;
       }
