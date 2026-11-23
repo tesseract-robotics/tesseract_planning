@@ -57,6 +57,8 @@ inline bool operator==(const piqp::Settings<double>& lhs, const piqp::Settings<d
   equal &= near(lhs.eps_duality_gap_abs, rhs.eps_duality_gap_abs);
   equal &= near(lhs.eps_duality_gap_rel, rhs.eps_duality_gap_rel);
   equal &= near(lhs.infeasibility_threshold, rhs.infeasibility_threshold);
+  equal &= near(lhs.eps_primal_inf, rhs.eps_primal_inf);
+  equal &= near(lhs.eps_dual_inf, rhs.eps_dual_inf);
   equal &= near(lhs.reg_lower_limit, rhs.reg_lower_limit);
   equal &= near(lhs.reg_finetune_lower_limit, rhs.reg_finetune_lower_limit);
   equal &= (lhs.reg_finetune_primal_update_threshold == rhs.reg_finetune_primal_update_threshold);
@@ -68,6 +70,7 @@ inline bool operator==(const piqp::Settings<double>& lhs, const piqp::Settings<d
   equal &= (lhs.preconditioner_iter == rhs.preconditioner_iter);
   equal &= near(lhs.tau, rhs.tau);
   equal &= (lhs.kkt_solver == rhs.kkt_solver);
+  equal &= (lhs.num_threads == rhs.num_threads);
   equal &= (lhs.iterative_refinement_always_enabled == rhs.iterative_refinement_always_enabled);
   equal &= near(lhs.iterative_refinement_eps_abs, rhs.iterative_refinement_eps_abs);
   equal &= near(lhs.iterative_refinement_eps_rel, rhs.iterative_refinement_eps_rel);
@@ -82,8 +85,9 @@ inline bool operator==(const piqp::Settings<double>& lhs, const piqp::Settings<d
 
 /**
  * @brief Check that the settings are valid for PIQP's sparse backend
- * @details kkt_solver must be a sparse_ldlt variant, or sparse_multistage when PIQP was built with BLASFEO, and every
- * other field must pass piqp::Settings::verify_settings().
+ * @details kkt_solver must be a sparse_ldlt variant, sparse_multistage when PIQP was built with BLASFEO, or
+ * sparse_multistage_parallel when PIQP was built with BLASFEO and OpenMP, and every other field must pass
+ * piqp::Settings::verify_settings().
  * @param settings The settings to check
  * @param profile_name The name that prefixes the error message
  * @throws std::runtime_error if the sparse backend would reject the settings at setup
@@ -98,6 +102,9 @@ inline void checkPIQPSettings(const piqp::Settings<double>& settings, const std:
     case piqp::KKTSolver::sparse_ldlt_cond:
 #ifdef PIQP_HAS_BLASFEO
     case piqp::KKTSolver::sparse_multistage:
+#ifdef PIQP_HAS_OPENMP
+    case piqp::KKTSolver::sparse_multistage_parallel:
+#endif
 #endif
       break;
     default:

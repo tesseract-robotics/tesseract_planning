@@ -48,6 +48,8 @@ void serialize(Archive& ar, Settings<T>& obj)
   ar(cereal::make_nvp("eps_duality_gap_abs", obj.eps_duality_gap_abs));
   ar(cereal::make_nvp("eps_duality_gap_rel", obj.eps_duality_gap_rel));
   ar(cereal::make_nvp("infeasibility_threshold", obj.infeasibility_threshold));
+  ar(cereal::make_nvp("eps_primal_inf", obj.eps_primal_inf));
+  ar(cereal::make_nvp("eps_dual_inf", obj.eps_dual_inf));
   ar(cereal::make_nvp("reg_lower_limit", obj.reg_lower_limit));
   ar(cereal::make_nvp("reg_finetune_lower_limit", obj.reg_finetune_lower_limit));
   ar(cereal::make_nvp("reg_finetune_primal_update_threshold", obj.reg_finetune_primal_update_threshold));
@@ -59,6 +61,7 @@ void serialize(Archive& ar, Settings<T>& obj)
   ar(cereal::make_nvp("preconditioner_iter", obj.preconditioner_iter));
   ar(cereal::make_nvp("tau", obj.tau));
   ar(cereal::make_nvp("kkt_solver", obj.kkt_solver));
+  ar(cereal::make_nvp("num_threads", obj.num_threads));
   ar(cereal::make_nvp("iterative_refinement_always_enabled", obj.iterative_refinement_always_enabled));
   ar(cereal::make_nvp("iterative_refinement_eps_abs", obj.iterative_refinement_eps_abs));
   ar(cereal::make_nvp("iterative_refinement_eps_rel", obj.iterative_refinement_eps_rel));
