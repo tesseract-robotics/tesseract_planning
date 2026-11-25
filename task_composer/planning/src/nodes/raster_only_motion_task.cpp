@@ -360,6 +360,13 @@ void RasterOnlyMotionTask::checkTaskInput(const tesseract::common::AnyPoly& inpu
 
   const auto& composite = input.as<tesseract::command_language::CompositeInstruction>();
 
+  // The layout is raster, (transition, raster)...: an odd count of at least 1.
+  // The graph indexes segments by position, so any other count would read out of bounds or drop a segment.
+  if (composite.size() % 2 != 1)
+    throw std::runtime_error("RasterOnlyMotionTask, input must contain an odd number of composites "
+                             "(raster, [transition, raster]...), but has " +
+                             std::to_string(composite.size()));
+
   // Check rasters and transitions
   for (const auto& i : composite)
   {
