@@ -419,6 +419,13 @@ void RasterMotionTask::checkTaskInput(const tesseract::common::AnyPoly& input)
 
   const auto& composite = input.as<tesseract::command_language::CompositeInstruction>();
 
+  // The layout is from_start, raster, (transition, raster)..., to_end: an odd count of at least 3.
+  // The graph indexes segments by position, so any other count would read out of bounds or drop a segment.
+  if (composite.size() < 3 || composite.size() % 2 != 1)
+    throw std::runtime_error("RasterMotionTask, input must contain an odd number of composites, at least 3 "
+                             "(from_start, raster, [transition, raster]..., to_end), but has " +
+                             std::to_string(composite.size()));
+
   // Check from_start
   if (!composite.at(0).isCompositeInstruction())
     throw std::runtime_error("RasterMotionTask, from_start should be a composite");
